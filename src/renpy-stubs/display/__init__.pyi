@@ -1,6 +1,46 @@
 import renpy
 from _typeshed import Incomplete
 
+from . import accelerator as accelerator
+from . import anim as anim
+from . import behavior as behavior
+from . import controller as controller
+from . import core as core
+from . import displayable as displayable
+from . import dragdrop as dragdrop
+from . import emulator as emulator
+from . import error as error
+from . import focus as focus
+from . import gesture as gesture
+from . import im as im
+from . import image as image
+from . import imagelike as imagelike
+from . import imagemap as imagemap
+from . import joystick as joystick
+from . import layout as layout
+from . import matrix as matrix
+from . import minigame as minigame
+from . import model as model
+from . import module as module
+from . import motion as motion
+from . import movetransition as movetransition
+from . import particle as particle
+from . import pgrender as pgrender
+from . import position as position
+from . import predict as predict
+from . import presplash as presplash
+from . import quaternion as quaternion
+from . import render as render
+from . import scale as scale
+from . import scenelists as scenelists
+from . import screen as screen
+from . import swdraw as swdraw
+from . import transform as transform
+from . import transition as transition
+from . import tts as tts
+from . import video as video
+from . import viewport as viewport
+
 draw: renpy.display.core.Renderer | None
 interface: renpy.display.core.Interface | None
 less_imagedissolve: bool

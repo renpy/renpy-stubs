@@ -1,6 +1,9 @@
 import builtins
 from _typeshed import Incomplete
 
+from . import fixes as fixes
+from . import pickle as pickle
+
 __all__ = ["PY2", "open", "basestring", "str", "pystr", "range", "round", "bord", "bchr", "tobytes", "chr", "unicode"]
 
 PY2: bool

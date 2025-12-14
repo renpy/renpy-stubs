@@ -15,6 +15,12 @@ from renpy.compat import (
     unicode as unicode,
 )
 
+from . import dialogue as dialogue
+from . import extract as extract
+from . import generation as generation
+from . import merge as merge
+from . import scanstrings as scanstrings
+
 class TranslateInfo:
     language: Incomplete
     identifier: Incomplete

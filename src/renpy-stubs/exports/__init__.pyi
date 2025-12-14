@@ -1,4 +1,24 @@
 from _typeshed import Incomplete
+
+from . import actionexports as actionexports
+from . import commonexports as commonexports
+from . import contextexports as contextexports
+from . import debugexports as debugexports
+from . import displayexports as displayexports
+from . import fetchexports as fetchexports
+from . import inputexports as inputexports
+from . import loaderexports as loaderexports
+from . import mediaexports as mediaexports
+from . import menuexports as menuexports
+from . import persistentexports as persistentexports
+from . import platformexports as platformexports
+from . import predictexports as predictexports
+from . import restartexports as restartexports
+from . import rollbackexports as rollbackexports
+from . import sayexports as sayexports
+from . import scriptexports as scriptexports
+from . import statementexports as statementexports
+
 from renpy.ast import eval_who as eval_who
 from renpy.atl import atl_warper as atl_warper
 from renpy.bootstrap import get_alternate_base as get_alternate_base

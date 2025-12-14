@@ -1,6 +1,77 @@
 from _typeshed import Incomplete
 from typing import Any, NamedTuple
 
+from . import add_from as add_from
+from . import arguments as arguments
+from . import ast as ast
+from . import astsupport as astsupport
+from . import atl as atl
+from . import audio as audio
+from . import bootstrap as bootstrap
+from . import character as character
+from . import color as color
+from . import compat as compat
+from . import config as config
+from . import cslots as cslots
+from . import curry as curry
+from . import debug as debug
+from . import defaultstore as defaultstore
+from . import display as display
+from . import dump as dump
+from . import easy as easy
+from . import editor as editor
+from . import encryption as encryption
+from . import error as error
+from . import execution as execution
+from . import exports as exports
+from . import game as game
+from . import gl2 as gl2
+from . import importer as importer
+from . import lexer as lexer
+from . import lexersupport as lexersupport
+from . import lint as lint
+from . import loader as loader
+from . import loadsave as loadsave
+from . import log as log
+from . import main as main
+from . import memory as memory
+from . import minstore as minstore
+from . import object as object
+from . import parameter as parameter
+from . import parser as parser
+from . import performance as performance
+from . import persistent as persistent
+from . import preferences as preferences
+from . import pyanalysis as pyanalysis
+from . import pydict as pydict
+from . import pygame as pygame
+from . import python as python
+from . import revertable as revertable
+from . import rollback as rollback
+from . import savelocation as savelocation
+from . import savetoken as savetoken
+from . import screenlang as screenlang
+from . import script as script
+from . import scriptedit as scriptedit
+from . import sl2 as sl2
+from . import statements as statements
+from . import style as style
+from . import styledata as styledata
+from . import substitutions as substitutions
+from . import test as test
+from . import text as text
+from . import tfd as tfd
+from . import translation as translation
+from . import types as types
+from . import uguu as uguu
+from . import ui as ui
+from . import update as update
+from . import util as util
+from . import vc_version as vc_version
+from . import versions as versions
+from . import warp as warp
+from . import webloader as webloader
+
 libexec: str
 
 class _LibExecFinder:
