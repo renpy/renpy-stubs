@@ -27,3 +27,9 @@ line-length = 120
 
 [tool.ruff.format]
 preview = true
+
+[tool.ruff.lint]
+# See Rules in Ruff documentation: https://docs.astral.sh/ruff/rules/
+
+# Disable F rules until import renpy is fixed
+ignore = ["F"]
