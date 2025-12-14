@@ -1,0 +1,99 @@
+import renpy
+from _typeshed import Incomplete
+from renpy.compat import (
+    PY2 as PY2,
+    basestring as basestring,
+    bchr as bchr,
+    bord as bord,
+    chr as chr,
+    open as open,
+    pystr as pystr,
+    range as range,
+    round as round,
+    str as str,
+    tobytes as tobytes,
+    unicode as unicode,
+)
+
+current_movie: Incomplete
+fullscreen: bool
+default_size: Incomplete
+surface_file: Incomplete
+surface: Incomplete
+
+def movie_stop(clear: bool = True, only_fullscreen: bool = False) -> None: ...
+def movie_start(filename, size=None, loops: int = 0) -> None: ...
+def movie_start_fullscreen(filename, size=None, loops: int = 0) -> None: ...
+
+movie_start_displayable = movie_start
+texture: Incomplete
+displayable_channels: Incomplete
+channel_movie: Incomplete
+reset_channels: Incomplete
+group_texture: Incomplete
+
+def early_interact() -> None: ...
+def interact(): ...
+def get_movie_texture(channel, mask_channel=None, side_mask: bool = False, mipmap=None): ...
+def get_movie_texture_web(channel, mask_channel, side_mask, mipmap): ...
+def resize_movie(r, width, height): ...
+def render_movie(channel, width, height): ...
+def find_oversampled_filename(filename): ...
+def find_oversampled(new, filename): ...
+def default_play_callback(old, new) -> None: ...
+
+allocated_channels: set[str]
+
+class Movie(renpy.display.displayable.Displayable):
+    fullscreen: bool
+    channel: str
+    mask: Incomplete
+    mask_channel: Incomplete
+    side_mask: bool
+    image: Incomplete
+    start_image: Incomplete
+    play_callback: Incomplete
+    loop: bool
+    group: Incomplete
+    oversample: float | None
+    playing_oversample: float
+    dynamic_channel: bool
+    @staticmethod
+    def any_loadable(name): ...
+    def after_setstate(self) -> None: ...
+    def ensure_channel(self, name) -> None: ...
+    def ensure_channels(self) -> None: ...
+    def release_channel(self) -> None: ...
+    keep_last_frame_serial: int
+    size: Incomplete
+    def __init__(
+        self,
+        fps: int = 24,
+        size=None,
+        channel: str = "movie",
+        play=None,
+        mask=None,
+        mask_channel=None,
+        image=None,
+        play_callback=None,
+        side_mask: bool = False,
+        loop: bool = True,
+        start_image=None,
+        group=None,
+        keep_last_frame: bool = False,
+        oversample=None,
+        **properties,
+    ) -> None: ...
+    def set_transform_event(self, event) -> None: ...
+    def render(self, width, height, st, at): ...
+    def play(self, old) -> None: ...
+    def stop(self) -> None: ...
+    def per_interact(self) -> None: ...
+    def visit(self): ...
+
+def playing(): ...
+
+last_channel_movie: Incomplete
+
+def update_playing() -> None: ...
+def frequent(): ...

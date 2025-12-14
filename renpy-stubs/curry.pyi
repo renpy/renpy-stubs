@@ -1,0 +1,36 @@
+import functools
+from _typeshed import Incomplete
+from renpy.compat import (
+    PY2 as PY2,
+    basestring as basestring,
+    bchr as bchr,
+    bord as bord,
+    chr as chr,
+    open as open,
+    pystr as pystr,
+    range as range,
+    round as round,
+    str as str,
+    tobytes as tobytes,
+    unicode as unicode,
+)
+
+class Curry:
+    hash: Incomplete
+    callable: Incomplete
+    args: Incomplete
+    kwargs: Incomplete
+    __doc__: Incomplete
+    def __init__(self, callable, *args, **kwargs) -> None: ...
+    def __call__(self, *args, **kwargs): ...
+    def __eq__(self, other): ...
+    def __ne__(self, other): ...
+    def __hash__(self): ...
+
+class Partial(functools.partial):
+    def __eq__(self, other): ...
+    def __ne__(self, other): ...
+    def __hash__(self): ...
+
+def curry(fn): ...
+def partial(function, *args, **kwargs): ...

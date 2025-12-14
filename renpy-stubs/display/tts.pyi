@@ -1,0 +1,66 @@
+from _typeshed import Incomplete
+from renpy.compat import (
+    PY2 as PY2,
+    basestring as basestring,
+    bchr as bchr,
+    bord as bord,
+    chr as chr,
+    open as open,
+    pystr as pystr,
+    range as range,
+    round as round,
+    str as str,
+    tobytes as tobytes,
+    unicode as unicode,
+)
+
+class TTSDone(str): ...
+class TTSRoot(Exception): ...
+
+root: Incomplete
+last: str
+last_raw: str
+process: Incomplete
+
+def periodic() -> None: ...
+def is_active(): ...
+
+class AndroidTTS:
+    TextToSpeech: Incomplete
+    tts: Incomplete
+    def __init__(self) -> None: ...
+    def speak(self, s) -> None: ...
+    def stop(self) -> None: ...
+
+class AppleTTS:
+    objc_str: Incomplete
+    AVSpeechUtterance: Incomplete
+    synth: Incomplete
+    def __init__(self) -> None: ...
+    def speak(self, s) -> None: ...
+    def stop(self) -> None: ...
+
+platform_tts: Incomplete
+
+def default_tts_function(s) -> None: ...
+def stop_tts() -> None: ...
+
+tts_substitutions: Incomplete
+
+def init() -> None: ...
+def apply_substitutions(s): ...
+
+tts_queue: Incomplete
+last_spoken: str
+
+def tick() -> None: ...
+def tts(s) -> None: ...
+def speak(s, translate: bool = True, force: bool = False) -> None: ...
+def speak_extra_alt() -> None: ...
+def set_root(d) -> None: ...
+
+old_self_voicing: bool
+notify_text: Incomplete
+last_group_alt: Incomplete
+
+def displayable(d) -> None: ...

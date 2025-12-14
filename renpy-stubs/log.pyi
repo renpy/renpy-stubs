@@ -1,0 +1,69 @@
+from _typeshed import Incomplete
+from renpy.compat import (
+    PY2 as PY2,
+    basestring as basestring,
+    bchr as bchr,
+    bord as bord,
+    chr as chr,
+    open as open,
+    pystr as pystr,
+    range as range,
+    round as round,
+    str as str,
+    tobytes as tobytes,
+    unicode as unicode,
+)
+
+real_stdout: Incomplete
+real_stderr: Incomplete
+log_file: Incomplete
+
+class LogFile:
+    name: Incomplete
+    append: Incomplete
+    developer: Incomplete
+    flush: Incomplete
+    file: Incomplete
+    softspace: int
+    newlines: Incomplete
+    raw_write: bool
+    def __init__(self, name, append: bool = False, developer: bool = False, flush: bool = True) -> None: ...
+    def open(self): ...
+    def write(self, s, *args) -> None: ...
+    def exception(self) -> None: ...
+
+log_cache: Incomplete
+
+class TimeLog(list):
+    duration: Incomplete
+    def __init__(self, duration) -> None: ...
+    def append(self, v) -> None: ...
+    def prune(self, now=None) -> None: ...
+
+class StdioRedirector:
+    real_file: Incomplete
+    buffer: str
+    log: Incomplete
+    encoding: str
+    def __init__(self) -> None: ...
+    def write(self, s) -> None: ...
+    def fileno(self): ...
+    def isatty(self): ...
+    def writelines(self, lines) -> None: ...
+    def flush(self) -> None: ...
+    def close(self) -> None: ...
+    def get_callbacks(self): ...
+
+class StdoutRedirector(StdioRedirector):
+    real_file = real_stdout
+    def get_callbacks(self): ...
+
+sys_stdout: Incomplete
+
+class StderrRedirector(StdioRedirector):
+    real_file = real_stderr
+    def get_callbacks(self): ...
+
+sys_stderr: Incomplete
+
+def post_init() -> None: ...

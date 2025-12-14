@@ -1,0 +1,26 @@
+from _typeshed import Incomplete
+from renpy.compat import (
+    PY2 as PY2,
+    basestring as basestring,
+    bchr as bchr,
+    bord as bord,
+    chr as chr,
+    open as open,
+    pystr as pystr,
+    range as range,
+    round as round,
+    str as str,
+    tobytes as tobytes,
+    unicode as unicode,
+)
+
+last_clock: Incomplete
+
+def log_clock(s) -> None: ...
+def reset_clock() -> None: ...
+def run(restart) -> None: ...
+def load_rpe(fn) -> None: ...
+def load_rpe_py(fn) -> None: ...
+def choose_variants() -> None: ...
+def load_build_info() -> None: ...
+def main() -> None: ...

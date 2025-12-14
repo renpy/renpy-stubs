@@ -1,0 +1,66 @@
+import renpy
+from _typeshed import Incomplete
+from renpy.compat import (
+    PY2 as PY2,
+    basestring as basestring,
+    bchr as bchr,
+    bord as bord,
+    chr as chr,
+    open as open,
+    pystr as pystr,
+    range as range,
+    round as round,
+    str as str,
+    tobytes as tobytes,
+    unicode as unicode,
+)
+
+class Parameter:
+    POSITIONAL_ONLY: Incomplete
+    POSITIONAL_OR_KEYWORD: Incomplete
+    VAR_POSITIONAL: Incomplete
+    KEYWORD_ONLY: Incomplete
+    VAR_KEYWORD: Incomplete
+    empty: Incomplete
+    name: Incomplete
+    kind: Incomplete
+    default: Incomplete
+    def __init__(self, name, kind, *, default=...) -> None: ...
+    @property
+    def has_default(self): ...
+    def default_value(self, locals=None, globals=None): ...
+    def replace(self, **kwargs): ...
+    def __eq__(self, other): ...
+
+class ValuedParameter(Parameter):
+    class empty: ...
+
+    def __init__(self, name, kind, *, default=...) -> None: ...
+    def default_value(self, *args, **kwargs): ...
+
+class Signature:
+    parameters: Incomplete
+    def __init__(self, parameters=None) -> None: ...
+    @staticmethod
+    def legacy_params(parameters, positional, extrapos, extrakw, last_posonly=None, first_kwonly=None): ...
+    def apply_defaults(self, mapp, scope=None) -> None: ...
+    def with_pos_only_as_pos_or_kw(self): ...
+    def apply(self, args, kwargs, ignore_errors: bool = False, partial: bool = False, apply_defaults: bool = True): ...
+    def __eq__(self, other): ...
+
+ParameterInfo = Signature
+
+def apply_arguments(parameters, args, kwargs, ignore_errors: bool = False): ...
+
+class ArgumentInfo(renpy.object.Object):
+    __version__: int
+    starred_indexes: Incomplete
+    doublestarred_indexes: Incomplete
+    def after_upgrade(self, version) -> None: ...
+    arguments: Incomplete
+    def __init__(self, arguments, starred_indexes=None, doublestarred_indexes=None) -> None: ...
+    def evaluate(self, scope=None): ...
+    def get_code(self): ...
+
+EMPTY_PARAMETERS: Incomplete
+EMPTY_ARGUMENTS: Incomplete
