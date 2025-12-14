@@ -2,6 +2,7 @@ from renpy.minstore import *
 
 import renpy.display.anim as anim
 from _typeshed import Incomplete
+import renpy
 
 main_menu: bool
 

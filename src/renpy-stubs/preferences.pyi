@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 pad_bindings: Incomplete
 all_preferences: Incomplete

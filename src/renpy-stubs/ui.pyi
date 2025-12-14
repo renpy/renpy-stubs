@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 from renpy.display.behavior import is_selected as is_selected, is_sensitive as is_sensitive
 

@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+
+import renpy
+
 from renpy.astsupport import PyExpr as PyExpr, hash32 as hash32
 from renpy.cslots import IntegerSlot as IntegerSlot, Object as Object, Slot as Slot
 from renpy.parameter import (

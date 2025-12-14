@@ -1,5 +1,6 @@
 import types
 from _typeshed import Incomplete
+import renpy
 
 from typing import Any
 

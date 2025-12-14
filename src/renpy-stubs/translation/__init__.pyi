@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 from . import dialogue as dialogue
 from . import extract as extract

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 class ScreenLangScreen(renpy.object.Object):
     __version__: int

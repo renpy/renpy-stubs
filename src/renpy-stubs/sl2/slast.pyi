@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 from renpy.compat.pickle import dumps as dumps, loads as loads
 from renpy.display.layout import Fixed as Fixed

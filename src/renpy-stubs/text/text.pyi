@@ -2,6 +2,7 @@ import renpy.pygame as pygame
 import renpy.text.extras as extras
 import renpy.text.textsupport as textsupport
 from _typeshed import Incomplete
+import renpy
 from collections.abc import Generator
 
 from renpy.gl2.gl2polygon import Polygon as Polygon

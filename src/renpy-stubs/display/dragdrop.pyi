@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 from renpy.display.behavior import map_event as map_event, run as run, run_unhovered as run_unhovered
 from renpy.display.core import absolute as absolute

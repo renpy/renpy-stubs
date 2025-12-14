@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 from collections.abc import Generator
 from types import FrameType as FrameType
 from typing import Any, Callable

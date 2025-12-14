@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 from renpy.sl2.slparser import (
     DisplayableParser as DisplayableParser,

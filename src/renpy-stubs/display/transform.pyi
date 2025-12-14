@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 from renpy.atl import (
     DualAngle as DualAngle,
     any_object as any_object,

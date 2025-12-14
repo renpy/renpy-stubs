@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 def edgescroll_proportional(n): ...
 

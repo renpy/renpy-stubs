@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 class Texture:
     texture_wrap: Incomplete

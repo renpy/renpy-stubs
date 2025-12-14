@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 from . import accelerator as accelerator
 from . import anim as anim

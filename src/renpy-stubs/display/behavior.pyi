@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import renpy
 
 from renpy.display.render import Render as Render, render as render
 from typing import Callable
