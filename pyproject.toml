@@ -1,0 +1,11 @@
+[project]
+name = "renpy-stubs"
+version = "0.0.1"
+description = "Type stubs for Ren'Py"
+requires-python = "==3.12.*"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.format]
+preview = true
