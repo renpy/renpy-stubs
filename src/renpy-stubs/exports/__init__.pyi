@@ -27,20 +27,7 @@ from renpy.character import (
     predict_show_display_say as predict_show_display_say,
     show_display_say as show_display_say,
 )
-from renpy.compat import (
-    PY2 as PY2,
-    basestring as basestring,
-    bchr as bchr,
-    bord as bord,
-    chr as chr,
-    open as open,
-    pystr as pystr,
-    range as range,
-    round as round,
-    str as str,
-    tobytes as tobytes,
-    unicode as unicode,
-)
+
 from renpy.curry import curry as curry, partial as partial
 from renpy.display.behavior import (
     Keymap as Keymap,

@@ -1,5 +1,3 @@
-import renpy
-
 error_handled: bool
 
 def call_exception_screen(screen_name, **kwargs): ...

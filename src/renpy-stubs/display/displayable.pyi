@@ -1,4 +1,3 @@
-import renpy
 from _typeshed import Incomplete
 from typing import Any, Callable, TypedDict, Unpack
 

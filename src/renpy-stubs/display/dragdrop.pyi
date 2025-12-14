@@ -1,19 +1,5 @@
-import renpy
 from _typeshed import Incomplete
-from renpy.compat import (
-    PY2 as PY2,
-    basestring as basestring,
-    bchr as bchr,
-    bord as bord,
-    chr as chr,
-    open as open,
-    pystr as pystr,
-    range as range,
-    round as round,
-    str as str,
-    tobytes as tobytes,
-    unicode as unicode,
-)
+
 from renpy.display.behavior import map_event as map_event, run as run, run_unhovered as run_unhovered
 from renpy.display.core import absolute as absolute
 from renpy.display.render import Render as Render, redraw as redraw, render as render

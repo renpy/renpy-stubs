@@ -1,4 +1,3 @@
-import renpy
 from _typeshed import Incomplete
 from renpy.display.displayable import Displayable as Displayable
 from typing import Any, NotRequired, TypedDict

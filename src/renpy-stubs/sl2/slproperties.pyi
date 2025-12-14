@@ -1,18 +1,5 @@
 from _typeshed import Incomplete
-from renpy.compat import (
-    PY2 as PY2,
-    basestring as basestring,
-    bchr as bchr,
-    bord as bord,
-    chr as chr,
-    open as open,
-    pystr as pystr,
-    range as range,
-    round as round,
-    str as str,
-    tobytes as tobytes,
-    unicode as unicode,
-)
+
 from renpy.sl2.slparser import Keyword as Keyword, PrefixStyle as PrefixStyle, Style as Style
 
 position_property_names: Incomplete

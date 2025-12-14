@@ -1,4 +1,3 @@
-import renpy
 from _typeshed import Incomplete
 from collections.abc import Generator
 from types import FrameType as FrameType

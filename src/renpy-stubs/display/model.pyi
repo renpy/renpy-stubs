@@ -1,4 +1,3 @@
-import renpy
 from _typeshed import Incomplete
 
 class Texture:
