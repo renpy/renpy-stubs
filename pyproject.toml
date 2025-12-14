@@ -4,6 +4,9 @@ version = "0.0.1"
 description = "Type stubs for Ren'Py"
 requires-python = "==3.12.*"
 
+[dependency-groups]
+dev = ["pre-commit"]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
