@@ -4,6 +4,14 @@ version = "0.0.1"
 description = "Type stubs for Ren'Py"
 requires-python = "==3.12.*"
 
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = ["renpy-stubs"]
+module-root = ""
+
 [tool.ruff]
 line-length = 120
 
