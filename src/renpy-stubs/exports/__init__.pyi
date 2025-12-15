@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.ast import eval_who as eval_who
 from renpy.atl import atl_warper as atl_warper
 from renpy.bootstrap import get_alternate_base as get_alternate_base

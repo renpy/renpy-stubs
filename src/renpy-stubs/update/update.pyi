@@ -1,5 +1,5 @@
 from . import common as common, deferred as deferred, download as download
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 PREPARING: str
 DOWNLOADING: str

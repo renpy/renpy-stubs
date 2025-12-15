@@ -1,5 +1,6 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.object import Object as Object
 
 pad_bindings: Incomplete
 all_preferences: Incomplete

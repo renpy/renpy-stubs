@@ -1,7 +1,10 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.astsupport import PyExpr as PyExpr, hash32 as hash32
+from renpy.atl import RawBlock as RawBlock
 from renpy.cslots import IntegerSlot as IntegerSlot, Object as Object, Slot as Slot
+from renpy.lexer import SubParse as SubParse
+from renpy.object import Sentinel as Sentinel
 from renpy.parameter import (
     ArgumentInfo as ArgumentInfo,
     EMPTY_ARGUMENTS as EMPTY_ARGUMENTS,
@@ -11,6 +14,8 @@ from renpy.parameter import (
     Signature as Signature,
     apply_arguments as apply_arguments,
 )
+from renpy.sl2.slast import SLScreen as SLScreen
+from renpy.test.testast import TestCase as TestCase
 from typing import Any, Callable, ClassVar, Literal, Never
 
 EARLY_CONFIG: Incomplete

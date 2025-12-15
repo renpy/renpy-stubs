@@ -1,10 +1,11 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.display.displayable import Displayable as Displayable
 from renpy.display.render import render as render
 
 class Transition(renpy.display.displayable.Displayable):
-    new_widget: renpy.display.displayable.Displayable | None
-    old_widget: renpy.display.displayable.Displayable | None
+    new_widget: Displayable | None
+    old_widget: Displayable | None
     delay: Incomplete
     events: bool
     def __init__(self, delay, **properties) -> None: ...

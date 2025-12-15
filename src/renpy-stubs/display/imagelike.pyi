@@ -1,5 +1,6 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.display.displayable import Displayable as Displayable
 from renpy.display.matrix import Matrix2D as Matrix2D
 from renpy.display.render import Render as Render, render as render
 

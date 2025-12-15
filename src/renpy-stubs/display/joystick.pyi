@@ -1,5 +1,6 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.display.layout import Null as Null
 
 enabled: bool
 

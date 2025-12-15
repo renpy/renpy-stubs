@@ -1,7 +1,7 @@
 import importlib.abc
 import importlib.resources.abc
 import io
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from collections.abc import Generator
 from renpy.loader import TreeEntry as TreeEntry
 from typing import NamedTuple

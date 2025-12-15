@@ -1,6 +1,6 @@
 import ast
 import contextlib
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from collections.abc import Generator
 from renpy.astsupport import hash32 as hash32
 from renpy.pydict import DictItems as DictItems, find_changes as find_changes

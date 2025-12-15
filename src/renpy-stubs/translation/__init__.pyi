@@ -1,5 +1,6 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.ast import Node as Node
 
 class TranslateInfo:
     language: Incomplete

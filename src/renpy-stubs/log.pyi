@@ -1,5 +1,7 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
+sys_stdout: Incomplete
+sys_stderr: Incomplete
 real_stdout: Incomplete
 real_stderr: Incomplete
 log_file: Incomplete
@@ -44,12 +46,8 @@ class StdoutRedirector(StdioRedirector):
     real_file = real_stdout
     def get_callbacks(self): ...
 
-sys_stdout: Incomplete
-
 class StderrRedirector(StdioRedirector):
     real_file = real_stderr
     def get_callbacks(self): ...
-
-sys_stderr: Incomplete
 
 def post_init() -> None: ...

@@ -1,4 +1,5 @@
 import renpy
+from renpy.error import TracebackException as TracebackException
 
 error_handled: bool
 

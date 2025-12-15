@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.translation import quote_unicode as quote_unicode
 
 def create_dialogue_map(language): ...

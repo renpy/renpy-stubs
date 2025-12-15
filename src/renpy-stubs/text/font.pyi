@@ -1,6 +1,7 @@
 import renpy.pygame as pygame
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from collections.abc import Generator
+from renpy.pygame.surface import Surface as Surface
 
 WHITE: Incomplete
 BLACK: Incomplete
@@ -15,7 +16,7 @@ class ImageFont:
     width: dict[str, float]
     advance: dict[str, float]
     offsets: dict[str, tuple[int, int]]
-    chars: dict[str, pygame.surface.Surface]
+    chars: dict[str, Surface]
     def glyphs(self, s, level): ...
     def bounds(self, glyphs, bounds): ...
     def draw(self, target, xo, yo, color, glyphs, underline, strikethrough, black_color) -> None: ...

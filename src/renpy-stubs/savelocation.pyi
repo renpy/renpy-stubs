@@ -1,6 +1,6 @@
-import types
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.loadsave import clear_slot as clear_slot, safe_rename as safe_rename
+from types import TracebackType
 
 disk_lock: Incomplete
 tmp: Incomplete
@@ -15,7 +15,7 @@ class SyncfsLock:
         self,
         exception_type: type[BaseException] | None,
         exception_value: BaseException | None,
-        exception_traceback: types.TracebackType | None,
+        exception_traceback: TracebackType | None,
     ) -> None: ...
 
 def syncfs() -> None: ...

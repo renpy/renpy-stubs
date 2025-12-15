@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.minstore import _dict, _object
 
 class _JSONDBDict(_dict):

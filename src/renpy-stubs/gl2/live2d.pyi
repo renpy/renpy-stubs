@@ -1,9 +1,8 @@
 import renpy
-import renpy.gl2.live2dmotion
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.display.core import absolute as absolute
+from renpy.display.displayable import Displayable as Displayable
 from renpy.gl2.gl2shadercache import register_shader as register_shader
-from typing import Any
 
 did_onetime_init: bool
 did_web_init: bool

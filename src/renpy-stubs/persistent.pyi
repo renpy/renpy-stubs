@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.compat.pickle import dumps as dumps, find_bad_reduction as find_bad_reduction, loads as loads
 
 class Persistent:

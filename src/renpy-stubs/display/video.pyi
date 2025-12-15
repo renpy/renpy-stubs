@@ -1,5 +1,6 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.display.displayable import Displayable as Displayable
 
 current_movie: Incomplete
 fullscreen: bool

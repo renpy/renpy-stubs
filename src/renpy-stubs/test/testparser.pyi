@@ -1,5 +1,5 @@
 import renpy.test.testast as testast
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.lexer import Lexer as Lexer
 from renpy.test.types import HookType as HookType, NodeLocation as NodeLocation
 from typing import Any, Collection

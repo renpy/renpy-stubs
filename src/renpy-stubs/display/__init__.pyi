@@ -1,8 +1,8 @@
-import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.display.core import Interface as Interface, Renderer as Renderer
 
-draw: renpy.display.core.Renderer | None
-interface: renpy.display.core.Interface | None
+draw: Renderer | None
+interface: Interface | None
 less_imagedissolve: bool
 touch: bool
 info: Incomplete

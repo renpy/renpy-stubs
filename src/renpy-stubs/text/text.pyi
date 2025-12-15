@@ -2,8 +2,9 @@ import renpy
 import renpy.pygame as pygame
 import renpy.text.extras as extras
 import renpy.text.textsupport as textsupport
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from collections.abc import Generator
+from renpy.display.displayable import Displayable as Displayable
 from renpy.gl2.gl2polygon import Polygon as Polygon
 from renpy.text.bidi import (
     LTR as LTR,
@@ -16,7 +17,7 @@ from renpy.text.bidi import (
 )
 from renpy.text.emoji_trie import UNQUALIFIED as UNQUALIFIED, emoji as emoji
 from renpy.text.textsupport import DISPLAYABLE as DISPLAYABLE, PARAGRAPH as PARAGRAPH, TAG as TAG, TEXT as TEXT
-from typing import Any, Callable
+from typing import Any
 
 BASELINE: int
 READING_ORDER: Incomplete
@@ -60,7 +61,7 @@ class DrawInfo:
     surface: pygame.Surface | None
     override_color: tuple[int, int, int, int] | None
     outline: float
-    displayable_blits: list[tuple[renpy.display.displayable.Displayable, int, int]] | None
+    displayable_blits: list[tuple[Displayable, int, int]] | None
 
 class TextSegment:
     antialias: Incomplete

@@ -1,5 +1,6 @@
 import renpy.pygame as pygame
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.pygame import Surface as Surface
 
 sample_alpha: Incomplete
 sample_noalpha: Incomplete

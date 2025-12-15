@@ -1,7 +1,7 @@
 from renpy.minstore import *
 import renpy
 import renpy.display.anim as anim
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 main_menu: bool
 

@@ -1,5 +1,6 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.object import Object as Object
 from renpy.parameter import Signature as Signature, ValuedParameter as ValuedParameter
 from renpy.pyanalysis import Analysis as Analysis, GLOBAL_CONST as GLOBAL_CONST, NOT_CONST as NOT_CONST
 

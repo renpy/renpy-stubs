@@ -1,9 +1,13 @@
 import abc
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from dataclasses import dataclass, field
 from enum import Enum
-from renpy.error import ANSIColors as ANSIColors
+from renpy.error import (
+    ANSIColors as ANSIColors,
+    ExceptionPrintContext as ExceptionPrintContext,
+    FrameSummary as FrameSummary,
+)
 from renpy.test.testast import (
     Assert as Assert,
     BaseTestBlock as BaseTestBlock,

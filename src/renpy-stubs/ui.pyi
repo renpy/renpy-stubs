@@ -1,6 +1,11 @@
 import renpy
-from _typeshed import Incomplete
-from renpy.display.behavior import is_selected as is_selected, is_sensitive as is_sensitive
+from _typeshed import Incomplete as Incomplete
+from renpy.display.behavior import Adjustment as Adjustment, is_selected as is_selected, is_sensitive as is_sensitive
+from renpy.display.screen import ScreenDisplayable as ScreenDisplayable
+from renpy.object import Object as Object
+
+k: Incomplete
+v: Incomplete
 
 class Action(renpy.object.Object):
     alt: Incomplete
@@ -16,7 +21,7 @@ class BarValue(renpy.object.Object):
     force_step: bool
     def replaces(self, other) -> None: ...
     def periodic(self, st) -> None: ...
-    def get_adjustment(self) -> renpy.display.behavior.Adjustment: ...
+    def get_adjustment(self) -> Adjustment: ...
     def get_style(self): ...
     def get_tooltip(self) -> None: ...
 
@@ -87,7 +92,7 @@ NoStylePrefixGiven: Incomplete
 def combine_style(style_prefix, style_suffix): ...
 def prefixed_style(style_suffix): ...
 
-screen: renpy.display.screen.ScreenDisplayable | None
+screen: ScreenDisplayable | None
 
 class Wrapper(renpy.object.Object):
     def __reduce__(self): ...
@@ -239,6 +244,3 @@ def gamemenus(*args): ...
 on: Incomplete
 
 def screen_id(id_, d) -> None: ...
-
-k: Incomplete
-v: Incomplete

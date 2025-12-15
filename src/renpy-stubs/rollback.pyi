@@ -1,5 +1,7 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.object import Object as Object
+from renpy.revertable import RevertableObject as RevertableObject
 from typing import Any
 
 class StoreDeleted:

@@ -1,6 +1,8 @@
 import renpy
-from _typeshed import Incomplete
-from typing import Any, Literal
+from _typeshed import Incomplete as Incomplete
+from renpy.display.displayable import Displayable as Displayable
+from renpy.object import Object as Object, Sentinel as Sentinel
+from typing import Literal
 
 TAG_RE: Incomplete
 less_pauses: Incomplete
@@ -150,10 +152,7 @@ class ADVCharacter:
     show_args: Incomplete
     cb_args: Incomplete
     def __init__(
-        self,
-        name: str | None | renpy.object.Sentinel = ...,
-        kind: Literal[False] | None | ADVCharacter = None,
-        **properties: Any,
+        self, name: str | None | Sentinel = ..., kind: Literal[False] | None | ADVCharacter = None, **properties
     ) -> None: ...
     def copy(self, name=..., **properties): ...
     def do_add(self, who, what, multiple=None) -> None: ...

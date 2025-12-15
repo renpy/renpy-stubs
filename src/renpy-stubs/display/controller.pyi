@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.pygame import (
     CONTROLLERAXISMOTION as CONTROLLERAXISMOTION,
     CONTROLLERBUTTONDOWN as CONTROLLERBUTTONDOWN,

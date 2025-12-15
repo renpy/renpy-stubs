@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 python_builtins: Incomplete
 renpy_builtins: Incomplete

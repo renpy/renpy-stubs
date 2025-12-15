@@ -1,6 +1,12 @@
 import renpy
-from _typeshed import Incomplete
+import renpy.display
+import renpy.display.render
+from _typeshed import Incomplete as Incomplete
+from renpy.display.core import absolute as absolute
+from renpy.display.displayable import Displayable as Displayable
 from renpy.display.render import render as render
+from renpy.object import Object as Object
+from renpy.rollback import NoRollback as NoRollback
 from typing import Callable
 
 DISTRIBUTION_FUNC_T = Callable[[float, float], float]
@@ -13,17 +19,17 @@ distribution_func_map: Incomplete
 
 class SpriteCache(renpy.object.Object):
     nosave: Incomplete
-    child: renpy.display.displayable.Displayable | None
-    child_copy: renpy.display.displayable.Displayable | None
+    child: Displayable | None
+    child_copy: Displayable | None
     st: float | None
     render: renpy.display.render.Render | None
     fast: bool
 
 class Sprite(renpy.object.Object):
-    x: int | float | renpy.display.core.absolute
-    y: int | float | renpy.display.core.absolute
+    x: int | float | absolute
+    y: int | float | absolute
     zorder: int | float
-    child: renpy.display.displayable.Displayable | None
+    child: Displayable | None
     render: renpy.display.render.Render | None
     live: bool
     manager: SpriteManager | None

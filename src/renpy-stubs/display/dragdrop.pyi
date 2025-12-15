@@ -1,8 +1,11 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.display.behavior import map_event as map_event, run as run, run_unhovered as run_unhovered
 from renpy.display.core import absolute as absolute
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.layout import MultiBox as MultiBox
 from renpy.display.render import Render as Render, redraw as redraw, render as render
+from renpy.revertable import RevertableObject as RevertableObject
 
 def default_drag_group(): ...
 def default_drag_joined(drag): ...

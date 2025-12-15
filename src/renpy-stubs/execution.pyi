@@ -1,6 +1,10 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from collections.abc import Generator
+from renpy.ast import Node as Node
+from renpy.display.image import ShownImageInfo as ShownImageInfo
+from renpy.error import TracebackException as TracebackException
+from renpy.object import Object as Object
 from types import FrameType as FrameType
 from typing import Any, Callable
 

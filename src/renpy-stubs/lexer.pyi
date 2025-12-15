@@ -1,7 +1,8 @@
 import contextlib
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from collections.abc import Generator
+from renpy.ast import PyExpr as PyExpr
 from typing import Callable, NamedTuple
 
 def match_logical_word(s: str, pos: int) -> tuple[str, bool, int]: ...

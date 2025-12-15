@@ -1,7 +1,8 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.focus import Focus as Focus
+from renpy.pygame import Surface as Surface
 from renpy.test.testmouse import click_mouse as click_mouse, move_mouse as move_mouse, scroll_mouse as scroll_mouse
 from renpy.test.types import (
     HookType as HookType,

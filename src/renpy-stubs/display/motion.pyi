@@ -1,5 +1,6 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.display.displayable import Displayable as Displayable
 from renpy.display.layout import Container as Container
 from renpy.display.render import render as render
 from renpy.display.transform import (

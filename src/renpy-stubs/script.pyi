@@ -1,5 +1,6 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.ast import Node as Node
 from renpy.compat.pickle import dumps as dumps, loads as loads
 from typing import Any
 

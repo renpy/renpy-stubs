@@ -1,9 +1,10 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from collections import defaultdict
 from collections.abc import Iterable
 from renpy.atl import RawBlock as RawBlock, parse_atl as parse_atl
 from renpy.display.transform import ATLTransform as ATLTransform
+from renpy.object import Object as Object
 from store import Transform
 from typing import Container, Literal
 

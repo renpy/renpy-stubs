@@ -1,5 +1,7 @@
 import renpy
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.error import TracebackException as TracebackException
+from renpy.text.shader import TextShader as TextShader
 from typing import Any, Callable
 
 locked: bool
@@ -455,7 +457,7 @@ fill_shrinks_frame: bool
 log_events: Incomplete
 python_exit_callbacks: Incomplete
 raise_image_load_exceptions: Incomplete
-textshaders: dict[str, renpy.text.shader.TextShader]
+textshaders: dict[str, TextShader]
 textshader_callbacks: dict[str, Callable[[], str]]
 default_textshader: str | None
 shader_part_filter: Callable[[tuple[str]], tuple[str]] | None

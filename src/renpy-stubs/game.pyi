@@ -1,16 +1,20 @@
 import renpy
-import types
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
+from renpy.display.core import Interface as Interface
+from renpy.execution import Context as Context
+from renpy.rollback import RollbackLog as RollbackLog
+from renpy.script import Script as Script
+from types import TracebackType
 from typing import Any
 
 basepath: Incomplete
 searchpath: Incomplete
 args: Any
-script: renpy.script.Script | None
+script: Script | None
 contexts: Incomplete
-interface: renpy.display.core.Interface | None
+interface: Interface | None
 lint: bool
-log: renpy.rollback.RollbackLog | None
+log: RollbackLog | None
 exception_info: str
 style: Incomplete
 seen_session: dict[Any, bool]
@@ -33,7 +37,7 @@ class ExceptionInfo:
     def __init__(self, s, args=()) -> None: ...
     def __enter__(self) -> None: ...
     def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ): ...
 
 class RestartContext(Exception): ...
