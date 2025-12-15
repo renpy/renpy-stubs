@@ -1,0 +1,3 @@
+from renpy.pyanalysis import const as const, not_const as not_const, pure as pure
+
+def renpy_pure(fn): ...
