@@ -1,0 +1,8 @@
+# Copy this file to config.toml to create your local settings.
+
+renpy_dir = "../renpy/"
+pyi_dir = "./src/"
+temp_dir = "./temp/"
+
+[renpy_directory_mapping]
+"renpy/" = "renpy-stubs/"
