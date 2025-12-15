@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete
 
 current_movie: Incomplete
 fullscreen: bool

@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete
 
 profile_log: Incomplete
 profile: Incomplete

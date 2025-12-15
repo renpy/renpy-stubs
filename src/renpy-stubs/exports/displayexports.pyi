@@ -3,7 +3,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from renpy.exports.commonexports import renpy_pure as renpy_pure
 
-scene_lists: Incomplete
+scene_lists = renpy.display.scenelists.scene_lists
 
 def count_displayables_in_layer(layer): ...
 def image(name, d) -> None: ...
@@ -75,10 +75,10 @@ class placement(renpy.revertable.RevertableObject):
 def get_placement(d): ...
 def get_image_bounds(tag, width=None, height=None, layer=None): ...
 
-Render: Incomplete
-render: Incomplete
-IgnoreEvent: Incomplete
-redraw: Incomplete
+Render = renpy.display.render.Render
+render = renpy.display.render.render
+IgnoreEvent = renpy.display.core.IgnoreEvent
+redraw = renpy.display.render.redraw
 
 def is_pixel_opaque(d, width, height, st, at, x, y): ...
 

@@ -1,15 +1,5 @@
 import renpy.ui as ui
 from renpy.atl import position as position
-from renpy.compat import (
-    PY2 as PY2,
-    basestring as basestring,
-    bchr as bchr,
-    bord as bord,
-    open as open,
-    str as str,
-    tobytes as tobytes,
-    unicode as unicode,
-)
 from renpy.display.core import absolute as absolute
 from renpy.python import store_eval as eval
 from renpy.revertable import (

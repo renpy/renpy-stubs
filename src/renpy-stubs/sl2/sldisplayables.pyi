@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import renpy
-
+from _typeshed import Incomplete
 from renpy.sl2.slparser import (
     DisplayableParser as DisplayableParser,
     Keyword as Keyword,

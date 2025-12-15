@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import renpy
-
+from _typeshed import Incomplete
 from renpy.display.matrix import Matrix2D as Matrix2D
 from renpy.display.render import Render as Render, render as render
 

@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import renpy
-
+from _typeshed import Incomplete
 from renpy.styledata.stylesets import proxy_properties as proxy_properties
 from typing import Any, Callable, Literal
 

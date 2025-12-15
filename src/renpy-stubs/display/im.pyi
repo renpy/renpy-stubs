@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Literal
 

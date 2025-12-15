@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import renpy
-
+from _typeshed import Incomplete
 from typing import Any, Literal
 
 TAG_RE: Incomplete

@@ -3,31 +3,7 @@ import contextlib
 from _typeshed import Incomplete
 from collections.abc import Generator
 from renpy.astsupport import hash32 as hash32
-
 from renpy.pydict import DictItems as DictItems, find_changes as find_changes
-from renpy.revertable import (
-    CompressedList as CompressedList,
-    DetRandom as DetRandom,
-    RevertableDict as RevertableDict,
-    RevertableList as RevertableList,
-    RevertableObject as RevertableObject,
-    RevertableSet as RevertableSet,
-    RollbackRandom as RollbackRandom,
-    revertable_range as revertable_range,
-    revertable_sorted as revertable_sorted,
-)
-from renpy.rollback import (
-    AlwaysRollback as AlwaysRollback,
-    NoRollback as NoRollback,
-    Rollback as Rollback,
-    RollbackLog as RollbackLog,
-    SlottedNoRollback as SlottedNoRollback,
-    StoreDeleted as StoreDeleted,
-    deleted as deleted,
-    reached as reached,
-    reached_vars as reached_vars,
-    rng as rng,
-)
 from typing import Any
 
 class StoreModule:
@@ -130,21 +106,11 @@ wrap_node: Incomplete
 
 def wrap_hide(tree) -> None: ...
 
-unicode_re: Incomplete
-
-def unicode_sub(m): ...
-
-string_re: Incomplete
-
-def escape_unicode(s): ...
-
 compile_warnings: Incomplete
 
 @contextlib.contextmanager
 def save_warnings() -> Generator[None]: ...
 
-old_compile_flags: Incomplete
-new_compile_flags: Incomplete
 file_compiler_flags: Incomplete
 py_compile_cache: Incomplete
 old_py_compile_cache: Incomplete

@@ -1,7 +1,6 @@
 import contextlib
-
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import Callable, NamedTuple
 

@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete
 from typing import Any, Callable, TypedDict, Unpack
 
 type Placement = tuple[float | None, float | None, float | None, float | None, float | None, float | None, bool]

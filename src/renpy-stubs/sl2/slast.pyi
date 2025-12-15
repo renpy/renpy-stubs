@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import renpy
-
+from _typeshed import Incomplete
 from renpy.compat.pickle import dumps as dumps, loads as loads
 from renpy.display.layout import Fixed as Fixed
 from renpy.display.transform import ATLTransform as ATLTransform, Transform as Transform

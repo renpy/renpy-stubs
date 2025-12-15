@@ -1,6 +1,5 @@
 import ast
 from _typeshed import Incomplete
-
 from renpy.compat.pickle import dumps as dumps, loads as loads
 from renpy.python import py_compile as py_compile
 

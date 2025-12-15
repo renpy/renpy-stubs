@@ -1,6 +1,6 @@
+import renpy
 import renpy.gl2.live2dmotion
 from _typeshed import Incomplete
-
 from renpy.display.core import absolute as absolute
 from renpy.gl2.gl2shadercache import register_shader as register_shader
 from typing import Any

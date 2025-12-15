@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-
 from renpy.pygame import (
     CONTROLLERAXISMOTION as CONTROLLERAXISMOTION,
     CONTROLLERBUTTONDOWN as CONTROLLERBUTTONDOWN,

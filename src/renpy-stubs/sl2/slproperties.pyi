@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-
 from renpy.sl2.slparser import Keyword as Keyword, PrefixStyle as PrefixStyle, Style as Style
 
 position_property_names: Incomplete

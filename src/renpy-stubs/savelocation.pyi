@@ -1,6 +1,5 @@
 import types
 from _typeshed import Incomplete
-
 from renpy.loadsave import clear_slot as clear_slot, safe_rename as safe_rename
 
 disk_lock: Incomplete

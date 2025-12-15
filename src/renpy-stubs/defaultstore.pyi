@@ -1,8 +1,7 @@
 from renpy.minstore import *
-
+import renpy
 import renpy.display.anim as anim
 from _typeshed import Incomplete
-import renpy
 
 main_menu: bool
 
@@ -118,8 +117,8 @@ def At(d, *args): ...
 
 Color = renpy.color.Color
 color = renpy.color.Color
-menu: Incomplete
-predict_menu: Incomplete
+menu = renpy.exports.display_menu
+predict_menu = renpy.exports.predict_menu
 default_transition: Incomplete
 mouse_visible: bool
 suppress_overlay: bool
