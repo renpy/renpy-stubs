@@ -113,7 +113,7 @@ class Render:
     ) -> int: ...
     def subsurface(
         self,
-        rect: tuple[int, int, int, int],
+        rect: tuple[float, float, float, float],
         focus: bool = False,
         subpixel: bool = False,
         bounds: tuple[int, int, int, int] | None = None,
