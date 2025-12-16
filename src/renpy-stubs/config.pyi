@@ -2,7 +2,7 @@ import renpy
 from _typeshed import Incomplete as Incomplete
 from renpy.error import TracebackException as TracebackException
 from renpy.text.shader import TextShader as TextShader
-from typing import Any, Callable
+from typing import Any, Callable, Literal
 
 locked: bool
 window_title: Incomplete
@@ -30,7 +30,7 @@ predict_statements: int
 debug_image_cache: Incomplete
 allow_skipping: bool
 fast_skipping: bool
-skipping: Incomplete
+skipping: Literal["slow", "fast"] | None
 skip_delay: int
 archives: Incomplete
 searchpath: Incomplete
@@ -52,8 +52,8 @@ overlay_during_with: bool
 enable_fast_dissolve: bool
 focus_crossrange_penalty: int
 load_before_transition: bool
-keymap: Incomplete
-default_keymap: Incomplete
+keymap: dict[str, list[str]]
+default_keymap: dict[str, list[str]]
 joystick: bool
 interact_callbacks: Incomplete
 start_interact_callbacks: Incomplete
@@ -62,7 +62,7 @@ say_allow_dismiss: Incomplete
 text_tokenizer: Incomplete
 afm_characters: int
 afm_bonus: int
-afm_callback: Incomplete
+afm_callback: Callable[[], bool] | None
 auto_choice_delay: Incomplete
 font_replacement_map: Incomplete
 with_callback: Incomplete
@@ -72,7 +72,7 @@ editor: Incomplete
 editor_transient: Incomplete
 editor_file_separator: Incomplete
 developer: bool
-original_developer: bool
+original_developer: Literal["auto"] | bool
 default_developer: bool
 log: Incomplete
 clear_log: bool
@@ -202,7 +202,7 @@ nearest_neighbor: bool
 use_drawable_resolution: bool
 drawable_resolution_text: bool
 draw_virtual_text_box: bool
-pad_bindings: Incomplete
+pad_bindings: dict[str, list[str]]
 pygame_events: Incomplete
 map_pad_event: Incomplete
 after_replay_callback: Incomplete
@@ -417,7 +417,7 @@ physical_width: Incomplete
 physical_height: Incomplete
 lenticular_bracket_ruby: bool
 web_input: bool
-key_aliases: Incomplete
+key_aliases: dict[str, str]
 save_token_keys: Incomplete
 viewport_inertia_amplitude: float
 viewport_inertia_time_constant: float
