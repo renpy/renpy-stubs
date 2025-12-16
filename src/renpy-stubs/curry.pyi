@@ -1,5 +1,5 @@
 import functools
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 class Curry:
     hash: Incomplete

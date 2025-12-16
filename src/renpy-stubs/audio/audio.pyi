@@ -1,5 +1,6 @@
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete as Incomplete
+from renpy.revertable import RevertableObject as RevertableObject
 
 pcm_ok: Incomplete
 unique: Incomplete

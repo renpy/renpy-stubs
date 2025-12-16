@@ -1,5 +1,5 @@
 import renpy.test.testreporter as testreporter
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.error import FrameSummary as FrameSummary
 from renpy.test.testast import (
     BaseTestBlock as BaseTestBlock,

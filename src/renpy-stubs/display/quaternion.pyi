@@ -1,1 +1,3 @@
+from _frozen_importlib import BuiltinImporter as BuiltinImporter
+
 def euler_slerp(complete: float, old, new): ...

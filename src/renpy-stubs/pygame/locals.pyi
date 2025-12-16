@@ -1,9 +1,9 @@
 import renpy
+from _frozen_importlib import BuiltinImporter as BuiltinImporter
+from _typeshed import Incomplete as Incomplete
 
-Color = renpy.pygame.color.Color
-
+Color: Incomplete
 Rect = renpy.pygame.rect.Rect
-
 ACTIVEEVENT: int
 APP_DIDENTERBACKGROUND: int
 APP_DIDENTERFOREGROUND: int

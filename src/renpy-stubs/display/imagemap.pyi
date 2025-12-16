@@ -1,7 +1,8 @@
-from _typeshed import Incomplete
 import renpy
-
+from _typeshed import Incomplete as Incomplete
+from renpy.display.displayable import Displayable as Displayable
 from renpy.display.render import render as render
+from renpy.object import Object as Object
 
 cached: Incomplete
 

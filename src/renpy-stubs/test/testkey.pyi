@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.test.testast import Node as Node
 
 code_to_unicode: Incomplete

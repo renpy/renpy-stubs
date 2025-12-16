@@ -1,5 +1,5 @@
 from . import common as common
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 class BlockGenerator:
     lock: Incomplete

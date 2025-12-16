@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-
+from _typeshed import Incomplete as Incomplete
 from renpy.display.render import (
     BLIT as BLIT,
     DISSOLVE as DISSOLVE,

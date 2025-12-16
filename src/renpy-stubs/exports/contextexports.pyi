@@ -1,4 +1,5 @@
-from _typeshed import Incomplete
+import renpy
+from _typeshed import Incomplete as Incomplete
 from renpy.exports.commonexports import renpy_pure as renpy_pure
 
 def context(): ...
@@ -9,11 +10,11 @@ def last_interact_type(): ...
 def dynamic(*variables, **kwargs) -> None: ...
 def context_dynamic(*variables) -> None: ...
 
-call_in_new_context: Incomplete
+call_in_new_context = renpy.game.call_in_new_context
 curried_call_in_new_context: Incomplete
-invoke_in_new_context: Incomplete
+invoke_in_new_context = renpy.game.invoke_in_new_context
 curried_invoke_in_new_context: Incomplete
-call_replay: Incomplete
+call_replay = renpy.game.call_replay
 
 def scry(): ...
 def pop_call() -> None: ...

@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
-import renpy
-
+from _typeshed import Incomplete as Incomplete
+from renpy.object import Sentinel as Sentinel
 from renpy.styledata.stylesets import proxy_properties as proxy_properties
 from typing import Any, Callable, Literal
 
@@ -87,7 +86,7 @@ class DisplayableParser(Parser):
         name: str,
         displayable: Callable,
         style: str | None,
-        nchildren: int | Literal["many"] | renpy.object.Sentinel = 0,
+        nchildren: int | Literal["many"] | Sentinel = 0,
         scope: bool = False,
         pass_context: bool = False,
         imagemap: bool = False,

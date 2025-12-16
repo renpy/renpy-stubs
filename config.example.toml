@@ -1,0 +1,12 @@
+# Copy this file to config.toml to create your local settings.
+
+renpy_dir = "../renpy/"
+pyi_dir = "./src/"
+temp_dir = "./temp/"
+
+exclude_files = [
+    "renpy/pygame/compat.py"
+]
+
+[renpy_directory_mapping]
+"renpy/" = "renpy-stubs/"

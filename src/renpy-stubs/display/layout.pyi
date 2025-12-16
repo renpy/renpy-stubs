@@ -1,8 +1,10 @@
-import types
-from _typeshed import Incomplete
 import renpy
-
+from _typeshed import Incomplete as Incomplete
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.layout import MultiBox as MultiBox
 from renpy.display.render import Render as Render, render as render
+from renpy.object import Object as Object
+from types import TracebackType
 
 compute_raw: Incomplete
 
@@ -29,7 +31,7 @@ class Container(renpy.display.displayable.Displayable):
     def visit(self): ...
     def __enter__(self): ...
     def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ): ...
 
 def Composite(size, *args, **properties): ...

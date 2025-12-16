@@ -1,6 +1,6 @@
 import ast
 import tokenize
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from typing import Iterator
 
 def fix_octal_numbers(tokens: Iterator[tokenize.TokenInfo]): ...

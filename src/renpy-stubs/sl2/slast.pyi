@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
 import renpy
-
+from _typeshed import Incomplete as Incomplete
 from renpy.compat.pickle import dumps as dumps, loads as loads
+from renpy.display.displayable import Displayable as Displayable
 from renpy.display.layout import Fixed as Fixed
 from renpy.display.transform import ATLTransform as ATLTransform, Transform as Transform
 from renpy.pyanalysis import (
@@ -12,7 +12,7 @@ from renpy.pyanalysis import (
     ccache as ccache,
 )
 from renpy.python import py_eval_bytecode as py_eval_bytecode
-from typing import Any
+from renpy.ui import Addable as Addable
 
 serial: Incomplete
 use_expression: Incomplete

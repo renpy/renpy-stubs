@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-
+from _typeshed import Incomplete as Incomplete
 from renpy.exports.commonexports import renpy_pure as renpy_pure
 
 class TagQuotingDict:

@@ -1,5 +1,12 @@
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete as Incomplete
+from renpy.object import Object as Object
+
+POSITIONAL_ONLY: Incomplete
+POSITIONAL_OR_KEYWORD: Incomplete
+VAR_POSITIONAL: Incomplete
+KEYWORD_ONLY: Incomplete
+VAR_KEYWORD: Incomplete
 
 class Parameter:
     POSITIONAL_ONLY: Incomplete

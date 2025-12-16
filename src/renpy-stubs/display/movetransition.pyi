@@ -1,5 +1,6 @@
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete as Incomplete
+from renpy.display.displayable import Displayable as Displayable
 
 def position(d): ...
 def offsets(d): ...

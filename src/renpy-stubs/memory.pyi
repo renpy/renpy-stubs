@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 memory_log: Incomplete
 constant_containers: Incomplete

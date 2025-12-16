@@ -1,5 +1,8 @@
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete as Incomplete
+from renpy.display.render import Render as Render
+from renpy.object import Object as Object
+from renpy.pygame.event import EventType as EventType
 from typing import Any, Callable, TypedDict, Unpack
 
 type Placement = tuple[float | None, float | None, float | None, float | None, float | None, float | None, bool]

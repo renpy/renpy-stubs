@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from collections.abc import Generator
 from renpy.compat.pickle import loads as loads
 from renpy.pygame.rwobject import RWopsIO as RWopsIO

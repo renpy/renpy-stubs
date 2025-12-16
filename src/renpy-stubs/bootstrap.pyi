@@ -1,5 +1,5 @@
 import io
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 FSENCODING: Incomplete
 old_stdout: Incomplete

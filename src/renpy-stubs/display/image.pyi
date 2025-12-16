@@ -1,7 +1,8 @@
-from _typeshed import Incomplete
 import renpy
-
+from _typeshed import Incomplete as Incomplete
+from renpy.display.displayable import Displayable as Displayable
 from renpy.display.render import Render as Render, render as render
+from renpy.object import Object as Object
 
 images: Incomplete
 image_attributes: Incomplete
@@ -44,8 +45,8 @@ class ImageReference(renpy.display.displayable.Displayable):
 
 class DynamicImage(renpy.display.displayable.Displayable):
     nosave: Incomplete
-    target: renpy.display.displayable.Displayable | None
-    raw_target: renpy.display.displayable.Displayable | None
+    target: Displayable | None
+    raw_target: Displayable | None
     locked: bool
     hash_name: Incomplete
     scope: Incomplete

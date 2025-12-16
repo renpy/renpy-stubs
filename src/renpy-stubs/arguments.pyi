@@ -1,5 +1,5 @@
 import argparse
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 commands: Incomplete
 display: Incomplete

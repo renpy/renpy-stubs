@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 mouse_pos: tuple[int, int] | None
 mouse_buttons: Incomplete

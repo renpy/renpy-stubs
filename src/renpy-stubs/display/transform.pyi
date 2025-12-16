@@ -1,5 +1,6 @@
-from _typeshed import Incomplete
 import renpy
+import renpy.atl
+from _typeshed import Incomplete as Incomplete
 from renpy.atl import (
     DualAngle as DualAngle,
     any_object as any_object,
@@ -12,7 +13,9 @@ from renpy.atl import (
 from renpy.display.accelerator import RenderTransform as RenderTransform
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.layout import Container as Container
+from renpy.display.matrix import Matrix as Matrix
 from renpy.display.position import absolute as absolute, position as position
+from renpy.object import Object as Object
 from typing import Any
 
 class Camera(renpy.object.Object):

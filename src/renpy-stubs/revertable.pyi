@@ -1,5 +1,5 @@
 import random
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 FUTURE_FLAGS: Incomplete
 mutate_flag: bool

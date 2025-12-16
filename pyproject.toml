@@ -47,6 +47,7 @@ preview = true
 
 [tool.ruff.lint]
 # See Rules in Ruff documentation: https://docs.astral.sh/ruff/rules/
-
-# Disable F rules until import renpy is fixed
-ignore = ["F"]
+ignore = [
+  "F", # Disable F rules until import renpy is fixed
+  "E402", # Module level import not at top of file
+]

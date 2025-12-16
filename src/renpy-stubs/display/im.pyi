@@ -1,6 +1,8 @@
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete as Incomplete
 from concurrent.futures import ThreadPoolExecutor
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.render import Render as Render
 from typing import Any, Literal
 
 type Surface = renpy.pygame.Surface

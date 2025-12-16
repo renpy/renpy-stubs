@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 from renpy.compat.pickle import (
     dump as dump,
     dump_paths as dump_paths,

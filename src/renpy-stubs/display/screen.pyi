@@ -1,5 +1,7 @@
-from _typeshed import Incomplete
 import renpy
+from _typeshed import Incomplete as Incomplete
+from renpy.display.layout import Container as Container
+from renpy.object import Object as Object
 
 profile_log: Incomplete
 profile: Incomplete

@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete as Incomplete
 
 class Editor:
     def begin(self, new_window: bool = False, **kwargs) -> None: ...
