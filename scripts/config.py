@@ -28,6 +28,13 @@ class Config:
     )
     "Mapping of source directories (py) to target stub directories (pyi)."
 
+    exclude_files: list[str] = field(
+        default_factory=lambda: [
+            "renpy/pygame/compat.py",
+        ]
+    )
+    "List of files to exclude from stub generation."
+
     def __post_init__(self, renpy_dir: str, pyi_dir: str, temp_dir: str):
         base_dir = Path(__file__).parent.parent.resolve()
 

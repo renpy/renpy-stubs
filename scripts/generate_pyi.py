@@ -47,6 +47,15 @@ def _move_stubs(source_path: Path, target_path: Path) -> list[str]:
         else:
             os.remove(target_path)
 
+    # Exclude specific files if needed
+    for fn in config.exclude_files:
+        path_to_exclude = (config.temp_path / fn).with_suffix(".pyi")
+        if path_to_exclude.exists():
+            if path_to_exclude.is_dir():
+                shutil.rmtree(path_to_exclude)
+            else:
+                os.remove(path_to_exclude)
+
     os.rename(str(stubgen_output_path), str(target_path))
     return [str(p) for p in target_path.glob("**/*.pyi")]
 
