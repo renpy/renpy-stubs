@@ -199,9 +199,9 @@ preserve_zorder: bool
 lint_ignore_replaces: Incomplete
 minimum_presplash_time: float
 nearest_neighbor: bool
-use_drawable_resolution: Incomplete
-drawable_resolution_text: Incomplete
-draw_virtual_text_box: Incomplete
+use_drawable_resolution: bool
+drawable_resolution_text: bool
+draw_virtual_text_box: bool
 pad_bindings: Incomplete
 pygame_events: Incomplete
 map_pad_event: Incomplete

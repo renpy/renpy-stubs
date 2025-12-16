@@ -5,10 +5,10 @@ from renpy.display.layout import Null as Null
 from typing import Any, NotRequired, TypedDict
 
 import_time: Incomplete
-TIMEEVENT: Incomplete
-PERIODIC: Incomplete
-REDRAW: Incomplete
-EVENTNAME: Incomplete
+TIMEEVENT: int
+PERIODIC: int
+REDRAW: int
+EVENTNAME: int
 ALL_EVENTS: set[int]
 enabled_events: set[int]
 input_events: set[int]
