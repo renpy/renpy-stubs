@@ -2,6 +2,9 @@ import renpy
 from _typeshed import Incomplete as Incomplete
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.render import render as render
+from typing import Callable
+
+type TransitionFunction = Callable[[Displayable | None, Displayable | None], Displayable]
 
 class Transition(renpy.display.displayable.Displayable):
     new_widget: Displayable | None

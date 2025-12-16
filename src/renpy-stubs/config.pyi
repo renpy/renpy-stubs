@@ -40,7 +40,7 @@ sound_sample_rate: int
 fadeout_audio: float
 fade_music: Incomplete
 sticky_positions: bool
-layers: Incomplete
+layers: list[str]
 transient_layers: Incomplete
 overlay_layers: Incomplete
 context_clear_layers: Incomplete
@@ -65,7 +65,7 @@ afm_bonus: int
 afm_callback: Callable[[], bool] | None
 auto_choice_delay: Incomplete
 font_replacement_map: Incomplete
-with_callback: Incomplete
+with_callback: Callable[[Incomplete, Incomplete | None], Incomplete] | None
 framerate: int
 frames: int
 editor: Incomplete

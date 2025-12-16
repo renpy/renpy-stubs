@@ -104,7 +104,7 @@ class MultiBox(Container):
     layout: Incomplete | None
     _layer_at_list: Incomplete | None
     _camera_list: Incomplete | None
-    layers: Incomplete | None
+    layers: dict[str, MultiBox] | None
     untransformed_layer: Incomplete | None
     adjust_times: bool
     _clipping: bool

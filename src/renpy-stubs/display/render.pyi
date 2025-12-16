@@ -69,7 +69,7 @@ class Render:
     def add_uniform(self, name: str, value: Any) -> None: ...
     def blit(
         self,
-        source: "Render | renpy.pygame.Surface",
+        source: "Render | renpy.pygame.surface.Surface",
         pos: tuple[float, float],
         focus: bool = True,
         main: bool = True,
