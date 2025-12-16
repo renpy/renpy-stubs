@@ -204,7 +204,7 @@ drawable_resolution_text: bool
 draw_virtual_text_box: bool
 pad_bindings: dict[str, list[str]]
 pygame_events: Incomplete
-map_pad_event: Incomplete
+map_pad_event: Callable[[str], list[str]] | None
 after_replay_callback: Incomplete
 wrap_shown_transforms: bool
 search_prefixes: Incomplete
@@ -351,12 +351,12 @@ quit_callbacks: Incomplete
 steam_appid: Incomplete
 controller_first_repeat: float
 controller_repeat: float
-controller_repeat_states: Incomplete
+controller_repeat_states: set[str]
 side_image_only_not_showing: bool
 expand_texture_bounds: int
 modal_timeevent: bool
 gl_set_attributes: Incomplete
-controller_blocklist: Incomplete
+controller_blocklist: list[str]
 mipmap: bool
 mipmap_dissolves: bool
 mipmap_movies: bool
