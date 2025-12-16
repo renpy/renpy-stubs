@@ -22,7 +22,7 @@ def generate_stubs() -> list[str]:
         source_path = config.renpy_path / source
         target_path = config.pyi_path / target
 
-        _run_command(["stubgen", "--output", str(config.temp_path), str(source_path)])
+        _run_command(["stubgen", "--include-private", "--output", str(config.temp_path), str(source_path)])
         new_files = _move_stubs(source_path, target_path)
         created_files.extend(new_files)
 

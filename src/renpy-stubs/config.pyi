@@ -449,7 +449,7 @@ save_persistent: bool
 drag_group_add_top: bool
 defer_tl_scripts: bool
 transitions_use_child_placement: bool
-containers_pass_transform_events: Incomplete
+containers_pass_transform_events: set[str]
 say_replace_event: bool
 screens_never_cancel_hide: bool
 layer_transforms: Incomplete

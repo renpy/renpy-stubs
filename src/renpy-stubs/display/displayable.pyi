@@ -23,7 +23,7 @@ class DisplayableArguments(renpy.object.Object):
     def copy(self, **kwargs: Unpack[_DisplayableArguments]) -> DisplayableArguments: ...
     def extraneous(self) -> None: ...
 
-default_style: Incomplete
+default_style: renpy.style.Style
 
 class Displayable(renpy.object.Object):
     focusable: bool | None
