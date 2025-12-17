@@ -11,9 +11,7 @@ from renpy.types import DisplayableLike as DisplayableLike
 from typing import Any, Callable, Iterable, Literal, Self
 
 type KeysymType = str | list[str] | tuple[str, ...]
-type ActionType = (
-    renpy.ui.Action | Callable[..., Any] | list[Callable[..., Any]] | tuple[Callable[..., Any], ...] | None
-)
+type ActionType = renpy.ui.Action | Callable[..., Any] | Iterable[Callable[..., Any], ...] | None
 
 def compile_event(key: KeysymType | None, keydown: bool) -> str: ...
 

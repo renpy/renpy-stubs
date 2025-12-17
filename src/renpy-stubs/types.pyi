@@ -1,3 +1,4 @@
+import renpy
 from typing import Any
 
 type Unused = Any
