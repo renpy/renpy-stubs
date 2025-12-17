@@ -5,9 +5,9 @@ from renpy.text.shader import TextShader as TextShader
 from typing import Any, Callable, Literal
 
 locked: bool
-window_title: Incomplete
-window_icon: Incomplete
-windows_icon: Incomplete
+window_title: str | None
+window_icon: str | None
+windows_icon: str | None
 screen_width: int
 screen_height: int
 sound: bool
