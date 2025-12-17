@@ -12,7 +12,7 @@ screen_width: int
 screen_height: int
 sound: bool
 debug: bool
-debug_sound: Incomplete
+debug_sound: bool
 rollback_enabled: bool
 rollback_length: int
 keep_rollback_data: bool
@@ -22,12 +22,12 @@ overlay_functions: Incomplete
 underlay: Incomplete
 profile: bool
 savedir: Incomplete
-image_cache_size: Incomplete
+image_cache_size: int | None
 image_cache_size_mb: int
 preload_threads: int
 preload_thread_autocap: int
 predict_statements: int
-debug_image_cache: Incomplete
+debug_image_cache: bool
 allow_skipping: bool
 fast_skipping: bool
 skipping: Literal["slow", "fast"] | None
@@ -101,7 +101,7 @@ use_cpickle: bool
 inspector: Incomplete
 reject_backslash: bool
 mouse_hide_time: int
-missing_image_callback: Incomplete
+missing_image_callback: Callable[[str], renpy.display.im.ImageBase | None] | None
 say_menu_text_filter: Incomplete
 label_overrides: Incomplete
 auto_save_extra_info: Incomplete
@@ -456,7 +456,7 @@ layer_transforms: Incomplete
 fill_shrinks_frame: bool
 log_events: Incomplete
 python_exit_callbacks: Incomplete
-raise_image_load_exceptions: Incomplete
+raise_image_load_exceptions: bool | None
 textshaders: dict[str, TextShader]
 textshader_callbacks: dict[str, Callable[[], str]]
 default_textshader: str | None

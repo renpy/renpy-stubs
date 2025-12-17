@@ -25,9 +25,9 @@ class ImageNotFound(LookupError):
     def __init__(self, tag: str, *attributes: str) -> None: ...
     def get_suggestion(self): ...
 
-class ImageReference(renpy.display.displayable.Displayable):
+class ImageReference(Displayable):
     nosave: Incomplete
-    target: Incomplete
+    target: Displayable | None
     old_transform: Incomplete
     param_target: Incomplete
     __version__: int
@@ -43,7 +43,7 @@ class ImageReference(renpy.display.displayable.Displayable):
     def get_placement(self): ...
     def visit(self): ...
 
-class DynamicImage(renpy.display.displayable.Displayable):
+class DynamicImage(Displayable):
     nosave: Incomplete
     target: Displayable | None
     raw_target: Displayable | None
