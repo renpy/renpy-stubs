@@ -1,22 +1,24 @@
-from _typeshed import Incomplete as Incomplete
+from renpy.display.displayable import Displayable as Displayable
+from renpy.pygame.event import EventType as EventType
+from typing import Callable
 
-emulator: Incomplete
-overlay: Incomplete
+emulator: Callable[[EventType, int, int], tuple[EventType | None, int, int]] | None
+overlay: list[Displayable]
 ios: bool
 
-def null_emulator(ev, x, y): ...
+def null_emulator(ev: EventType, x: int, y: int) -> tuple[EventType, int, int]: ...
 
-TOUCH_KEYS: Incomplete
+TOUCH_KEYS: list[int]
 
-def touch_emulator(ev, x, y): ...
+def touch_emulator(ev: EventType, x: int, y: int) -> tuple[EventType | None, int, int]: ...
 
-TV_KEYS: Incomplete
+TV_KEYS: list[int]
 
-def tv_emulator(ev, x, y): ...
+def tv_emulator(ev: EventType, x: int, y: int) -> tuple[EventType | None, int, int]: ...
 
-keyboard: Incomplete
-null: Incomplete
+keyboard: Displayable | None
+null: Displayable | None
 
-def dynamic_keyboard(st, at): ...
+def dynamic_keyboard(st: float, at: float) -> tuple[Displayable, float]: ...
 def init_emulator() -> None: ...
 def early_init_emulator() -> None: ...
