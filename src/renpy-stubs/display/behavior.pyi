@@ -8,10 +8,10 @@ from renpy.pygame.event import EventType as EventType
 from renpy.python import AlwaysRollback as AlwaysRollback
 from renpy.text.text import Text as Text
 from renpy.types import DisplayableLike as DisplayableLike
-from typing import Any, Callable, Iterable, Literal, Self
+from typing import Any, Callable, Sequence, Literal, Self
 
 type KeysymType = str | list[str] | tuple[str, ...]
-type ActionType = renpy.ui.Action | Callable[..., Any] | Iterable[Callable[..., Any], ...] | None
+type ActionType = renpy.ui.Action | Callable[..., Any] | Sequence[Callable[..., Any], ...] | None
 
 def compile_event(key: KeysymType | None, keydown: bool) -> str: ...
 
@@ -84,7 +84,7 @@ class SoundStopBehavior(renpy.display.layout.Null):
 class SayBehavior(renpy.display.layout.Null):
     focusable: bool
     text_tuple: tuple[renpy.text.text.Text, ...] | None
-    dismiss_unfocused: Iterable[str]
+    dismiss_unfocused: Sequence[str]
     dialogue_pause: float | None
     afm_length: Incomplete
     dismiss: Incomplete
@@ -434,7 +434,7 @@ class MouseArea(renpy.display.displayable.Displayable):
 class OnEvent(renpy.display.displayable.Displayable):
     event_name: Incomplete
     action: Incomplete
-    def __init__(self, event: str | Iterable[str], action: ActionType = []) -> None: ...
+    def __init__(self, event: str | Sequence[str], action: ActionType = []) -> None: ...
     def is_event(self, event: str) -> bool: ...
     def _handles_event(self, event: str) -> bool: ...
     def set_transform_event(self, event: str) -> None: ...

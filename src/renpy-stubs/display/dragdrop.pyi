@@ -13,7 +13,7 @@ from renpy.display.render import Render as Render, redraw as redraw, render as r
 from renpy.pygame.event import EventType as EventType
 from renpy.revertable import RevertableObject as RevertableObject
 from renpy.types import DisplayableLike as DisplayableLike
-from typing import Any, Callable, Iterable, Literal, Self
+from typing import Any, Callable, Sequence, Literal, Self
 
 type GroupPosition = tuple[float | None, float | None, float | None, float | None, float | None, float | None]
 
@@ -26,21 +26,21 @@ class Drag(renpy.display.displayable.Displayable, renpy.revertable.RevertableObj
     focusable: bool | None
     old_position: GroupPosition | None
     drag_offscreen: bool
-    activated: Callable[[list[Drag]], None] | Iterable[Callable[[list[Drag]], None]] | None
+    activated: Callable[[list[Drag]], None] | Sequence[Callable[[list[Drag]], None]] | None
     alternate: ActionType
-    dragging: Callable[[list[Drag]], Any] | Iterable[Callable[[list[Drag]], Any]] | None
+    dragging: Callable[[list[Drag]], Any] | Sequence[Callable[[list[Drag]], Any]] | None
     drag_group_weakref: weakref.ReferenceType[DragGroup] | None
     click_time: float | None
     drag_name: str | None
     draggable: bool
     droppable: bool
     drag_raise: bool
-    dragged: Callable[[list[Drag], Drag | None], Any] | Iterable[Callable[[list[Drag], Drag | None], Any]] | None
-    dropped: Callable[[Drag | None, list[Drag]], Any] | Iterable[Callable[[Drag | None, list[Drag]], Any]] | None
+    dragged: Callable[[list[Drag], Drag | None], Any] | Sequence[Callable[[list[Drag], Drag | None], Any]] | None
+    dropped: Callable[[Drag | None, list[Drag]], Any] | Sequence[Callable[[Drag | None, list[Drag]], Any]] | None
     drop_allowable: Callable[[Drag, list[Drag]], bool]
     drag_handle: tuple[float, float, float, float]
     drag_joined: Callable[[Drag], list[tuple[Drag | str, int, int]]]
-    clicked: Callable[[Drag], Any] | Iterable[Callable[[Drag], Any]] | None
+    clicked: Callable[[Drag], Any] | Sequence[Callable[[Drag], Any]] | None
     hovered: ActionType
     unhovered: ActionType
     mouse_drop: bool
@@ -67,7 +67,7 @@ class Drag(renpy.display.displayable.Displayable, renpy.revertable.RevertableObj
     snap_start_x: int
     snap_start_y: int
     snapping: bool
-    snapped: Callable[[Drag, int, int, bool], Any] | Iterable[Callable[[Drag, int, int, bool], Any]] | None
+    snapped: Callable[[Drag, int, int, bool], Any] | Sequence[Callable[[Drag, int, int, bool], Any]] | None
     last_drop: Drag | None
     drag_moved: bool
     def __init__(
@@ -78,15 +78,15 @@ class Drag(renpy.display.displayable.Displayable, renpy.revertable.RevertableObj
         droppable: bool = True,
         drag_raise: bool = True,
         dragged: Callable[[list[Drag], Drag | None], Any]
-        | Iterable[Callable[[list[Drag], Drag | None], Any]]
+        | Sequence[Callable[[list[Drag], Drag | None], Any]]
         | None = None,
         dropped: Callable[[Drag | None, list[Drag]], Any]
-        | Iterable[Callable[[Drag | None, list[Drag]], Any]]
+        | Sequence[Callable[[Drag | None, list[Drag]], Any]]
         | None = None,
         drop_allowable: Callable[[Drag, list[Drag]], bool] = ...,
         drag_handle: tuple[float, float, float, float] = (0.0, 0.0, 1.0, 1.0),
         drag_joined: Callable[[Drag], list[tuple[Drag | str, int, int]]] = ...,
-        clicked: Callable[[Drag], Any] | Iterable[Callable[[Drag], Any]] | None = None,
+        clicked: Callable[[Drag], Any] | Sequence[Callable[[Drag], Any]] | None = None,
         hovered: ActionType = None,
         unhovered: ActionType = None,
         replaces: Self | None = None,
@@ -96,10 +96,10 @@ class Drag(renpy.display.displayable.Displayable, renpy.revertable.RevertableObj
         | tuple[int, int, int, int]
         | Callable[[tuple[int, int]], tuple[int, int]] = False,
         mouse_drop: bool = False,
-        activated: Callable[[list[Drag]], None] | Iterable[Callable[[list[Drag]], None]] | None = None,
+        activated: Callable[[list[Drag]], None] | Sequence[Callable[[list[Drag]], None]] | None = None,
         alternate: ActionType = None,
         style: str = "drag",
-        dragging: Callable[[list[Drag]], Any] | Iterable[Callable[[list[Drag]], Any]] | None = None,
+        dragging: Callable[[list[Drag]], Any] | Sequence[Callable[[list[Drag]], Any]] | None = None,
         **properties,
     ) -> None: ...
     @property
