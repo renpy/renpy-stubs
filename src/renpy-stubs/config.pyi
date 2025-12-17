@@ -186,8 +186,8 @@ emphasize_audio_time: float
 transition_screens: bool
 predict_statements_callback: Incomplete
 hw_video: bool
-dispatch_gesture: Incomplete
-gestures: Incomplete
+dispatch_gesture: Callable[[str], None | Any] | None
+gestures: dict[str, str]
 gesture_component_size: float
 gesture_stroke_size: float
 log_to_stdout: Incomplete
