@@ -14,9 +14,10 @@ from renpy.parameter import (
     Signature as Signature,
     apply_arguments as apply_arguments,
 )
+from renpy.types import Unused
 from renpy.sl2.slast import SLScreen as SLScreen
 from renpy.test.testast import TestCase as TestCase
-from typing import Any, Callable, ClassVar, Literal, Never
+from typing import Any, Callable, ClassVar, Literal
 
 EARLY_CONFIG: Incomplete
 
@@ -71,7 +72,7 @@ class Node(Object):
     @property
     def statement_start(self) -> Node: ...
     @statement_start.setter
-    def statement_start(self, value: Never): ...
+    def statement_start(self, value: Unused): ...
     linenumber: Incomplete
     def __init__(self, loc: tuple[str, int]) -> None: ...
     def diff_info(self) -> tuple[Any, ...]: ...

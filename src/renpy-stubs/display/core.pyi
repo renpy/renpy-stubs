@@ -1,6 +1,7 @@
 import renpy
 import threading
 from _typeshed import Incomplete as Incomplete
+from renpy.types import Unused
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.layout import MultiBox as MultiBox, Null as Null
 from renpy.display.render import Render as Render
@@ -9,7 +10,7 @@ from renpy.display.transition import TransitionFunction as TransitionFunction
 from renpy.pygame.event import EventType as EventType
 from renpy.pygame.mouse import ColorCursor as ColorCursor
 from renpy.pygame.surface import Surface as Surface
-from typing import Any, Callable, Never, NotRequired, TypedDict
+from typing import Any, Callable, NotRequired, TypedDict
 
 import_time: float
 TIMEEVENT: int
@@ -57,7 +58,7 @@ class RendererInfo(TypedDict):
     gpu_driver_version: NotRequired[str]
 
 class Renderer:
-    texture_cache: dict[Surface, Never]
+    texture_cache: dict[Surface, Unused]
     info: RendererInfo
     def get_texture_size(self) -> tuple[int, int]: ...
     def update(self, force: bool = False) -> bool: ...
@@ -74,7 +75,7 @@ class Renderer:
     def draw_screen(self, surftree: Render, flip: bool = True) -> None: ...
     def render_to_texture(self, what: Incomplete, alpha: bool) -> Incomplete: ...
     def is_pixel_opaque(self, what: Incomplete, x: Incomplete, y: Incomplete) -> bool: ...
-    def get_half(self, what: Never) -> Never: ...
+    def get_half(self, what: Unused) -> Unused: ...
     def translate_point(self, x: float, y: float) -> tuple[int, int]: ...
     def untranslate_point(self, x: float, y: float) -> tuple[int, int]: ...
     def mouse_event(self, ev: Event) -> tuple[int, int]: ...
@@ -100,10 +101,10 @@ class Interface:
     mouse: str
     timeout_time: float | None
     last_event: EventType | None
-    current_context: Never
+    current_context: Unused
     roll_forward: Any | None
     fullscreen: bool
-    preloads: Never
+    preloads: Unused
     init_time: float
     frame_time: float
     interact_time: float | None
@@ -123,7 +124,7 @@ class Interface:
     transition_time: dict[str | None, float]
     transition_from: dict[str | None, MultiBox]
     old_root_transform: Transform | None
-    transition_info_stack: Never
+    transition_info_stack: Unused
     event_time: float
     mouse_event_time: float | None
     show_mouse: bool
@@ -246,7 +247,7 @@ class Interface:
         suppress_overlay: bool = False,
         suppress_underlay: bool = False,
         mouse: str | None = None,
-        preloads: Never = [],
+        preloads: Unused = [],
         roll_forward: Any | None = None,
         pause: float | None = None,
         pause_start: float | None = 0.0,
