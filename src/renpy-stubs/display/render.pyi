@@ -3,7 +3,6 @@ import threading as threading
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from _typeshed import Incomplete as Incomplete
 from renpy.display.core import Displayable as Displayable
-from renpy.display.focus import Focus as Focus
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.matrix import Matrix as Matrix, Matrix2D as Matrix2D
 from renpy.display.screen import ScreenDisplayable as ScreenDisplayable
@@ -127,7 +126,7 @@ class Render:
         cmaxy: int,
         transform: Incomplete,
         screen: Incomplete,
-        focuses: list[tuple[FocusTuple, ...]],
+        focuses: list[renpy.display.focus.Focus],
     ) -> None: ...
     def zoom(self, xzoom: float, yzoom: float) -> None: ...
     mark: bool
@@ -136,7 +135,7 @@ class Render:
     width: float
     height: float
     layer_name: str | None
-    children: list[tuple["Render | renpy.pygame.Surface", float, float, bool, bool]]
+    children: list[tuple["Render | renpy.pygame.surface.Surface", float, float, bool, bool]]
     forward: renpy.display.matrix.Matrix | None
     reverse: renpy.display.matrix.Matrix | None
     alpha: float
@@ -183,7 +182,7 @@ def render_for_size(d: Displayable, width: int, height: int, st: float, at: floa
 def render_ready() -> None: ...
 def render_screen(root: Displayable, width: int, height: int) -> "Render": ...
 def render(d: Displayable, widtho: float, heighto: float, st: float, at: float) -> "Render": ...
-def take_focuses(focuses: list[FocusTuple]) -> None: ...
+def take_focuses(focuses: list[renpy.display.focus.Focus]) -> None: ...
 
 screen_render: Render | None
 IDENTITY: renpy.display.matrix.Matrix
