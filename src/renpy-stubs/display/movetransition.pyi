@@ -1,52 +1,67 @@
 import renpy
 from _typeshed import Incomplete as Incomplete
-from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import Displayable as Displayable, Placement as Placement
+from renpy.display.layout import MultiBox as MultiBox
+from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
+from typing import Callable
 
-def position(d): ...
-def offsets(d): ...
-def MoveFactory(pos1, pos2, delay, d, **kwargs): ...
-def default_enter_factory(pos, delay, d, **kwargs): ...
-def default_leave_factory(pos, delay, d, **kwargs) -> None: ...
-def MoveIn(pos, pos1, delay, d, **kwargs): ...
-def MoveOut(pos, pos1, delay, d, **kwargs): ...
-def ZoomInOut(start, end, pos, delay, d, **kwargs): ...
-def RevolveInOut(start, end, pos, delay, d, **kwargs): ...
+type Rect = tuple[float, float, float, float]
+type Factory = Callable[[Rect, Rect, float, MultiBox], MultiBox]
+type EnterFactory = Callable[[Rect, float, MultiBox], MultiBox]
+type LeaveFactory = Callable[[Rect, float, MultiBox], None]
+type WarpFunction = Callable[[float], float]
+
+def position(d: Displayable) -> tuple[float, float, float, float]: ...
+def offsets(d: Displayable) -> dict[str, float | None]: ...
+def MoveFactory(pos1: Rect, pos2: Rect, delay: float, d: MultiBox, **kwargs) -> MultiBox: ...
+def default_enter_factory(pos: Rect, delay: float, d: MultiBox, **kwargs) -> MultiBox: ...
+def default_leave_factory(pos: Rect, delay: float, d: MultiBox, **kwargs) -> None: ...
+def MoveIn(
+    pos: tuple[float, float], pos1: tuple[float, float], delay: float, d: Incomplete, **kwargs
+) -> Incomplete: ...
+def MoveOut(
+    pos: tuple[float, float], pos1: tuple[float, float], delay: float, d: Incomplete, **kwargs
+) -> Incomplete: ...
+def ZoomInOut(start: float, end: float, pos: Rect, delay: float, d: Incomplete, **kwargs) -> Incomplete: ...
+def RevolveInOut(start: float, end: float, pos: Rect, delay: float, d: Incomplete, **kwargs) -> Incomplete: ...
 def OldMoveTransition(
-    delay,
-    old_widget=None,
-    new_widget=None,
-    factory=None,
-    enter_factory=None,
-    leave_factory=None,
+    delay: float,
+    old_widget: Displayable | None = None,
+    new_widget: Displayable | None = None,
+    factory: Factory | None = None,
+    enter_factory: EnterFactory | None = None,
+    leave_factory: LeaveFactory | None = None,
     old: bool = False,
-    layers=["master"],
-): ...
+    layers: list[str] = ["master"],
+) -> MultiBox: ...
 
 class MoveInterpolate(renpy.display.displayable.Displayable):
-    old: Incomplete
-    new: Incomplete
-    use_old: Incomplete
-    time_warp: Incomplete
+    old: MultiBox
+    new: MultiBox
+    use_old: bool
+    time_warp: WarpFunction | None
     screen_width: int
     screen_height: int
     child_width: int
     child_height: int
-    delay: int | float
-    st: int
-    def __init__(self, delay, old, new, use_old, time_warp) -> None: ...
-    def render(self, width, height, st, at): ...
-    def child_placement(self, child): ...
-    def get_placement(self): ...
+    delay: float
+    st: float
+    def __init__(
+        self, delay: float, old: MultiBox, new: MultiBox, use_old: bool, time_warp: WarpFunction | None
+    ) -> None: ...
+    def render(self, width: float, height: float, st: float, at: float) -> renpy.display.render.Render: ...
+    def child_placement(self, child) -> Placement: ...
+    def get_placement(self) -> Placement: ...
 
 def MoveTransition(
     delay,
-    old_widget=None,
-    new_widget=None,
-    enter=None,
-    leave=None,
+    old_widget: Incomplete | None = None,
+    new_widget: Incomplete | None = None,
+    enter: renpy.display.transform.Transform | None = None,
+    leave: renpy.display.transform.Transform | None = None,
     old: bool = False,
-    layers=["master"],
-    time_warp=None,
-    enter_time_warp=None,
-    leave_time_warp=None,
-): ...
+    layers: list[str] = ["master"],
+    time_warp: WarpFunction | None = None,
+    enter_time_warp: WarpFunction | None = None,
+    leave_time_warp: WarpFunction | None = None,
+) -> Incomplete: ...
