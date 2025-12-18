@@ -465,7 +465,7 @@ munge_in_strings: bool
 character_callback_compat: Incomplete
 translate_ignore_who: Incomplete
 interface_layer: str
-limit_transform_crop: bool
+limit_transform_crop: bool | Literal["only_float"]
 dissolve_shrinks: bool
 reverse_arabic_presentation_forms: bool
 future_annotations: bool
