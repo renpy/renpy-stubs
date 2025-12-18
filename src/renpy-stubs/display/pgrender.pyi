@@ -3,8 +3,8 @@ from renpy.pygame.surface import Surface as PygameSurface
 from io import IOBase
 import threading
 
-sample_alpha: PygameSurface
-sample_noalpha: PygameSurface
+sample_alpha: PygameSurface | None
+sample_noalpha: PygameSurface | None
 
 def set_rgba_masks() -> None: ...
 
