@@ -3,6 +3,7 @@ from _typeshed import Incomplete as Incomplete
 from renpy.error import TracebackException as TracebackException
 from renpy.text.shader import TextShader as TextShader
 from typing import Any, Callable, Literal
+import re
 
 locked: bool
 window_title: str | None
@@ -174,7 +175,7 @@ say_layer: str
 choice_layer: str
 nvl_choice_layer: str
 raw_tracebacks: Incomplete
-tts_function: Incomplete
+tts_function: Callable[[str], None] | None
 tts_voice_channels: Incomplete
 screen_cache_size: int
 adjust_view_size: Incomplete
@@ -245,7 +246,7 @@ enable_language_autodetect: bool
 locale_to_language_function: Incomplete
 locale_to_language_map: dict[str, str]
 old_say_args: bool
-tts_voice: Incomplete
+tts_voice: str | None
 max_fit_size: int
 enforce_window_max_size: bool
 translate_launcher: bool
@@ -424,7 +425,7 @@ viewport_inertia_time_constant: float
 after_default_callbacks: Incomplete
 check_conflicting_properties: bool
 extra_savedirs: Incomplete
-tts_substitutions: Incomplete
+tts_substitutions: list[tuple[str | re.Pattern, str]]
 web_video_base: str
 scry_extend: bool
 check_translate_none: bool
