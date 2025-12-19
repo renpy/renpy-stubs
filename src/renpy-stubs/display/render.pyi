@@ -11,6 +11,8 @@ from renpy.pygame.surface import Surface as Surface
 from renpy.color import Color as Color
 from typing import Any, Sequence, Callable
 
+type Rect = renpy.pygame.rect.Rect
+
 type FocusTuple = tuple[
     Displayable,
     Any,
@@ -69,7 +71,7 @@ class Render:
     def blit(
         self,
         source: "Render | Surface",
-        pos: tuple[float, float],
+        pos: Rect | tuple[float, float, float, float] | tuple[float, float],
         focus: bool = True,
         main: bool = True,
         index: int | None = None,
@@ -156,7 +158,7 @@ class Render:
     operation: int
     operation_complete: float
     operation_alpha: bool
-    operation_parameter: float
+    operation_parameter: int
     surface: Surface
     alpha_surface: Surface
     half_cache: Incomplete | None

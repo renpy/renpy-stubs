@@ -20,7 +20,7 @@ class Surface:
     def blit(
         self,
         source: "Surface",
-        dest: Rect | tuple[int, int, int, int],
+        dest: Rect | tuple[int, int, int, int] | tuple[int, int],
         area: Incomplete | None = None,
         special_flags: int = 0,
     ) -> Incomplete: ...
