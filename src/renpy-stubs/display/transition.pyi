@@ -1,162 +1,226 @@
 import renpy
 from _typeshed import Incomplete as Incomplete
-from renpy.display.displayable import Displayable as Displayable
-from renpy.display.render import render as render
-from typing import Callable
+from renpy.color import ColorLike as ColorLike
+from renpy.display.displayable import Displayable as Displayable, Placement as Placement
+from renpy.display.im import ImageLike as ImageLike
+from renpy.display.render import Render as Render, render as render
+from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
+from typing import Any, Protocol, overload
 
-type TransitionFunction = Callable[[Displayable | None, Displayable | None], Displayable]
+type Warper = renpy.atl.Warper
+
+class TransitionFunction(Protocol):
+    def __call__(self, old_widget: Displayable | None, new_widget: Displayable | None) -> Transition: ...
 
 class Transition(renpy.display.displayable.Displayable):
     new_widget: Displayable | None
     old_widget: Displayable | None
-    delay: Incomplete
+    delay: float
     events: bool
-    def __init__(self, delay, **properties) -> None: ...
-    def event(self, ev, x, y, st): ...
-    def visit(self): ...
-    def get_placement(self): ...
+    def __init__(self, delay: float, **properties) -> None: ...
+    def event(self, ev: renpy.pygame.event.EventType, x: float, y: float, st: float) -> Any | None: ...
+    def visit(self) -> list[Displayable | None]: ...
+    def get_placement(self) -> Placement: ...
 
-def null_render(d, width, height, st, at): ...
+def null_render(d: Transition, width: float, height: float, st: float, at: float) -> Render: ...
 
 class NoTransition(Transition):
-    old_widget: Incomplete
-    new_widget: Incomplete
+    old_widget: Displayable | None
+    new_widget: Displayable | None
     events: bool
-    def __init__(self, delay, old_widget=None, new_widget=None, **properties) -> None: ...
-    def render(self, width, height, st, at): ...
+    def __init__(
+        self, delay: float, old_widget: Displayable | None = None, new_widget: Displayable | None = None, **properties
+    ) -> None: ...
+    def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
 class MultipleTransition(Transition):
-    transitions: Incomplete
-    screens: Incomplete
-    new_widget: Incomplete
+    transitions: list[Transition]
+    screens: list[Displayable]
+    new_widget: Displayable | None
     events: bool
-    def __init__(self, args, old_widget=None, new_widget=None, **properties) -> None: ...
-    def visit(self): ...
-    def event(self, ev, x, y, st): ...
-    def render(self, width, height, st, at): ...
+    def __init__(
+        self,
+        args: Incomplete,
+        old_widget: Displayable | None = None,
+        new_widget: Displayable | None = None,
+        **properties,
+    ) -> None: ...
+    def visit(self) -> list[Displayable]: ...
+    def event(self, ev: renpy.pygame.event.EventType, x: float, y: float, st: float) -> Any | None: ...
+    def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
 def Fade(
-    out_time, hold_time, in_time, old_widget=None, new_widget=None, color=None, widget=None, alpha: bool = False
-): ...
+    out_time: float,
+    hold_time: float,
+    in_time: float,
+    old_widget: Displayable | None = None,
+    new_widget: Displayable | None = None,
+    color: ColorLike | None = None,
+    widget: Displayable | None = None,
+    alpha: bool = False,
+) -> MultipleTransition: ...
 
 class Pixellate(Transition):
-    time: Incomplete
-    steps: Incomplete
-    old_widget: Incomplete
-    new_widget: Incomplete
+    time: float
+    steps: int
+    old_widget: Displayable | None
+    new_widget: Displayable | None
     events: bool
-    quantum: Incomplete
-    def __init__(self, time, steps, old_widget=None, new_widget=None, **properties) -> None: ...
-    def render(self, width, height, st, at): ...
+    quantum: float
+    def __init__(
+        self,
+        time: float,
+        steps: int,
+        old_widget: Displayable | None = None,
+        new_widget: Displayable | None = None,
+        **properties,
+    ) -> None: ...
+    def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
 class Dissolve(Transition):
     __version__: int
     alpha: bool
-    def after_upgrade(self, version) -> None: ...
-    time_warp: Incomplete
-    time: Incomplete
-    old_widget: Incomplete
-    new_widget: Incomplete
+    def after_upgrade(self, version: int) -> None: ...
+    time_warp: Warper | None
+    time: float
+    old_widget: Displayable | None
+    new_widget: Displayable | None
     events: bool
     def __init__(
-        self, time, old_widget=None, new_widget=None, alpha: bool = False, time_warp=None, **properties
+        self,
+        time: float,
+        old_widget: Displayable | None = None,
+        new_widget: Displayable | None = None,
+        alpha: bool = False,
+        time_warp: Warper | None = None,
+        **properties,
     ) -> None: ...
-    def render(self, width, height, st, at): ...
+    def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
 class ImageDissolve(Transition):
     __version__: int
     alpha: bool
-    def after_upgrade(self, version) -> None: ...
-    time_warp: Incomplete
-    old_widget: Incomplete
-    new_widget: Incomplete
+    def after_upgrade(self, version: int) -> None: ...
+    time_warp: Warper | None
+    old_widget: Displayable | None
+    new_widget: Displayable | None
     events: bool
-    image: Incomplete
-    ramplen: Incomplete
+    image: Displayable
+    ramplen: int
     def __init__(
         self,
-        image,
-        time,
+        image: ImageLike,
+        time: float,
         ramplen: int = 8,
         ramptype: str = "linear",
-        ramp=None,
+        ramp: list | None = None,
         reverse: bool = False,
         alpha: bool = False,
-        old_widget=None,
-        new_widget=None,
-        time_warp=None,
+        old_widget: Displayable | None = None,
+        new_widget: Displayable | None = None,
+        time_warp: Warper | None = None,
         **properties,
     ) -> None: ...
-    def visit(self): ...
-    def render(self, width, height, st, at): ...
+    def visit(self) -> list[Displayable | None]: ...
+    def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
 class AlphaDissolve(Transition):
-    mipmap: Incomplete
-    control: Incomplete
-    old_widget: Incomplete
-    new_widget: Incomplete
+    mipmap: Unused
+    control: renpy.display.layout.MultiBox
+    old_widget: Displayable | None
+    new_widget: Displayable | None
     events: bool
-    alpha: Incomplete
-    reverse: Incomplete
+    alpha: bool
+    reverse: bool
     def __init__(
         self,
-        control,
+        control: DisplayableLike,
         delay: float = 0.0,
-        old_widget=None,
-        new_widget=None,
+        old_widget: Displayable | None = None,
+        new_widget: Displayable | None = None,
         alpha: bool = False,
         reverse: bool = False,
         **properties,
     ) -> None: ...
-    def visit(self): ...
-    def render(self, width, height, st, at): ...
+    def visit(self) -> list[Displayable | None]: ...
+    def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
-def interpolate_tuple(t0, t1, time, scales): ...
+@overload
+def interpolate_tuple[T](t0: tuple[T], t1: tuple[T], time: float, scales: tuple[float, ...]) -> tuple[T]: ...
+@overload
+def interpolate_tuple[T](t0: tuple[T, T], t1: tuple[T, T], time: float, scales: tuple[float, ...]) -> tuple[T, T]: ...
+@overload
+def interpolate_tuple[T](
+    t0: tuple[T, T, T], t1: tuple[T, T, T], time: float, scales: tuple[float, ...]
+) -> tuple[T, T, T]: ...
+@overload
+def interpolate_tuple[T](
+    t0: tuple[T, T, T, T], t1: tuple[T, T, T, T], time: float, scales: tuple[float, ...]
+) -> tuple[T, T, T, T]: ...
 
 class CropMove(Transition):
-    time: Incomplete
-    delay: Incomplete
-    startpos: Incomplete
-    endpos: Incomplete
-    startcrop: Incomplete
-    endcrop: Incomplete
-    topnew: Incomplete
-    old_widget: Incomplete
-    new_widget: Incomplete
+    time: float
+    delay: float
+    startpos: tuple[float, float]
+    endpos: tuple[float, float]
+    startcrop: tuple[float, float, float, float]
+    endcrop: tuple[float, float, float, float]
+    topnew: bool
+    old_widget: Displayable | None
+    new_widget: Displayable | None
     events: bool
-    bottom: Incomplete
-    top: Incomplete
+    bottom: Displayable | None
+    top: Displayable | None
     def __init__(
         self,
-        time,
+        time: float,
         mode: str = "slideright",
-        startcrop=(0.0, 0.0, 0.0, 1.0),
-        startpos=(0.0, 0.0),
-        endcrop=(0.0, 0.0, 1.0, 1.0),
-        endpos=(0.0, 0.0),
+        startcrop: tuple[float, float, float, float] = (0.0, 0.0, 0.0, 1.0),
+        startpos: tuple[float, float] = (0.0, 0.0),
+        endcrop: tuple[float, float, float, float] = (0.0, 0.0, 1.0, 1.0),
+        endpos: tuple[float, float] = (0.0, 0.0),
         topnew: bool = True,
-        old_widget=None,
-        new_widget=None,
+        old_widget: Displayable | None = None,
+        new_widget: Displayable | None = None,
         **properties,
     ) -> None: ...
-    def render(self, width, height, st, at): ...
+    def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
 class PushMove(Transition):
-    time: Incomplete
-    new_startpos: Incomplete
-    new_startcrop: Incomplete
-    new_endpos: Incomplete
-    new_endcrop: Incomplete
-    old_endpos: Incomplete
-    old_endcrop: Incomplete
-    old_startpos: Incomplete
-    old_startcrop: Incomplete
-    delay: Incomplete
-    old_widget: Incomplete
-    new_widget: Incomplete
+    time: float
+    new_startpos: tuple[float, float]
+    new_startcrop: tuple[float, float, float, float]
+    new_endpos: tuple[float, float]
+    new_endcrop: tuple[float, float, float, float]
+    old_endpos: tuple[float, float]
+    old_endcrop: tuple[float, float, float, float]
+    old_startpos: tuple[float, float]
+    old_startcrop: tuple[float, float, float, float]
+    delay: float
+    old_widget: Displayable | None
+    new_widget: Displayable | None
     events: bool
-    def __init__(self, time, mode: str = "pushright", old_widget=None, new_widget=None, **properties) -> None: ...
-    def render(self, width, height, st, at): ...
+    def __init__(
+        self,
+        time: float,
+        mode: str = "pushright",
+        old_widget: Displayable | None = None,
+        new_widget: Displayable | None = None,
+        **properties,
+    ) -> None: ...
+    def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
-def ComposeTransition(trans, before=None, after=None, new_widget=None, old_widget=None): ...
-def SubTransition(rect, trans, old_widget=None, new_widget=None, **properties): ...
+def ComposeTransition(
+    trans: TransitionFunction,
+    before: TransitionFunction | None = None,
+    after: TransitionFunction | None = None,
+    new_widget: Displayable | None = None,
+    old_widget: Displayable | None = None,
+) -> Displayable: ...
+def SubTransition(
+    rect,
+    trans: TransitionFunction,
+    old_widget: Displayable | None = None,
+    new_widget: Displayable | None = None,
+    **properties,
+) -> NoTransition: ...
