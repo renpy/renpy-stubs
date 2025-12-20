@@ -31,7 +31,7 @@ predict_statements: int
 debug_image_cache: bool
 allow_skipping: bool
 fast_skipping: bool
-skipping: Literal["slow", "fast"] | None
+skipping: Literal["slow", "fast", None]
 skip_delay: int
 archives: Incomplete
 searchpath: Incomplete
@@ -324,7 +324,7 @@ preserve_volume_when_muted: bool
 def say_attribute_transition_callback(*args): ...
 
 say_attribute_transition_callback_attrs: bool
-notify: Incomplete
+notify: Callable[[str], None] | None
 keyword_after_python: bool
 load_failed_label: Incomplete
 equal_mono: bool
