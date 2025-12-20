@@ -33,7 +33,7 @@ class Node:
 
 class Block(Node):
     block: Incomplete
-    name: Incomplete
+    name: str
     def __init__(self, loc: NodeLocation, block: list[Node], name: str = "") -> None: ...
     next: Incomplete
     def chain(self, next) -> None: ...

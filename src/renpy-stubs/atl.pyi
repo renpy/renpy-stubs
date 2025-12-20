@@ -5,7 +5,7 @@ from renpy.pyanalysis import Analysis as Analysis, GLOBAL_CONST as GLOBAL_CONST,
 from renpy.types import Unused
 from typing import Any, Callable, Literal, TypeVar, overload
 
-type NodeLocation = tuple[str, int]
+type NodeLocation = renpy.ast.NodeLocation
 type Lexer = renpy.lexer.Lexer
 type BlockState = tuple[int, int, int, int, list[tuple[float, int]], Any | None]
 type Warper = Callable[[float], float]
