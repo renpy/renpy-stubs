@@ -59,7 +59,7 @@ class Context(renpy.object.Object):
     translate_identifier: Incomplete
     say_attributes: Incomplete
     line_log: Incomplete
-    movie: Incomplete
+    movie: dict[str, renpy.display.video.Movie]
     abnormal_stack: Incomplete
     alternate_translate_identifier: Incomplete
     def after_upgrade(self, version) -> None: ...
