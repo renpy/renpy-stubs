@@ -4,8 +4,9 @@ import contextlib
 import dataclasses
 from _typeshed import Incomplete as Incomplete
 from types import FrameType, TracebackType
-from typing import Any, Iterator, NotRequired, Protocol, TextIO, TypedDict, Unpack
+from typing import Any, Iterator, NotRequired, Protocol, TextIO, TypedDict, Unpack, type_check_only
 
+@type_check_only
 class HasReportTraceback(Protocol):
     def report_traceback(self, name: str, last: bool, frame: FrameType) -> list["FrameSummary"] | None: ...
 

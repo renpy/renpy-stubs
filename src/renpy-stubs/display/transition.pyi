@@ -5,10 +5,11 @@ from renpy.display.displayable import Displayable as Displayable, Placement as P
 from renpy.display.im import ImageLike as ImageLike
 from renpy.display.render import Render as Render, render as render
 from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
-from typing import Any, Protocol, overload
+from typing import Any, Protocol, overload, type_check_only
 
 type Warper = renpy.atl.Warper
 
+@type_check_only
 class TransitionFunction(Protocol):
     def __call__(self, old_widget: Displayable | None, new_widget: Displayable | None) -> Transition: ...
 

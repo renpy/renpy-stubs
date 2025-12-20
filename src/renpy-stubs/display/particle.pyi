@@ -8,11 +8,13 @@ from renpy.object import Object as Object
 from renpy.pygame.event import EventType as EventType
 from renpy.rollback import NoRollback as NoRollback
 from renpy.types import DisplayableLike as DisplayableLike
-from typing import Any, Callable, Protocol
+from typing import Any, Callable, Protocol, type_check_only
 
+@type_check_only
 class ParticleProtocol(Protocol):
     def update(self, st: float) -> tuple[int, int, float, DisplayableLike] | None: ...
 
+@type_check_only
 class ParticleFactoryProtocol(Protocol):
     def create(
         self, particles: list[tuple["Sprite", ParticleProtocol]], st: float
