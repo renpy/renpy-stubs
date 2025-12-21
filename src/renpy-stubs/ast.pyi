@@ -59,7 +59,7 @@ class Scry:
     def __reduce__(self) -> None: ...
     def next(self) -> Scry | None: ...
 
-type NodeName = "str | tuple[Any, ...] | None"
+type NodeName = "str | tuple[str, int, int] | tuple[Any, ...] | None"
 type RollbackType = Literal["normal", "never", "force"]
 type SignedInt = int
 

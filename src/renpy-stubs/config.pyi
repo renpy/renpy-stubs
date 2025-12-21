@@ -104,7 +104,7 @@ reject_backslash: bool
 mouse_hide_time: int
 missing_image_callback: Callable[[str], renpy.display.im.ImageBase | None] | None
 say_menu_text_filter: Incomplete
-label_overrides: Incomplete
+label_overrides: dict[renpy.ast.NodeName, renpy.ast.NodeName]
 auto_save_extra_info: Incomplete
 save_directory: str | None
 missing_scene: Incomplete
@@ -195,7 +195,7 @@ log_to_stdout: Incomplete
 custom_text_tags: Incomplete
 self_closing_custom_text_tags: Incomplete
 replace_text: Incomplete
-missing_label_callback: Incomplete
+missing_label_callback: Callable[[renpy.ast.NodeName], renpy.ast.NodeName | None] | None
 preserve_zorder: bool
 lint_ignore_replaces: Incomplete
 minimum_presplash_time: float
