@@ -95,7 +95,7 @@ all_character_callbacks: Incomplete
 has_autosave: bool
 autosave_slots: int
 autosave_frequency: Incomplete
-scene: Incomplete
+scene: Callable[[str | None], None] | None
 show: Incomplete
 hide: Incomplete
 use_cpickle: bool

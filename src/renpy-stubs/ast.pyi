@@ -271,10 +271,10 @@ class Camera(Node):
 class Scene(Node):
     imspec: ImspecType
     atl: renpy.atl.RawBlock | None
-    layer: str
+    layer: str | None
     warp: bool
     def __init__(
-        self, loc: NodeLocation, imgspec: ImspecType, layer: str, atl: renpy.atl.RawBlock | None = None
+        self, loc: NodeLocation, imgspec: ImspecType, layer: str | None, atl: renpy.atl.RawBlock | None = None
     ) -> None: ...
     def diff_info(self) -> tuple[type, tuple[str, ...] | None]: ...
     def execute(self) -> None: ...
@@ -589,8 +589,8 @@ class TranslatePython(Node):
 class TranslateBlock(Node):
     translation_relevant: bool
     block: list[Node]
-    language: str
-    def __init__(self, loc: NodeLocation, language: str, block: list[Node]) -> None: ...
+    language: str | None
+    def __init__(self, loc: NodeLocation, language: str | None, block: list[Node]) -> None: ...
     def get_children(self, f: Callable[[Node], Any]) -> None: ...
     next: Node | None
     def chain(self, next: Node | None) -> None: ...
