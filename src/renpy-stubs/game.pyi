@@ -1,57 +1,58 @@
+import argparse
 import renpy
-from _typeshed import Incomplete as Incomplete
 from renpy.display.core import Interface as Interface
 from renpy.execution import Context as Context
 from renpy.rollback import RollbackLog as RollbackLog
 from renpy.script import Script as Script
+from renpy.types import Unused as Unused
 from types import TracebackType
-from typing import Any
+from typing import Any, Callable
 
-basepath: Incomplete
-searchpath: Incomplete
-args: Any
+basepath: str | None
+searchpath: Unused
+args: argparse.Namespace | None
 script: Script | None
-contexts: Incomplete
+contexts: list["Context"]
 interface: Interface | None
 lint: bool
 log: RollbackLog | None
 exception_info: str
-style: Incomplete
-seen_session: dict[Any, bool]
+style: renpy.style.StyleManager | None
+seen_session: dict[renpy.ast.NodeName, bool]
 seen_translates_count: int
 new_translates_count: int
 after_rollback: bool
-post_init: Incomplete
+post_init: list[Callable[[None], None]]
 less_memory: bool
 less_updates: bool
 less_mouse: bool
 less_imagedissolve: bool
-persistent: Any
-preferences: Any
+persistent: renpy.persistent.Persistent | None
+preferences: renpy.preferences.Preferences | None
 initcode_ast_id: int
 build_info: dict[str, Any]
 
 class ExceptionInfo:
-    s: Incomplete
-    args: Incomplete
-    def __init__(self, s, args=()) -> None: ...
+    s: str
+    args: tuple[Any]
+    def __init__(self, s: str, args: tuple[Any] = ()) -> None: ...
     def __enter__(self) -> None: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ): ...
+    ) -> bool: ...
 
 class RestartContext(Exception): ...
 class RestartTopContext(Exception): ...
 
 class FullRestartException(Exception):
-    reason: Incomplete
+    reason: str
     def __init__(self, reason: str = "end_game") -> None: ...
 
 class UtterRestartException(Exception): ...
 
 class QuitException(Exception):
-    relaunch: Incomplete
-    status: Incomplete
+    relaunch: bool
+    status: int
     def __init__(self, relaunch: bool = False, status: int = 0) -> None: ...
 
 class JumpException(Exception): ...
@@ -59,18 +60,20 @@ class JumpOutException(Exception): ...
 
 class CallException(Exception):
     from_current: bool
-    label: Incomplete
-    args: Incomplete
-    kwargs: Incomplete
-    def __init__(self, label, args, kwargs, from_current: bool = False) -> None: ...
+    label: renpy.ast.NodeName
+    args: tuple[Any]
+    kwargs: dict[str, Any]
+    def __init__(
+        self, label: renpy.ast.NodeName, args: tuple[Any], kwargs: dict[str, Any], from_current: bool = False
+    ) -> None: ...
     def __reduce__(self): ...
 
 class EndReplay(Exception): ...
 class ParseErrorException(Exception): ...
 
-CONTROL_EXCEPTIONS: Incomplete
+CONTROL_EXCEPTIONS: tuple[type[BaseException], ...]
 
 def context(index: int = -1) -> renpy.execution.Context: ...
-def invoke_in_new_context(callable, *args, **kwargs): ...
-def call_in_new_context(label, *args, **kwargs): ...
-def call_replay(label, scope={}) -> None: ...
+def invoke_in_new_context(callable: Callable[..., Any], *args, **kwargs) -> Any: ...
+def call_in_new_context(label: renpy.ast.NodeName, *args, **kwargs) -> Any | None: ...
+def call_replay(label: renpy.ast.NodeName, scope: dict[str, Any] = {}) -> None: ...
