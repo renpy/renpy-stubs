@@ -1,12 +1,10 @@
-from _typeshed import Incomplete as Incomplete
+definitions: list[tuple[str, str, int]]
+transforms: list[tuple[str, str, int]]
+screens: list[tuple[str, str, int]]
+file_exists_cache: dict[str, bool]
 
-definitions: Incomplete
-transforms: Incomplete
-screens: Incomplete
-file_exists_cache: Incomplete
-
-def file_exists(fn): ...
+def file_exists(fn: str) -> bool: ...
 
 completed_dump: bool
 
-def dump(error): ...
+def dump(error: bool) -> None: ...

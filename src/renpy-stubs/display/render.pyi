@@ -2,7 +2,6 @@ import renpy as renpy
 import threading as threading
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from _typeshed import Incomplete as Incomplete
-from renpy.display.core import Displayable as Displayable
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.matrix import Matrix as Matrix, Matrix2D as Matrix2D
 from renpy.display.screen import ScreenDisplayable as ScreenDisplayable

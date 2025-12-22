@@ -1,6 +1,5 @@
 import renpy as renpy
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from renpy.display.displayable import Displayable as Displayable
 
 class BlitInfo:
     def __init__(self, reverse: Matrix, forward: Matrix, mesh_info: MeshInfo) -> None: ...
