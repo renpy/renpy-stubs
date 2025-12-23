@@ -22,7 +22,7 @@ seen_session: dict[renpy.ast.NodeName, bool]
 seen_translates_count: int
 new_translates_count: int
 after_rollback: bool
-post_init: list[Callable[[None], None]]
+post_init: list[Callable[[], None]]
 less_memory: bool
 less_updates: bool
 less_mouse: bool

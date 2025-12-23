@@ -52,7 +52,7 @@ class Displayable(renpy.object.Object):
         self,
         focus: str | None = None,
         default: bool = False,
-        style: str = "default",
+        style: renpy.style.StyleLike = "default",
         _args: DisplayableArguments | None = None,
         tooltip: Any | None = None,
         default_focus: bool = False,

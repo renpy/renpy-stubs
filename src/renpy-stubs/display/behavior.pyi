@@ -6,6 +6,7 @@ from renpy.display.render import Render as Render, render as render
 from renpy.object import Object as Object
 from renpy.pygame.event import EventType as EventType
 from renpy.python import AlwaysRollback as AlwaysRollback
+from renpy.style import StyleLike
 from renpy.text.text import Text as Text
 from renpy.types import DisplayableLike as DisplayableLike
 from typing import Any, Callable, Sequence, Literal, Self
@@ -26,7 +27,7 @@ def map_keyup(ev: EventType, keysym: KeysymType) -> bool: ...
 def skipping(ev: EventType) -> None: ...
 def inspector(ev: EventType) -> bool: ...
 def predict_action(var: ActionType) -> None: ...
-def run(action: ActionType, *args, **kwargs) -> Any: ...
+def run(action: ActionType | None, *args, **kwargs) -> Any: ...
 def run_unhovered(var: ActionType) -> None: ...
 def run_periodic(var: ActionType, st: float) -> Any: ...
 def get_tooltip(action: ActionType) -> Any | None: ...
@@ -37,13 +38,13 @@ def alt(clicked: ActionType) -> str | None: ...
 class Keymap(renpy.display.layout.Null):
     capture: bool
     _box_skip: bool
-    keymap: Incomplete
+    keymap: dict[str, Callable[..., Any | None] | None]
     def __init__(
         self,
         replaces: Self | None = None,
         activate_sound: str | None = None,
         capture: bool = True,
-        **keymap: Callable[..., Any | None],
+        **keymap: Callable[..., Any | None] | None,
     ) -> None: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
     def predict_one_action(self) -> None: ...
@@ -142,7 +143,7 @@ class Button(renpy.display.layout.Window):
     def __init__(
         self,
         child: DisplayableLike | None = None,
-        style: str = "button",
+        style: StyleLike = "button",
         clicked: ActionType = None,
         hovered: ActionType = None,
         unhovered: ActionType = None,
@@ -173,7 +174,7 @@ class Button(renpy.display.layout.Window):
     def _tts_all(self, raw: bool) -> str: ...
 
 def TextButton(
-    text, style: str = "button", text_style: str = "button_text", clicked: ActionType = None, **properties
+    text, style: StyleLike = "button", text_style: StyleLike = "button_text", clicked: ActionType = None, **properties
 ) -> Button: ...
 
 class ImageButton(Button):
@@ -190,7 +191,7 @@ class ImageButton(Button):
         selected_hover_image: DisplayableLike | None = None,
         selected_insensitive_image: DisplayableLike | None = None,
         selected_activate_image: DisplayableLike | None = None,
-        style: str = "image_button",
+        style: StyleLike = "image_button",
         clicked: ActionType = None,
         hovered: ActionType = None,
         **properties,
@@ -249,7 +250,7 @@ class Input(renpy.text.text.Text):
         self,
         default: str | None = "",
         length: int | None = None,
-        style: str = "input",
+        style: StyleLike = "input",
         allow: str | None = None,
         exclude: str | None = None,
         prefix: str = "",
@@ -357,7 +358,7 @@ class Bar(renpy.display.displayable.Displayable):
         step: int | float | None = None,
         page: int | float | None = None,
         bar=None,
-        style: str | None = None,
+        style: StyleLike = None,
         vertical: bool = False,
         replaces: Self | None = None,
         hovered: ActionType = None,

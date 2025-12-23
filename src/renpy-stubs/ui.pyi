@@ -1,246 +1,389 @@
 import renpy
-from _typeshed import Incomplete as Incomplete
 from renpy.display.behavior import Adjustment as Adjustment, is_selected as is_selected, is_sensitive as is_sensitive
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.layout import Container as Container
 from renpy.display.screen import ScreenDisplayable as ScreenDisplayable
 from renpy.object import Object as Object
+from renpy.style import StyleLike as StyleLike
+from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
+from typing import Any, Callable, Never, TypeVar
 
-k: Incomplete
-v: Incomplete
+T = TypeVar("T", bound=Displayable)
 
 class Action(renpy.object.Object):
     alt: str | None
-    def get_sensitive(self): ...
-    def get_selected(self): ...
-    def get_tooltip(self) -> None: ...
-    def periodic(self, st: float) -> None: ...
+    def get_sensitive(self) -> bool: ...
+    def get_selected(self) -> bool: ...
+    def get_tooltip(self) -> Any | None: ...
+    def periodic(self, st: float) -> float | None: ...
     def predict(self) -> None: ...
-    def __call__(self) -> None: ...
+    def __call__(self) -> Any | None: ...
 
 class BarValue(renpy.object.Object):
     alt: str
     force_step: bool
-    def replaces(self, other) -> None: ...
-    def periodic(self, st) -> None: ...
+    def replaces(self, other: object) -> None: ...
+    def periodic(self, st: float) -> float | None: ...
     def get_adjustment(self) -> Adjustment: ...
-    def get_style(self): ...
-    def get_tooltip(self) -> None: ...
+    def get_style(self) -> tuple[str, str]: ...
+    def get_tooltip(self) -> Any | None: ...
 
 class Addable:
-    style_prefix: Incomplete
-    def add(self, d, key) -> None: ...
-    def close(self, d) -> None: ...
-    def get_layer(self): ...
+    style_prefix: str | None
+    def add(self, d: Displayable, key: str | None) -> None: ...
+    def close(self, d: Displayable | None) -> None: ...
+    def get_layer(self) -> str: ...
 
 class Layer(Addable):
-    name: Incomplete
-    def __init__(self, name) -> None: ...
-    def add(self, d, key) -> None: ...
-    def close(self, d) -> None: ...
-    def get_layer(self): ...
+    name: str
+    def __init__(self, name: str) -> None: ...
+    def add(self, d: Displayable, key: str | None) -> None: ...
+    def close(self, d: Displayable | None) -> None: ...
+    def get_layer(self) -> str: ...
+    def __repr__(self) -> str: ...
 
 class Many(Addable):
-    displayable: Incomplete
-    imagemap: Incomplete
-    style_prefix: Incomplete
-    def __init__(self, displayable, imagemap, style_prefix) -> None: ...
-    def add(self, d, key) -> None: ...
-    def close(self, d) -> None: ...
+    displayable: Container
+    imagemap: bool | None
+    style_prefix: str | None
+    def __init__(self, displayable: Container, imagemap: bool | None, style_prefix: str | None) -> None: ...
+    def add(self, d: Displayable, key: str | None) -> None: ...
+    def close(self, d: Displayable | None) -> None: ...
+    def __repr__(self) -> str: ...
 
 class One(Addable):
-    displayable: Incomplete
-    style_prefix: Incomplete
-    def __init__(self, displayable, style_prefix) -> None: ...
-    def add(self, d, key) -> None: ...
-    def close(self, d) -> None: ...
+    displayable: Container
+    style_prefix: str | None
+    def __init__(self, displayable: Container, style_prefix: str | None) -> None: ...
+    def add(self, d: Displayable, key: str | None) -> None: ...
+    def close(self, d: Displayable | None) -> None: ...
+    def __repr__(self) -> str: ...
 
 class Detached(Addable):
-    style_prefix: Incomplete
-    def __init__(self, style_prefix) -> None: ...
-    child: Incomplete
-    def add(self, d, key) -> None: ...
-    def close(self, d) -> None: ...
+    style_prefix: str | None
+    def __init__(self, style_prefix: str | None) -> None: ...
+    child: Displayable
+    def add(self, d: Displayable, key: str | None) -> None: ...
+    def close(self, d: Displayable | None) -> None: ...
 
 class ChildOrFixed(Addable):
-    queue: Incomplete
-    style_prefix: Incomplete
-    def __init__(self, style_prefix) -> None: ...
-    def add(self, d, key) -> None: ...
-    def close(self, d) -> None: ...
+    queue: list[Displayable]
+    style_prefix: str | None
+    def __init__(self, style_prefix: str | None) -> None: ...
+    def add(self, d: Displayable, key: str | None) -> None: ...
+    def close(self, d: Displayable | None) -> None: ...
 
 stack: list[Addable]
-at_stack: Incomplete
-add_tag: Incomplete
-imagemap_stack: Incomplete
+at_stack: list[renpy.display.transform.Transform]
+add_tag: str | None
+imagemap_stack: list["Imagemap"]
 
 def reset() -> None: ...
-def interact(type: str = "misc", roll_forward=None, **kwargs): ...
-def tag(name) -> None: ...
+def interact(type: str = "misc", roll_forward: Any | None = None, **kwargs) -> Any | None: ...
+def tag(name: str | None) -> None: ...
 def child_or_fixed() -> None: ...
-def remove(d) -> None: ...
-def remove_above(d) -> None: ...
-def at(transform) -> None: ...
+def remove(d: str | Displayable | None) -> None: ...
+def remove_above(d: str | Displayable) -> None: ...
+def at(transform: renpy.display.transform.Transform) -> None: ...
 def clear() -> None: ...
-def detached(): ...
-def layer(name) -> None: ...
-def close(d=None) -> None: ...
-def reopen(w, clear) -> None: ...
-def context_enter(w) -> None: ...
-def context_exit(w) -> None: ...
+def detached() -> Detached: ...
+def layer(name: str) -> None: ...
+def close(d: Displayable | None = None) -> None: ...
+def reopen(w: Container, clear: bool) -> None: ...
+def context_enter(w: Container) -> None: ...
+def context_exit(w: Displayable | None) -> None: ...
 
-NoStylePrefixGiven: Incomplete
+NoStylePrefixGiven: Unused
 
-def combine_style(style_prefix, style_suffix): ...
-def prefixed_style(style_suffix): ...
+def combine_style(style_prefix: str | None, style_suffix: str) -> renpy.style.StyleCore: ...
+def prefixed_style(style_suffix: str) -> renpy.style.StyleCore: ...
 
 screen: ScreenDisplayable | None
 
-class Wrapper(renpy.object.Object):
-    def __reduce__(self): ...
+class Wrapper[T: Displayable](renpy.object.Object):
+    def __reduce__(self) -> str: ...
     name: str
-    function: Incomplete
-    one: Incomplete
-    many: Incomplete
-    imagemap: Incomplete
-    replaces: Incomplete
-    kwargs: Incomplete
-    style: Incomplete
+    function: Callable[..., T]
+    one: bool
+    many: bool
+    imagemap: bool
+    replaces: bool
+    kwargs: dict[str, Any]
+    style: str | None
     def __init__(
         self,
-        function,
+        function: Callable[..., T],
         one: bool = False,
         many: bool = False,
         imagemap: bool = False,
         replaces: bool = False,
-        style=None,
+        style: str | None = None,
         **kwargs,
     ) -> None: ...
-    def __call__(self, *args, **kwargs): ...
+    def __call__(self, *args, **kwargs) -> T: ...
 
-add: Incomplete
-implicit_add: Incomplete
-image: Incomplete
-null: Incomplete
-text: Incomplete
-hbox: Incomplete
-vbox: Incomplete
-fixed: Incomplete
-default_fixed: Incomplete
-grid: Incomplete
-side: Incomplete
-sizer: Incomplete
-window: Incomplete
-frame: Incomplete
-keymap: Incomplete
-saybehavior: Incomplete
-pausebehavior: Incomplete
-soundstopbehavior: Incomplete
-key: Incomplete
+def _add(d: DisplayableLike, **kwargs) -> Displayable | renpy.display.transform.Transform: ...
+
+add: Wrapper[Displayable | renpy.display.transform.Transform]
+
+def _implicit_add(d: Displayable) -> Displayable: ...
+
+implicit_add: Wrapper[Displayable]
+
+def _image(im: renpy.display.im.ImageLike, **properties) -> renpy.display.im.ImageBase: ...
+
+image: Wrapper[renpy.display.im.ImageBase]
+null: Wrapper[renpy.display.layout.Null]
+text: Wrapper[renpy.text.text.Text]
+hbox: Wrapper[renpy.display.layout.MultiBox]
+vbox: Wrapper[renpy.display.layout.MultiBox]
+fixed: Wrapper[renpy.display.layout.MultiBox]
+default_fixed: Wrapper[renpy.display.layout.MultiBox]
+grid: Wrapper[renpy.display.layout.Grid]
+side: Wrapper[renpy.display.layout.Side]
+
+def _sizer(
+    maxwidth: float | None = None, maxheight: float | None = None, **properties
+) -> renpy.display.layout.Container: ...
+
+sizer: Wrapper[Displayable]
+window: Wrapper[renpy.display.layout.Window]
+frame: Wrapper[renpy.display.layout.Window]
+keymap: Wrapper[renpy.display.behavior.Keymap]
+saybehavior: Wrapper[renpy.display.behavior.SayBehavior]
+pausebehavior: Wrapper[renpy.display.behavior.PauseBehavior]
+soundstopbehavior: Wrapper[renpy.display.behavior.SoundStopBehavior]
+
+def _key(
+    key: renpy.display.behavior.KeysymType,
+    action: Callable[..., Any | None] | None = None,
+    activate_sound: str | None = None,
+    capture: bool = True,
+) -> renpy.display.behavior.Keymap: ...
+
+key: Wrapper[renpy.display.behavior.Keymap]
 
 class ChoiceActionBase(Action):
     sensitive: bool
-    label: Incomplete
-    value: Incomplete
-    location: Incomplete
-    block_all: Incomplete
-    args: Incomplete
-    kwargs: Incomplete
+    label: str
+    value: Any
+    location: renpy.ast.NodeName | None
+    block_all: bool
+    args: tuple[Any, ...] | None
+    kwargs: dict[str, Any] | None
     def __init__(
-        self, label, value, location=None, block_all=None, sensitive: bool = True, args=None, kwargs=None
+        self,
+        label: str,
+        value: Any,
+        location: renpy.ast.NodeName | None = None,
+        block_all: bool | None = None,
+        sensitive: bool = True,
+        args: tuple[Any, ...] | None = None,
+        kwargs: dict[str, Any] | None = None,
     ) -> None: ...
-    def get_sensitive(self): ...
-    def get_selected(self): ...
+    def get_sensitive(self) -> bool: ...
+    def get_selected(self) -> bool: ...
     @property
-    def chosen(self): ...
-    def get_chosen(self): ...
+    def chosen(self) -> dict[tuple[renpy.ast.NodeName, str], bool] | None: ...
+    def get_chosen(self) -> bool: ...
 
 class ChoiceReturn(ChoiceActionBase):
-    def __call__(self): ...
+    def __call__(self) -> Any: ...
 
 class ChoiceJump(ChoiceActionBase):
-    def get_selected(self): ...
-    def __call__(self) -> None: ...
+    def get_selected(self) -> bool: ...
+    def __call__(self) -> Never: ...
 
 class Choice:
-    value: Incomplete
-    args: Incomplete
-    kwargs: Incomplete
-    def __init__(self, _value, *args, **kwargs) -> None: ...
+    value: Any
+    args: tuple[Any, ...] | None
+    kwargs: dict[str, Any] | None
+    def __init__(self, _value: Any, *args, **kwargs) -> None: ...
 
 def menu(
-    menuitems,
+    menuitems: list[tuple[str, Any | None]],
     style: str = "menu",
     caption_style: str = "menu_caption",
     choice_style: str = "menu_choice",
     choice_chosen_style: str = "menu_choice_chosen",
     choice_button_style: str = "menu_choice_button",
     choice_chosen_button_style: str = "menu_choice_chosen_button",
-    location=None,
-    focus=None,
+    location: renpy.ast.NodeName | None = None,
+    focus: str | None = None,
     default: bool = False,
     **properties,
 ) -> None: ...
 
-input: Incomplete
+input: Wrapper[renpy.display.behavior.Input]
 
 def imagemap_compat(
-    ground, selected, hotspots, unselected=None, style: str = "imagemap", button_style: str = "hotspot", **properties
+    ground: DisplayableLike,
+    selected: DisplayableLike,
+    hotspots: list[tuple[float, float, float, float, str | None]],
+    unselected: DisplayableLike | None = None,
+    style: renpy.style.StyleLike = "imagemap",
+    button_style: renpy.style.StyleLike = "hotspot",
+    **properties,
 ) -> None: ...
 
-button: Incomplete
-imagebutton: Incomplete
-textbutton: Incomplete
-label: Incomplete
+button: Wrapper[renpy.display.behavior.Button]
+
+def _imagebutton(
+    idle_image: DisplayableLike | None = None,
+    hover_image: DisplayableLike | None = None,
+    insensitive_image: DisplayableLike | None = None,
+    activate_image: DisplayableLike | None = None,
+    selected_idle_image: DisplayableLike | None = None,
+    selected_hover_image: DisplayableLike | None = None,
+    selected_insensitive_image: DisplayableLike | None = None,
+    selected_activate_image: DisplayableLike | None = None,
+    idle: DisplayableLike | None = None,
+    hover: DisplayableLike | None = None,
+    insensitive: DisplayableLike | None = None,
+    selected_idle: DisplayableLike | None = None,
+    selected_hover: DisplayableLike | None = None,
+    selected_insensitive: DisplayableLike | None = None,
+    image_style: Unused | None = None,
+    auto: str | None = None,
+    **properties,
+) -> renpy.display.behavior.ImageButton: ...
+
+imagebutton: Wrapper[renpy.display.behavior.ImageButton]
+
+def _textbutton(
+    label: DisplayableLike,
+    clicked: renpy.display.behavior.ActionType = None,
+    style: StyleLike = None,
+    text_style: StyleLike = None,
+    substitute: bool = True,
+    scope: dict[str, Any] | None = None,
+    **kwargs,
+) -> renpy.display.behavior.Button: ...
+
+textbutton: Wrapper[renpy.display.behavior.Button]
+
+def _label(
+    label: DisplayableLike,
+    style: StyleLike = None,
+    text_style: StyleLike = None,
+    substitute: bool = True,
+    scope: dict[str, Any] | None = None,
+    **kwargs,
+) -> renpy.display.layout.Window: ...
+
+label: Wrapper[renpy.display.layout.Window]
 adjustment = renpy.display.behavior.Adjustment
-bar: Incomplete
-vbar: Incomplete
-slider: Incomplete
-vslider: Incomplete
-scrollbar: Incomplete
-vscrollbar: Incomplete
-autobar_interpolate: Incomplete
-autobar: Incomplete
-transform: Incomplete
+
+def _bar(*args, **properties) -> renpy.display.behavior.Bar: ...
+
+bar: Wrapper[renpy.display.behavior.Bar]
+vbar: Wrapper[renpy.display.behavior.Bar]
+slider: Wrapper[renpy.display.behavior.Bar]
+vslider: Wrapper[renpy.display.behavior.Bar]
+scrollbar: Wrapper[renpy.display.behavior.Bar]
+vscrollbar: Wrapper[renpy.display.behavior.Bar]
+
+def _autobar_interpolate(
+    range, start, end, time, st: float, at: float, **properties
+) -> tuple[renpy.display.behavior.Bar, float | None]: ...
+
+autobar_interpolate: renpy.curry.Partial[renpy.display.layout.DynamicDisplayableFunction]
+
+def _autobar(range, start, end, time, **properties) -> renpy.display.layout.DynamicDisplayable: ...
+
+autobar: Wrapper[renpy.display.layout.DynamicDisplayable]
+transform: Wrapper[renpy.display.motion.Transform]
+_viewport: Wrapper[renpy.display.viewport.Viewport]
+_vpgrid: Wrapper[renpy.display.viewport.VPGrid]
 VIEWPORT_SIZE: int
 
-def viewport_common(vpfunc, _spacing_to_side, scrollbars=None, **properties): ...
-def viewport(**properties): ...
-def vpgrid(**properties): ...
+def viewport_common(vpfunc: Wrapper[T], _spacing_to_side: bool, scrollbars: str | None = None, **properties) -> T: ...
+def viewport(**properties) -> renpy.display.viewport.Viewport: ...
+def vpgrid(**properties) -> renpy.display.viewport.VPGrid: ...
 
-conditional: Incomplete
-timer: Incomplete
-drag: Incomplete
-draggroup: Incomplete
-mousearea: Incomplete
+conditional: Wrapper[renpy.display.behavior.Conditional]
+timer: Wrapper[renpy.display.behavior.Timer]
+drag: Wrapper[renpy.display.dragdrop.Drag]
+draggroup: Wrapper[renpy.display.dragdrop.DragGroup]
+mousearea: Wrapper[renpy.display.behavior.MouseArea]
 
 class Imagemap:
     alpha: bool
     cache_param: bool
-    insensitive: Incomplete
-    idle: Incomplete
-    selected_idle: Incomplete
-    hover: Incomplete
-    selected_hover: Incomplete
-    selected_insensitive: Incomplete
-    cache: Incomplete
+    insensitive: DisplayableLike
+    idle: DisplayableLike
+    selected_idle: DisplayableLike
+    hover: DisplayableLike
+    selected_hover: DisplayableLike
+    selected_insensitive: DisplayableLike
+    cache: bool
     def __init__(
-        self, insensitive, idle, selected_idle, hover, selected_hover, selected_insensitive, alpha, cache
+        self,
+        insensitive: DisplayableLike,
+        idle: DisplayableLike,
+        selected_idle: DisplayableLike,
+        hover: DisplayableLike,
+        selected_hover: DisplayableLike,
+        selected_insensitive: DisplayableLike,
+        alpha: bool,
+        cache: bool,
     ) -> None: ...
     def reuse(self) -> None: ...
 
-imagemap: Incomplete
-hotspot_with_child: Incomplete
+def _imagemap(
+    ground: DisplayableLike | None = None,
+    hover: DisplayableLike | None = None,
+    insensitive: DisplayableLike | None = None,
+    idle: DisplayableLike | None = None,
+    selected_hover: DisplayableLike | None = None,
+    selected_idle: DisplayableLike | None = None,
+    selected_insensitive: DisplayableLike | None = None,
+    auto: str | None = None,
+    alpha: bool = True,
+    cache: bool = True,
+    style: StyleLike = "imagemap",
+    **properties,
+) -> renpy.display.layout.MultiBox: ...
+
+imagemap: Wrapper[renpy.display.layout.MultiBox]
+
+def _hotspot(
+    spot: tuple[float, float, float, float], style: StyleLike = "hotspot", **properties
+) -> renpy.display.behavior.Button: ...
+
+hotspot_with_child: Wrapper[renpy.display.behavior.Button]
 
 def hotspot(*args, **kwargs) -> None: ...
+def _hotbar(
+    spot: tuple[float, float, float, float],
+    adjustment: renpy.display.behavior.Adjustment | None = None,
+    range: int | float | None = None,
+    value: int | float | None = None,
+    **properties,
+) -> renpy.display.behavior.Bar: ...
 
-hotbar: Incomplete
-returns: Incomplete
-jumps: Incomplete
-jumpsoutofcontext: Incomplete
+hotbar: Wrapper[renpy.display.behavior.Bar]
 
-def callsinnewcontext(*args, **kwargs): ...
-def invokesinnewcontext(*args, **kwargs): ...
-def gamemenus(*args): ...
+def _returns(v: T) -> T: ...
 
-on: Incomplete
+returns: renpy.curry.Partial[Callable[..., Any]]
 
-def screen_id(id_, d) -> None: ...
+def _jumps(
+    label: renpy.ast.NodeName, transition: str | renpy.display.transition.TransitionFunction | None = None
+) -> Never: ...
+
+jumps: renpy.curry.Partial[
+    Callable[[renpy.ast.NodeName, str | renpy.display.transition.TransitionFunction | None], Never]
+]
+
+def _jumpsoutofcontext(label: str) -> Never: ...
+
+jumpsoutofcontext: renpy.curry.Partial[Callable[[str], Never]]
+
+def callsinnewcontext(*args, **kwargs) -> Any: ...
+def invokesinnewcontext(*args, **kwargs) -> Any: ...
+def gamemenus(*args) -> Any: ...
+
+on: Wrapper[renpy.display.behavior.OnEvent]
+
+def screen_id(id_: str, d: Displayable) -> None: ...

@@ -7,6 +7,7 @@ class PropertyFunctionWrapper:
     def __reduce__(self) -> None: ...
 
 Style = renpy.styledata.styleclass.Style
+type StyleLike = "StyleCore | str | tuple[str, ...] | None"
 
 class StyleCore:
     prefix: str

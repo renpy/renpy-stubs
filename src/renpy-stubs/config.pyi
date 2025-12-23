@@ -2,6 +2,7 @@ import renpy
 from _typeshed import Incomplete as Incomplete
 from renpy.error import TracebackException as TracebackException
 from renpy.text.shader import TextShader as TextShader
+from renpy.types import DisplayableLike
 from typing import Any, Callable, Literal
 import re
 
@@ -140,7 +141,7 @@ predict_screens: bool
 choice_screen_chosen: bool
 narrator_menu: bool
 variants: list
-imagemap_auto_function: Incomplete
+imagemap_auto_function: Callable[[str, str], DisplayableLike] | None
 keep_running_transform: bool
 image_attributes: bool
 new_character_image_argument: bool
