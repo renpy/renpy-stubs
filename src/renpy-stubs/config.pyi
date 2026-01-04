@@ -3,7 +3,7 @@ from _typeshed import Incomplete as Incomplete
 from renpy.error import TracebackException as TracebackException
 from renpy.text.shader import TextShader as TextShader
 from renpy.types import DisplayableLike
-from typing import Any, Callable, Literal
+from typing import Any, Callable, Literal, IO
 import re
 
 locked: bool
@@ -116,7 +116,7 @@ label_callbacks: Incomplete
 empty_window: Incomplete
 window_overlay_functions: Incomplete
 rtl: bool
-file_open_callback: Incomplete
+file_open_callback: Callable[[str], IO | None] | None
 thumbnail_width: int
 thumbnail_height: int
 end_game_transition: Incomplete
@@ -444,7 +444,7 @@ atl_pos_only: bool
 atl_pos_only_as_pos_or_kw: bool
 font_hinting: Incomplete
 mixed_position: bool
-interpolate_exprs: bool
+interpolate_exprs: bool | Literal["fallback"]
 generating_documentation: bool
 save: bool
 save_persistent: bool

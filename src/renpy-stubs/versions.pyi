@@ -1,10 +1,9 @@
-from _typeshed import Incomplete as Incomplete
 from typing import TypedDict
 
 class Version:
-    branch: Incomplete
-    semver: Incomplete
-    name: Incomplete
+    branch: str
+    semver: tuple[int, int, int]
+    name: str
     def __init__(self, branch: str, semver: tuple[int, int, int], name: str) -> None: ...
 
 branch_to_version: dict[str, Version]

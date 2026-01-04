@@ -1,5 +1,5 @@
-from _typeshed import Incomplete as Incomplete
+from typing import Never
 
-warp_spec: Incomplete
+warp_spec: str | None
 
-def warp(): ...
+def warp() -> None | Never: ...
