@@ -326,7 +326,7 @@ class SLScreen(SLBlock):
     sensitive: str
     roll_forward: str
     docstring: Incomplete
-    name: Incomplete
+    name: str | None
     modal: str
     zorder: str
     tag: Incomplete

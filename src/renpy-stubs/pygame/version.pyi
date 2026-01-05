@@ -1,5 +1,3 @@
-from _typeshed import Incomplete as Incomplete
-
-vernum: Incomplete
-ver: Incomplete
+vernum: tuple[int, int, int]
+ver: str
 rev: str

@@ -1,6 +1,5 @@
 import re
 import renpy
-from _typeshed import Incomplete as Incomplete
 from renpy.astsupport import PyExpr as PyExpr, hash32 as hash32
 from renpy.atl import RawBlock as RawBlock
 from renpy.cslots import IntegerSlot as IntegerSlot, Object as Object, Slot as Slot
@@ -438,7 +437,7 @@ class UserStatement(Node):
 
 class PostUserStatement(Node):
     parent: UserStatement
-    name: Incomplete
+    name: str | None
     def __init__(self, loc: NodeLocation, parent: UserStatement) -> None: ...
     def __repr__(self) -> str: ...
     def diff_info(self) -> tuple[type, str]: ...
@@ -477,7 +476,7 @@ class Default(Node):
 class Screen(Node):
     screen: renpy.sl2.slast.SLScreen
     def __init__(self, loc: NodeLocation, screen: renpy.sl2.slast.SLScreen) -> None: ...
-    def diff_info(self) -> tuple[type, Incomplete]: ...
+    def diff_info(self) -> tuple[type, str]: ...
     def execute(self) -> None: ...
 
 class Style(Node):
@@ -539,7 +538,7 @@ class TranslateSay(Say):
     def after(self) -> Node | None: ...
     @property
     def block(self) -> list[Node]: ...
-    identifier: Incomplete
+    identifier: str | None
     def __init__(
         self,
         loc: NodeLocation,
