@@ -263,8 +263,8 @@ tight_loop_default: bool
 prefix_viewport_scrollbar_styles: bool
 needs_redraw_callbacks: Incomplete
 hyperlink_inherit_size: bool
-stdout_callbacks: Incomplete
-stderr_callbacks: Incomplete
+stdout_callbacks: list[Callable[[str], None]]
+stderr_callbacks: list[Callable[[str], None]]
 automatic_polar_motion: bool
 lint_stats_callbacks: Incomplete
 position_viewport_side: bool
