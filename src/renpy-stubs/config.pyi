@@ -256,7 +256,7 @@ init_system_styles: Incomplete
 build_styles_callbacks: Incomplete
 auto_movie_channel: bool
 ignore_duplicate_labels: bool
-line_log_callbacks: Incomplete
+line_log_callbacks: Callable[[renpy.execution.LineLogEntry], None]
 profile_screens: Incomplete
 allow_sysfonts: bool
 tight_loop_default: bool
