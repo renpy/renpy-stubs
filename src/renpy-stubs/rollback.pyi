@@ -5,7 +5,7 @@ from renpy.revertable import RevertableObject as RevertableObject
 from typing import Any
 
 class StoreDeleted:
-    def __reduce__(self) -> Incomplete: ...
+    def __reduce__(self) -> str | tuple[Any, ...]: ...
 
 deleted: Incomplete
 

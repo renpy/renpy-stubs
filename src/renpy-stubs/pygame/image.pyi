@@ -1,5 +1,4 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from _typeshed import Incomplete as Incomplete
 from io import IOBase
 from renpy.pygame.surface import Surface as Surface
 

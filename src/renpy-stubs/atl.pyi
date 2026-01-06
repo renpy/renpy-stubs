@@ -87,7 +87,7 @@ class ATLTransformBase(renpy.object.Object):
     atl_st_offset: float | None
     predict_block: Block | None
     nosave: list[str]
-    def after_upgrade(self, version: int) -> Incomplete: ...
+    def after_upgrade(self, version: int) -> None: ...
     atl: RawBlock | None
     context: Context
     block: Block | None

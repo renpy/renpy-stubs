@@ -4,7 +4,7 @@ from renpy.text.shader import TextShader as TextShader
 from _typeshed import Incomplete
 
 class Glyph:
-    def __reduce__(self) -> None: ...
+    def __reduce__(self) -> str | tuple[Any, ...]: ...
     x: int
     y: int
     delta_x_adjustment: int
@@ -31,7 +31,7 @@ class Glyph:
 
 class Line:
     def __init__(self, /, *args, **kwargs) -> None: ...
-    def __reduce__(self) -> None: ...
+    def __reduce__(self) -> str | tuple[Any, ...]: ...
     y: int
     height: int
     baseline: int

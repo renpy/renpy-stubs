@@ -51,7 +51,7 @@ class SceneLists(renpy.object.Object):
     shown: ShownImageInfo
     layer_transform: dict[str, Transform | None]
     sticky_tags: dict[str, str]
-    def after_upgrade(self, version: int) -> Incomplete: ...
+    def after_upgrade(self, version: int) -> None: ...
     layers: dict[str, list[SceneListEntry]]
     focused: Displayable | None
     music: Incomplete

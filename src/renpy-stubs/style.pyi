@@ -5,7 +5,7 @@ from renpy.display.displayable import Placement as Placement
 from _typeshed import Incomplete as Incomplete
 
 class PropertyFunctionWrapper:
-    def __reduce__(self) -> None: ...
+    def __reduce__(self) -> str | tuple[Any, ...]: ...
 
 Style = renpy.styledata.styleclass.Style
 type StyleLike = "StyleCore | str | tuple[str, ...] | None"
