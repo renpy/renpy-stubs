@@ -18,9 +18,11 @@ class Callbacks:
     end: int | None
     delay: float | None
     last_segment: bool | None
-    def __init__(self, callbacks, interact, type, cb_args, multiple) -> None: ...
+    def __init__(
+        self, callbacks: Incomplete, interact: Incomplete, type: Incomplete, cb_args: Incomplete, multiple: Incomplete
+    ) -> None: ...
     def __call__(self, *args, **kwargs) -> None: ...
-    def copy(self): ...
+    def copy(self) -> Incomplete: ...
 
 class DialogueTextTags:
     text: str
@@ -30,50 +32,57 @@ class DialogueTextTags:
     no_wait: bool
     has_done: bool
     fast: bool
-    def __init__(self, s) -> None: ...
+    def __init__(self, s: Incomplete) -> None: ...
 
 class CTCPauseHolder(renpy.display.displayable.Displayable):
     ctc: Incomplete
-    def __init__(self, ctc) -> None: ...
-    def render(self, width, height, st, at): ...
-    def visit(self): ...
-    def get_position(self): ...
+    def __init__(self, ctc: Incomplete) -> None: ...
+    def render(self, width: Incomplete, height: Incomplete, st: Incomplete, at: Incomplete) -> Incomplete: ...
+    def visit(self) -> Incomplete: ...
+    def get_position(self) -> Incomplete: ...
 
 def predict_show_display_say(
-    who,
-    what,
-    who_args,
-    what_args,
-    window_args,
+    who: Incomplete,
+    what: Incomplete,
+    who_args: Incomplete,
+    what_args: Incomplete,
+    window_args: Incomplete,
     image: bool = False,
     two_window: bool = False,
-    side_image=None,
-    screen=None,
-    properties=None,
+    side_image: Incomplete = None,
+    screen: Incomplete = None,
+    properties: Incomplete = None,
     **kwargs,
 ) -> None: ...
-def compute_widget_properties(who_args, what_args, window_args, properties, variant=None, multiple=None): ...
+def compute_widget_properties(
+    who_args: Incomplete,
+    what_args: Incomplete,
+    window_args: Incomplete,
+    properties: Incomplete,
+    variant: Incomplete = None,
+    multiple: Incomplete = None,
+) -> Incomplete: ...
 def show_display_say(
-    who,
-    what,
-    who_args={},
-    what_args={},
-    window_args={},
+    who: Incomplete,
+    what: Incomplete,
+    who_args: Incomplete = {},
+    what_args: Incomplete = {},
+    window_args: Incomplete = {},
     image: bool = False,
-    side_image=None,
+    side_image: Incomplete = None,
     two_window: bool = False,
-    two_window_vbox_properties={},
-    who_window_properties={},
-    say_vbox_properties={},
-    transform=None,
-    variant=None,
-    screen=None,
-    layer=None,
-    properties={},
-    multiple=None,
-    retain=None,
+    two_window_vbox_properties: Incomplete = {},
+    who_window_properties: Incomplete = {},
+    say_vbox_properties: Incomplete = {},
+    transform: Incomplete = None,
+    variant: Incomplete = None,
+    screen: Incomplete = None,
+    layer: Incomplete = None,
+    properties: Incomplete = {},
+    multiple: Incomplete = None,
+    retain: Incomplete = None,
     **kwargs,
-): ...
+) -> Incomplete: ...
 
 class SlowDone:
     delay: Incomplete
@@ -89,33 +98,43 @@ class SlowDone:
     type: Incomplete
     cb_args: Incomplete
     def __init__(
-        self, ctc, ctc_position, callback, interact, type, cb_args, delay, ctc_kwargs, last_pause, no_wait
+        self,
+        ctc: Incomplete,
+        ctc_position: Incomplete,
+        callback: Incomplete,
+        interact: Incomplete,
+        type: Incomplete,
+        cb_args: Incomplete,
+        delay: Incomplete,
+        ctc_kwargs: Incomplete,
+        last_pause: Incomplete,
+        no_wait: Incomplete,
     ) -> None: ...
     def __call__(self) -> None: ...
 
 afm_text_queue: Incomplete
 
 def display_say(
-    who,
-    what,
-    show_function,
-    interact,
-    slow,
-    afm,
-    ctc,
-    ctc_pause,
-    ctc_position,
-    all_at_once,
-    cb_args,
-    with_none,
-    callback,
-    type,
+    who: Incomplete,
+    what: Incomplete,
+    show_function: Incomplete,
+    interact: Incomplete,
+    slow: Incomplete,
+    afm: Incomplete,
+    ctc: Incomplete,
+    ctc_pause: Incomplete,
+    ctc_position: Incomplete,
+    all_at_once: Incomplete,
+    cb_args: Incomplete,
+    with_none: Incomplete,
+    callback: Incomplete,
+    type: Incomplete,
     checkpoint: bool = True,
-    ctc_timedpause=None,
+    ctc_timedpause: Incomplete = None,
     ctc_force: bool = False,
     advance: bool = True,
-    multiple=None,
-    dtt=None,
+    multiple: Incomplete = None,
+    dtt: Incomplete = None,
     retain: bool = False,
 ) -> None: ...
 
@@ -154,28 +173,46 @@ class ADVCharacter:
     def __init__(
         self, name: str | None | Sentinel = ..., kind: Literal[False] | None | ADVCharacter = None, **properties
     ) -> None: ...
-    def copy(self, name=..., **properties): ...
-    def do_add(self, who, what, multiple=None) -> None: ...
-    def get_show_properties(self, extra_properties): ...
-    def do_show(self, who, what, multiple=None, extra_properties=None, retain=None): ...
-    def do_done(self, who, what, multiple=None) -> None: ...
+    def copy(self, name: Incomplete = ..., **properties) -> Incomplete: ...
+    def do_add(self, who: Incomplete, what: Incomplete, multiple: Incomplete = None) -> None: ...
+    def get_show_properties(self, extra_properties: Incomplete) -> Incomplete: ...
+    def do_show(
+        self,
+        who: Incomplete,
+        what: Incomplete,
+        multiple: Incomplete = None,
+        extra_properties: Incomplete = None,
+        retain: Incomplete = None,
+    ) -> Incomplete: ...
+    def do_done(self, who: Incomplete, what: Incomplete, multiple: Incomplete = None) -> None: ...
     def do_extend(self) -> None: ...
-    def do_display(self, who, what, **display_args) -> None: ...
-    def do_predict(self, who, what, extra_properties=None): ...
-    def resolve_say_attributes(self, predict, attrs): ...
-    def handle_say_attributes(self, predicting, interact): ...
-    def handle_say_transition(self, mode, before, after) -> None: ...
-    def restore_say_attributes(self, predicting, state, interact): ...
-    def __format__(self, spec) -> str: ...
-    def empty_window(self, multiple=None) -> None: ...
-    def has_character_arguments(self, **kwargs): ...
-    def prefix_suffix(self, thing, prefix, body, suffix): ...
-    def __call__(self, what, interact: bool = True, _call_done: bool = True, multiple=None, **kwargs): ...
-    def statement_name(self): ...
-    def predict(self, what): ...
-    def will_interact(self): ...
-    def add_history(self, kind, who, what, multiple=None, **kwargs) -> None: ...
+    def do_display(self, who: Incomplete, what: Incomplete, **display_args: Incomplete) -> None: ...
+    def do_predict(self, who: Incomplete, what: Incomplete, extra_properties: Incomplete = None) -> Incomplete: ...
+    def resolve_say_attributes(self, predict: Incomplete, attrs: Incomplete) -> Incomplete: ...
+    def handle_say_attributes(self, predicting: Incomplete, interact: Incomplete) -> Incomplete: ...
+    def handle_say_transition(self, mode: Incomplete, before: Incomplete, after: Incomplete) -> None: ...
+    def restore_say_attributes(self, predicting: Incomplete, state: Incomplete, interact: Incomplete) -> Incomplete: ...
+    def __format__(self, spec: Incomplete) -> str: ...
+    def empty_window(self, multiple: Incomplete = None) -> None: ...
+    def has_character_arguments(self, **kwargs: Incomplete) -> Incomplete: ...
+    def prefix_suffix(
+        self, thing: Incomplete, prefix: Incomplete, body: Incomplete, suffix: Incomplete
+    ) -> Incomplete: ...
+    def __call__(
+        self,
+        what: Incomplete,
+        interact: bool = True,
+        _call_done: bool = True,
+        multiple: Incomplete = None,
+        **kwargs: Incomplete,
+    ) -> Incomplete: ...
+    def statement_name(self) -> Incomplete: ...
+    def predict(self, what: Incomplete) -> Incomplete: ...
+    def will_interact(self) -> Incomplete: ...
+    def add_history(
+        self, kind: Incomplete, who: Incomplete, what: Incomplete, multiple: Incomplete = None, **kwargs: Incomplete
+    ) -> None: ...
     def pop_history(self) -> None: ...
 
-def Character(name=..., kind=None, **properties): ...
-def DynamicCharacter(name_expr, **properties): ...
+def Character(name: Incomplete = ..., kind: Incomplete = None, **properties: Incomplete) -> Incomplete: ...
+def DynamicCharacter(name_expr: Incomplete, **properties) -> Incomplete: ...

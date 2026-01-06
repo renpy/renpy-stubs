@@ -219,7 +219,7 @@ def ComposeTransition(
     old_widget: Displayable | None = None,
 ) -> Displayable: ...
 def SubTransition(
-    rect,
+    rect: Incomplete,
     trans: TransitionFunction,
     old_widget: Displayable | None = None,
     new_widget: Displayable | None = None,

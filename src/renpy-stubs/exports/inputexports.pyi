@@ -1,17 +1,26 @@
-def web_input(prompt, default: str = "", allow=None, exclude: str = "{}", length=None, mask: bool = False): ...
-def input(
-    prompt,
+from _typeshed import Incomplete as Incomplete
+
+def web_input(
+    prompt: Incomplete,
     default: str = "",
-    allow=None,
+    allow: Incomplete = None,
     exclude: str = "{}",
-    length=None,
-    with_none=None,
-    pixel_width=None,
+    length: Incomplete = None,
+    mask: bool = False,
+) -> Incomplete: ...
+def input(
+    prompt: Incomplete,
+    default: str = "",
+    allow: Incomplete = None,
+    exclude: str = "{}",
+    length: Incomplete = None,
+    with_none: Incomplete = None,
+    pixel_width: Incomplete = None,
     screen: str = "input",
-    mask=None,
+    mask: Incomplete = None,
     copypaste: bool = True,
     multiline: bool = False,
     **kwargs,
-): ...
-def get_editable_input_value(): ...
-def set_editable_input_value(input_value, editable) -> None: ...
+) -> Incomplete: ...
+def get_editable_input_value() -> Incomplete: ...
+def set_editable_input_value(input_value: Incomplete, editable: Incomplete) -> None: ...

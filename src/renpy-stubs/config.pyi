@@ -322,7 +322,7 @@ ftfont_vertical_extent_scale: Incomplete
 default_shader: str
 preserve_volume_when_muted: bool
 
-def say_attribute_transition_callback(*args): ...
+def say_attribute_transition_callback(*args) -> Incomplete: ...
 
 say_attribute_transition_callback_attrs: bool
 notify: Callable[[str], None] | None

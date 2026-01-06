@@ -8,7 +8,7 @@ touch: bool
 info: Incomplete
 can_fullscreen: bool
 
-def get_info(): ...
+def get_info() -> Incomplete: ...
 
 log: Incomplete
 ic_log: Incomplete

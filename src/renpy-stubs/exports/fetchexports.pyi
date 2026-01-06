@@ -5,19 +5,33 @@ proxies: Incomplete
 class FetchError(Exception):
     original_exception: Incomplete
     status_code: Incomplete
-    def __init__(self, message, exception=None) -> None: ...
+    def __init__(self, message: Incomplete, exception: Incomplete = None) -> None: ...
 
 def fetch_pause() -> None: ...
-def fetch_requests(url, method, data, content_type, timeout, headers): ...
-def fetch_emscripten(url, method, data, content_type, timeout, headers): ...
+def fetch_requests(
+    url: Incomplete,
+    method: Incomplete,
+    data: Incomplete,
+    content_type: Incomplete,
+    timeout: Incomplete,
+    headers: Incomplete,
+) -> Incomplete: ...
+def fetch_emscripten(
+    url: Incomplete,
+    method: Incomplete,
+    data: Incomplete,
+    content_type: Incomplete,
+    timeout: Incomplete,
+    headers: Incomplete,
+) -> Incomplete: ...
 def fetch(
-    url,
-    method=None,
-    data=None,
-    json=None,
-    content_type=None,
+    url: Incomplete,
+    method: Incomplete = None,
+    data: Incomplete = None,
+    json: Incomplete = None,
+    content_type: Incomplete = None,
     timeout: int = 5,
     result: str = "bytes",
-    params=None,
-    headers={},
-): ...
+    params: Incomplete = None,
+    headers: Incomplete = {},
+) -> Incomplete: ...

@@ -384,7 +384,7 @@ menu_kwargs: Incomplete
 bits: int
 
 @renpy_pure
-def version(tuple: bool = False): ...
+def version(tuple: bool = False) -> Incomplete: ...
 
 version_string: Incomplete
 version_only: Incomplete

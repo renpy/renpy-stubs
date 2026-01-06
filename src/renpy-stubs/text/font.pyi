@@ -6,7 +6,7 @@ from renpy.pygame.surface import Surface as Surface
 WHITE: Incomplete
 BLACK: Incomplete
 
-def is_zerowidth(char): ...
+def is_zerowidth(char: Incomplete) -> Incomplete: ...
 
 class ImageFont:
     height: int
@@ -17,9 +17,19 @@ class ImageFont:
     advance: dict[str, float]
     offsets: dict[str, tuple[int, int]]
     chars: dict[str, Surface]
-    def glyphs(self, s, level): ...
-    def bounds(self, glyphs, bounds): ...
-    def draw(self, target, xo, yo, color, glyphs, underline, strikethrough, black_color) -> None: ...
+    def glyphs(self, s: Incomplete, level: Incomplete) -> Incomplete: ...
+    def bounds(self, glyphs: Incomplete, bounds: Incomplete) -> Incomplete: ...
+    def draw(
+        self,
+        target: Incomplete,
+        xo: Incomplete,
+        yo: Incomplete,
+        color: Incomplete,
+        glyphs: Incomplete,
+        underline: Incomplete,
+        strikethrough: Incomplete,
+        black_color: Incomplete,
+    ) -> None: ...
     @staticmethod
     def load_image(filename: str) -> pygame.Surface: ...
 
@@ -30,7 +40,15 @@ class SFont(ImageFont):
     kerns: Incomplete
     charset: Incomplete
     baseline: Incomplete
-    def __init__(self, filename, spacewidth, default_kern, kerns, charset, baseline=None) -> None: ...
+    def __init__(
+        self,
+        filename: Incomplete,
+        spacewidth: Incomplete,
+        default_kern: Incomplete,
+        kerns: Incomplete,
+        charset: Incomplete,
+        baseline: Incomplete = None,
+    ) -> None: ...
     chars: Incomplete
     width: Incomplete
     advance: Incomplete
@@ -44,7 +62,9 @@ class MudgeFont(ImageFont):
     spacewidth: Incomplete
     default_kern: Incomplete
     kerns: Incomplete
-    def __init__(self, filename, xml, spacewidth, default_kern, kerns) -> None: ...
+    def __init__(
+        self, filename: Incomplete, xml: Incomplete, spacewidth: Incomplete, default_kern: Incomplete, kerns: Incomplete
+    ) -> None: ...
     chars: Incomplete
     width: Incomplete
     advance: Incomplete
@@ -53,11 +73,11 @@ class MudgeFont(ImageFont):
     baseline: Incomplete
     def load(self) -> None: ...
 
-def parse_bmfont_line(l): ...
+def parse_bmfont_line(l: Incomplete) -> Incomplete: ...
 
 class BMFont(ImageFont):
     filename: Incomplete
-    def __init__(self, filename) -> None: ...
+    def __init__(self, filename: Incomplete) -> None: ...
     chars: Incomplete
     width: Incomplete
     advance: Incomplete
@@ -77,40 +97,45 @@ class ScaledImageFont(ImageFont):
     offsets: Incomplete
     kerns: Incomplete
     chars: Incomplete
-    def __init__(self, parent, factor) -> None: ...
+    def __init__(self, parent: Incomplete, factor: Incomplete) -> None: ...
 
 def register_sfont(
-    name=None,
-    size=None,
+    name: Incomplete = None,
+    size: Incomplete = None,
     bold: bool = False,
     italics: bool = False,
     underline: bool = False,
-    filename=None,
+    filename: Incomplete = None,
     spacewidth: int = 10,
-    baseline=None,
+    baseline: Incomplete = None,
     default_kern: int = 0,
-    kerns={},
+    kerns: Incomplete = {},
     charset: str = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
 ) -> None: ...
 def register_mudgefont(
-    name=None,
-    size=None,
+    name: Incomplete = None,
+    size: Incomplete = None,
     bold: bool = False,
     italics: bool = False,
     underline: bool = False,
-    filename=None,
-    xml=None,
+    filename: Incomplete = None,
+    xml: Incomplete = None,
     spacewidth: int = 10,
     default_kern: int = 0,
-    kerns={},
+    kerns: Incomplete = {},
 ) -> None: ...
 def register_bmfont(
-    name=None, size=None, bold: bool = False, italics: bool = False, underline: bool = False, filename=None
+    name: Incomplete = None,
+    size: Incomplete = None,
+    bold: bool = False,
+    italics: bool = False,
+    underline: bool = False,
+    filename: Incomplete = None,
 ) -> None: ...
 
 face_cache: Incomplete
 
-def load_face(fn, shaper): ...
+def load_face(fn: Incomplete, shaper: Incomplete) -> Incomplete: ...
 
 image_fonts: Incomplete
 scaled_image_fonts: Incomplete
@@ -118,16 +143,35 @@ font_cache: Incomplete
 last_scale: float
 
 def get_font(
-    fn, size, bold, italics, outline, antialias, vertical, hinting, scale, shaper, instance, axis, features
-): ...
+    fn: Incomplete,
+    size: Incomplete,
+    bold: bool,
+    italics: bool,
+    outline: bool,
+    antialias: bool,
+    vertical: bool,
+    hinting: Incomplete,
+    scale: float,
+    shaper: Incomplete,
+    instance: Incomplete,
+    axis: Incomplete,
+    features: Incomplete,
+) -> Incomplete: ...
 def free_memory() -> None: ...
 def load_fonts() -> None: ...
-def variable_font_info(font): ...
+def variable_font_info(font: Incomplete) -> Incomplete: ...
 
 class FontGroup:
     char_map: Incomplete
     map: Incomplete
     def __init__(self) -> None: ...
-    def add(self, font, start, end, target=None, target_increment: bool = False): ...
-    def remap(self, cha, target): ...
-    def segment(self, s) -> Generator[Incomplete]: ...
+    def add(
+        self,
+        font: Incomplete,
+        start: Incomplete,
+        end: Incomplete,
+        target: Incomplete = None,
+        target_increment: bool = False,
+    ) -> None: ...
+    def remap(self, cha: Incomplete, target: Incomplete) -> None: ...
+    def segment(self, s: Incomplete) -> Generator[Incomplete]: ...

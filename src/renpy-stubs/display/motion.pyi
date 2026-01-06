@@ -12,6 +12,7 @@ from renpy.display.transform import (
     null as null,
 )
 from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
+from renpy.pygame.event import EventType
 from typing import Any, Callable, Literal, Sequence
 
 type SizeRect = tuple[float | None, float | None, float | None, float | None]
@@ -141,7 +142,7 @@ class ZoomCommon(renpy.display.displayable.Displayable):
     ) -> tuple[float, float, float, float, float, float]: ...
     done: float
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
-    def event(self, ev, x: float, y: float, st: float) -> Any | None: ...
+    def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
 
 class Zoom(ZoomCommon):
     size: tuple[float, float]

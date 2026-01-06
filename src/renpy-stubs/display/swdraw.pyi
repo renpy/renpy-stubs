@@ -32,7 +32,7 @@ class Clipper:
 clippers: list[Clipper]
 
 def surface(w: int, h: int, alpha: bool) -> PygameSurface: ...
-def copy_surface(surf) -> PygameSurface: ...
+def copy_surface(surf: Incomplete) -> PygameSurface: ...
 def draw_special(what: Render, dest: PygameSurface, x: int, y: int) -> None: ...
 def draw(
     dest: PygameSurface | Clipper,
@@ -43,7 +43,7 @@ def draw(
     screen: bool,
 ) -> None: ...
 def draw_transformed(
-    dest,
+    dest: Incomplete,
     clip: AreaType | None,
     what: Render | PygameSurface,
     xo: float,
@@ -52,7 +52,7 @@ def draw_transformed(
     forward: Matrix | None,
     reverse: Matrix | None,
 ) -> None: ...
-def do_draw_screen(screen_render, full_redraw, swdraw): ...
+def do_draw_screen(screen_render: Incomplete, full_redraw: Incomplete, swdraw: Incomplete) -> None: ...
 
 class SWDraw:
     display_info: pygame.display.Info | None
