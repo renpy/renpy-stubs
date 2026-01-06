@@ -45,7 +45,7 @@ class Frame(Displayable):
     right: Incomplete
     top: Incomplete
     bottom: Incomplete
-    def after_upgrade(self, version) -> None: ...
+    def after_upgrade(self, version: int) -> None: ...
     image: Incomplete
     _duplicatable: Incomplete
     tile: Incomplete

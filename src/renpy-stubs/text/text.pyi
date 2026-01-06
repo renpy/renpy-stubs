@@ -208,7 +208,7 @@ class Text(renpy.display.displayable.Displayable):
     start: Incomplete
     end: Incomplete
     dirty: bool
-    def after_upgrade(self, version) -> None: ...
+    def after_upgrade(self, version: int) -> None: ...
     slow: Incomplete
     slow_done: Callable | None
     displayables: Incomplete

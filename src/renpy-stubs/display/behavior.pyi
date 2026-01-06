@@ -338,7 +338,7 @@ class Bar(renpy.display.displayable.Displayable):
     __version__: int
     adjustment: Incomplete
     value: Incomplete
-    def after_upgrade(self, version) -> None: ...
+    def after_upgrade(self, version: int) -> None: ...
     focusable: bool
     thumb_dim: int
     height: int
@@ -394,7 +394,7 @@ class Timer(renpy.display.layout.Null):
     _box_skip: bool
     modal: bool
     state: Incomplete
-    def after_upgrade(self, version) -> None: ...
+    def after_upgrade(self, version: int) -> None: ...
     delay: Incomplete
     repeat: Incomplete
     next_event: float | None
