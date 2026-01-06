@@ -1,7 +1,5 @@
-from _typeshed import Incomplete as Incomplete
-
 mouse_pos: tuple[int, int] | None
-mouse_buttons: Incomplete
+mouse_buttons: list[int]
 
 def get_mouse_pos(x: int, y: int) -> tuple[int, int]: ...
 def post(event_type: int, **kwargs) -> None: ...

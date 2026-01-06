@@ -1,8 +1,7 @@
-from _typeshed import Incomplete as Incomplete
 from renpy.test.testast import Node as Node
 
-code_to_unicode: Incomplete
-unicode_to_code: Incomplete
+code_to_unicode: dict[int, str]
+unicode_to_code: dict[str, int]
 
 def get_keycode(node: Node, keysym: str) -> tuple[int, str | None, int]: ...
 def down(node: Node, keysym: str) -> None: ...

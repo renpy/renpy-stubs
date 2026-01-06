@@ -1,12 +1,12 @@
+import renpy
 import renpy.test.testast as testast
-from _typeshed import Incomplete as Incomplete
 from renpy.lexer import Lexer as Lexer
 from renpy.test.types import HookType as HookType, NodeLocation as NodeLocation
-from typing import Any, Collection
+from typing import Any, Collection, Callable
 
-test_statements: Incomplete
+test_statements: renpy.parser.ParseTrie
 
-def test_statement(keywords): ...
+def test_statement(keyword: str) -> Callable[[renpy.parser.ParseNodeFunction], renpy.parser.ParseNodeFunction]: ...
 def exit_statement(l: Lexer, loc: NodeLocation) -> testast.Exit: ...
 def if_statement(l: Lexer, loc: NodeLocation) -> testast.If: ...
 def pass_statement(l: Lexer, loc: NodeLocation) -> testast.Pass: ...
