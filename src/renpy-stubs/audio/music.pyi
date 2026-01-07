@@ -8,7 +8,7 @@ from renpy.audio.audio import (
 from typing import Callable
 
 def play(
-    filenames: str | list[str],
+    filenames: str | list[str] | None,
     channel: str = "music",
     loop: bool | None = None,
     fadeout: float | None = None,
