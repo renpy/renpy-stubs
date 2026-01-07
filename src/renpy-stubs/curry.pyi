@@ -1,5 +1,4 @@
 import functools
-from _typeshed import Incomplete as Incomplete
 from typing import Any, Callable
 
 class Curry[T]:
@@ -7,8 +6,8 @@ class Curry[T]:
     callable: Callable[..., T]
     args: tuple[Any, ...]
     kwargs: dict[str, Any]
-    __doc__: Incomplete
-    __name__: Incomplete
+    __doc__: str | None
+    __name__: str | None
     def __init__(self, callable: Callable[..., T], *args: Any, **kwargs: Any) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> T: ...
     def __repr__(self) -> str: ...
@@ -17,7 +16,7 @@ class Curry[T]:
     def __hash__(self) -> int: ...
 
 class Partial[T](functools.partial):
-    __slots__: Incomplete
+    __slots__: str | tuple[str, ...]
     def __call__(self, *args: Any, **kwargs: Any) -> T: ...
     def __repr__(self) -> str: ...
     def __eq__(self, other: object) -> bool: ...

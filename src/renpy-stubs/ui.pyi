@@ -7,7 +7,6 @@ from renpy.object import Object as Object
 from renpy.style import StyleLike as StyleLike
 from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
 from typing import Any, Callable, Never, TypeVar
-from _typeshed import Incomplete as Incomplete
 
 T = TypeVar("T", bound=Displayable)
 
@@ -285,19 +284,23 @@ scrollbar: Wrapper[renpy.display.behavior.Bar]
 vscrollbar: Wrapper[renpy.display.behavior.Bar]
 
 def _autobar_interpolate(
-    range: Incomplete,
-    start: Incomplete,
-    end: Incomplete,
-    time: Incomplete,
+    range: int | float | None,
+    start: int | float,
+    end: int | float,
+    time: float,
     st: float,
     at: float,
-    **properties: Incomplete,
+    **properties,
 ) -> tuple[renpy.display.behavior.Bar, float | None]: ...
 
 autobar_interpolate: renpy.curry.Partial[renpy.display.layout.DynamicDisplayableFunction]
 
 def _autobar(
-    range: Incomplete, start: Incomplete, end: Incomplete, time: Incomplete, **properties: Incomplete
+    range: int | float | None,
+    start: int | float,
+    end: int | float,
+    time: float,
+    **properties,
 ) -> renpy.display.layout.DynamicDisplayable: ...
 
 autobar: Wrapper[renpy.display.layout.DynamicDisplayable]

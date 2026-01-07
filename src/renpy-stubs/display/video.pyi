@@ -4,7 +4,6 @@ from renpy.display.render import Render as Render
 from renpy.pygame.surface import Surface as Surface
 from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
 from typing import Callable, Literal, overload
-from _typeshed import Incomplete
 
 current_movie: Unused
 fullscreen: bool
@@ -43,7 +42,7 @@ def find_oversampled(new: Movie, filename: str) -> str: ...
 def find_oversampled(new: Movie, filename: list[str]) -> list[str]: ...
 @overload
 def find_oversampled(new: Movie, filename: None) -> None: ...
-def default_play_callback(old: Incomplete, new: Movie) -> None: ...
+def default_play_callback(old: Movie | None, new: Movie) -> None: ...
 
 allocated_channels: set[str]
 

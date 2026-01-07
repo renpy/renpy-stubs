@@ -3,7 +3,7 @@ from _typeshed import Incomplete as Incomplete
 from renpy.error import TracebackException as TracebackException
 from renpy.text.shader import TextShader as TextShader
 from renpy.types import DisplayableLike
-from typing import Any, Callable, Literal, IO
+from typing import Any, Callable, Literal, IO, Protocol, TypedDict, Unpack, NotRequired
 import re
 
 locked: bool
@@ -92,7 +92,29 @@ layer_clipping: Incomplete
 disable_fullscreen_opt: bool
 reject_midi: bool
 character_callback: Incomplete
-all_character_callbacks: Incomplete
+
+class CharacterCallbackParameters(TypedDict):
+    interact: bool
+    type: Literal["nvl", "adv", "bubble"]
+    what: str
+    multiple: Incomplete
+
+    start: NotRequired[int]
+    end: NotRequired[int]
+    delay: NotRequired[float | None]
+    last_segment: NotRequired[bool]
+
+    exception: bool
+    please_ignore_unknown_keyword_arguments: NotRequired[None]
+
+class CharacterCallback(Protocol):
+    def __call__(
+        self,
+        event: Literal["begin", "show", "show_done", "slow_done", "interact_done", "end"],
+        **kwargs: Unpack[CharacterCallbackParameters],
+    ) -> None: ...
+
+all_character_callbacks: list[CharacterCallback]
 has_autosave: bool
 autosave_slots: int
 autosave_frequency: Incomplete

@@ -1,5 +1,4 @@
 import renpy
-from _typeshed import Incomplete as Incomplete
 from renpy.display.layout import Null as Null
 from renpy.pygame.joystick import Joystick as Joystick
 
