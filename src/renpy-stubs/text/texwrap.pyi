@@ -1,10 +1,24 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from _typeshed import Incomplete
+from dataclasses import dataclass
+from renpy.text.textsupport import Glyph
+
+@dataclass
+class Word:
+    glyph: list[Glyph]
+    start_x: float
+    end_x: float
 
 class WordWrapper:
-    def __init__(self, /, *args, **kwargs) -> None: ...
-    def __reduce__(self) -> str | tuple[Any, ...]: ...
+    words: list[Word]
+    len_words: int
+    glyphs: list[Glyph]
+    scores: list[float]
+    splits: list[int]
 
-def linebreak_tex(
-    glyphs: Incomplete, first_width: Incomplete, rest_width: Incomplete, subtitle: Incomplete
-) -> None: ...
+    def __init__(self, glyphs: list[Glyph], first_width: int, rest_width: int, subtitle: bool) -> None: ...
+    def __dealloc__(self) -> None: ...
+    def unmark_splits(self) -> None: ...
+    def knuth_plass(self, first_width: int, rest_width: int, subtitle: bool) -> None: ...
+    def make_word_list(self, glyphs: list[Glyph]) -> None: ...
+
+def linebreak_tex(glyphs: list[Glyph], first_width: int, rest_width: int, subtitle: bool) -> None: ...

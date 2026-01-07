@@ -9,7 +9,6 @@ from renpy.pygame.event import EventType as EventType
 from renpy.rollback import NoRollback as NoRollback
 from renpy.types import DisplayableLike as DisplayableLike
 from typing import Any, Callable, Protocol, type_check_only
-from _typeshed import Incomplete as Incomplete
 
 @type_check_only
 class ParticleProtocol(Protocol):
@@ -103,7 +102,7 @@ class Particles(renpy.display.displayable.Displayable, renpy.rollback.NoRollback
 class SnowBlossomFactory(ParticleFactoryProtocol, renpy.rollback.NoRollback):
     rotate: bool
     start: int
-    def __setstate__(self, state: Incomplete) -> None: ...
+    def __setstate__(self, state: dict[str, Any]) -> None: ...
     image: Displayable
     count: int
     xspeed: float | tuple[float, float]
@@ -165,4 +164,4 @@ def SnowBlossom(
     horizontal: bool = False,
     distribution: DISTRIBUTION_FUNC_T | str = "linear",
     animation: bool = False,
-) -> Incomplete: ...
+) -> Particles: ...

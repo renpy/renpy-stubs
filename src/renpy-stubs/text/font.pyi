@@ -2,11 +2,16 @@ import renpy.pygame as pygame
 from _typeshed import Incomplete as Incomplete
 from collections.abc import Generator
 from renpy.pygame.surface import Surface as Surface
+from renpy.text.textsupport import Glyph as Glyph
+from renpy.text import hbfont, ftfont
+from typing import Self, Iterable
 
-WHITE: Incomplete
-BLACK: Incomplete
+WHITE: tuple[int, int, int, int]
+BLACK: tuple[int, int, int, int]
 
-def is_zerowidth(char: Incomplete) -> Incomplete: ...
+type FontKey = tuple[str, int, bool, bool]
+
+def is_zerowidth(char: int) -> bool: ...
 
 class ImageFont:
     height: int
@@ -17,161 +22,159 @@ class ImageFont:
     advance: dict[str, float]
     offsets: dict[str, tuple[int, int]]
     chars: dict[str, Surface]
-    def glyphs(self, s: Incomplete, level: Incomplete) -> Incomplete: ...
-    def bounds(self, glyphs: Incomplete, bounds: Incomplete) -> Incomplete: ...
+    def glyphs(self, s: str, level: int) -> list[Glyph]: ...
+    def bounds(self, glyphs: list[Glyph], bounds: tuple[int, int, int, int]) -> tuple[int, int, int, int]: ...
     def draw(
         self,
-        target: Incomplete,
-        xo: Incomplete,
-        yo: Incomplete,
-        color: Incomplete,
-        glyphs: Incomplete,
-        underline: Incomplete,
-        strikethrough: Incomplete,
-        black_color: Incomplete,
+        target: Surface,
+        xo: int,
+        yo: int,
+        color: tuple[int, int, int, int],
+        glyphs: list[Glyph],
+        underline: int,
+        strikethrough: bool,
+        black_color: tuple[int, int, int, int] | None,
     ) -> None: ...
     @staticmethod
-    def load_image(filename: str) -> pygame.Surface: ...
+    def load_image(filename: str) -> pygame.surface.Surface: ...
 
 class SFont(ImageFont):
-    filename: Incomplete
-    spacewidth: Incomplete
-    default_kern: Incomplete
-    kerns: Incomplete
-    charset: Incomplete
-    baseline: Incomplete
+    filename: str
+    spacewidth: int
+    default_kern: int
+    kerns: dict[str, int]
+    charset: str
+    baseline: int | None
     def __init__(
         self,
-        filename: Incomplete,
-        spacewidth: Incomplete,
-        default_kern: Incomplete,
-        kerns: Incomplete,
-        charset: Incomplete,
-        baseline: Incomplete = None,
+        filename: str,
+        spacewidth: int,
+        default_kern: int,
+        kerns: dict[str, int],
+        charset: str,
+        baseline: int | None = None,
     ) -> None: ...
-    chars: Incomplete
-    width: Incomplete
-    advance: Incomplete
-    offsets: Incomplete
-    height: Incomplete
+    chars: dict[str, Surface]
+    width: dict[str, float]
+    advance: dict[str, float]
+    offsets: dict[str, tuple[int, int]]
+    height: int
     def load(self) -> None: ...
 
 class MudgeFont(ImageFont):
-    filename: Incomplete
-    xml: Incomplete
-    spacewidth: Incomplete
-    default_kern: Incomplete
-    kerns: Incomplete
-    def __init__(
-        self, filename: Incomplete, xml: Incomplete, spacewidth: Incomplete, default_kern: Incomplete, kerns: Incomplete
-    ) -> None: ...
-    chars: Incomplete
-    width: Incomplete
-    advance: Incomplete
-    offsets: Incomplete
-    height: Incomplete
-    baseline: Incomplete
+    filename: str
+    xml: str
+    spacewidth: int
+    default_kern: int
+    kerns: dict[str, int]
+    def __init__(self, filename: str, xml: str, spacewidth: int, default_kern: int, kerns: dict[str, int]) -> None: ...
+    chars: dict[str, Surface]
+    width: dict[str, float]
+    advance: dict[str, float]
+    offsets: dict[str, tuple[int, int]]
+    height: int
+    baseline: int | None
     def load(self) -> None: ...
 
-def parse_bmfont_line(l: Incomplete) -> Incomplete: ...
+def parse_bmfont_line(l: str) -> tuple[str, dict[str, str]]: ...
 
 class BMFont(ImageFont):
-    filename: Incomplete
-    def __init__(self, filename: Incomplete) -> None: ...
-    chars: Incomplete
-    width: Incomplete
-    advance: Incomplete
-    offsets: Incomplete
-    kerns: Incomplete
+    filename: str
+    def __init__(self, filename: str) -> None: ...
+    chars: dict[str, Surface]
+    width: dict[str, float]
+    advance: dict[str, float]
+    offsets: dict[str, tuple[int, int]]
+    kerns: dict[str, int]
     default_kern: int
-    height: Incomplete
-    baseline: Incomplete
+    height: int
+    baseline: int | None
     def load(self) -> None: ...
 
 class ScaledImageFont(ImageFont):
-    height: Incomplete
-    baseline: Incomplete
-    default_kern: Incomplete
-    width: Incomplete
-    advance: Incomplete
-    offsets: Incomplete
-    kerns: Incomplete
-    chars: Incomplete
-    def __init__(self, parent: Incomplete, factor: Incomplete) -> None: ...
+    height: int
+    baseline: int
+    default_kern: int
+    width: dict[str, float]
+    advance: dict[str, float]
+    offsets: dict[str, tuple[int, int]]
+    kerns: dict[str, int]
+    chars: dict[str, Surface]
+    def __init__(self, parent: ImageFont, factor: float) -> None: ...
 
 def register_sfont(
-    name: Incomplete = None,
-    size: Incomplete = None,
+    name: str = None,
+    size: int = None,
     bold: bool = False,
     italics: bool = False,
     underline: bool = False,
-    filename: Incomplete = None,
+    filename: str = None,
     spacewidth: int = 10,
-    baseline: Incomplete = None,
+    baseline: int | None = None,
     default_kern: int = 0,
-    kerns: Incomplete = {},
+    kerns: dict[str, int] = {},
     charset: str = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
 ) -> None: ...
 def register_mudgefont(
-    name: Incomplete = None,
-    size: Incomplete = None,
+    name: str = None,
+    size: int = None,
     bold: bool = False,
     italics: bool = False,
     underline: bool = False,
-    filename: Incomplete = None,
-    xml: Incomplete = None,
+    filename: str = None,
+    xml: str = None,
     spacewidth: int = 10,
     default_kern: int = 0,
-    kerns: Incomplete = {},
+    kerns: dict[str, int] = {},
 ) -> None: ...
 def register_bmfont(
-    name: Incomplete = None,
-    size: Incomplete = None,
+    name: str = None,
+    size: int = None,
     bold: bool = False,
     italics: bool = False,
     underline: bool = False,
-    filename: Incomplete = None,
+    filename: str = None,
 ) -> None: ...
 
-face_cache: Incomplete
+face_cache: dict[tuple[str, str], hbfont.HBFace | ftfont.FTFace]
 
-def load_face(fn: Incomplete, shaper: Incomplete) -> Incomplete: ...
+def load_face(fn: str, shaper: str) -> hbfont.HBFace | ftfont.FTFace: ...
 
-image_fonts: Incomplete
-scaled_image_fonts: Incomplete
-font_cache: Incomplete
+image_fonts: dict[FontKey, ImageFont]
+scaled_image_fonts: dict[FontKey, ScaledImageFont]
+font_cache: dict[Incomplete, hbfont.HBFace | ftfont.FTFace]
 last_scale: float
 
 def get_font(
-    fn: Incomplete,
-    size: Incomplete,
+    fn: str,
+    size: int,
     bold: bool,
     italics: bool,
     outline: bool,
     antialias: bool,
     vertical: bool,
-    hinting: Incomplete,
+    hinting: bool | str,
     scale: float,
-    shaper: Incomplete,
+    shaper: str,
     instance: Incomplete,
     axis: Incomplete,
     features: Incomplete,
-) -> Incomplete: ...
+) -> ImageFont | hbfont.HBFont | ftfont.FTFont: ...
 def free_memory() -> None: ...
 def load_fonts() -> None: ...
-def variable_font_info(font: Incomplete) -> Incomplete: ...
+def variable_font_info(font: str) -> hbfont.Variations: ...
 
 class FontGroup:
-    char_map: Incomplete
-    map: Incomplete
+    char_map: dict[int, int]
+    map: dict[int | None, str]
     def __init__(self) -> None: ...
     def add(
         self,
-        font: Incomplete,
-        start: Incomplete,
-        end: Incomplete,
-        target: Incomplete = None,
+        font: str,
+        start: int | str | bytes | None,
+        end: int | str | bytes | None,
+        target: int | str | bytes | None = None,
         target_increment: bool = False,
-    ) -> None: ...
-    def remap(self, cha: Incomplete, target: Incomplete) -> None: ...
-    def segment(self, s: Incomplete) -> Generator[Incomplete]: ...
+    ) -> Self: ...
+    def remap(self, cha: int | str | bytes | Iterable[int | str | bytes], target: int | str | bytes) -> Self: ...
+    def segment(self, s: str) -> Generator[tuple[str | None, str], None, None]: ...

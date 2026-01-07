@@ -2,10 +2,10 @@ from _typeshed import Incomplete as Incomplete
 
 shader_part: Incomplete
 
-def register_shader(name: Incomplete, **kwargs) -> Incomplete: ...
+def register_shader(name: str, **kwargs) -> ShaderPart: ...
 
 class ShaderPart:
-    name: Incomplete
+    name: str
     vertex_functions: Incomplete
     fragment_functions: Incomplete
     vertex_parts: Incomplete
@@ -17,7 +17,7 @@ class ShaderPart:
     raw_variables: Incomplete
     def __init__(
         self,
-        name: Incomplete,
+        name: str,
         variables: str = "",
         vertex_functions: str = "",
         fragment_functions: str = "",
