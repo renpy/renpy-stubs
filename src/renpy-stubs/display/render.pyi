@@ -11,6 +11,7 @@ from renpy.color import Color as Color, ColorLike
 from typing import Any, Sequence, Callable
 
 type Rect = renpy.pygame.rect.Rect
+type RectLike = renpy.pygame.rect.RectLike
 
 type FocusTuple = tuple[
     Displayable,
@@ -70,7 +71,7 @@ class Render:
     def blit(
         self,
         source: "Render | Surface",
-        pos: Rect | tuple[float, float, float, float] | tuple[float, float],
+        pos: RectLike,
         focus: bool = True,
         main: bool = True,
         index: int | None = None,
