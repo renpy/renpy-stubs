@@ -1,26 +1,26 @@
-from _typeshed import Incomplete as Incomplete
 from renpy.sl2.slparser import Keyword as Keyword, PrefixStyle as PrefixStyle, Style as Style
+from typing import Sequence
 
-position_property_names: Incomplete
-position_properties: Incomplete
-text_position_properties: Incomplete
-side_position_properties: Incomplete
-viewport_position_properties: Incomplete
-scrollbar_position_properties: Incomplete
-vscrollbar_position_properties: Incomplete
-text_property_names: Incomplete
-text_properties: Incomplete
-text_text_properties: Incomplete
-margin_properties: Incomplete
-padding_properties: Incomplete
-window_properties: Incomplete
-button_properties: Incomplete
-bar_property_names: Incomplete
-bar_properties: Incomplete
-scrollbar_bar_properties: Incomplete
-vscrollbar_bar_properties: Incomplete
-box_property_names: Incomplete
-box_properties: Incomplete
-grid_properties: Incomplete
-ui_properties: Incomplete
-property_groups: Incomplete
+position_property_names: list[str]
+position_properties: list[Style | Keyword]
+text_position_properties: list[PrefixStyle]
+side_position_properties: list[PrefixStyle | Keyword]
+viewport_position_properties: list[PrefixStyle]
+scrollbar_position_properties: list[PrefixStyle | Keyword]
+vscrollbar_position_properties: list[PrefixStyle | Keyword]
+text_property_names: list[str]
+text_properties: list[Style]
+text_text_properties: list[PrefixStyle]
+margin_properties: list[Style]
+padding_properties: list[Style]
+window_properties: list[Style]
+button_properties: list[Style | Keyword]
+bar_property_names: list[str]
+bar_properties: list[Style]
+scrollbar_bar_properties: list[PrefixStyle]
+vscrollbar_bar_properties: list[PrefixStyle]
+box_property_names: list[str]
+box_properties: list[Style]
+grid_properties: list[Style]
+ui_properties: list[Keyword]
+property_groups: dict[str, Sequence[Style | Keyword]]
