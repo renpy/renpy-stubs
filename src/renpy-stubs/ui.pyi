@@ -328,7 +328,7 @@ class Imagemap:
     hover: DisplayableLike
     selected_hover: DisplayableLike
     selected_insensitive: DisplayableLike
-    cache: bool
+    cache: renpy.display.imagemap.ImageMapCache
     def __init__(
         self,
         insensitive: DisplayableLike,

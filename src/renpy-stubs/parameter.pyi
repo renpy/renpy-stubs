@@ -1,7 +1,7 @@
 import renpy
 from _typeshed import Incomplete as Incomplete
 from renpy.object import Object as Object
-from typing import Any, Literal, Sequence
+from typing import Any, Literal, Sequence, Iterable
 
 class Parameter:
     __slots__: str | tuple[str, ...]
@@ -49,7 +49,7 @@ class Signature:
     def with_pos_only_as_pos_or_kw(self) -> Signature: ...
     def apply(
         self,
-        args: tuple[Any, ...],
+        args: Iterable[Any],
         kwargs: dict[str, Any],
         ignore_errors: bool = False,
         partial: bool = False,
