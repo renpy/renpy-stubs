@@ -380,7 +380,7 @@ from renpy.translation import (
 )
 from renpy.ui import Choice as Choice
 
-menu_args: tuple[Any] | None
+menu_args: tuple[Any, ...] | None
 menu_kwargs: dict[str, Any] | None
 bits: int
 

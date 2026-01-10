@@ -1,7 +1,14 @@
+import renpy
 from _typeshed import Incomplete as Incomplete
 from renpy.compat.pickle import dumps as dumps, find_bad_reduction as find_bad_reduction, loads as loads
 
 class Persistent:
+    _preferences: renpy.preferences.Preferences
+    _seen_ever: dict[renpy.ast.NodeName | int, bool]
+    _seen_images: dict[tuple[str, ...], bool]
+    _chosen: dict[tuple[renpy.ast.NodeName, str], bool]
+    _seen_audio: dict[str, bool]
+    _seen_translates: set[str | int]
     def __init__(self) -> None: ...
     def __getattr__(self, attr: Incomplete) -> None: ...
 

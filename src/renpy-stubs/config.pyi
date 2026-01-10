@@ -1,5 +1,6 @@
 import renpy
 from _typeshed import Incomplete as Incomplete
+from renpy.display.transform import Transform
 from renpy.error import TracebackException as TracebackException
 from renpy.text.shader import TextShader as TextShader
 from renpy.types import DisplayableLike
@@ -48,7 +49,7 @@ overlay_layers: Incomplete
 context_clear_layers: Incomplete
 top_layers: Incomplete
 bottom_layers: Incomplete
-sticky_layers: Incomplete
+sticky_layers: list[str]
 detached_layers: Incomplete
 overlay_during_with: bool
 enable_fast_dissolve: bool
@@ -130,9 +131,9 @@ say_menu_text_filter: Callable[[str], str] | None
 label_overrides: dict[renpy.ast.NodeName, renpy.ast.NodeName]
 auto_save_extra_info: Incomplete
 save_directory: str | None
-missing_scene: Incomplete
-missing_show: Incomplete
-missing_hide: Incomplete
+missing_scene: Callable[[str], bool] | None
+missing_show: Callable[[tuple[str, ...], tuple[str, ...], str], renpy.display.displayable.Displayable] | None
+missing_hide: Callable[[tuple[str, ...], str], bool] | None
 label_callback: Incomplete
 label_callbacks: Incomplete
 empty_window: Incomplete
@@ -162,7 +163,7 @@ expensive_predict_callbacks: Incomplete
 predict_screens: bool
 choice_screen_chosen: bool
 narrator_menu: bool
-variants: list
+variants: list[str | None]
 imagemap_auto_function: Callable[[str, str], DisplayableLike] | None
 keep_running_transform: bool
 image_attributes: bool
@@ -244,7 +245,7 @@ overlay_screens: Incomplete
 always_shown_screens: Incomplete
 tag_layer: Incomplete
 default_tag_layer: str
-tag_transform: Incomplete
+tag_transform: dict[str, Transform | list[Transform]]
 tag_zorder: Incomplete
 log_width: int
 rollback_side_size: float
@@ -397,7 +398,7 @@ perspective: Incomplete
 scene_clears_layer_at_list: bool
 mouse_displayable: Incomplete
 gl_lod_bias: float
-adjust_attributes: Incomplete
+adjust_attributes: dict[str | None, Callable[[tuple[str, ...]], tuple[str, ...]]]
 default_attribute_callbacks: Incomplete
 who_what_sub_compat: int
 compat_viewport_minimum: bool
@@ -425,7 +426,7 @@ nointeract_callbacks: Incomplete
 layeredimage_offer_screen: bool
 call_screen_roll_forward: bool
 choice_empty_window: Incomplete
-open_file_encoding: Incomplete
+open_file_encoding: bool | str
 gl2_modify_window_flags: Incomplete
 skip_during_text: bool
 alternate_unelide_path: Incomplete
@@ -436,7 +437,7 @@ font_name_map: Incomplete
 relative_spacing: bool
 autosave_callback: Incomplete
 viewport_drag_radius: int
-scene_callbacks: Incomplete
+scene_callbacks: list[Callable[[str], None]] | None
 physical_width: Incomplete
 physical_height: Incomplete
 lenticular_bracket_ruby: bool
