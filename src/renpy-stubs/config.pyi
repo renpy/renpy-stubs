@@ -184,7 +184,7 @@ broken_line_spacing: bool
 python_callbacks: Incomplete
 save_dump: bool
 gl_resize: bool
-change_language_callbacks: Incomplete
+change_language_callbacks: list[Callable[[str | None], None]]
 tl_directory: str
 key_repeat: Incomplete
 voice_tag_callback: Incomplete
