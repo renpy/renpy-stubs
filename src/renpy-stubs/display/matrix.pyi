@@ -1,5 +1,5 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from typing import Literal, Sequence, Self, overload
+from typing import Literal, Sequence, Self, overload, Callable
 
 class Matrix:
     def __init__(self, l: Sequence[float]) -> None: ...
@@ -60,6 +60,7 @@ class Matrix:
     ydw: float
     zdw: float
     wdw: float
+    origin: Callable[[Callable | None, float], Matrix] | None
 
 class Matrix2D(Matrix):
     def __init__(self, xdx: float, xdy: float, ydx: float, ydy: float) -> None: ...

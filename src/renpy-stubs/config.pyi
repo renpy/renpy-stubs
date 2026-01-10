@@ -254,7 +254,7 @@ windows_dpi_scale_head: float
 enable_rollback_side: bool
 replay_scope: Incomplete
 movie_mixer: str
-auto_channels: Incomplete
+auto_channels: dict[str, tuple[str, str, str]]
 play_channel: str
 speaking_attribute: Incomplete
 list_compression_length: int
@@ -403,7 +403,7 @@ default_attribute_callbacks: Incomplete
 who_what_sub_compat: int
 compat_viewport_minimum: bool
 webaudio: bool
-webaudio_required_types: Incomplete
+webaudio_required_types: list[str]
 audio_filename_callback: Incomplete
 adjust_minimums: bool
 atl_start_on_show: bool

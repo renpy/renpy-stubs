@@ -9,6 +9,11 @@ class AudioFilter:
 def Bandpass(frequency: float = 350, q: float = 1.0) -> None: ...
 
 class Biquad(AudioFilter):
+    kind: Literal["lowpass", "highpass", "bandpass", "lowshelf", "highshelf", "peaking", "notch", "allpass"]
+    frequency: float
+    q: float
+    gain: float
+
     def __init__(
         self,
         kind: Literal["lowpass", "highpass", "bandpass", "lowshelf", "highshelf", "peaking", "notch", "allpass"],
@@ -29,6 +34,10 @@ class Comb(AudioFilter):
     def prepare(self, samplerate: int) -> None: ...
 
 class Crossfade(AudioFilter):
+    filter1: AudioFilter
+    filter2: AudioFilter
+    duration: float
+
     def __init__(self, filter1: AudioFilter, filter2: AudioFilter, duration: float = 0.05) -> None: ...
     def prepare(self, samplerate: int) -> None: ...
 
