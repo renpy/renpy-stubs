@@ -20,8 +20,9 @@ from renpy.text.bidi import (
 from renpy.text.emoji_trie import UNQUALIFIED as UNQUALIFIED, emoji as emoji
 from renpy.text.textsupport import DISPLAYABLE, PARAGRAPH, TAG, TEXT, Glyph
 from renpy.text.shader import TextShader
+from typing import Callable
 
-type Token = tuple[int, str]
+type Token = tuple[int, str | Displayable]
 type Outline = tuple[int, renpy.color.ColorLike | None, int, int]
 type Paragraph = list[tuple[TextSegment | SpaceSegment | DisplayableSegment | FlagSegment, str]]
 
@@ -260,7 +261,7 @@ class Text(renpy.display.displayable.Displayable):
     dirty: bool
     def after_upgrade(self, version: int) -> None: ...
     slow: bool | None
-    slow_done: Callable | None
+    slow_done: Callable[[], None] | None
     displayables: list[renpy.display.displayable.Displayable] | None
     displayable_offsets: Incomplete
     def __init__(
@@ -298,7 +299,7 @@ class Text(renpy.display.displayable.Displayable):
     def render(self, width: Incomplete, height: Incomplete, st: Incomplete, at: Incomplete) -> Incomplete: ...
     def render_blits(self, render: renpy.display.render.Render, layout: Layout, st: float) -> None: ...
     def render_textshader(self, render: renpy.display.render.Render, layout: Layout, st: float, at: float) -> None: ...
-    def tokenize(self, text: list[str | renpy.display.displayable.Displayable]) -> list[tuple[int, str]]: ...
+    def tokenize(self, text: list[str | renpy.display.displayable.Displayable]) -> list[Token]: ...
     @staticmethod
     def apply_custom_tags(tokens: list[Token]) -> list[Token]: ...
     def get_displayables(

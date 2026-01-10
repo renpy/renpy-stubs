@@ -126,7 +126,7 @@ inspector: Incomplete
 reject_backslash: bool
 mouse_hide_time: int
 missing_image_callback: Callable[[str], renpy.display.im.ImageBase | None] | None
-say_menu_text_filter: Incomplete
+say_menu_text_filter: Callable[[str], str] | None
 label_overrides: dict[renpy.ast.NodeName, renpy.ast.NodeName]
 auto_save_extra_info: Incomplete
 save_directory: str | None

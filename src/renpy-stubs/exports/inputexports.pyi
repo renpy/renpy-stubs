@@ -1,26 +1,26 @@
 from _typeshed import Incomplete as Incomplete
 
 def web_input(
-    prompt: Incomplete,
+    prompt: str,
     default: str = "",
-    allow: Incomplete = None,
+    allow: str | None = None,
     exclude: str = "{}",
-    length: Incomplete = None,
+    length: int | None = None,
     mask: bool = False,
-) -> Incomplete: ...
+) -> str | None: ...
 def input(
-    prompt: Incomplete,
+    prompt: str,
     default: str = "",
-    allow: Incomplete = None,
+    allow: str | None = None,
     exclude: str = "{}",
-    length: Incomplete = None,
-    with_none: Incomplete = None,
-    pixel_width: Incomplete = None,
+    length: int | None = None,
+    with_none: bool | None = None,
+    pixel_width: float | None = None,
     screen: str = "input",
-    mask: Incomplete = None,
+    mask: str | None = None,
     copypaste: bool = True,
     multiline: bool = False,
     **kwargs,
-) -> Incomplete: ...
-def get_editable_input_value() -> Incomplete: ...
-def set_editable_input_value(input_value: Incomplete, editable: Incomplete) -> None: ...
+) -> str | None: ...
+def get_editable_input_value() -> tuple[Incomplete | None, bool]: ...
+def set_editable_input_value(input_value: Incomplete | None, editable: bool) -> None: ...
