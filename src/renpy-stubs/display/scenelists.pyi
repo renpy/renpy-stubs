@@ -9,7 +9,8 @@ from renpy.display.motion import Transform as Transform
 from renpy.object import Object as Object
 from typing import Any, Callable, Generator
 
-type AtList = list[Transform | Callable[[Displayable], Displayable]]
+type AtType = Transform | Callable[[Displayable], Displayable]
+type AtList = list[AtType]
 ordered_layers: list[str]
 layers: frozenset[str]
 sticky_layers: frozenset[str]

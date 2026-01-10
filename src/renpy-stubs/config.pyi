@@ -417,7 +417,7 @@ log_live2d_loading: bool
 debug_prediction: bool
 mouse_focus_clickthrough: bool
 always_unfocus: bool
-at_exit_callbacks: Incomplete
+at_exit_callbacks: list[Callable[[], None]]
 lint_character_statistics: bool
 allow_unfull_vpgrids: bool
 box_skip: bool
