@@ -403,7 +403,7 @@ expand_texture_bounds: int
 modal_timeevent: bool
 gl_set_attributes: Callable[[], None] | None
 controller_blocklist: list[str]
-mipmap: bool
+mipmap: bool | Literal["auto"]
 mipmap_dissolves: bool
 mipmap_movies: bool
 mipmap_text: bool
@@ -511,7 +511,7 @@ raise_image_load_exceptions: bool | None
 textshaders: dict[str, TextShader]
 textshader_callbacks: dict[str, Callable[[], str]]
 default_textshader: str | None
-shader_part_filter: Callable[[tuple[str]], tuple[str]] | None
+shader_part_filter: Callable[[tuple[str, ...]], tuple[str, ...]] | None
 munge_in_strings: bool
 character_callback_compat: bool | None
 translate_ignore_who: list[str]

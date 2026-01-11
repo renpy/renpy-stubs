@@ -1,20 +1,26 @@
+import re
+from typing import Iterable
 from _typeshed import Incomplete as Incomplete
 
-shader_part: Incomplete
+import renpy
+from renpy.gl2.gl2shader import Variable as Variable
+
+type PartTuple = tuple[int | str, str, str]
+shader_part: "dict[str, ShaderPart]"
 
 def register_shader(name: str, **kwargs) -> ShaderPart: ...
 
 class ShaderPart:
     name: str
-    vertex_functions: Incomplete
-    fragment_functions: Incomplete
-    vertex_parts: Incomplete
-    fragment_parts: Incomplete
-    vertex_variables: Incomplete
-    fragment_variables: Incomplete
-    variable_types: Incomplete
-    uniforms: Incomplete
-    raw_variables: Incomplete
+    vertex_functions: str
+    fragment_functions: str
+    vertex_parts: list[PartTuple]
+    fragment_parts: list[PartTuple]
+    vertex_variables: set[Variable]
+    fragment_variables: set[Variable]
+    variable_types: dict[str, str]
+    uniforms: list[str]
+    raw_variables: str
     def __init__(
         self,
         name: str,
@@ -24,29 +30,29 @@ class ShaderPart:
         private_uniforms: bool = False,
         **kwargs,
     ) -> None: ...
-    def expand_name(self, s: Incomplete) -> Incomplete: ...
-    def expand_match(self, m: Incomplete) -> Incomplete: ...
-    def expand_operation(self, m: Incomplete) -> Incomplete: ...
-    def substitute_name(self, s: Incomplete) -> Incomplete: ...
+    def expand_name(self, s: str) -> str: ...
+    def expand_match(self, m: re.Match[str]) -> str: ...
+    def expand_operation(self, m: re.Match[str]) -> str: ...
+    def substitute_name(self, s: str) -> str: ...
 
 cache: Incomplete
 
 def source(
-    variables: Incomplete, parts: Incomplete, functions: Incomplete, fragment: Incomplete, gles: Incomplete
-) -> Incomplete: ...
+    variables: Iterable[Variable], parts: list[PartTuple], functions: list[str], fragment: bool, gles: bool
+) -> str: ...
 
-shader_part_filter_cache: Incomplete
+shader_part_filter_cache: dict[tuple[str, ...], tuple[str, ...]]
 
 class ShaderCache:
-    filename: Incomplete
-    gles: Incomplete
-    cache: Incomplete
-    missing: Incomplete
+    filename: str
+    gles: bool
+    cache: dict[tuple[str, ...], renpy.gl2.gl2shader.Program]
+    missing: set[tuple[str, ...]]
     dirty: bool
-    def __init__(self, filename: Incomplete, gles: Incomplete) -> None: ...
-    def get(self, partnames: Incomplete) -> Incomplete: ...
-    def check(self, partnames: Incomplete) -> Incomplete: ...
+    def __init__(self, filename: str, gles: bool) -> None: ...
+    def get(self, partnames: tuple[str, ...]) -> renpy.gl2.gl2shader.Program: ...
+    def check(self, partnames: tuple[str, ...]) -> bool: ...
     def save(self) -> None: ...
     def load(self) -> None: ...
     def clear(self) -> None: ...
-    def log_shader(self, kind: Incomplete, partnames: Incomplete, text: Incomplete) -> None: ...
+    def log_shader(self, kind: str, partnames: tuple[str, ...], text: str) -> None: ...

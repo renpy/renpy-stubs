@@ -38,7 +38,7 @@ class Live2DCommon:
     model: Live2DModel
     textures: list[Displayable]
     attributes: set[str]
-    motions: dict[str, renpy.gl2.live2dmotion.BaseMotion]
+    motions: dict[str, renpy.gl2.live2dmotion.MotionBase]
     expressions: dict[str, Live2DExpression]
     all_expressions: dict[str, Live2DExpression]
     nonexclusive: dict[str, Live2DExpression]

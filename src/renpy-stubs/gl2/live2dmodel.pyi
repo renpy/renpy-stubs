@@ -6,11 +6,11 @@ class AlignedMemory:
     def __init__(self, size: int, alignment: int, data: bytes) -> None: ...
 
 class Live2DModel:
-    moc_version: Incomplete
+    moc_version: int
     parameters: dict[str, Parameter]
     parts: dict[str, Part]
     parameter_groups: dict[str, list[str]]
-    opacity_groups: dict[Incomplete, Incomplete]
+    opacity_groups: dict[str, list[float]]
 
     def __init__(self, fn: str) -> None: ...
     def blend_opacity(self, name: str, blend: str, value: float, weight: float = 1.0) -> None: ...
