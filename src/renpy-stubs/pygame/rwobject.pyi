@@ -24,6 +24,9 @@ class RWopsIO(io.RawIOBase):
     def writable(self) -> None: ...
 
 class RWopsIOImpl:
+    name: Incomplete
+    base: Incomplete
+    length: Incomplete
     def __init__(
         self,
         filelike: Incomplete,

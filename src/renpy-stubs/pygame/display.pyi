@@ -9,6 +9,7 @@ class Info:
     def __repr__(self) -> str: ...
 
 class Window:
+    surface: Surface
     def __init__(
         self,
         title: str,

@@ -2,6 +2,10 @@ from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from _typeshed import Incomplete
 
 class Rect:
+    x: int
+    y: int
+    w: int
+    h: int
     def __init__(self, *args: RectLike) -> None: ...
     def __delitem__(self, key: Incomplete) -> None: ...
     def __eq__(self, value: object) -> bool: ...

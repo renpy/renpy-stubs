@@ -142,6 +142,7 @@ class Render:
     children: list[tuple["Render | Surface", float, float, bool, bool]]
     forward: renpy.display.matrix.Matrix | None
     reverse: renpy.display.matrix.Matrix | None
+    matrix_kind: int
     alpha: float
     over: float
     nearest: bool | None
@@ -170,6 +171,7 @@ class Render:
     cached_model: Incomplete | None
     loaded: bool
     uniforms_has_render: bool
+    debug: bool
 
 def adjust_render_cache_times(old_time: float, new_time: float) -> None: ...
 def check_at_shutdown() -> None: ...

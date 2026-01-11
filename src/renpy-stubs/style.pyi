@@ -13,7 +13,6 @@ type StyleBackup = dict[tuple[str, ...], tuple[tuple[str, ...] | None, list[dict
 
 class StyleCore:
     prefix: str
-    prefix_offset: int
     properties: list[dict[str, Any]] = []
     parent: tuple[str, ...] | None
     name: tuple[str, ...] | None
