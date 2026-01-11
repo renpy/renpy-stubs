@@ -3,8 +3,25 @@ from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from renpy.gl2.gl2model import GL2Model as GL2Model
 from renpy.gl2.gl2draw import Gl2Draw as Gl2Draw
 from _typeshed import Incomplete
+from renpy.uguu import GLint
 
 class GLTexture(renpy.gl2.gl2model.GL2Model):
+    number: int
+    loaded: bool
+    texture_width: int
+    texture_height: int
+    bl: int
+    bt: int
+    br: int
+    bb: int
+    wrap_s: GLint
+    wrap_t: GLint
+    anisotropy: float
+    mag_filter: GLint
+    min_filter: GLint
+    default_mag_filter: GLint
+    default_min_filter: GLint
+
     def __init__(self, size: tuple[Incomplete, Incomplete], loader: TextureLoader, generate: bool = False) -> None: ...
     def add_mipmap(self) -> None: ...
     def allocate_texture(self, tex: int, tw: int, th: int, properties={}) -> Incomplete: ...
@@ -22,6 +39,10 @@ class GLTexture(renpy.gl2.gl2model.GL2Model):
 class Texture(GLTexture): ...
 
 class TextureLoader:
+    max_texture_width: GLint
+    max_texture_height: GLint
+    max_anisotropy: float
+
     def __init__(self, draw: Gl2Draw) -> None: ...
     def cleanup(self) -> None: ...
     def get_texture_size(self) -> None: ...

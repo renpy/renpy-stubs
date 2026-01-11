@@ -2,10 +2,19 @@ from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from _typeshed import Incomplete
 
 class AttributeLayout:
+    offset: dict[Incomplete, Incomplete]
+    stride: int
     def __reduce__(self) -> str | tuple[Any, ...]: ...
     def add_attribute(self, name: Incomplete, length: Incomplete) -> None: ...
 
 class Mesh:
+    allocated_points: int
+    points: int
+    point_size: int
+    layout: AttributeLayout
+    allocated_triangles: int
+    triangles: int
+
     def __reduce__(self) -> str | tuple[Any, ...]: ...
     def get_triangles(self) -> None: ...
     def set_attribute_data(self, attributes: Incomplete) -> None: ...

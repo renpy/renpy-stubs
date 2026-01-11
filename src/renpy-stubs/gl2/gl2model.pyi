@@ -1,7 +1,19 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from _typeshed import Incomplete
+from renpy.display.matrix import Matrix
+from renpy.gl2.gl2mesh import Mesh
 
 class GL2Model:
+    width: int
+    height: int
+    mesh: Mesh
+    forward: Matrix
+    reverse: Matrix
+    shaders: tuple[Incomplete]
+    uniforms: dict[Incomplete, Incomplete]
+    properties: dict[Incomplete, Incomplete]
+    cached_texture: Incomplete
+
     def __init__(
         self,
         size: tuple[int, int],

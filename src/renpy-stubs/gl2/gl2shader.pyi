@@ -1,5 +1,6 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from _typeshed import Incomplete
+from renpy.uguu import GLuint
 
 GLSL_PRECISIONS: set[str]
 ATTRIBUTE_TYPES: dict[str, int]
@@ -10,6 +11,13 @@ class Attribute:
     def __init__(self, name: Incomplete, location: int, size: int) -> None: ...
 
 class Program:
+    name: Incomplete
+    program: GLuint
+    vertex: Incomplete
+    fragment: Incomplete
+    attributes: list[Incomplete]
+    uniform_setters: list[Incomplete]
+
     def __init__(self, name: Incomplete, vertex: Incomplete, fragment: Incomplete) -> None: ...
     def draw(self, context: GL2DrawingContext, model: GL2Model, mesh: Mesh) -> Incomplete: ...
     def draw_ftl(self, texture: int, mesh: Mesh) -> Incomplete: ...

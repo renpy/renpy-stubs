@@ -1,8 +1,51 @@
 import renpy as renpy
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from _typeshed import Incomplete
+from renpy.display.matrix import Matrix
+from renpy.uguu.uguu import GLuint
+from renpy.gl2.gl2texture import TextureLoader
 
 class GL2Draw:
+    gles: bool
+    angle: bool
+    did_init: bool
+    window: Incomplete
+    virtual_size: tuple[Incomplete, Incomplete]
+    physical_size: tuple[Incomplete, Incomplete]
+    drawable_size: tuple[Incomplete, Incomplete]
+    virtual_box: tuple[Incomplete, Incomplete]
+    physical_box: tuple[Incomplete, Incomplete]
+    last_redraw_time: float
+    redraw_period: float
+    info: dict[Incomplete, Incomplete]
+    old_fullscreen: Incomplete
+    fullscreen_surface: Incomplete
+    display_info: Incomplete
+    clip_cache: tuple[Incomplete, Incomplete]
+    default_clip: tuple[Incomplete, Incomplete]
+    dpi_scale: float
+    shader_cache: Incomplete
+    ever_set_position: bool
+    clip_rtt_box: tuple[Incomplete, Incomplete]
+    draw_per_phys: float
+    drawable_viewport: tuple[Incomplete, Incomplete]
+    draw_per_virt: Incomplete
+    virt_to_draw: Matrix
+    draw_to_virt: Matrix
+    auto_mipmap: bool
+    draw_transform: Matrix
+    fast_redraw_frames: int
+    color_renderbuffer: GLuint
+    depth_renderbuffer: GLuint
+    fbo: GLuint
+    color_renderbuffer_1px: GLuint
+    depth_renderbuffer_1px: GLuint
+    fbo_1px: GLuint
+    texture_loader: TextureLoader
+    default_fbo: GLuint
+    current_fbo: GLuint
+    maximized: bool
+
     def __init__(self, name: str) -> None: ...
     def can_block(self) -> None: ...
     def draw_screen(self, render_tree: Incomplete, flip: bool = True, screenshot: bool = False) -> None: ...
@@ -17,7 +60,9 @@ class GL2Draw:
     def is_pixel_opaque(self, what: Incomplete) -> None: ...
     def kill_textures(self) -> None: ...
     def load_all_textures(self, what: Incomplete) -> None: ...
-    def load_texture(self, surf: Incomplete, transient: bool = False, properties: dict = {}) -> None: ...
+    def load_texture(
+        self, surf: Incomplete, transient: bool = False, properties: dict[Incomplete, Incomplete] = {}
+    ) -> None: ...
     def mouse_event(self, ev: Incomplete) -> None: ...
     def mutated_surface(self, surf: Incomplete) -> None: ...
     def on_resize(self, first: bool = False, full_reset: bool = False) -> None: ...
