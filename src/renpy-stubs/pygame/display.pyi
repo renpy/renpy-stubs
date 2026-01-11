@@ -1,5 +1,4 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from _typeshed import Incomplete as Incomplete
 import ctypes
 from typing import Any
 from renpy.pygame.surface import Surface as Surface

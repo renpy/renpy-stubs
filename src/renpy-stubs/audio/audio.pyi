@@ -5,7 +5,7 @@ from renpy.audio.filter import AudioFilter as AudioFilter
 from renpy.pygame.surface import Surface as Surface
 from renpy.revertable import RevertableObject as RevertableObject
 from renpy.types import Unused as Unused
-from typing import Any, Callable, Literal
+from typing import Any, Callable, Literal, overload
 
 pcm_ok: bool | None
 unique: float
@@ -107,6 +107,10 @@ class Channel:
     def get_context(self) -> MusicContext: ...
     context: MusicContext
     def copy_context(self) -> MusicContext: ...
+    @overload
+    def split_filename(self, filename: AudioData, looped: bool) -> tuple[AudioData, float, float, float]: ...
+    @overload
+    def split_filename(self, filename: str, looped: bool) -> tuple[str, float, float, float]: ...
     def split_filename(
         self, filename: str | AudioData, looped: bool
     ) -> tuple[str | AudioData, float, float, float]: ...
