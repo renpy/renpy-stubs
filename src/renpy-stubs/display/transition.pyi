@@ -9,7 +9,6 @@ from typing import Any, Protocol, overload, type_check_only
 
 type Warper = renpy.atl.Warper
 
-@type_check_only
 class TransitionFunction(Protocol):
     def __call__(self, old_widget: Displayable | None, new_widget: Displayable | None) -> Transition: ...
 

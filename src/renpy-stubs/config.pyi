@@ -4,6 +4,7 @@ import collections
 from _typeshed import Incomplete as Incomplete
 
 import renpy
+from renpy.display.displayable import Displayable
 from renpy.display.transform import Transform
 from renpy.error import TracebackException as TracebackException
 from renpy.text.shader import TextShader as TextShader
@@ -547,3 +548,221 @@ tlid_only_considers_say: bool
 
 def init() -> None: ...
 def post_init() -> None: ...
+
+## From .rpy files:
+adv_nvl_transition: renpy.display.transition.TransitionFunction | None
+afm_voice_delay: float
+after_load_callbacks: list[Callable[[], None]]
+after_load_transition: renpy.display.transition.TransitionFunction | None
+always_has_joystick: bool
+audio_directory: str | None
+auto_load: str | None
+auto_voice: str | Callable[[str], str] | None
+automatic_images: bool | None
+automatic_images_minimum_components: int
+automatic_images_strip: list[str]
+automatic_steam_timeline: bool
+autoreload: bool
+autosave_on_quit: bool
+before_load_callbacks: list[Callable[[], None]]
+clear_layers: list[str]
+confirm_screen: bool
+console: bool
+console_callback: Callable[[list[str]], list[str]] | None
+console_commands: dict[str, renpy.lexer.Lexer]
+console_history_lines: int
+console_history_size: int
+debug_equality: bool
+default_afm_enable: bool | None
+default_afm_time: int | None
+default_emphasize_audio: float | None
+default_fullscreen: bool | None
+default_language: str | None
+default_mouse_move: bool | None
+default_music_volume: float
+default_sfx_volume: float
+default_show_empty_window: bool | None
+default_sound_loop: bool | None
+default_text_cps: int | None
+default_voice_sustain: bool | None
+default_voice_volume: float
+default_wait_for_voice: bool | None
+descriptive_text_character: Incomplete | None
+early_script_version: tuple[int, ...] | None
+early_start_store: bool
+enable_steam: bool
+end_splash_transition: renpy.display.transition.TransitionFunction | None
+enter_replay_transition: renpy.display.transition.TransitionFunction | None
+enter_sound: str | list[str] | None
+enter_transition: renpy.display.transition.TransitionFunction | None
+enter_yesno_transition: renpy.display.transition.TransitionFunction | None
+exit_replay_transition: renpy.display.transition.TransitionFunction | None
+exit_sound: str | list[str] | None
+exit_transition: renpy.display.transition.TransitionFunction | None
+exit_yesno_transition: renpy.display.transition.TransitionFunction | None
+extend_interjection: str
+file_page_names: list[str]
+file_pages_per_folder: int
+file_slotname_callback: Callable[[str, str], str] | None
+force_sound: bool
+game_main_transition: renpy.display.transition.TransitionFunction | None
+game_menu: list[tuple[str, str, renpy.display.behavior.ActionType, str]]
+game_menu_action: renpy.display.behavior.ActionType | None
+game_menu_music: str | list[str] | None
+gl_test_image: str
+gui_text_position_properties: bool
+has_music: bool
+has_quicksave: bool
+has_sound: bool
+has_sync: bool
+has_voice: bool
+help: str | None
+help_screen: str | None
+hyperlink_handlers: dict[str, Callable[[str], Any | None]]
+hyperlink_protocol: str
+hyperlink_sensitive: dict[str, Callable[[str], bool]]
+image_buttons: dict[
+    str, tuple[Displayable | None, Displayable | None, Displayable | None, Displayable | None, Displayable | None]
+]
+image_directories: list[str]
+image_extensions: list[str]
+image_labels: dict[str, Incomplete]
+images_directory: str | None
+intra_transition: renpy.display.transition.TransitionFunction | None
+language: str | None
+late_images_scan: bool
+linear_saves_page_size: int | None
+main_game_transition: renpy.display.transition.TransitionFunction | None
+main_menu: list[tuple[str, str | renpy.display.behavior.ActionType, str]]
+main_menu_music: str | list[str] | None
+main_menu_music_fadein: str
+main_menu_per_group: int
+main_menu_stop_channels: list[str] = ["sound", "voice", "movie"]
+menu_clear_layers: list[str]
+menu_window_subtitle: str
+missing_background: str | Unused
+module_version: int | Unused
+module_warning: bool | Unused
+nvl_adv_transition: renpy.display.transition.TransitionFunction | None
+nvl_layer: str | None
+nvl_list_length: int | None
+nvl_page_ctc: DisplayableLike | None
+nvl_page_ctc_position: str
+nvl_paged_rollback: bool
+nvl_show_display_say: Callable[[Incomplete], Incomplete] | None
+old_names: dict[str, str]
+pause_with_transition: bool
+performance_test: bool
+pre_screenshot_actions: list[renpy.display.behavior.ActionType]
+predict_file_pages: bool
+predict_screen_statements: bool
+predict_start_labels: list[renpy.ast.NodeName]
+profile_reload: bool
+quicksave_slots: int
+reload_menu: bool
+sample_voice: str | None
+screenshot_callback: Callable[[str], None] | None
+screenshot_pattern: str
+script_version: tuple[int, ...] | None
+self_voicing_stops_afm: bool | Unused
+show_menu_enable: dict[str, str]
+side_image_change_transform: Transform | None
+side_image_null: Displayable
+side_image_same_transform: Transform | None
+side_image_tag: str | None
+skip_indicator: bool
+splashscreen_suppress_overlay: bool
+start_callbacks: list[Callable[[], None]]
+start_scene_black: bool
+sync_server: str
+translations: dict[str, str]
+transparent_tile: bool
+voice_callbacks: list[
+    Callable[[Literal["play", "stop"], Incomplete | None], None]
+]  # VoiceInfo is the second argument type, but it's in an rpy file
+voice_filename_format: str
+window: Literal["show", "hide", "auto"] | None
+window_auto_hide: list[str]
+window_auto_show: list[str]
+window_functions_set_auto: bool
+window_hide_transition: renpy.display.transition.TransitionFunction | None
+window_next: bool
+window_show_transition: renpy.display.transition.TransitionFunction | None
+
+## From .rpym files:
+# game_menu_positions = None
+# file_picker_positions = None
+
+# button_properties = { }
+# button_text_properties = { }
+# label_properties = { }
+
+# main_menu_positions = None
+
+# joystick_preferences = { }
+# preference_positions = None
+# joystick_preference_positions = None
+# hbox_pref_choices = False
+# joystick_keys: [tuple[str, str]]
+
+# thumbnail_width = 60
+# thumbnail_height = 45
+# file_page_cols = 2
+# file_page_rows = 4
+# file_quick_access_pages = 8
+
+# disable_file_pager = False
+# disable_thumbnails = False
+# load_save_empty_thumbnail = None
+# time_format = "%b %d, %H:%M"
+# file_entry_format = "%(time)s\n%(save_name)s"
+
+# preferences = { }
+# all_preferences = { }
+# soundtest_before_volume = False
+# has_transitions = True
+# has_cps = True
+# has_afm = True
+# has_skipping = True
+# has_skip_after_choice = True
+# has_joystick = True
+
+# main_menu_per_group = 2
+# navigation_per_group = 4
+
+# load_save_ground = { }
+# load_save_idle = { }
+# load_save_hover = { }
+# load_save_selected_idle = { }
+# load_save_selected_hover = { }
+# load_save_hotspots = { }
+
+# main_menu_ground = { }
+# main_menu_selected = { }
+# main_menu_idle = { }
+# main_menu_hotspots = { }
+
+# load_save_slots = 50
+# load_save_auto_slots = 5
+# load_save_quick_slots = 5
+
+# navigation_ground: Incomplete = ground
+# navigation_hotspots: Incomplete = hotspots
+# navigation_hover: Incomplete = hover
+# navigation_idle: Incomplete = idle
+# navigation_per_group: int | Incomplete = per_group
+# navigation_selected_hover: Incomplete = selected_hover
+# navigation_selected_idle: Incomplete = selected_idle
+
+# preferences_ground: Incomplete | None = ground
+# preferences_hotspots: Incomplete | None = hotspots
+# preferences_hover: Incomplete | None = hover
+# preferences_idle: Incomplete | None = idle
+# preferences_selected_hover: Incomplete | None = selected_hover
+# preferences_selected_idle: Incomplete | None = selected_idle
+
+# yesno_prompt_ground: Incomplete | None = ground
+# yesno_prompt_hotspots: Incomplete | None = hotspots
+# yesno_prompt_hover: Incomplete | None = hover
+# yesno_prompt_idle: Incomplete | None = idle
+# yesno_prompt_message_images: dict[Incomplete, Incomplete] | None = prompt_images
