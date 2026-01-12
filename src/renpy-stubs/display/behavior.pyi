@@ -1,6 +1,6 @@
 import renpy
 from _typeshed import Incomplete as Incomplete
-from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import Displayable, Placement
 from renpy.display.layout import Container as Container, Null as Null, Window as Window
 from renpy.display.render import Render as Render, render as render
 from renpy.object import Object as Object
@@ -8,7 +8,7 @@ from renpy.pygame.event import EventType as EventType
 from renpy.python import AlwaysRollback as AlwaysRollback
 from renpy.style import StyleLike
 from renpy.text.text import Text as Text
-from renpy.types import DisplayableLike as DisplayableLike
+from renpy.types import DisplayableLike as DisplayableLike, Unused
 from typing import Any, Callable, Sequence, Literal, Self
 
 type KeysymType = str | list[str] | tuple[str, ...]
@@ -50,7 +50,7 @@ class Keymap(renpy.display.layout.Null):
     def predict_one_action(self) -> None: ...
 
 class RollForward(renpy.display.layout.Null):
-    value: Incomplete
+    value: Any
     def __init__(self, value: Any, **properties) -> None: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
 
@@ -59,8 +59,8 @@ class PauseBehavior(renpy.display.layout.Null):
     modal: bool
     self_voice: bool
     delay: float
-    result: Incomplete
-    self_voicing: Incomplete
+    result: bool
+    self_voicing: bool
     def __init__(
         self,
         delay: float,
@@ -77,8 +77,8 @@ class PredictPauseBehavior(renpy.display.layout.Null):
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
 
 class SoundStopBehavior(renpy.display.layout.Null):
-    channel: Incomplete
-    result: Incomplete
+    channel: str
+    result: bool
     def __init__(self, channel: str, result: bool = False, **properties) -> None: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
 
@@ -87,9 +87,9 @@ class SayBehavior(renpy.display.layout.Null):
     text_tuple: tuple[renpy.text.text.Text, ...] | None
     dismiss_unfocused: Sequence[str]
     dialogue_pause: float | None
-    afm_length: Incomplete
-    dismiss: Incomplete
-    allow_dismiss: Incomplete
+    afm_length: int | None
+    dismiss: str | list[str] | tuple[str]
+    allow_dismiss: Callable[[], bool] | None
     def __init__(
         self,
         default: bool = True,
@@ -107,10 +107,10 @@ class SayBehavior(renpy.display.layout.Null):
 class DismissBehavior(renpy.display.displayable.Displayable):
     focusable: bool
     keysym: KeysymType
-    action: Incomplete
-    modal: Incomplete
+    action: ActionType
+    modal: bool
     def __init__(
-        self, action: ActionType = None, modal: bool = True, keysym: KeysymType = "dismiss", **properties
+        self, action: ActionType | None = None, modal: bool = True, keysym: KeysymType = "dismiss", **properties
     ) -> None: ...
     def _tts(self, raw: bool) -> str: ...
     def _tts_all(self, raw: bool) -> str: ...
@@ -132,33 +132,33 @@ class Button(renpy.display.layout.Window):
     keysym: KeysymType | None
     alternate_keysym: KeysymType | None
     locked: bool
-    selected: Incomplete
-    sensitive: Incomplete
-    clicked: Incomplete
-    hovered: Incomplete
-    unhovered: Incomplete
+    selected: bool | None
+    sensitive: bool | None
+    clicked: ActionType | None
+    hovered: ActionType | None
+    unhovered: ActionType | None
     focusable: bool
-    time_policy_data: Incomplete
+    time_policy_data: Unused
     _duplicatable: bool
     def __init__(
         self,
         child: DisplayableLike | None = None,
         style: StyleLike = "button",
-        clicked: ActionType = None,
-        hovered: ActionType = None,
-        unhovered: ActionType = None,
-        action: ActionType = None,
+        clicked: ActionType | None = None,
+        hovered: ActionType | None = None,
+        unhovered: ActionType | None = None,
+        action: ActionType | None = None,
         role: str | None = None,
-        time_policy: Incomplete = None,
+        time_policy: Unused = None,
         keymap: dict[str, ActionType] = {},
-        alternate: ActionType = None,
+        alternate: ActionType | None = None,
         selected: bool | None = None,
         sensitive: bool | None = None,
         keysym: KeysymType | None = None,
         alternate_keysym: KeysymType | None = None,
         **properties,
     ) -> None: ...
-    def _get_tooltip(self) -> Incomplete: ...
+    def _get_tooltip(self) -> Any | None: ...
     def _in_current_store(self) -> Self: ...
     def predict_one_action(self) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
@@ -166,7 +166,7 @@ class Button(renpy.display.layout.Window):
     def unfocus(self, default: bool = False) -> None: ...
     def is_selected(self) -> bool: ...
     def is_sensitive(self) -> bool: ...
-    role: Incomplete
+    role: str
     def per_interact(self) -> None: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
     def set_style_prefix(self, prefix: str, root: bool) -> None: ...
@@ -177,14 +177,14 @@ def TextButton(
     text: Incomplete,
     style: StyleLike = "button",
     text_style: StyleLike = "button_text",
-    clicked: ActionType = None,
+    clicked: ActionType | None = None,
     **properties,
 ) -> Button: ...
 
 class ImageButton(Button):
     imagebutton_child: Displayable | None
     imagebutton_raw_child: Displayable | None
-    state_children: Incomplete
+    state_children: dict[str, Displayable]
     def __init__(
         self,
         idle_image: DisplayableLike,
@@ -196,16 +196,16 @@ class ImageButton(Button):
         selected_insensitive_image: DisplayableLike | None = None,
         selected_activate_image: DisplayableLike | None = None,
         style: StyleLike = "image_button",
-        clicked: ActionType = None,
-        hovered: ActionType = None,
+        clicked: ActionType | None = None,
+        hovered: ActionType | None = None,
         **properties,
     ) -> None: ...
     def visit(self) -> list[Displayable]: ...
     def get_child(self) -> Displayable | None: ...
 
 class HoveredProxy:
-    a: Incomplete
-    b: Incomplete
+    a: Callable[[], None]
+    b: Callable[[], Any] | None
     def __init__(self, a: Callable[[], None], b: Callable[[], Any] | None) -> None: ...
     def __call__(self) -> Any: ...
 
@@ -219,12 +219,12 @@ def input_pre_per_interact() -> None: ...
 def input_post_per_interact() -> None: ...
 
 class CaretBlink(renpy.display.displayable.Displayable):
-    caret: Incomplete
-    caret_blink: Incomplete
+    caret: Displayable
+    caret_blink: float
     st: float
     st_base: float
     def __init__(self, caret: DisplayableLike, caret_blink: float, **properties) -> None: ...
-    def get_placement(self) -> Incomplete: ...
+    def get_placement(self) -> Placement: ...
     def visit(self) -> list[Displayable]: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
@@ -244,12 +244,12 @@ class Input(renpy.text.text.Text):
     arrowkeys: bool
     st: float
     content: str
-    length: Incomplete
-    allow: Incomplete
-    exclude: Incomplete
-    copypaste: Incomplete
-    editable: Incomplete
-    caret: Incomplete
+    length: int | None
+    allow: str | None
+    exclude: str | None
+    copypaste: bool
+    editable: bool
+    caret: Displayable | None
     def __init__(
         self,
         default: str | None = "",
@@ -268,7 +268,7 @@ class Input(renpy.text.text.Text):
         copypaste: bool = False,
         caret_blink: float | None = None,
         multiline: bool = False,
-        action: ActionType = None,
+        action: ActionType | None = None,
         arrowkeys: bool = True,
         **properties,
     ) -> None: ...
@@ -293,13 +293,13 @@ class Adjustment(renpy.object.Object):
     restart_interaction_at_limit: bool
     restart_interaction_at_range: bool
     raw_changed: Callable[[Adjustment, float], None] | None
-    _range: Incomplete
-    _value: Incomplete
-    _page: Incomplete
-    _step: Incomplete
-    changed: Incomplete
-    adjustable: Incomplete
-    ranged: Incomplete
+    _range: int | float
+    _value: int | float
+    _page: int | float
+    _step: int | float
+    changed: Callable[[int | float], Any] | None
+    adjustable: bool | None
+    ranged: Callable[[Adjustment], None] | None
     def __init__(
         self,
         range: int | float = 1,
@@ -312,8 +312,8 @@ class Adjustment(renpy.object.Object):
         force_step: bool = False,
         raw_changed: Callable[[Adjustment, int | float], None] | None = None,
     ) -> None: ...
-    range: Incomplete
-    value: Incomplete
+    range: int | float
+    value: int | float
     def viewport_replaces(self, replaces: Adjustment) -> None: ...
     def round_value(self, value: int | float, release: bool) -> int | float: ...
     def get_value(self) -> int | float: ...
@@ -322,12 +322,12 @@ class Adjustment(renpy.object.Object):
     def set_range(self, v: int | float) -> None: ...
     def get_page(self) -> int | float: ...
     def set_page(self, v: int | float) -> None: ...
-    page: Incomplete
+    page: int | float
     def get_step(self) -> int | float: ...
     def set_step(self, v: int | float) -> None: ...
-    step: Incomplete
+    step: int | float
     def register(self, d: Displayable) -> None: ...
-    def change(self, value: int | float, end_animation: bool = True) -> Incomplete: ...
+    def change(self, value: int | float, end_animation: bool = True) -> Any | None: ...
     def update(self) -> None: ...
     def inertia_warper(self, done: float) -> float: ...
     def animate(self, amplitude: float, delay: float, warper: Callable[[float], float]) -> None: ...
@@ -348,9 +348,9 @@ class Bar(renpy.display.displayable.Displayable):
     height: int
     width: int
     hidden: bool
-    hovered: Incomplete
-    unhovered: Incomplete
-    released: Incomplete
+    hovered: ActionType | None
+    unhovered: ActionType | None
+    released: ActionType | None
     def __init__(
         self,
         range: int | float | None = None,
@@ -365,9 +365,9 @@ class Bar(renpy.display.displayable.Displayable):
         style: StyleLike = None,
         vertical: bool = False,
         replaces: Self | None = None,
-        hovered: ActionType = None,
-        unhovered: ActionType = None,
-        released: ActionType = None,
+        hovered: ActionType | None = None,
+        unhovered: ActionType | None = None,
+        released: ActionType | None = None,
         **properties,
     ) -> None: ...
     def per_interact(self) -> None: ...
@@ -381,8 +381,8 @@ class Bar(renpy.display.displayable.Displayable):
     def _tts_all(self, raw: bool) -> str: ...
 
 class Conditional(renpy.display.layout.Container):
-    condition: Incomplete
-    null: Incomplete
+    condition: str
+    null: renpy.display.layout.Null
     state: Incomplete
     def __init__(self, condition: str, *args, **properties) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
@@ -399,19 +399,19 @@ class Timer(renpy.display.layout.Null):
     modal: bool
     state: Incomplete
     def after_upgrade(self, version: int) -> None: ...
-    delay: Incomplete
-    repeat: Incomplete
+    delay: float
+    repeat: bool
     next_event: float | None
-    function: Incomplete
-    args: Incomplete
-    kwargs: Incomplete
+    function: ActionType | None
+    args: tuple[Any, ...]
+    kwargs: dict[str, Any]
     def __init__(
         self,
         delay: float,
-        action: ActionType = None,
+        action: ActionType | None = None,
         repeat: bool = False,
-        args: Incomplete = (),
-        kwargs: Incomplete = {},
+        args: tuple[Any, ...] = (),
+        kwargs: dict[str, Any] = {},
         replaces: Self | None = None,
         modal: bool | None = None,
         **properties,
@@ -421,8 +421,8 @@ class Timer(renpy.display.layout.Null):
 
 class MouseArea(renpy.display.displayable.Displayable):
     at_st_offset: float
-    hovered: Incomplete
-    unhovered: Incomplete
+    hovered: ActionType | None
+    unhovered: ActionType | None
     is_hovered: bool
     width: float
     height: float
@@ -437,8 +437,8 @@ class MouseArea(renpy.display.displayable.Displayable):
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
 
 class OnEvent(renpy.display.displayable.Displayable):
-    event_name: Incomplete
-    action: Incomplete
+    event_name: str | Sequence[str]
+    action: ActionType
     def __init__(self, event: str | Sequence[str], action: ActionType = []) -> None: ...
     def is_event(self, event: str) -> bool: ...
     def _handles_event(self, event: str) -> bool: ...
@@ -446,16 +446,16 @@ class OnEvent(renpy.display.displayable.Displayable):
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
 class AreaPicker(renpy.display.layout.Container):
-    rows: Incomplete
-    cols: Incomplete
+    rows: int | None
+    cols: int | None
     rect0: tuple[float, float, float, float] | None
     rect1: tuple[float, float, float, float] | None
     width: int
     height: int
-    position: Incomplete
-    changed: Incomplete
-    finished: Incomplete
-    persist: Incomplete
+    position: Callable[[tuple[float, float]], None] | None
+    changed: Callable[[tuple[int, int, int, int]], None] | None
+    finished: Callable[[tuple[int, int, int, int]], None] | None
+    persist: bool
     def __init__(
         self,
         rows: int | None = None,
@@ -475,12 +475,12 @@ class AreaPicker(renpy.display.layout.Container):
 
 class WebInput(renpy.display.displayable.Displayable):
     active: Self | None
-    prompt: Incomplete
-    default: Incomplete
-    allow: Incomplete
-    exclude: Incomplete
-    mask: Incomplete
-    value: Incomplete
+    prompt: str
+    default: str
+    allow: str | None
+    exclude: str
+    mask: bool
+    value: str
     def __init__(
         self,
         prompt: str,
@@ -492,7 +492,7 @@ class WebInput(renpy.display.displayable.Displayable):
     ) -> None: ...
     @staticmethod
     def pre_find_focusable() -> None: ...
-    def find_focusable(self, callback: Incomplete, focus_name: Incomplete) -> None: ...
+    def find_focusable(self, callback: Callable[[Displayable | None, str], None], focus_name: str) -> None: ...
     @staticmethod
     def post_find_focusable() -> None: ...
     def activate(self) -> None: ...
