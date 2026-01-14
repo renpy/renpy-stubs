@@ -1,30 +1,33 @@
 import renpy
 from _typeshed import Incomplete as Incomplete
 from renpy.object import Object as Object
-from typing import Any, Literal, Sequence, Iterable
+from typing import Any, Literal, Sequence, Iterable, TypedDict, Unpack, Final, Mapping
+
+class _ReplaceKwargs(TypedDict, total=False):
+    name: str
+    kind: int
+    default: Any
 
 class Parameter:
-    __slots__: str | tuple[str, ...]
     POSITIONAL_ONLY: Literal[0]
     POSITIONAL_OR_KEYWORD: Literal[1]
     VAR_POSITIONAL: Literal[2]
     KEYWORD_ONLY: Literal[3]
     VAR_KEYWORD: Literal[4]
-    empty: None
+    empty: Final[None]
     name: str
     kind: int
-    default: Incomplete | None
-    def __init__(self, name: str, kind: int, *, default: Incomplete | None = ...) -> None: ...
+    default: str | None
+    def __init__(self, name: str, kind: int, *, default: str | None = ...) -> None: ...
     @property
     def has_default(self) -> bool: ...
     def default_value(self, locals: dict[str, Any] | None = None, globals: dict[str, Any] | None = None) -> Any: ...
-    def replace(self, **kwargs) -> Parameter: ...
+    def replace(self, **kwargs: Unpack[_ReplaceKwargs]) -> Parameter: ...
     def __str__(self) -> str: ...
     def __repr__(self) -> str: ...
     def __eq__(self, other: object) -> bool: ...
 
 class ValuedParameter(Parameter):
-    __slots__: str | tuple[str, ...]
     class empty: ...
 
     def __init__(self, name: str, kind: int, *, default: Incomplete | None = ...) -> None: ...
@@ -32,13 +35,12 @@ class ValuedParameter(Parameter):
     def __str__(self) -> str: ...
 
 class Signature:
-    __slots__: str | tuple[str, ...]
     parameters: dict[str, Parameter]
-    def __init__(self, parameters: list[Parameter] | None = None) -> None: ...
+    def __init__(self, parameters: Iterable[Parameter] | None = None) -> None: ...
     @staticmethod
     def legacy_params(
-        parameters: list[tuple[str, Any]],
-        positional: list[str],
+        parameters: Iterable[tuple[str, str | None]],
+        positional: Iterable[str],
         extrapos: str | None,
         extrakw: str | None,
         last_posonly: str | None = None,
@@ -50,7 +52,7 @@ class Signature:
     def apply(
         self,
         args: Iterable[Any],
-        kwargs: dict[str, Any],
+        kwargs: Mapping[str, Any],
         ignore_errors: bool = False,
         partial: bool = False,
         apply_defaults: bool = True,
@@ -62,20 +64,20 @@ class Signature:
 ParameterInfo = Signature
 
 def apply_arguments(
-    parameters: Signature | None, args: tuple[Any, ...], kwargs: dict[str, Any], ignore_errors: bool = False
+    parameters: Signature | None, args: Iterable[Any], kwargs: Mapping[str, Any], ignore_errors: bool = False
 ) -> dict[str, Any]: ...
 
 class ArgumentInfo(renpy.object.Object):
     __version__: int
-    starred_indexes: set[int]
-    doublestarred_indexes: set[int]
-    def after_upgrade(self, version: int) -> None: ...
     arguments: Sequence[tuple[str | None, str]]
+    starred_indexes: Iterable[int]
+    doublestarred_indexes: Iterable[int]
+    def after_upgrade(self, version: int) -> None: ...
     def __init__(
         self,
         arguments: Sequence[tuple[str | None, str]],
-        starred_indexes: set[int] | None = None,
-        doublestarred_indexes: set[int] | None = None,
+        starred_indexes: Iterable[int] | None = None,
+        doublestarred_indexes: Iterable[int] | None = None,
     ) -> None: ...
     def evaluate(
         self, scope: dict[str, Any] | None = None
