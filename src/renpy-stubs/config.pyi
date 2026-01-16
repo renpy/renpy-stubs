@@ -170,7 +170,7 @@ imagereference_respects_position: bool
 simulate_android: bool
 imagemap_cache: bool
 predict_callbacks: list[Callable[[], None]]
-expensive_predict_callbacks: list[Callable[[], Incomplete | None]]
+expensive_predict_callbacks: list[Callable[[], bool | None]]
 predict_screens: bool
 choice_screen_chosen: bool
 narrator_menu: bool
