@@ -2,7 +2,30 @@ import renpy
 from _typeshed import Incomplete as Incomplete
 from renpy.display.displayable import Displayable as Displayable
 from renpy.object import Object as Object, Sentinel as Sentinel
-from typing import Literal
+from typing import Literal, type_check_only, Protocol, TypedDict, Unpack, NotRequired
+
+@type_check_only
+class CharacterCallbackParameters(TypedDict):
+    interact: bool
+    type: Literal["nvl", "adv", "bubble"]
+    what: str
+    multiple: Incomplete
+
+    start: NotRequired[int]
+    end: NotRequired[int]
+    delay: NotRequired[float | None]
+    last_segment: NotRequired[bool]
+
+    exception: bool
+    please_ignore_unknown_keyword_arguments: NotRequired[None]
+
+@type_check_only
+class CharacterCallback(Protocol):
+    def __call__(
+        self,
+        event: Literal["begin", "show", "show_done", "slow_done", "interact_done", "end"],
+        **kwargs: Unpack[CharacterCallbackParameters],
+    ) -> None: ...
 
 TAG_RE: Incomplete
 less_pauses: Incomplete

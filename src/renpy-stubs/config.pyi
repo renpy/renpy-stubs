@@ -101,32 +101,8 @@ implicit_with_none: bool
 layer_clipping: dict[str, tuple[int, int, int, int]]
 disable_fullscreen_opt: bool
 reject_midi: bool
-
-@type_check_only
-class CharacterCallbackParameters(TypedDict):
-    interact: bool
-    type: Literal["nvl", "adv", "bubble"]
-    what: str
-    multiple: Incomplete
-
-    start: NotRequired[int]
-    end: NotRequired[int]
-    delay: NotRequired[float | None]
-    last_segment: NotRequired[bool]
-
-    exception: bool
-    please_ignore_unknown_keyword_arguments: NotRequired[None]
-
-@type_check_only
-class CharacterCallback(Protocol):
-    def __call__(
-        self,
-        event: Literal["begin", "show", "show_done", "slow_done", "interact_done", "end"],
-        **kwargs: Unpack[CharacterCallbackParameters],
-    ) -> None: ...
-
-character_callback: CharacterCallback | None
-all_character_callbacks: list[CharacterCallback]
+character_callback: renpy.character.CharacterCallback | None
+all_character_callbacks: list[renpy.character.CharacterCallback]
 has_autosave: bool
 autosave_slots: int
 autosave_frequency: int
