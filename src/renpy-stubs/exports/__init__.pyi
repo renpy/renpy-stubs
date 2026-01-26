@@ -371,6 +371,12 @@ from renpy.text.font import (
 )
 from renpy.text.shader import TextShader as TextShader, register_textshader as register_textshader
 from renpy.text.text import BASELINE as BASELINE, language_tailor as language_tailor
+from renpy.text.textsupport import (
+    DISPLAYABLE as TEXT_DISPLAYABLE,
+    PARAGRAPH as TEXT_PARAGRAPH,
+    TAG as TEXT_TAG,
+    TEXT as TEXT_TEXT,
+)
 from renpy.translation import (
     change_language as change_language,
     get_translation_identifier as get_translation_identifier,

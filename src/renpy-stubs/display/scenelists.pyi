@@ -7,10 +7,10 @@ from renpy.display.image import ShownImageInfo as ShownImageInfo
 from renpy.display.layout import MultiBox as MultiBox
 from renpy.display.motion import Transform as Transform
 from renpy.object import Object as Object
-from typing import Any, Callable, Generator
+from typing import Any, Callable, Generator, Sequence
 
 type AtType = Transform | Callable[[Displayable], Displayable]
-type AtList = list[AtType]
+type AtList = Sequence[AtType]
 ordered_layers: list[str]
 layers: frozenset[str]
 sticky_layers: frozenset[str]

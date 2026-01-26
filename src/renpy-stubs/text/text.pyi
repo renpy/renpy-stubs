@@ -1,4 +1,4 @@
-from typing import Any, Callable, Generator, overload
+from typing import Any, Callable, Generator, overload, Iterable
 from _typeshed import Incomplete as Incomplete
 
 import renpy
@@ -253,16 +253,17 @@ class Text(renpy.display.displayable.Displayable):
     locked: bool
     language: str | None
     mask: str | None
-    last_ctc: Displayable | list[str | Displayable] | None
+    last_ctc: Displayable | Iterable[str | Displayable] | None
     tokenized: bool
     slow_done_time: float | None
-    ctc: Displayable | list[str | Displayable] | None
-    text: str | list[str | Displayable]
+    ctc: Displayable | Iterable[str | Displayable] | None
+    text: str | Iterable[str | Displayable]
     scope: dict[str, Any] | None
     substitute: bool
     start: int | None
     end: int | None
     dirty: bool
+    tokens: list[Token]
     def after_upgrade(self, version: int) -> None: ...
     slow: bool | None
     slow_done: Callable[[], None] | None
@@ -270,7 +271,7 @@ class Text(renpy.display.displayable.Displayable):
     displayable_offsets: list[tuple[Displayable, float, float]] | None
     def __init__(
         self,
-        text: str | list[str | Displayable],
+        text: str | Iterable[str | Displayable],
         slow: bool | None = None,
         scope: dict[str, Any] | None = None,
         substitute: bool | None = None,
@@ -285,17 +286,17 @@ class Text(renpy.display.displayable.Displayable):
     def _repr_info(self) -> str: ...
     def get_all_text(self) -> str: ...
     def _scope(self, scope: dict[str, Any], update: bool = True) -> bool: ...
-    text_parameter: str | list[str | Displayable]
+    text_parameter: str | Iterable[str | Displayable]
     def set_text(
         self,
-        text: str | list[str | Displayable],
+        text: str | Iterable[str | Displayable],
         scope: dict[str, Any] | None = None,
         substitute: bool | None = False,
         update: bool = True,
     ) -> bool: ...
     def per_interact(self) -> None: ...
-    def set_ctc(self, ctc: Displayable | list[str | Displayable] | None) -> None: ...
-    def set_last_ctc(self, last_ctc: Displayable | list[str | Displayable] | None) -> None: ...
+    def set_ctc(self, ctc: Displayable | Iterable[str | Displayable] | None) -> None: ...
+    def set_last_ctc(self, last_ctc: Displayable | Iterable[str | Displayable] | None) -> None: ...
     focusable: bool
     def update(self) -> None: ...
     def visit(self) -> list[Displayable]: ...

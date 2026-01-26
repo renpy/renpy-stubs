@@ -8,7 +8,7 @@ from renpy.display.scenelists import AtList as AtList
 from renpy.exports.commonexports import renpy_pure as renpy_pure
 from renpy.revertable import RevertableObject as RevertableObject
 from renpy.types import DisplayableLike as DisplayableLike
-from typing import Any, Literal, NoReturn, overload
+from typing import Any, Literal, NoReturn, overload, Mapping
 
 scene_lists = renpy.display.scenelists.scene_lists
 
@@ -62,7 +62,7 @@ def screenshot(filename: str) -> bool: ...
 def screenshot_to_bytes(size: tuple[float, float]) -> bytes | None: ...
 def transition(
     trans: renpy.display.transition.TransitionFunction
-    | dict[str | None, renpy.display.transition.TransitionFunction | None]
+    | Mapping[str | None, renpy.display.transition.TransitionFunction | None]
     | None,
     layer: str | None = None,
     always: bool = False,

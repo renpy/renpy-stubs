@@ -6,6 +6,7 @@ from _typeshed import Incomplete as Incomplete
 import renpy
 from renpy.display.displayable import Displayable
 from renpy.display.transform import Transform
+from renpy.display.transition import TransitionFunction
 from renpy.error import TracebackException as TracebackException
 from renpy.text.shader import TextShader as TextShader
 from renpy.types import DisplayableLike, Unused
@@ -71,13 +72,7 @@ afm_bonus: int
 afm_callback: Callable[[], bool] | None
 auto_choice_delay: float | None
 font_replacement_map: dict[tuple[str, bool, bool], tuple[str, bool, bool]]
-with_callback: (
-    Callable[
-        [renpy.display.transition.TransitionFunction, renpy.display.transition.TransitionFunction | None],
-        renpy.display.transition.TransitionFunction,
-    ]
-    | None
-)
+with_callback: Callable[[TransitionFunction, TransitionFunction | None], TransitionFunction] | None
 framerate: int
 frames: int
 editor: Unused
@@ -343,7 +338,9 @@ ftfont_vertical_extent_scale: dict[str, float]
 default_shader: str
 preserve_volume_when_muted: bool
 
-def say_attribute_transition_callback(*args) -> tuple[Incomplete, Incomplete]: ...
+def say_attribute_transition_callback(
+    *args,
+) -> tuple[TransitionFunction | dict[str | None, TransitionFunction] | None, str | None]: ...
 
 say_attribute_transition_callback_attrs: bool
 notify: Callable[[str], None] | None
@@ -526,10 +523,10 @@ def init() -> None: ...
 def post_init() -> None: ...
 
 ## From .rpy files:
-adv_nvl_transition: renpy.display.transition.TransitionFunction | None
+adv_nvl_transition: TransitionFunction | None
 afm_voice_delay: float
 after_load_callbacks: list[Callable[[], None]]
-after_load_transition: renpy.display.transition.TransitionFunction | None
+after_load_transition: TransitionFunction | None
 always_has_joystick: bool
 audio_directory: str | None
 auto_load: str | None
@@ -567,21 +564,21 @@ descriptive_text_character: Incomplete | None
 early_script_version: tuple[int, ...] | None
 early_start_store: bool
 enable_steam: bool
-end_splash_transition: renpy.display.transition.TransitionFunction | None
-enter_replay_transition: renpy.display.transition.TransitionFunction | None
+end_splash_transition: TransitionFunction | None
+enter_replay_transition: TransitionFunction | None
 enter_sound: str | list[str] | None
-enter_transition: renpy.display.transition.TransitionFunction | None
-enter_yesno_transition: renpy.display.transition.TransitionFunction | None
-exit_replay_transition: renpy.display.transition.TransitionFunction | None
+enter_transition: TransitionFunction | None
+enter_yesno_transition: TransitionFunction | None
+exit_replay_transition: TransitionFunction | None
 exit_sound: str | list[str] | None
-exit_transition: renpy.display.transition.TransitionFunction | None
-exit_yesno_transition: renpy.display.transition.TransitionFunction | None
+exit_transition: TransitionFunction | None
+exit_yesno_transition: TransitionFunction | None
 extend_interjection: str
 file_page_names: list[str]
 file_pages_per_folder: int
 file_slotname_callback: Callable[[str, str], str] | None
 force_sound: bool
-game_main_transition: renpy.display.transition.TransitionFunction | None
+game_main_transition: TransitionFunction | None
 game_menu: list[tuple[str, str, renpy.display.behavior.ActionType, str]]
 game_menu_action: renpy.display.behavior.ActionType | None
 game_menu_music: str | list[str] | None
@@ -604,11 +601,11 @@ image_directories: list[str]
 image_extensions: list[str]
 image_labels: dict[str, Incomplete]
 images_directory: str | None
-intra_transition: renpy.display.transition.TransitionFunction | None
+intra_transition: TransitionFunction | None
 language: str | None
 late_images_scan: bool
 linear_saves_page_size: int | None
-main_game_transition: renpy.display.transition.TransitionFunction | None
+main_game_transition: TransitionFunction | None
 main_menu: list[tuple[str, str | renpy.display.behavior.ActionType, str]]
 main_menu_music: str | list[str] | None
 main_menu_music_fadein: str
@@ -619,7 +616,7 @@ menu_window_subtitle: str
 missing_background: str | Unused
 module_version: int | Unused
 module_warning: bool | Unused
-nvl_adv_transition: renpy.display.transition.TransitionFunction | None
+nvl_adv_transition: TransitionFunction | None
 nvl_layer: str | None
 nvl_list_length: int | None
 nvl_page_ctc: DisplayableLike | None
@@ -661,9 +658,9 @@ window: Literal["show", "hide", "auto"] | None
 window_auto_hide: list[str]
 window_auto_show: list[str]
 window_functions_set_auto: bool
-window_hide_transition: renpy.display.transition.TransitionFunction | None
+window_hide_transition: TransitionFunction | None
 window_next: bool
-window_show_transition: renpy.display.transition.TransitionFunction | None
+window_show_transition: TransitionFunction | None
 
 ## From .rpym files:
 # game_menu_positions = None
