@@ -8,6 +8,32 @@ from renpy.pydict import DictItems as DictItems, find_changes as find_changes
 import types
 from typing import Any, Literal, Callable, Sequence, overload
 
+# Import these for pickle-compatibility.
+from renpy.revertable import (
+    CompressedList as CompressedList,
+    DetRandom as DetRandom,
+    RevertableDict as RevertableDict,
+    RevertableList as RevertableList,
+    RevertableObject as RevertableObject,
+    RevertableSet as RevertableSet,
+    RollbackRandom as RollbackRandom,
+    revertable_range as revertable_range,
+    revertable_sorted as revertable_sorted,
+)
+
+from renpy.rollback import (
+    deleted as deleted,
+    StoreDeleted as StoreDeleted,
+    AlwaysRollback as AlwaysRollback,
+    NoRollback as NoRollback,
+    SlottedNoRollback as SlottedNoRollback,
+    rng as rng,
+    reached as reached,
+    reached_vars as reached_vars,
+    Rollback as Rollback,
+    RollbackLog as RollbackLog,
+)
+
 class StoreModule:
     def __reduce__(self) -> str | tuple[Any, ...]: ...
     def __init__(self, d: Incomplete) -> None: ...

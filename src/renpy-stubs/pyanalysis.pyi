@@ -1,10 +1,9 @@
 import ast
-import builtins
 import renpy
 from _typeshed import Incomplete as Incomplete
 from renpy.compat.pickle import dumps as dumps, loads as loads
 from renpy.python import py_compile as py_compile
-from typing import Generator, Sequence
+from typing import Generator, Sequence, Callable
 
 always_constants: set[str]
 pure_functions: set[str]
@@ -14,7 +13,7 @@ local_constants: set[str]
 
 def const(name: str) -> None: ...
 def not_const(name: str) -> None: ...
-def pure(fn: str | builtins.function) -> str | builtins.function: ...
+def pure(fn: str | Callable) -> str | Callable: ...
 def import_from(from_module_name: str, in_module_name: str, *names: tuple[str, str]) -> None: ...
 
 class Control:

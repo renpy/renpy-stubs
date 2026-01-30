@@ -8,7 +8,7 @@ from renpy.object import Object as Object
 from renpy.pygame.event import EventType as EventType
 from renpy.rollback import NoRollback as NoRollback
 from renpy.types import DisplayableLike as DisplayableLike
-from typing import Any, Callable, Protocol, type_check_only
+from typing import Any, Callable, Protocol, Sequence, type_check_only
 
 @type_check_only
 class ParticleProtocol(Protocol):
@@ -17,8 +17,8 @@ class ParticleProtocol(Protocol):
 @type_check_only
 class ParticleFactoryProtocol(Protocol):
     def create(
-        self, particles: list[tuple["Sprite", ParticleProtocol]], st: float
-    ) -> list["ParticleProtocol"] | None: ...
+        self, particles: Sequence[tuple["Sprite", ParticleProtocol]], st: float
+    ) -> Sequence["ParticleProtocol"] | None: ...
     def predict(self) -> list[Displayable]: ...
 
 DISTRIBUTION_FUNC_T = Callable[[float, float], float]

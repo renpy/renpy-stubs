@@ -161,7 +161,7 @@ class Layout:
     has_ruby: bool
     start_segment: FlagSegment | None
     end_segment: FlagSegment | None
-    paragraph_glyphs: list[Glyph]
+    paragraph_glyphs: list[list[Glyph]]
     width: float
     height: float
     cps: float

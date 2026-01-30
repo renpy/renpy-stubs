@@ -1,5 +1,5 @@
 from renpy.exports.commonexports import renpy_pure as renpy_pure
-from typing import Any, Literal
+from typing import Any, Literal, Sequence
 
 def get_menu_args() -> tuple[tuple[Any, ...], dict[str, Any] | None]: ...
 def menu(
@@ -15,7 +15,7 @@ def predict_menu() -> None: ...
 class MenuEntry(tuple): ...
 
 def display_menu(
-    items: list[tuple[str, Any]],
+    items: Sequence[tuple[str, Any]],
     window_style: str = "menu_window",
     interact: bool = True,
     with_none: bool | None = None,
