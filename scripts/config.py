@@ -1,10 +1,10 @@
 import os
 from dataclasses import dataclass, InitVar, field
 import sys
-import tomllib
+import json
 from pathlib import Path
 
-USER_CONFIG_FILE = "config.toml"
+USER_CONFIG_FILE = "config.json"
 
 
 @dataclass
@@ -61,8 +61,8 @@ def load_user_config() -> Config:
 
     # Overwrite with user config if it exists
     if os.path.exists(base_dir / USER_CONFIG_FILE):
-        with open(base_dir / USER_CONFIG_FILE, "rb") as f:
-            data = tomllib.load(f)
+        with open(base_dir / USER_CONFIG_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
         rv = Config(**data)
     else:
         rv = Config()

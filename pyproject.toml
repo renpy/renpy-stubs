@@ -15,6 +15,10 @@ build-backend = "hatchling.build"
 include = ["src"]
 exclude = ["build"]
 
+extraPaths = [
+    "../renpy/renpy/",
+]
+
 # For now we are in default mode, until phase 1 is done
 # typeCheckingMode = "strict"
 # reportMissingTypeArgument = "warning"
@@ -51,4 +55,12 @@ line-ending = "lf"
 ignore = [
   "F", # Disable F rules until import renpy is fixed
   "E402", # Module level import not at top of file
+]
+
+[tool.pylint."messages control"]
+# confidence = ["HIGH", "CONTROL_FLOW", "INFERENCE", "INFERENCE_FAILURE", "UNDEFINED"]
+disable = [
+    "pointless-string-statement",
+    "wrong-import-position",
+    "wrong-import-order",
 ]
