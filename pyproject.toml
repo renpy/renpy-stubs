@@ -48,6 +48,7 @@ line-length = 120
 
 [tool.ruff.format]
 preview = true
+# Use `\n` line endings for all files
 line-ending = "lf"
 
 [tool.ruff.lint]
@@ -55,7 +56,11 @@ line-ending = "lf"
 ignore = [
   "F", # Disable F rules until import renpy is fixed
   "E402", # Module level import not at top of file
+  "E741", # Ambiguous variable name
 ]
+
+[tool.pylint.main]
+init-hook = "import sys; import renpy_stubs as renpy; sys.modules['renpy'] = renpy"
 
 [tool.pylint."messages control"]
 # confidence = ["HIGH", "CONTROL_FLOW", "INFERENCE", "INFERENCE_FAILURE", "UNDEFINED"]
