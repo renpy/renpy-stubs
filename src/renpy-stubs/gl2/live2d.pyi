@@ -1,10 +1,17 @@
-import renpy.gl2.live2dmotion
-from _typeshed import Incomplete
+from collections.abc import Callable, Iterable
+from typing import TYPE_CHECKING, Any, Literal, TypedDict
 
+import renpy
 from renpy.display.core import absolute as absolute
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import DisplayableArguments
 from renpy.gl2.gl2shadercache import register_shader as register_shader
-from typing import Any
+from renpy.gl2.live2dmodel import Live2DModel as Live2DModel
 
+if TYPE_CHECKING:
+    type Live2DName = tuple[str, str, str, int]
+    type Live2DAttributeFunction = Callable[[tuple[str, ...]], tuple[str, ...]]
+    type Live2DUpdateFunction = Callable[[Live2D, float], float | None]
 did_onetime_init: bool
 did_web_init: bool
 web_is_incompatible: bool
@@ -18,33 +25,38 @@ def init() -> None: ...
 def reset() -> None: ...
 def reset_states() -> None: ...
 
+class ExpressionParameter(TypedDict):
+    Id: str
+    Value: float
+    Blend: Literal["Add", "Multiply", "Overwrite"]
+
 class Live2DExpression:
-    parameters: Incomplete
-    fadein: Incomplete
-    fadeout: Incomplete
-    def __init__(self, parameters, fadein, fadeout) -> None: ...
+    parameters: list[ExpressionParameter]
+    fadein: float
+    fadeout: float
+    def __init__(self, parameters: list[ExpressionParameter], fadein: float, fadeout: float) -> None: ...
 
 class Live2DCommon:
-    base: Incomplete
-    model_json: Incomplete
-    model: Incomplete
-    textures: Incomplete
-    attributes: Incomplete
-    motions: dict[str, renpy.gl2.live2dmotion.Motion | renpy.gl2.live2dmotion.NullMotion]
-    expressions: Incomplete
-    all_expressions: Incomplete
+    base: str
+    model_json: dict[str, Any]
+    model: Live2DModel
+    textures: list[Displayable]
+    attributes: set[str]
+    motions: dict[str, renpy.gl2.live2dmotion.MotionBase]
+    expressions: dict[str, Live2DExpression]
+    all_expressions: dict[str, Live2DExpression]
     nonexclusive: dict[str, Live2DExpression]
     seamless: bool | set[str]
-    attribute_function: Any
-    attribute_filter: Any
-    update_function: Any
-    def __init__(self, filename, default_fade) -> None: ...
-    def apply_aliases(self, aliases) -> None: ...
-    def apply_nonexclusive(self, nonexclusive) -> None: ...
-    def apply_seamless(self, value) -> None: ...
-    def is_seamless(self, motion): ...
+    attribute_function: Live2DAttributeFunction | None
+    attribute_filter: Live2DAttributeFunction | None
+    update_function: Live2DUpdateFunction | None
+    def __init__(self, filename: str, default_fade: float, old_beziers: bool | None = None) -> None: ...
+    def apply_aliases(self, aliases: dict[str, str]) -> None: ...
+    def apply_nonexclusive(self, nonexclusive: Iterable[str]) -> None: ...
+    def apply_seamless(self, value: bool | set[str]) -> None: ...
+    def is_seamless(self, motion: str) -> bool: ...
 
-common_cache: Incomplete
+common_cache: dict[tuple[str, float], Live2DCommon]
 
 class Live2DState:
     mark: bool
@@ -53,67 +65,75 @@ class Live2DState:
     new: Live2D | None
     old_base_time: float | None
     new_base_time: float | None
-    expressions: Incomplete
-    old_expressions: Incomplete
+    expressions: list[tuple[str, float]]
+    old_expressions: list[tuple[str, float, float]]
     def __init__(self) -> None: ...
-    def update_expressions(self, expressions, now) -> None: ...
+    def update_expressions(self, expressions: list[str], now: float) -> None: ...
 
-states: Incomplete
+states: dict[Live2DName, Live2DState]
 live2d_showing: bool
 
 def update_states() -> None: ...
 
 class Live2D(renpy.display.displayable.Displayable):
     filename: str
-    name: tuple[str, str, str, int] | None
-    nosave: Incomplete
-    common_cache: Incomplete
-    used_nonexclusive: Incomplete
-    properties: Incomplete
+    name: Live2DName | None
+    nosave: list[str]
+    common_cache: Live2DCommon | None
+    _duplicatable: bool
+    used_nonexclusive: list[str] | None
+    properties: dict[str, Any]
     default_fade: float
-    def create_common(self): ...
+    old_beziers: bool | None
+    def create_common(self) -> Live2DCommon: ...
     @property
-    def common(self): ...
-    motions: Incomplete
-    expression: Incomplete
-    zoom: Incomplete
-    top: Incomplete
-    base: Incomplete
-    height: Incomplete
-    loop: Incomplete
-    fade: Incomplete
-    sustain: Incomplete
+    def common(self) -> Live2DCommon: ...
+    motions: list[str] | None
+    expression: str | None
+    zoom: float | None
+    top: float
+    base: float
+    height: float
+    loop: bool
+    fade: bool | None
+    sustain: bool
     def __init__(
         self,
-        filename,
-        zoom=None,
+        filename: str,
+        zoom: float | None = None,
         top: float = 0.0,
         base: float = 1.0,
         height: float = 1.0,
         loop: bool = False,
-        aliases={},
-        fade=None,
-        motions=None,
-        expression=None,
-        nonexclusive=None,
-        used_nonexclusive=None,
-        seamless=None,
+        aliases: dict[str, str] = {},
+        fade: bool | None = None,
+        motions: list[str] | None = None,
+        expression: str | None = None,
+        nonexclusive: Iterable[str] | None = None,
+        used_nonexclusive: list[str] | None = None,
+        seamless: bool | set[str] | None = None,
         sustain: bool = False,
-        attribute_function=None,
-        attribute_filter=None,
-        update_function=None,
+        attribute_function: Live2DAttributeFunction | None = None,
+        attribute_filter: Live2DAttributeFunction | None = None,
+        update_function: Live2DUpdateFunction | None = None,
         default_fade: float = 1.0,
-        **properties,
+        old_beziers: bool | None = None,
+        **properties: Any,
     ) -> None: ...
-    unique_time: Incomplete
+    unique_time: str
     unique_serial: int
     def ensure_name(self) -> None: ...
     def per_interact(self) -> None: ...
-    def update(self, common, st, st_fade): ...
-    def update_expressions(self, st): ...
-    def blend_parameter(self, name, blend, value, weight: float = 1.0) -> None: ...
-    def blend_opacity(self, name, blend, value, weight: float = 1.0) -> None: ...
-    def render(self, width, height, st, at): ...
-    def visit(self): ...
+    def _duplicate(self, args: DisplayableArguments | None = None) -> Live2D: ...
+    def _list_attributes(self, tag: str, attributes: Iterable[str]) -> list[str]: ...
+    def _choose_attributes(self, tag: str, attributes: Iterable[str], optional: Iterable[str]) -> tuple[str, ...]: ...
+    def update(self, common: Live2DCommon, st: float, st_fade: float | None) -> float | None: ...
+    def update_expressions(self, st: float) -> float | None: ...
+    def blend_parameter(self, name: str, blend: str, value: float, weight: float = 1.0) -> None: ...
+    def blend_opacity(self, name: str, blend: str, value: float, weight: float = 1.0) -> None: ...
+    def render(self, width: float, height: float, st: float, at: float) -> renpy.display.render.Render: ...
+    def visit(self) -> list[Displayable]: ...
 
-def has_live2d(): ...
+_has_live2d: bool | None
+
+def has_live2d() -> bool: ...

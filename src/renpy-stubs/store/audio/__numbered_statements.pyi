@@ -1,0 +1,1 @@
+_constant: bool

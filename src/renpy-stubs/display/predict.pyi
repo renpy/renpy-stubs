@@ -1,13 +1,19 @@
-from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Callable, Generator
+from typing import Any, TypeAlias
 
-image: Incomplete
-predicted: Incomplete
+import renpy
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.im import ImageBase as ImageBase
+
+image: Callable[[ImageBase], None] | None
+predicted: set[Displayable]
 predicting: bool
-screens: Incomplete
-tlids = list[str | None]
+screens: list[tuple[str, tuple, dict]]
+type tlids = list[str | None]
 
-def displayable(d): ...
-def screen(_screen_name, *args, **kwargs) -> None: ...
+def displayable(d: Displayable | None) -> None: ...
+def screen(_screen_name: str, *args: Any, **kwargs: Any) -> None: ...
 def reset() -> None: ...
-def prediction_coroutine(root_widget) -> Generator[Incomplete, None, Incomplete]: ...
+def prediction_coroutine(root_widget: Displayable) -> Generator[bool | None, bool | None]: ...
+
+statement: renpy.ast.Node | None

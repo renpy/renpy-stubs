@@ -1,183 +1,316 @@
-from _typeshed import Incomplete
+import re
+from collections.abc import Callable, Sequence
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Literal,
+    NotRequired,
+    Protocol,
+    TypeAlias,
+    TypedDict,
+    Unpack,
+    overload,
+    type_check_only,
+)
+
 import renpy
+from renpy.display.displayable import Displayable as Displayable
+from renpy.object import Object as Object
+from renpy.object import Sentinel as Sentinel
+from renpy.text.text import Text as Text
 
-from typing import Any, Literal
+# The value returned by a `show_function` (e.g. `show_display_say`). A
+# screen-based say statement returns `(tag, widget_id, layer)`, while a
+# non-screen statement returns the `ui.text` widget directly.
+type ShowResult = Text | tuple[str, str, str] | None
 
-TAG_RE: Incomplete
-less_pauses: Incomplete
+# The (attributes, images) state returned by `ADVCharacter.handle_say_attributes`
+# and consumed by `restore_say_attributes`.
+type _SayAttributeState = tuple[tuple[str, ...], renpy.display.image.ShownImageInfo]
+
+if TYPE_CHECKING:
+    class CharacterCallbackParameters(TypedDict):
+        interact: bool
+        type: Literal["nvl", "adv", "bubble"]
+        what: str
+        multiple: NotRequired[tuple[int, int]]
+
+        start: NotRequired[int]
+        end: NotRequired[int]
+        delay: NotRequired[float | None]
+        last_segment: NotRequired[bool]
+
+        exception: bool
+        please_ignore_unknown_keyword_arguments: NotRequired[None]
+
+    class CharacterCallback(Protocol):
+        def __call__(
+            self,
+            event: Literal["begin", "show", "show_done", "slow_done", "interact_done", "end"],
+            **kwargs: Unpack[CharacterCallbackParameters],
+        ) -> None: ...
+
+TAG_RE: re.Pattern[str]
+less_pauses: bool
 
 class Callbacks:
-    callbacks: Incomplete
-    interact: Incomplete
-    type: Incomplete
-    cb_args: Incomplete
+    callbacks: Sequence[CharacterCallback] | None
+    interact: bool
+    type: str | None
+    cb_args: dict[str, Any]
     multiple: tuple[int, int] | None
     what: str | None
     start: int | None
     end: int | None
     delay: float | None
     last_segment: bool | None
-    def __init__(self, callbacks, interact, type, cb_args, multiple) -> None: ...
-    def __call__(self, *args, **kwargs) -> None: ...
-    def copy(self): ...
+    def __init__(
+        self,
+        callbacks: Sequence[CharacterCallback] | None,
+        interact: bool,
+        type: str | None,
+        cb_args: dict[str, Any],
+        multiple: tuple[int, int] | None,
+    ) -> None: ...
+    def __call__(self, *args: str, **kwargs: Any) -> None: ...
+    def copy(self) -> Callbacks: ...
 
 class DialogueTextTags:
     text: str
-    pause_start: Incomplete
-    pause_end: Incomplete
-    pause_delay: Incomplete
+    pause_start: list[int]
+    afm_start: list[int]
+    pause_end: list[int]
+    pause_delay: list[float | None]
     no_wait: bool
     has_done: bool
     fast: bool
-    def __init__(self, s) -> None: ...
+    def __init__(self, s: str) -> None: ...
 
 class CTCPauseHolder(renpy.display.displayable.Displayable):
-    ctc: Incomplete
-    def __init__(self, ctc) -> None: ...
-    def render(self, width, height, st, at): ...
-    def visit(self): ...
-    def get_position(self): ...
+    ctc: Displayable
+    rtl: bool
+    def __init__(self, ctc: Displayable) -> None: ...
+    def set_rtl(self, rtl: bool) -> None: ...
+    def render(self, width: float, height: float, st: float, at: float) -> renpy.display.render.Render: ...
+    def visit(self) -> list[Displayable | None]: ...
+    def get_position(self) -> tuple[int, int]: ...
 
 def predict_show_display_say(
-    who,
-    what,
-    who_args,
-    what_args,
-    window_args,
-    image: bool = False,
+    who: str | Displayable | None,
+    what: str | Displayable | list[Displayable | str],
+    who_args: dict[str, Any],
+    what_args: dict[str, Any],
+    window_args: dict[str, Any],
+    image: bool | str = False,
     two_window: bool = False,
-    side_image=None,
-    screen=None,
-    properties=None,
-    **kwargs,
+    side_image: Displayable | None = None,
+    screen: str | None = None,
+    properties: dict[str, Any] | None = None,
+    **kwargs: Any,
 ) -> None: ...
-def compute_widget_properties(who_args, what_args, window_args, properties, variant=None, multiple=None): ...
+def compute_widget_properties(
+    who_args: dict[str, Any],
+    what_args: dict[str, Any],
+    window_args: dict[str, Any],
+    properties: dict[str, Any],
+    variant: str | None = None,
+    multiple: tuple[int, int] | None = None,
+) -> dict[str, Any]: ...
 def show_display_say(
-    who,
-    what,
-    who_args={},
-    what_args={},
-    window_args={},
-    image: bool = False,
-    side_image=None,
+    who: str | Displayable | None,
+    what: str | Displayable | list[Displayable | str],
+    who_args: dict[str, Any] = {},
+    what_args: dict[str, Any] = {},
+    window_args: dict[str, Any] = {},
+    image: bool | str = False,
+    side_image: Displayable | None = None,
     two_window: bool = False,
-    two_window_vbox_properties={},
-    who_window_properties={},
-    say_vbox_properties={},
-    transform=None,
-    variant=None,
-    screen=None,
-    layer=None,
-    properties={},
-    multiple=None,
-    retain=None,
-    **kwargs,
-): ...
+    two_window_vbox_properties: dict[str, Any] = {},
+    who_window_properties: dict[str, Any] = {},
+    say_vbox_properties: dict[str, Any] = {},
+    transform: Displayable | None = None,
+    variant: str | None = None,
+    screen: str | None = None,
+    layer: str | None = None,
+    properties: dict[str, Any] = {},
+    multiple: tuple[int, int] | None = None,
+    retain: str | bool | None = None,
+    **kwargs: Any,
+) -> ShowResult: ...
 
 class SlowDone:
-    delay: Incomplete
-    ctc_kwargs: Incomplete
+    delay: float | None
+    ctc_kwargs: dict[str, Any]
     last_pause: bool
     no_wait: bool
-    screen_tag: Incomplete
-    screen_layer: Incomplete
-    ctc: Incomplete
-    ctc_position: Incomplete
-    callback: Incomplete
-    interact: Incomplete
-    type: Incomplete
-    cb_args: Incomplete
+    screen_tag: str | None
+    screen_layer: str | None
+    ctc: Displayable | None
+    ctc_position: str
+    callback: Callbacks
+    interact: bool
+    type: str | None
+    cb_args: dict[str, Any]
     def __init__(
-        self, ctc, ctc_position, callback, interact, type, cb_args, delay, ctc_kwargs, last_pause, no_wait
+        self,
+        ctc: Displayable | None,
+        ctc_position: str,
+        callback: Callbacks,
+        interact: bool,
+        type: str | None,
+        cb_args: dict[str, Any],
+        delay: float | None,
+        ctc_kwargs: dict[str, Any],
+        last_pause: bool,
+        no_wait: bool,
     ) -> None: ...
     def __call__(self) -> None: ...
 
-afm_text_queue: Incomplete
+afm_text_queue: list[Text]
 
 def display_say(
-    who,
-    what,
-    show_function,
-    interact,
-    slow,
-    afm,
-    ctc,
-    ctc_pause,
-    ctc_position,
-    all_at_once,
-    cb_args,
-    with_none,
-    callback,
-    type,
+    who: str | Displayable | None,
+    what: str | Displayable | list[Displayable | str],
+    show_function: Callable[..., ShowResult],
+    interact: bool,
+    slow: bool,
+    afm: bool,
+    ctc: Displayable | None,
+    ctc_pause: Displayable | None,
+    ctc_position: Literal["nestled", "nestled-close", "fixed", "screen-variable"],
+    all_at_once: bool,
+    cb_args: dict[str, Any],
+    with_none: bool | None,
+    callback: CharacterCallback | Sequence[CharacterCallback] | None,
+    type: str | None,
     checkpoint: bool = True,
-    ctc_timedpause=None,
+    ctc_timedpause: Displayable | None = None,
     ctc_force: bool = False,
     advance: bool = True,
-    multiple=None,
-    dtt=None,
+    multiple: tuple[int, int] | None = None,
+    dtt: DialogueTextTags | None = None,
     retain: bool = False,
 ) -> None: ...
 
 class HistoryEntry(renpy.object.Object):
-    multiple: Incomplete
-    who: Incomplete
-    what: Incomplete
-    def __eq__(self, other): ...
-    def __hash__(self): ...
+    multiple: tuple[int, int] | None
+    who: str | Displayable | None
+    what: str | Displayable | list[Displayable | str]
+    def __eq__(self, other: object) -> bool: ...
+    def __hash__(self) -> int: ...
 
-NotSet: Incomplete
+NotSet: Sentinel
 multiple_count: int
 
 class ADVCharacter:
-    special_properties: Incomplete
-    voice_tag: Incomplete
-    properties: Incomplete
-    name: Incomplete
-    who_prefix: Incomplete
-    who_suffix: Incomplete
-    what_prefix: Incomplete
-    what_suffix: Incomplete
-    show_function: Incomplete
-    predict_function: Incomplete
-    condition: Incomplete
-    dynamic: Incomplete
-    screen: Incomplete
-    mode: Incomplete
-    image_tag: Incomplete
-    display_args: Incomplete
-    who_args: Incomplete
-    what_args: Incomplete
-    window_args: Incomplete
-    show_args: Incomplete
-    cb_args: Incomplete
+    special_properties: list[str]
+    voice_tag: str | None
+    properties: dict[str, dict[str, Any]]
+    name: str | None
+    who_prefix: str
+    who_suffix: str
+    what_prefix: str
+    what_suffix: str
+    show_function: Callable[..., ShowResult]
+    predict_function: Callable[..., None]
+    condition: str | None
+    dynamic: bool
+    screen: str | None
+    mode: str | None
+    image_tag: str | None
+    display_args: dict[str, Any]
+    who_args: dict[str, Any]
+    what_args: dict[str, Any]
+    window_args: dict[str, Any]
+    show_args: dict[str, Any]
+    cb_args: dict[str, Any]
     def __init__(
-        self,
-        name: str | None | renpy.object.Sentinel = ...,
-        kind: Literal[False] | None | ADVCharacter = None,
-        **properties: Any,
+        self, name: str | None | Sentinel = ..., kind: Literal[False] | None | ADVCharacter = None, **properties: Any
     ) -> None: ...
-    def copy(self, name=..., **properties): ...
-    def do_add(self, who, what, multiple=None) -> None: ...
-    def get_show_properties(self, extra_properties): ...
-    def do_show(self, who, what, multiple=None, extra_properties=None, retain=None): ...
-    def do_done(self, who, what, multiple=None) -> None: ...
+    def copy(self, name: str | None | Sentinel = ..., **properties: Any) -> ADVCharacter: ...
+    def do_add(
+        self,
+        who: str | Displayable | None,
+        what: str | Displayable | list[Displayable | str],
+        multiple: tuple[int, int] | None = None,
+    ) -> None: ...
+    def get_show_properties(
+        self, extra_properties: dict[str, Any] | None
+    ) -> tuple[
+        str | None,
+        dict[str, Any],
+        dict[str, Any],
+        dict[str, Any],
+        dict[str, Any],
+        dict[str, Any],
+    ]: ...
+    def do_show(
+        self,
+        who: str | Displayable | None,
+        what: str | Displayable | list[Displayable | str],
+        multiple: tuple[int, int] | None = None,
+        extra_properties: dict[str, Any] | None = None,
+        retain: str | bool | None = None,
+    ) -> ShowResult: ...
+    def do_done(
+        self,
+        who: str | Displayable | None,
+        what: str | Displayable | list[Displayable | str],
+        multiple: tuple[int, int] | None = None,
+    ) -> None: ...
     def do_extend(self) -> None: ...
-    def do_display(self, who, what, **display_args) -> None: ...
-    def do_predict(self, who, what, extra_properties=None): ...
-    def resolve_say_attributes(self, predict, attrs): ...
-    def handle_say_attributes(self, predicting, interact): ...
-    def handle_say_transition(self, mode, before, after) -> None: ...
-    def restore_say_attributes(self, predicting, state, interact): ...
-    def __format__(self, spec) -> str: ...
-    def empty_window(self, multiple=None) -> None: ...
-    def has_character_arguments(self, **kwargs): ...
-    def prefix_suffix(self, thing, prefix, body, suffix): ...
-    def __call__(self, what, interact: bool = True, _call_done: bool = True, multiple=None, **kwargs): ...
-    def statement_name(self): ...
-    def predict(self, what): ...
-    def will_interact(self): ...
-    def add_history(self, kind, who, what, multiple=None, **kwargs) -> None: ...
+    def do_display(
+        self, who: str | Displayable | None, what: str | Displayable | list[Displayable | str], **display_args: Any
+    ) -> None: ...
+    def do_predict(
+        self,
+        who: str | Displayable | None,
+        what: str | Displayable | list[Displayable | str],
+        extra_properties: dict[str, Any] | None = None,
+    ) -> None: ...
+    def resolve_say_attributes(self, predict: bool, attrs: Sequence[str] | None) -> bool | None: ...
+    def handle_say_attributes(self, predicting: bool, interact: bool) -> _SayAttributeState | None: ...
+    def handle_say_transition(
+        self, mode: Literal["permanent", "temporary", "both", "restore"], before: Sequence[str], after: Sequence[str]
+    ) -> None: ...
+    def restore_say_attributes(
+        self, predicting: bool, state: _SayAttributeState | None, interact: bool
+    ) -> bool | None: ...
+    def __format__(self, spec: str) -> str: ...
+    def empty_window(self, multiple: int | None = None) -> None: ...
+    def has_character_arguments(self, **kwargs: Any) -> bool: ...
+    def prefix_suffix(self, thing: Literal["who", "what"], prefix: str, body: str, suffix: str) -> str: ...
+    def __call__(
+        self,
+        what: str,
+        interact: bool = True,
+        _call_done: bool = True,
+        multiple: int | None = None,
+        **kwargs: Any,
+    ) -> bool | None: ...
+    def statement_name(self) -> str: ...
+    def predict(self, what: str) -> None: ...
+    def will_interact(self) -> bool: ...
+    def add_history(
+        self,
+        kind: str,
+        who: str | Displayable | None,
+        what: str | Displayable | list[Displayable | str],
+        multiple: tuple[int, int] | None = None,
+        **kwargs: Any,
+    ) -> None: ...
     def pop_history(self) -> None: ...
 
-def Character(name=..., kind=None, **properties): ...
-def DynamicCharacter(name_expr, **properties): ...
+@overload
+def Character(
+    name: str | None | Sentinel = ...,
+    kind: None = None,
+    **properties: Any,
+) -> ADVCharacter: ...
+@overload
+def Character[T](
+    name: str | None | Sentinel = ...,
+    kind: T = ...,
+    **properties: Any,
+) -> T: ...
+def DynamicCharacter(name_expr: str, **properties: Any) -> ADVCharacter: ...

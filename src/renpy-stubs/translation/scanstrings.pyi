@@ -1,0 +1,18 @@
+STRING_RE: str
+REGULAR_PRIORITIES: list[tuple[str, int, str]]
+COMMON_PRIORITIES: list[tuple[str, int, str]]
+
+class String:
+    filename: str
+    line: int
+    text: str
+    comment: bool
+    priority: int
+    sort_key: tuple[int, str, int]
+    launcher_file: str
+    def __init__(self, filename: str, line: int, text: str, comment: bool) -> None: ...
+
+def scan_strings(filename: str) -> list[String]: ...
+def scan_comments(filename: str) -> list[String]: ...
+def scan_additional_strings() -> list[String]: ...
+def scan(min_priority: int = 0, max_priority: int = 299, common_only: bool = False) -> list[String]: ...

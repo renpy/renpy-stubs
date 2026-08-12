@@ -1,6 +1,372 @@
-from _typeshed import Incomplete
+from typing import Any, Literal, overload
 
+from renpy import VersionTuple
+from renpy.ast import eval_who as eval_who
+from renpy.atl import atl_warper as atl_warper
+from renpy.bootstrap import get_alternate_base as get_alternate_base
+from renpy.character import display_say as display_say
+from renpy.character import predict_show_display_say as predict_show_display_say
+from renpy.character import show_display_say as show_display_say
+from renpy.curry import curry as curry
+from renpy.curry import partial as partial
+from renpy.display.behavior import Keymap as Keymap
+from renpy.display.behavior import clear_keymap_cache as clear_keymap_cache
+from renpy.display.behavior import is_selected as is_selected
+from renpy.display.behavior import is_sensitive as is_sensitive
+from renpy.display.behavior import map_event as map_event
+from renpy.display.behavior import queue_event as queue_event
+from renpy.display.behavior import run as run
+from renpy.display.behavior import run_periodic as run_periodic
+from renpy.display.behavior import run_unhovered as run_unhovered
+from renpy.display.focus import capture_focus as capture_focus
+from renpy.display.focus import clear_capture_focus as clear_capture_focus
+from renpy.display.focus import focus_coordinates as focus_coordinates
+from renpy.display.focus import get_focus_rect as get_focus_rect
+from renpy.display.im import load_image as load_image
+from renpy.display.im import load_rgba as load_rgba
+from renpy.display.im import load_surface as load_surface
+from renpy.display.image import check_image_attributes as check_image_attributes
+from renpy.display.image import get_available_image_attributes as get_available_image_attributes
+from renpy.display.image import get_available_image_tags as get_available_image_tags
+from renpy.display.image import get_ordered_image_attributes as get_ordered_image_attributes
+from renpy.display.image import get_registered_image as get_registered_image
+from renpy.display.image import image_exists as image_exists
+from renpy.display.image import list_images as list_images
+from renpy.display.minigame import Minigame as Minigame
+from renpy.display.scenelists import layer_has_transforms as layer_has_transforms
+from renpy.display.screen import current_screen as current_screen
+from renpy.display.screen import define_screen as define_screen
+from renpy.display.screen import get_displayable as get_displayable
+from renpy.display.screen import get_displayable_properties as get_displayable_properties
+from renpy.display.screen import get_screen as get_screen
+from renpy.display.screen import get_screen_docstring as get_screen_docstring
+from renpy.display.screen import get_screen_variable as get_screen_variable
+from renpy.display.screen import get_widget as get_widget
+from renpy.display.screen import get_widget_properties as get_widget_properties
+from renpy.display.screen import has_screen as has_screen
+from renpy.display.screen import hide_screen as hide_screen
+from renpy.display.screen import set_screen_variable as set_screen_variable
+from renpy.display.screen import show_screen as show_screen
+from renpy.display.screen import use_screen as use_screen
+from renpy.display.tts import speak_extra_alt as speak_extra_alt
+from renpy.display.tts import stop_tts as stop_tts
+from renpy.display.video import movie_start_displayable as movie_start_displayable
+from renpy.display.video import movie_start_fullscreen as movie_start_fullscreen
+from renpy.display.video import movie_stop as movie_stop
+from renpy.easy import displayable as displayable
+from renpy.easy import predict as predict
+from renpy.easy import split_properties as split_properties
+from renpy.editor import launch_editor as launch_editor
+from renpy.execution import not_infinite_loop as not_infinite_loop
+from renpy.execution import reset_all_contexts as reset_all_contexts
+from renpy.exports.actionexports import confirm as confirm
+from renpy.exports.actionexports import display_notify as display_notify
+from renpy.exports.actionexports import notify as notify
+from renpy.exports.commonexports import renpy_pure as renpy_pure
+from renpy.exports.contextexports import add_to_all_stores as add_to_all_stores
+from renpy.exports.contextexports import call_in_new_context as call_in_new_context
+from renpy.exports.contextexports import call_replay as call_replay
+from renpy.exports.contextexports import call_stack_depth as call_stack_depth
+from renpy.exports.contextexports import clear_game_runtime as clear_game_runtime
+from renpy.exports.contextexports import clear_line_log as clear_line_log
+from renpy.exports.contextexports import context as context
+from renpy.exports.contextexports import context_dynamic as context_dynamic
+from renpy.exports.contextexports import context_nesting_level as context_nesting_level
+from renpy.exports.contextexports import current_interact_type as current_interact_type
+from renpy.exports.contextexports import curried_call_in_new_context as curried_call_in_new_context
+from renpy.exports.contextexports import curried_invoke_in_new_context as curried_invoke_in_new_context
+from renpy.exports.contextexports import dynamic as dynamic
+from renpy.exports.contextexports import end_replay as end_replay
+from renpy.exports.contextexports import game_menu as game_menu
+from renpy.exports.contextexports import get_game_runtime as get_game_runtime
+from renpy.exports.contextexports import get_line_log as get_line_log
+from renpy.exports.contextexports import get_mode as get_mode
+from renpy.exports.contextexports import get_return_stack as get_return_stack
+from renpy.exports.contextexports import get_skipping as get_skipping
+from renpy.exports.contextexports import get_statement_name as get_statement_name
+from renpy.exports.contextexports import invoke_in_new_context as invoke_in_new_context
+from renpy.exports.contextexports import is_in_test as is_in_test
+from renpy.exports.contextexports import is_init_phase as is_init_phase
+from renpy.exports.contextexports import is_skipping as is_skipping
+from renpy.exports.contextexports import jump_out_of_context as jump_out_of_context
+from renpy.exports.contextexports import last_interact_type as last_interact_type
+from renpy.exports.contextexports import mode as mode
+from renpy.exports.contextexports import pop_call as pop_call
+from renpy.exports.contextexports import pop_return as pop_return
+from renpy.exports.contextexports import scry as scry
+from renpy.exports.contextexports import set_return_stack as set_return_stack
+from renpy.exports.contextexports import stop_skipping as stop_skipping
+from renpy.exports.debugexports import error as error
+from renpy.exports.debugexports import filename_line_override as filename_line_override
+from renpy.exports.debugexports import get_filename_line as get_filename_line
+from renpy.exports.debugexports import log as log
+from renpy.exports.debugexports import pop_error_handler as pop_error_handler
+from renpy.exports.debugexports import push_error_handler as push_error_handler
+from renpy.exports.debugexports import warp_to_line as warp_to_line
+from renpy.exports.debugexports import write_log as write_log
+from renpy.exports.displayexports import Container as Container
+from renpy.exports.displayexports import Displayable as Displayable
+from renpy.exports.displayexports import IgnoreEvent as IgnoreEvent
+from renpy.exports.displayexports import Render as Render
+from renpy.exports.displayexports import add_layer as add_layer
+from renpy.exports.displayexports import can_fullscreen as can_fullscreen
+from renpy.exports.displayexports import can_show as can_show
+from renpy.exports.displayexports import cancel_gesture as cancel_gesture
+from renpy.exports.displayexports import change_zorder as change_zorder
+from renpy.exports.displayexports import clear_attributes as clear_attributes
+from renpy.exports.displayexports import clear_retain as clear_retain
+from renpy.exports.displayexports import copy_images as copy_images
+from renpy.exports.displayexports import count_displayables_in_layer as count_displayables_in_layer
+from renpy.exports.displayexports import default_layer as default_layer
+from renpy.exports.displayexports import display_reset as display_reset
+from renpy.exports.displayexports import easy_displayable as easy_displayable
+from renpy.exports.displayexports import end_interaction as end_interaction
+from renpy.exports.displayexports import flush_cache_file as flush_cache_file
+from renpy.exports.displayexports import force_full_redraw as force_full_redraw
+from renpy.exports.displayexports import free_memory as free_memory
+from renpy.exports.displayexports import get_adjustment as get_adjustment
+from renpy.exports.displayexports import get_at_list as get_at_list
+from renpy.exports.displayexports import get_attributes as get_attributes
+from renpy.exports.displayexports import get_hidden_tags as get_hidden_tags
+from renpy.exports.displayexports import get_image_bounds as get_image_bounds
+from renpy.exports.displayexports import get_image_load_log as get_image_load_log
+from renpy.exports.displayexports import get_mouse_name as get_mouse_name
+from renpy.exports.displayexports import get_mouse_names as get_mouse_names
+from renpy.exports.displayexports import get_mouse_pos as get_mouse_pos
+from renpy.exports.displayexports import get_ongoing_transition as get_ongoing_transition
+from renpy.exports.displayexports import get_physical_size as get_physical_size
+from renpy.exports.displayexports import get_placement as get_placement
+from renpy.exports.displayexports import get_refresh_rate as get_refresh_rate
+from renpy.exports.displayexports import get_renderer_info as get_renderer_info
+from renpy.exports.displayexports import get_showing_tags as get_showing_tags
+from renpy.exports.displayexports import get_texture_size as get_texture_size
+from renpy.exports.displayexports import get_transition as get_transition
+from renpy.exports.displayexports import get_zorder_list as get_zorder_list
+from renpy.exports.displayexports import hide as hide
+from renpy.exports.displayexports import iconify as iconify
+from renpy.exports.displayexports import image as image
+from renpy.exports.displayexports import image_size as image_size
+from renpy.exports.displayexports import is_mouse_visible as is_mouse_visible
+from renpy.exports.displayexports import is_pixel_opaque as is_pixel_opaque
+from renpy.exports.displayexports import is_start_interact as is_start_interact
+from renpy.exports.displayexports import layer_at_list as layer_at_list
+from renpy.exports.displayexports import maximum_framerate as maximum_framerate
+from renpy.exports.displayexports import placement as placement
+from renpy.exports.displayexports import predict_show as predict_show
+from renpy.exports.displayexports import quit_event as quit_event
+from renpy.exports.displayexports import redraw as redraw
+from renpy.exports.displayexports import render as render
+from renpy.exports.displayexports import render_to_file as render_to_file
+from renpy.exports.displayexports import render_to_surface as render_to_surface
+from renpy.exports.displayexports import reset_physical_size as reset_physical_size
+from renpy.exports.displayexports import restart_interaction as restart_interaction
+from renpy.exports.displayexports import scene as scene
+from renpy.exports.displayexports import scene_lists as scene_lists
+from renpy.exports.displayexports import screenshot as screenshot
+from renpy.exports.displayexports import screenshot_to_bytes as screenshot_to_bytes
+from renpy.exports.displayexports import set_focus as set_focus
+from renpy.exports.displayexports import set_mouse_pos as set_mouse_pos
+from renpy.exports.displayexports import set_physical_size as set_physical_size
+from renpy.exports.displayexports import set_tag_attributes as set_tag_attributes
+from renpy.exports.displayexports import show as show
+from renpy.exports.displayexports import show_layer_at as show_layer_at
+from renpy.exports.displayexports import showing as showing
+from renpy.exports.displayexports import shown_window as shown_window
+from renpy.exports.displayexports import take_screenshot as take_screenshot
+from renpy.exports.displayexports import timeout as timeout
+from renpy.exports.displayexports import toggle_fullscreen as toggle_fullscreen
+from renpy.exports.displayexports import transition as transition
+from renpy.exports.fetchexports import FetchError as FetchError
+from renpy.exports.fetchexports import fetch as fetch
+from renpy.exports.fetchexports import fetch_emscripten as fetch_emscripten
+from renpy.exports.fetchexports import fetch_pause as fetch_pause
+from renpy.exports.fetchexports import fetch_requests as fetch_requests
+from renpy.exports.fetchexports import proxies as proxies
+from renpy.exports.inputexports import get_editable_input_value as get_editable_input_value
+from renpy.exports.inputexports import input as input
+from renpy.exports.inputexports import set_editable_input_value as set_editable_input_value
+from renpy.exports.inputexports import web_input as web_input
+from renpy.exports.loaderexports import exists as exists
+from renpy.exports.loaderexports import file as file
+from renpy.exports.loaderexports import fsdecode as fsdecode
+from renpy.exports.loaderexports import fsencode as fsencode
+from renpy.exports.loaderexports import list_files as list_files
+from renpy.exports.loaderexports import loadable as loadable
+from renpy.exports.loaderexports import munge as munge
+from renpy.exports.loaderexports import notl_file as notl_file
+from renpy.exports.loaderexports import open_file as open_file
+from renpy.exports.mediaexports import movie_cutscene as movie_cutscene
+from renpy.exports.mediaexports import music_start as music_start
+from renpy.exports.mediaexports import music_stop as music_stop
+from renpy.exports.mediaexports import play as play
+from renpy.exports.mediaexports import toggle_music as toggle_music
+from renpy.exports.menuexports import MenuEntry as MenuEntry
+from renpy.exports.menuexports import choice_for_skipping as choice_for_skipping
+from renpy.exports.menuexports import display_menu as display_menu
+from renpy.exports.menuexports import get_menu_args as get_menu_args
+from renpy.exports.menuexports import menu as menu
+from renpy.exports.menuexports import predict_menu as predict_menu
+from renpy.exports.persistentexports import is_seen as is_seen
+from renpy.exports.persistentexports import is_seen_allowed as is_seen_allowed
+from renpy.exports.persistentexports import mark_audio_seen as mark_audio_seen
+from renpy.exports.persistentexports import mark_audio_unseen as mark_audio_unseen
+from renpy.exports.persistentexports import mark_image_seen as mark_image_seen
+from renpy.exports.persistentexports import mark_image_unseen as mark_image_unseen
+from renpy.exports.persistentexports import mark_label_seen as mark_label_seen
+from renpy.exports.persistentexports import mark_label_unseen as mark_label_unseen
+from renpy.exports.persistentexports import mark_translation_seen as mark_translation_seen
+from renpy.exports.persistentexports import mark_translation_unseen as mark_translation_unseen
+from renpy.exports.persistentexports import save_persistent as save_persistent
+from renpy.exports.persistentexports import seen_audio as seen_audio
+from renpy.exports.persistentexports import seen_image as seen_image
+from renpy.exports.persistentexports import seen_label as seen_label
+from renpy.exports.persistentexports import seen_translation as seen_translation
+from renpy.exports.platformexports import check_permission as check_permission
+from renpy.exports.platformexports import get_on_battery as get_on_battery
+from renpy.exports.platformexports import get_sdl_dll as get_sdl_dll
+from renpy.exports.platformexports import get_sdl_window_pointer as get_sdl_window_pointer
+from renpy.exports.platformexports import invoke_in_main_thread as invoke_in_main_thread
+from renpy.exports.platformexports import invoke_in_thread as invoke_in_thread
+from renpy.exports.platformexports import open_url as open_url
+from renpy.exports.platformexports import request_permission as request_permission
+from renpy.exports.platformexports import variant as variant
+from renpy.exports.platformexports import vibrate as vibrate
+from renpy.exports.predictexports import cache_pin as cache_pin
+from renpy.exports.predictexports import cache_unpin as cache_unpin
+from renpy.exports.predictexports import expand_predict as expand_predict
+from renpy.exports.predictexports import predicting as predicting
+from renpy.exports.predictexports import start_predict as start_predict
+from renpy.exports.predictexports import start_predict_screen as start_predict_screen
+from renpy.exports.predictexports import stop_predict as stop_predict
+from renpy.exports.predictexports import stop_predict_screen as stop_predict_screen
+from renpy.exports.restartexports import full_restart as full_restart
+from renpy.exports.restartexports import get_autoreload as get_autoreload
+from renpy.exports.restartexports import quit as quit
+from renpy.exports.restartexports import reload_script as reload_script
+from renpy.exports.restartexports import set_autoreload as set_autoreload
+from renpy.exports.restartexports import utter_restart as utter_restart
+from renpy.exports.rollbackexports import block_rollback as block_rollback
+from renpy.exports.rollbackexports import can_rollback as can_rollback
+from renpy.exports.rollbackexports import checkpoint as checkpoint
+from renpy.exports.rollbackexports import fix_rollback as fix_rollback
+from renpy.exports.rollbackexports import get_identifier_checkpoints as get_identifier_checkpoints
+from renpy.exports.rollbackexports import get_roll_forward as get_roll_forward
+from renpy.exports.rollbackexports import in_fixed_rollback as in_fixed_rollback
+from renpy.exports.rollbackexports import in_rollback as in_rollback
+from renpy.exports.rollbackexports import retain_after_load as retain_after_load
+from renpy.exports.rollbackexports import roll_forward_core as roll_forward_core
+from renpy.exports.rollbackexports import roll_forward_info as roll_forward_info
+from renpy.exports.rollbackexports import rollback as rollback
+from renpy.exports.rollbackexports import suspend_rollback as suspend_rollback
+from renpy.exports.sayexports import LastSay as LastSay
+from renpy.exports.sayexports import TagQuotingDict as TagQuotingDict
+from renpy.exports.sayexports import count_dialogue_blocks as count_dialogue_blocks
+from renpy.exports.sayexports import count_newly_seen_dialogue_blocks as count_newly_seen_dialogue_blocks
+from renpy.exports.sayexports import count_seen_dialogue_blocks as count_seen_dialogue_blocks
+from renpy.exports.sayexports import curried_do_reshow_say as curried_do_reshow_say
+from renpy.exports.sayexports import do_reshow_say as do_reshow_say
+from renpy.exports.sayexports import get_reshow_say as get_reshow_say
+from renpy.exports.sayexports import get_say_attributes as get_say_attributes
+from renpy.exports.sayexports import get_say_image_tag as get_say_image_tag
+from renpy.exports.sayexports import get_side_image as get_side_image
+from renpy.exports.sayexports import last_say as last_say
+from renpy.exports.sayexports import predict_say as predict_say
+from renpy.exports.sayexports import reshow_say as reshow_say
+from renpy.exports.sayexports import say as say
+from renpy.exports.sayexports import scry_say as scry_say
+from renpy.exports.sayexports import substitute as substitute
+from renpy.exports.sayexports import tag_quoting_dict as tag_quoting_dict
+from renpy.exports.scriptexports import get_all_labels as get_all_labels
+from renpy.exports.scriptexports import has_label as has_label
+from renpy.exports.scriptexports import include_module as include_module
+from renpy.exports.scriptexports import load_language as load_language
+from renpy.exports.scriptexports import load_module as load_module
+from renpy.exports.scriptexports import load_string as load_string
+from renpy.exports.scriptexports import munged_filename as munged_filename
+from renpy.exports.statementexports import call as call
+from renpy.exports.statementexports import call_screen as call_screen
+from renpy.exports.statementexports import execute_default_statement as execute_default_statement
+from renpy.exports.statementexports import imagemap as imagemap
+from renpy.exports.statementexports import jump as jump
+from renpy.exports.statementexports import pause as pause
+from renpy.exports.statementexports import return_statement as return_statement
+from renpy.exports.statementexports import with_statement as with_statement
+from renpy.gl2.gl2shadercache import register_shader as register_shader
+from renpy.gl2.live2d import has_live2d as has_live2d
+from renpy.importer import add_python_directory as add_python_directory
+from renpy.lexer import lex_string as lex_string
+from renpy.lexer import unelide_filename as unelide_filename
+from renpy.lint import try_compile as try_compile
+from renpy.lint import try_eval as try_eval
+from renpy.loadsave import can_load as can_load
+from renpy.loadsave import copy_save as copy_save
+from renpy.loadsave import force_autosave as force_autosave
+from renpy.loadsave import get_save_data as get_save_data
+from renpy.loadsave import list_saved_games as list_saved_games
+from renpy.loadsave import list_slots as list_slots
+from renpy.loadsave import load as load
+from renpy.loadsave import newest_slot as newest_slot
+from renpy.loadsave import rename_save as rename_save
+from renpy.loadsave import save as save
+from renpy.loadsave import scan_saved_game as scan_saved_game
+from renpy.loadsave import slot_json as slot_json
+from renpy.loadsave import slot_mtime as slot_mtime
+from renpy.loadsave import slot_screenshot as slot_screenshot
+from renpy.loadsave import unlink_save as unlink_save
+from renpy.memory import diff_memory as diff_memory
+from renpy.memory import profile_memory as profile_memory
+from renpy.memory import profile_rollback as profile_rollback
+from renpy.parser import get_parse_errors as get_parse_errors
+from renpy.persistent import register_persistent as register_persistent
+from renpy.pyanalysis import const as const
+from renpy.pyanalysis import not_const as not_const
+from renpy.pyanalysis import pure as pure
+from renpy.python import mark_changed as mark_changed
+from renpy.savetoken import get_save_token_keys as get_save_token_keys
+from renpy.sl2.slparser import register_sl_displayable as register_sl_displayable
+from renpy.text.extras import ParameterizedText as ParameterizedText
+from renpy.text.extras import check_text_tags as check_text_tags
+from renpy.text.extras import filter_text_tags as filter_text_tags
+from renpy.text.font import register_bmfont as register_bmfont
+from renpy.text.font import register_mudgefont as register_mudgefont
+from renpy.text.font import register_sfont as register_sfont
+from renpy.text.font import variable_font_info as variable_font_info
+from renpy.text.shader import TextShader as TextShader
+from renpy.text.shader import register_textshader as register_textshader
+from renpy.text.text import BASELINE as BASELINE
+from renpy.text.text import language_tailor as language_tailor
+from renpy.text.textsupport import DISPLAYABLE as TEXT_DISPLAYABLE
+from renpy.text.textsupport import PARAGRAPH as TEXT_PARAGRAPH
+from renpy.text.textsupport import TAG as TEXT_TAG
+from renpy.text.textsupport import TEXT as TEXT_TEXT
+from renpy.translation import change_language as change_language
+from renpy.translation import get_translation_identifier as get_translation_identifier
+from renpy.translation import get_translation_info as get_translation_info
+from renpy.translation import known_languages as known_languages
+from renpy.translation import translate_string as translate_string
+from renpy.ui import Choice as Choice
+
+menu_args: tuple[Any, ...] | None
+menu_kwargs: dict[str, Any] | None
+bits: int
+
+@overload
+def version(tuple: Literal[False] = False) -> str: ...
+@overload
+def version(tuple: Literal[True]) -> VersionTuple: ...
+@renpy_pure
+def version(tuple: bool = False) -> str | VersionTuple: ...
+
+version_string: str
+version_only: str
+version_name: str
+version_tuple: VersionTuple
+license: str
+platform: str
+
+# Generated by scripts/relative_imports.py, do not edit below this line.
 from . import actionexports as actionexports
+from . import clipboardexports as clipboardexports
 from . import commonexports as commonexports
 from . import contextexports as contextexports
 from . import debugexports as debugexports
@@ -18,398 +384,3 @@ from . import rollbackexports as rollbackexports
 from . import sayexports as sayexports
 from . import scriptexports as scriptexports
 from . import statementexports as statementexports
-
-from renpy.ast import eval_who as eval_who
-from renpy.atl import atl_warper as atl_warper
-from renpy.bootstrap import get_alternate_base as get_alternate_base
-from renpy.character import (
-    display_say as display_say,
-    predict_show_display_say as predict_show_display_say,
-    show_display_say as show_display_say,
-)
-
-from renpy.curry import curry as curry, partial as partial
-from renpy.display.behavior import (
-    Keymap as Keymap,
-    clear_keymap_cache as clear_keymap_cache,
-    is_selected as is_selected,
-    is_sensitive as is_sensitive,
-    map_event as map_event,
-    queue_event as queue_event,
-    run as run,
-    run_periodic as run_periodic,
-    run_unhovered as run_unhovered,
-)
-from renpy.display.focus import (
-    capture_focus as capture_focus,
-    clear_capture_focus as clear_capture_focus,
-    focus_coordinates as focus_coordinates,
-    get_focus_rect as get_focus_rect,
-)
-from renpy.display.im import load_image as load_image, load_rgba as load_rgba, load_surface as load_surface
-from renpy.display.image import (
-    check_image_attributes as check_image_attributes,
-    get_available_image_attributes as get_available_image_attributes,
-    get_available_image_tags as get_available_image_tags,
-    get_ordered_image_attributes as get_ordered_image_attributes,
-    get_registered_image as get_registered_image,
-    image_exists as image_exists,
-    list_images as list_images,
-)
-from renpy.display.minigame import Minigame as Minigame
-from renpy.display.scenelists import layer_has_transforms as layer_has_transforms
-from renpy.display.screen import (
-    current_screen as current_screen,
-    define_screen as define_screen,
-    get_displayable as get_displayable,
-    get_displayable_properties as get_displayable_properties,
-    get_screen as get_screen,
-    get_screen_docstring as get_screen_docstring,
-    get_screen_variable as get_screen_variable,
-    get_widget as get_widget,
-    get_widget_properties as get_widget_properties,
-    has_screen as has_screen,
-    hide_screen as hide_screen,
-    set_screen_variable as set_screen_variable,
-    show_screen as show_screen,
-    use_screen as use_screen,
-)
-from renpy.display.tts import speak_extra_alt as speak_extra_alt, stop_tts as stop_tts
-from renpy.display.video import (
-    movie_start_displayable as movie_start_displayable,
-    movie_start_fullscreen as movie_start_fullscreen,
-    movie_stop as movie_stop,
-)
-from renpy.easy import displayable as displayable, predict as predict, split_properties as split_properties
-from renpy.editor import launch_editor as launch_editor
-from renpy.execution import not_infinite_loop as not_infinite_loop, reset_all_contexts as reset_all_contexts
-from renpy.exports.actionexports import confirm as confirm, display_notify as display_notify, notify as notify
-from renpy.exports.commonexports import renpy_pure as renpy_pure
-from renpy.exports.contextexports import (
-    add_to_all_stores as add_to_all_stores,
-    call_in_new_context as call_in_new_context,
-    call_replay as call_replay,
-    call_stack_depth as call_stack_depth,
-    clear_game_runtime as clear_game_runtime,
-    clear_line_log as clear_line_log,
-    context as context,
-    context_dynamic as context_dynamic,
-    context_nesting_level as context_nesting_level,
-    current_interact_type as current_interact_type,
-    curried_call_in_new_context as curried_call_in_new_context,
-    curried_invoke_in_new_context as curried_invoke_in_new_context,
-    dynamic as dynamic,
-    end_replay as end_replay,
-    game_menu as game_menu,
-    get_game_runtime as get_game_runtime,
-    get_line_log as get_line_log,
-    get_mode as get_mode,
-    get_return_stack as get_return_stack,
-    get_skipping as get_skipping,
-    get_statement_name as get_statement_name,
-    invoke_in_new_context as invoke_in_new_context,
-    is_in_test as is_in_test,
-    is_init_phase as is_init_phase,
-    is_skipping as is_skipping,
-    jump_out_of_context as jump_out_of_context,
-    last_interact_type as last_interact_type,
-    mode as mode,
-    pop_call as pop_call,
-    pop_return as pop_return,
-    scry as scry,
-    set_return_stack as set_return_stack,
-    stop_skipping as stop_skipping,
-)
-from renpy.exports.debugexports import (
-    error as error,
-    filename_line_override as filename_line_override,
-    get_filename_line as get_filename_line,
-    log as log,
-    pop_error_handler as pop_error_handler,
-    push_error_handler as push_error_handler,
-    warp_to_line as warp_to_line,
-    write_log as write_log,
-)
-from renpy.exports.displayexports import (
-    Container as Container,
-    Displayable as Displayable,
-    IgnoreEvent as IgnoreEvent,
-    Render as Render,
-    add_layer as add_layer,
-    can_fullscreen as can_fullscreen,
-    can_show as can_show,
-    cancel_gesture as cancel_gesture,
-    change_zorder as change_zorder,
-    clear_attributes as clear_attributes,
-    clear_retain as clear_retain,
-    copy_images as copy_images,
-    count_displayables_in_layer as count_displayables_in_layer,
-    default_layer as default_layer,
-    display_reset as display_reset,
-    easy_displayable as easy_displayable,
-    end_interaction as end_interaction,
-    flush_cache_file as flush_cache_file,
-    force_full_redraw as force_full_redraw,
-    free_memory as free_memory,
-    get_adjustment as get_adjustment,
-    get_at_list as get_at_list,
-    get_attributes as get_attributes,
-    get_hidden_tags as get_hidden_tags,
-    get_image_bounds as get_image_bounds,
-    get_image_load_log as get_image_load_log,
-    get_mouse_name as get_mouse_name,
-    get_mouse_names as get_mouse_names,
-    get_mouse_pos as get_mouse_pos,
-    get_ongoing_transition as get_ongoing_transition,
-    get_physical_size as get_physical_size,
-    get_placement as get_placement,
-    get_refresh_rate as get_refresh_rate,
-    get_renderer_info as get_renderer_info,
-    get_showing_tags as get_showing_tags,
-    get_texture_size as get_texture_size,
-    get_transition as get_transition,
-    get_zorder_list as get_zorder_list,
-    hide as hide,
-    iconify as iconify,
-    image as image,
-    image_size as image_size,
-    is_mouse_visible as is_mouse_visible,
-    is_pixel_opaque as is_pixel_opaque,
-    is_start_interact as is_start_interact,
-    layer_at_list as layer_at_list,
-    maximum_framerate as maximum_framerate,
-    placement as placement,
-    predict_show as predict_show,
-    quit_event as quit_event,
-    redraw as redraw,
-    render as render,
-    render_to_file as render_to_file,
-    render_to_surface as render_to_surface,
-    reset_physical_size as reset_physical_size,
-    restart_interaction as restart_interaction,
-    scene as scene,
-    scene_lists as scene_lists,
-    screenshot as screenshot,
-    screenshot_to_bytes as screenshot_to_bytes,
-    set_focus as set_focus,
-    set_mouse_pos as set_mouse_pos,
-    set_physical_size as set_physical_size,
-    set_tag_attributes as set_tag_attributes,
-    show as show,
-    show_layer_at as show_layer_at,
-    showing as showing,
-    shown_window as shown_window,
-    take_screenshot as take_screenshot,
-    timeout as timeout,
-    toggle_fullscreen as toggle_fullscreen,
-    transition as transition,
-)
-from renpy.exports.fetchexports import (
-    FetchError as FetchError,
-    fetch as fetch,
-    fetch_emscripten as fetch_emscripten,
-    fetch_pause as fetch_pause,
-    fetch_requests as fetch_requests,
-    proxies as proxies,
-)
-from renpy.exports.inputexports import (
-    get_editable_input_value as get_editable_input_value,
-    input as input,
-    set_editable_input_value as set_editable_input_value,
-    web_input as web_input,
-)
-from renpy.exports.loaderexports import (
-    exists as exists,
-    file as file,
-    fsdecode as fsdecode,
-    fsencode as fsencode,
-    list_files as list_files,
-    loadable as loadable,
-    munge as munge,
-    notl_file as notl_file,
-    open_file as open_file,
-)
-from renpy.exports.mediaexports import (
-    movie_cutscene as movie_cutscene,
-    music_start as music_start,
-    music_stop as music_stop,
-    play as play,
-    toggle_music as toggle_music,
-)
-from renpy.exports.menuexports import (
-    MenuEntry as MenuEntry,
-    choice_for_skipping as choice_for_skipping,
-    display_menu as display_menu,
-    get_menu_args as get_menu_args,
-    menu as menu,
-    predict_menu as predict_menu,
-)
-from renpy.exports.persistentexports import (
-    is_seen as is_seen,
-    is_seen_allowed as is_seen_allowed,
-    mark_audio_seen as mark_audio_seen,
-    mark_audio_unseen as mark_audio_unseen,
-    mark_image_seen as mark_image_seen,
-    mark_image_unseen as mark_image_unseen,
-    mark_label_seen as mark_label_seen,
-    mark_label_unseen as mark_label_unseen,
-    mark_translation_seen as mark_translation_seen,
-    mark_translation_unseen as mark_translation_unseen,
-    save_persistent as save_persistent,
-    seen_audio as seen_audio,
-    seen_image as seen_image,
-    seen_label as seen_label,
-    seen_translation as seen_translation,
-)
-from renpy.exports.platformexports import (
-    check_permission as check_permission,
-    get_on_battery as get_on_battery,
-    get_sdl_dll as get_sdl_dll,
-    get_sdl_window_pointer as get_sdl_window_pointer,
-    invoke_in_main_thread as invoke_in_main_thread,
-    invoke_in_thread as invoke_in_thread,
-    open_url as open_url,
-    request_permission as request_permission,
-    variant as variant,
-    vibrate as vibrate,
-)
-from renpy.exports.predictexports import (
-    cache_pin as cache_pin,
-    cache_unpin as cache_unpin,
-    expand_predict as expand_predict,
-    predicting as predicting,
-    start_predict as start_predict,
-    start_predict_screen as start_predict_screen,
-    stop_predict as stop_predict,
-    stop_predict_screen as stop_predict_screen,
-)
-from renpy.exports.restartexports import (
-    full_restart as full_restart,
-    get_autoreload as get_autoreload,
-    quit as quit,
-    reload_script as reload_script,
-    set_autoreload as set_autoreload,
-    utter_restart as utter_restart,
-)
-from renpy.exports.rollbackexports import (
-    block_rollback as block_rollback,
-    can_rollback as can_rollback,
-    checkpoint as checkpoint,
-    fix_rollback as fix_rollback,
-    get_identifier_checkpoints as get_identifier_checkpoints,
-    get_roll_forward as get_roll_forward,
-    in_fixed_rollback as in_fixed_rollback,
-    in_rollback as in_rollback,
-    retain_after_load as retain_after_load,
-    roll_forward_core as roll_forward_core,
-    roll_forward_info as roll_forward_info,
-    rollback as rollback,
-    suspend_rollback as suspend_rollback,
-)
-from renpy.exports.sayexports import (
-    LastSay as LastSay,
-    TagQuotingDict as TagQuotingDict,
-    count_dialogue_blocks as count_dialogue_blocks,
-    count_newly_seen_dialogue_blocks as count_newly_seen_dialogue_blocks,
-    count_seen_dialogue_blocks as count_seen_dialogue_blocks,
-    curried_do_reshow_say as curried_do_reshow_say,
-    do_reshow_say as do_reshow_say,
-    get_reshow_say as get_reshow_say,
-    get_say_attributes as get_say_attributes,
-    get_say_image_tag as get_say_image_tag,
-    get_side_image as get_side_image,
-    last_say as last_say,
-    predict_say as predict_say,
-    reshow_say as reshow_say,
-    say as say,
-    scry_say as scry_say,
-    substitute as substitute,
-    tag_quoting_dict as tag_quoting_dict,
-)
-from renpy.exports.scriptexports import (
-    get_all_labels as get_all_labels,
-    has_label as has_label,
-    include_module as include_module,
-    load_language as load_language,
-    load_module as load_module,
-    load_string as load_string,
-    munged_filename as munged_filename,
-)
-from renpy.exports.statementexports import (
-    call as call,
-    call_screen as call_screen,
-    execute_default_statement as execute_default_statement,
-    imagemap as imagemap,
-    jump as jump,
-    pause as pause,
-    return_statement as return_statement,
-    with_statement as with_statement,
-)
-from renpy.gl2.gl2shadercache import register_shader as register_shader
-from renpy.gl2.live2d import has_live2d as has_live2d
-from renpy.importer import add_python_directory as add_python_directory
-from renpy.lexer import lex_string as lex_string, unelide_filename as unelide_filename
-from renpy.lint import try_compile as try_compile, try_eval as try_eval
-from renpy.loadsave import (
-    can_load as can_load,
-    copy_save as copy_save,
-    force_autosave as force_autosave,
-    get_save_data as get_save_data,
-    list_saved_games as list_saved_games,
-    list_slots as list_slots,
-    load as load,
-    newest_slot as newest_slot,
-    rename_save as rename_save,
-    save as save,
-    scan_saved_game as scan_saved_game,
-    slot_json as slot_json,
-    slot_mtime as slot_mtime,
-    slot_screenshot as slot_screenshot,
-    unlink_save as unlink_save,
-)
-from renpy.memory import (
-    diff_memory as diff_memory,
-    profile_memory as profile_memory,
-    profile_rollback as profile_rollback,
-)
-from renpy.parser import get_parse_errors as get_parse_errors
-from renpy.persistent import register_persistent as register_persistent
-from renpy.pyanalysis import const as const, not_const as not_const, pure as pure
-from renpy.python import mark_changed as mark_changed
-from renpy.savetoken import get_save_token_keys as get_save_token_keys
-from renpy.sl2.slparser import register_sl_displayable as register_sl_displayable
-from renpy.text.extras import (
-    ParameterizedText as ParameterizedText,
-    check_text_tags as check_text_tags,
-    filter_text_tags as filter_text_tags,
-)
-from renpy.text.font import (
-    register_bmfont as register_bmfont,
-    register_mudgefont as register_mudgefont,
-    register_sfont as register_sfont,
-    variable_font_info as variable_font_info,
-)
-from renpy.text.shader import TextShader as TextShader, register_textshader as register_textshader
-from renpy.text.text import BASELINE as BASELINE, language_tailor as language_tailor
-from renpy.translation import (
-    change_language as change_language,
-    get_translation_identifier as get_translation_identifier,
-    get_translation_info as get_translation_info,
-    known_languages as known_languages,
-    translate_string as translate_string,
-)
-from renpy.ui import Choice as Choice
-
-menu_args: Incomplete
-menu_kwargs: Incomplete
-bits: int
-
-@renpy_pure
-def version(tuple: bool = False): ...
-
-version_string: Incomplete
-version_only: Incomplete
-version_name: Incomplete
-version_tuple: Incomplete
-license: str
-platform: Incomplete

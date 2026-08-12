@@ -2,10 +2,13 @@
 name = "renpy-stubs"
 version = "0.0.1"
 description = "Type stubs for Ren'Py"
-requires-python = "==3.12.*"
+requires-python = ">=3.12"
 
-[dependency-groups]
-dev = ["pre-commit"]
+dependencies = [
+    "mypy",
+    "ruff",
+    "pytype",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -14,6 +17,10 @@ build-backend = "hatchling.build"
 [tool.pyright]
 include = ["src"]
 exclude = ["build"]
+
+extraPaths = [
+    "../renpy/renpy/",
+]
 
 # For now we are in default mode, until phase 1 is done
 # typeCheckingMode = "strict"
@@ -44,9 +51,24 @@ line-length = 120
 
 [tool.ruff.format]
 preview = true
+# Use `\n` line endings for all files
+line-ending = "lf"
 
 [tool.ruff.lint]
 # See Rules in Ruff documentation: https://docs.astral.sh/ruff/rules/
+ignore = [
+  "F", # Disable F rules until import renpy is fixed
+  "E402", # Module level import not at top of file
+  "E741", # Ambiguous variable name
+]
 
-# Disable F rules until import renpy is fixed
-ignore = ["F"]
+[tool.pylint.main]
+init-hook = "import sys; import renpy_stubs as renpy; sys.modules['renpy'] = renpy"
+
+[tool.pylint."messages control"]
+# confidence = ["HIGH", "CONTROL_FLOW", "INFERENCE", "INFERENCE_FAILURE", "UNDEFINED"]
+disable = [
+    "pointless-string-statement",
+    "wrong-import-position",
+    "wrong-import-order",
+]

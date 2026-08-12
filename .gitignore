@@ -8,3 +8,7 @@
 .venv/
 __pycache__/
 build/
+gen-temp/
+temp/
+dist/
+config.toml

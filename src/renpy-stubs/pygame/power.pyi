@@ -1,10 +1,12 @@
-class PowerInfo:
-    def __init__(
-        self,
-    ): ...
-    def __repr__(self): ...
+from _frozen_importlib import BuiltinImporter as BuiltinImporter
 
-def get_power_info(): ...
+class PowerInfo:
+    state: int
+    seconds: int
+    percent: int
+    def __init__(self) -> None: ...
+
+def get_power_info() -> PowerInfo: ...
 
 POWERSTATE_CHARGED: int
 POWERSTATE_CHARGING: int

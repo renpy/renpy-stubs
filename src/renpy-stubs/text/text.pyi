@@ -1,43 +1,54 @@
-import renpy.pygame as pygame
-import renpy.text.extras as extras
-import renpy.text.textsupport as textsupport
-from _typeshed import Incomplete
-import renpy
-from collections.abc import Generator
+from collections.abc import Callable, Generator, Iterable, Sequence
+from typing import TYPE_CHECKING, Any, overload
 
+import renpy
+from renpy.color import Color as Color
+from renpy.color import ColorLike as ColorLike
+from renpy.display.displayable import Displayable, DisplayableArguments, Placement
+from renpy.display.matrix import Matrix2D as Matrix2D
+from renpy.display.render import Render as Render
+from renpy.gl2.gl2mesh2 import Mesh2 as Mesh2
 from renpy.gl2.gl2polygon import Polygon as Polygon
-from renpy.text.bidi import (
-    LTR as LTR,
-    ON as ON,
-    RTL as RTL,
-    WLTR as WLTR,
-    WRTL as WRTL,
-    get_embedding_levels as get_embedding_levels,
-    log2vis as log2vis,
-)
-from renpy.text.emoji_trie import UNQUALIFIED as UNQUALIFIED, emoji as emoji
-from renpy.text.textsupport import DISPLAYABLE as DISPLAYABLE, PARAGRAPH as PARAGRAPH, TAG as TAG, TEXT as TEXT
-from typing import Any, Callable
+from renpy.gl2.gl2texture import GLTexture as GLTexture
+from renpy.pygame.event import EventType as EventType
+from renpy.pygame.surface import Surface as Surface
+from renpy.style import StyleCore as StyleCore
+from renpy.text.bidi import LTR as LTR
+from renpy.text.bidi import ON as ON
+from renpy.text.bidi import RTL as RTL
+from renpy.text.bidi import WLTR as WLTR
+from renpy.text.bidi import WRTL as WRTL
+from renpy.text.bidi import get_embedding_levels as get_embedding_levels
+from renpy.text.bidi import log2vis as log2vis
+from renpy.text.emoji_trie import UNQUALIFIED as UNQUALIFIED
+from renpy.text.emoji_trie import emoji as emoji
+from renpy.text.shader import TextShader as TextShader
+from renpy.text.textsupport import DISPLAYABLE, PARAGRAPH, TAG, TEXT, Glyph, Line
+
+if TYPE_CHECKING:
+    type Token = tuple[int, str | Displayable]
+    type Outline = tuple[int, renpy.color.ColorLike | None, int, int]
+    type Paragraph = list[tuple[TextSegment | SpaceSegment | DisplayableSegment | FlagSegment, str]]
 
 BASELINE: int
-READING_ORDER: Incomplete
+READING_ORDER: dict[str | None, int]
 
 class Blit:
-    x: Incomplete
-    y: Incomplete
-    w: Incomplete
-    h: Incomplete
-    alpha: Incomplete
-    left: Incomplete
-    right: Incomplete
-    top: Incomplete
-    bottom: Incomplete
+    x: int
+    y: int
+    w: int
+    h: int
+    alpha: float
+    left: bool
+    right: bool
+    top: bool
+    bottom: bool
     def __init__(
         self,
-        x,
-        y,
-        w,
-        h,
+        x: int,
+        y: int,
+        w: int,
+        h: int,
         alpha: float = 1.0,
         left: bool = False,
         right: bool = False,
@@ -46,212 +57,275 @@ class Blit:
     ) -> None: ...
 
 class TextMeshDisplayable(renpy.display.core.Displayable):
-    width: Incomplete
-    height: Incomplete
-    tex: Incomplete
-    shader: Incomplete
-    mesh: Incomplete
-    uniforms: Incomplete
-    def __init__(self, width, height, tex, shader, mesh, uniforms) -> None: ...
-    def render(self, width, height, st, at): ...
+    width: float
+    height: float
+    tex: Render | Surface
+    shader: list[str]
+    mesh: Mesh2
+    uniforms: list[tuple[str, Any, bool]]
+    def __init__(
+        self,
+        width: float,
+        height: float,
+        tex: Render | Surface,
+        shader: list[str],
+        mesh: Mesh2,
+        uniforms: list[tuple[str, Any, bool]],
+    ) -> None: ...
+    def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
-def outline_blits(blits, outline): ...
+def outline_blits(blits: list[Blit], outline: int) -> list[Blit]: ...
 
 class DrawInfo:
-    surface: pygame.Surface | None
+    surface: Surface | None
     override_color: tuple[int, int, int, int] | None
     outline: float
-    displayable_blits: list[tuple[renpy.display.displayable.Displayable, int, int]] | None
+    displayable_blits: list[tuple[Displayable, int, int, int, int, int, float]] | None
 
 class TextSegment:
-    antialias: Incomplete
-    vertical: Incomplete
-    font: Incomplete
-    size: Incomplete
-    bold: Incomplete
-    italic: Incomplete
-    underline: Incomplete
-    strikethrough: Incomplete
-    color: Incomplete
-    black_color: Incomplete
-    hyperlink: Incomplete
-    kerning: Incomplete
-    cps: Incomplete
-    ruby_top: Incomplete
-    ruby_bottom: Incomplete
-    hinting: Incomplete
-    outline_color: Incomplete
-    ignore: Incomplete
-    default_font: Incomplete
-    shaper: Incomplete
-    instance: Incomplete
-    axis: Incomplete
-    shader: Incomplete
-    features: Incomplete
-    def __init__(self, source=None) -> None: ...
-    def take_style(self, style, layout, context=None) -> None: ...
-    def glyphs(self, s, layout, level: int = 0): ...
-    def draw(self, glyphs, di, xo, yo, layout) -> None: ...
-    def assign_times(self, gt, glyphs): ...
-    def subsegment(self, s) -> Generator[Incomplete]: ...
-    def bounds(self, glyphs, bounds, layout): ...
+    antialias: bool
+    vertical: bool | None
+    font: str
+    size: int
+    bold: bool
+    italic: bool
+    underline: int
+    strikethrough: int
+    color: renpy.color.Color
+    black_color: renpy.color.Color
+    hyperlink: int | None
+    kerning: float
+    cps: float
+    ruby_top: bool
+    ruby_bottom: bool
+    hinting: str | None
+    outline_color: renpy.color.Color | None
+    ignore: bool
+    default_font: bool
+    shaper: str
+    instance: str | None
+    axis: dict[str, int] | None
+    shader: TextShader | None
+    features: dict[str, int] | None
+    def __init__(self, source: TextSegment | None = None) -> None: ...
+    def take_style(self, style: StyleCore, layout: Layout, context: str | None = None) -> None: ...
+    def glyphs(self, s: str, layout: Layout, level: int = 0) -> list[Glyph]: ...
+    def draw(self, glyphs: list[Glyph], di: DrawInfo, xo: int, yo: int, layout: Layout) -> None: ...
+    def assign_times(self, gt: float, glyphs: list[Glyph]) -> float: ...
+    def subsegment(self, s: str) -> Generator[tuple[TextSegment, str]]: ...
+    def bounds(
+        self, glyphs: list[Glyph], bounds: tuple[int, int, int, int], layout: Layout
+    ) -> tuple[int, int, int, int]: ...
 
 class SpaceSegment:
-    width: Incomplete
-    height: Incomplete
-    ts: Incomplete
-    def __init__(self, ts, width: float = 0.0, height: float = 0.0) -> None: ...
-    def glyphs(self, s, layout): ...
-    def bounds(self, glyphs, bounds, layout): ...
-    def draw(self, glyphs, di, xo, yo, layout) -> None: ...
-    def assign_times(self, gt, glyphs): ...
+    width: float
+    height: float
+    ts: TextSegment
+    def __init__(self, ts: TextSegment, width: float = 0.0, height: float = 0.0) -> None: ...
+    def glyphs(self, s: str, layout: Layout) -> list[Glyph]: ...
+    def bounds(
+        self, glyphs: list[Glyph], bounds: tuple[int, int, int, int], layout: Layout
+    ) -> tuple[int, int, int, int]: ...
+    def draw(self, glyphs: list[Glyph], di: DrawInfo, xo: int, yo: int, layout: Layout) -> None: ...
+    def assign_times(self, gt: float, glyphs: list[Glyph]) -> None: ...
 
 class DisplayableSegment:
-    d: Incomplete
-    hyperlink: Incomplete
-    cps: Incomplete
-    ruby_top: Incomplete
-    ruby_bottom: Incomplete
-    shader: Incomplete
-    def __init__(self, ts, d, renders) -> None: ...
-    def glyphs(self, s, layout): ...
-    def draw(self, glyphs, di, xo, yo, layout) -> None: ...
-    def assign_times(self, gt, glyphs): ...
-    def bounds(self, glyphs, bounds, layout): ...
+    d: Displayable
+    hyperlink: int | None
+    cps: float
+    ruby_top: bool
+    ruby_bottom: bool
+    shader: TextShader | None
+    def __init__(self, ts: TextSegment, d: Displayable, renders: dict[Displayable, Render]) -> None: ...
+    def glyphs(self, s: str, layout: Layout) -> list[Glyph]: ...
+    def draw(self, glyphs: list[Glyph], di: DrawInfo, xo: int, yo: int, layout: Layout) -> None: ...
+    def assign_times(self, gt: float, glyphs: list[Glyph]) -> None: ...
+    def bounds(
+        self, glyphs: list[Glyph], bounds: tuple[int, int, int, int], layout: Layout
+    ) -> tuple[int, int, int, int]: ...
 
 class FlagSegment:
-    def glyphs(self, s, layout): ...
-    def draw(self, glyphs, di, xo, yo, layout) -> None: ...
-    def assign_times(self, gt, glyphs): ...
-    def bounds(self, glyphs, bounds, layout): ...
+    def glyphs(self, s: str, layout: Layout) -> list[Glyph]: ...
+    def draw(self, glyphs: list[Glyph], di: DrawInfo, xo: int, yo: int, layout: Layout) -> None: ...
+    def assign_times(self, gt: float, glyphs: list[Glyph]) -> None: ...
+    def bounds(
+        self, glyphs: list[Glyph], bounds: tuple[int, int, int, int], layout: Layout
+    ) -> tuple[int, int, int, int]: ...
 
 class Layout:
-    oversample: Incomplete
-    reverse: Incomplete
-    forward: Incomplete
-    outline_step: Incomplete
+    oversample: float
+    reverse: Matrix2D
+    forward: Matrix2D
+    outline_step: bool
     pixel_perfect: bool
-    line_overlap_split: Incomplete
+    line_overlap_split: int
     has_hyperlinks: bool
     has_ruby: bool
-    start_segment: Incomplete
-    end_segment: Incomplete
-    paragraph_glyphs: Incomplete
-    width: Incomplete
-    height: Incomplete
-    cps: Incomplete
-    outlines: Incomplete
-    xborder: Incomplete
-    yborder: Incomplete
-    xoffset: Incomplete
-    yoffset: Incomplete
-    paragraphs: Incomplete
-    hyperlink_targets: Incomplete
-    size: Incomplete
-    baseline: Incomplete
-    textshaders: Incomplete
-    add_left: Incomplete
-    add_top: Incomplete
-    add_right: Incomplete
-    add_bottom: Incomplete
-    textures: Incomplete
-    mesh_displayables: Incomplete
-    displayable_blits: Incomplete
-    redraw: Incomplete
+    safe: bool
+    start_segment: FlagSegment | None
+    end_segment: FlagSegment | None
+    paragraph_glyphs: list[list[Glyph]]
+    width: float
+    height: float
+    cps: float
+    outlines: list[Outline]
+    xborder: int
+    yborder: int
+    xoffset: int
+    yoffset: int
+    paragraphs: list[Paragraph]
+    hyperlink_targets: dict[int, str]
+    size: tuple[int, int]
+    baseline: int
+    textshaders: list[TextShader] | None
+    add_left: int
+    add_top: int
+    add_right: int
+    add_bottom: int
+    textures: dict[tuple[int, renpy.color.ColorLike | None], Render | Surface]
+    mesh_displayables: list[tuple[int, int, int, TextMeshDisplayable]]
+    displayable_blits: list[tuple[Displayable, int, int, int, int, int, float]]
+    redraw: float | None
     redraw_when_slow: float
-    max_time: Incomplete
-    lines: Incomplete
-    hyperlinks: Incomplete
+    max_time: float
+    lines: list[Line]
+    hyperlinks: list[tuple[int, int, int, int, int, float]]
     def __init__(
-        self, text, width, height, renders, size_only: bool = False, splits_from=None, drawable_res: bool = True
+        self,
+        text: Text,
+        width: float,
+        height: float,
+        renders: dict[Displayable, Render],
+        size_only: bool = False,
+        splits_from: Layout | None = None,
+        drawable_res: bool = True,
     ) -> None: ...
-    def make_alignment_grid(self, surf) -> None: ...
-    def scale(self, n): ...
-    def scale_int(self, n): ...
-    def scale_outline(self, n): ...
-    def unscale_pair(self, x, y): ...
-    def create_text_segments(self, text, ts, style): ...
-    def segment(self, tokens, style, renders, text_displayable): ...
-    def thaic90_paragraph(self, p): ...
-    def glyphs_paragraph(self, p, direction): ...
-    def figure_outlines(self, style): ...
-    def blits_typewriter(self, st): ...
-    def create_mesh_displayable(self, outline, tex, lines, xo, yo, depth, max_depth, ts): ...
+    def make_alignment_grid(self, surf: Surface) -> None: ...
+    @overload
+    def scale(self, n: None) -> None: ...
+    @overload
+    def scale(self, n: float) -> float: ...
+    @overload
+    def scale_int(self, n: None) -> None: ...
+    @overload
+    def scale_int(self, n: float) -> int: ...
+    @overload
+    def scale_outline(self, n: None) -> None: ...
+    @overload
+    def scale_outline(self, n: float) -> int: ...
+    def unscale_pair(self, x: float, y: float) -> tuple[float, float]: ...
+    def create_text_segments(self, text: str, ts: TextSegment, style: StyleCore) -> list[tuple[TextSegment, str]]: ...
+    def segment(
+        self, tokens: list[Token], style: StyleCore, renders: dict[Displayable, Render], text_displayable: Text
+    ) -> list[Paragraph]: ...
+    def thaic90_paragraph(self, p: Paragraph) -> Paragraph: ...
+    def glyphs_paragraph(self, p: Paragraph, direction: int) -> tuple[Paragraph, bool]: ...
+    def figure_outlines(self, style: StyleCore) -> tuple[list[Outline], int, int, int, int]: ...
+    def blits_typewriter(self, st: float) -> list[Blit]: ...
+    def create_mesh_displayable(
+        self,
+        outline: int,
+        tex: Render | Surface,
+        lines: list[Line],
+        xo: int,
+        yo: int,
+        depth: int,
+        max_depth: int,
+        ts: TextShader,
+    ) -> TextMeshDisplayable: ...
 
 LAYOUT_CACHE_SIZE: int
-layout_cache_old: Incomplete
-layout_cache_new: Incomplete
-virtual_layout_cache_old: Incomplete
-virtual_layout_cache_new: Incomplete
+layout_cache_old: dict[int, Layout]
+layout_cache_new: dict[int, Layout]
+virtual_layout_cache_old: dict[int, Layout]
+virtual_layout_cache_new: dict[int, Layout]
 
 def layout_cache_clear() -> None: ...
 
-slow_text: Incomplete
+slow_text: list[Text]
 
 def text_tick() -> None: ...
 
-VERT_REVERSE: Incomplete
-VERT_FORWARD: Incomplete
+VERT_REVERSE: Matrix2D
+VERT_FORWARD: Matrix2D
 
 class Text(renpy.display.displayable.Displayable):
     __version__: int
+    _uses_scope: bool
+    _duplicatable: bool
     locked: bool
-    language: Incomplete
-    mask: Incomplete
-    last_ctc: Incomplete
+    language: str | None
+    mask: str | None
+    last_ctc: Displayable | Iterable[str | Displayable] | None
     tokenized: bool
-    slow_done_time: Incomplete
-    ctc: Incomplete
-    text: Incomplete
-    scope: Incomplete
+    slow_done_time: float | None
+    ctc: Displayable | Iterable[str | Displayable] | None
+    text: str | Iterable[str | Displayable]
+    scope: dict[str, Any] | None
     substitute: bool
-    start: Incomplete
-    end: Incomplete
+    start: int | None
+    end: int | None
+    afm_start: int | None
+    safe: bool
     dirty: bool
-    def after_upgrade(self, version) -> None: ...
-    slow: Incomplete
-    slow_done: Callable | None
-    displayables: Incomplete
-    displayable_offsets: Incomplete
+    tokens: list[Token]
+    def after_upgrade(self, version: int) -> None: ...
+    slow: bool | None
+    slow_done: Callable[[], None] | None
+    displayables: list[renpy.display.displayable.Displayable] | None
+    displayable_offsets: list[tuple[Displayable, float, float]] | None
     def __init__(
         self,
-        text,
-        slow=None,
-        scope=None,
-        substitute=None,
-        slow_done=None,
-        replaces=None,
-        mask=None,
+        text: str | Iterable[str | Displayable],
+        slow: bool | None = None,
+        scope: dict[str, Any] | None = None,
+        substitute: bool | None = None,
+        slow_done: Callable[[], None] | None = None,
+        replaces: Text | None = None,
+        mask: str | None = None,
         tokenized: bool = False,
-        **properties,
+        safe: bool = False,
+        **properties: Any,
     ) -> None: ...
-    def get_all_text(self): ...
-    text_parameter: Incomplete
-    def set_text(self, text: Any, scope: Any = None, substitute: bool | None = False, update: bool = True) -> bool: ...
+    def _duplicate(self, args: DisplayableArguments | None = None) -> Text: ...
+    def _in_current_store(self) -> Text: ...
+    def _repr_info(self) -> str: ...
+    def get_all_text(self) -> str: ...
+    def _scope(self, scope: dict[str, Any], update: bool = True) -> bool: ...
+    text_parameter: str | Iterable[str | Displayable]
+    def set_text(
+        self,
+        text: str | Iterable[str | Displayable],
+        scope: dict[str, Any] | None = None,
+        substitute: bool | None = False,
+        update: bool = True,
+    ) -> bool: ...
     def per_interact(self) -> None: ...
-    def set_ctc(self, ctc) -> None: ...
-    def set_last_ctc(self, last_ctc) -> None: ...
-    focusable: bool
+    def set_ctc(self, ctc: Displayable | Iterable[str | Displayable] | None) -> None: ...
+    def set_last_ctc(self, last_ctc: Displayable | Iterable[str | Displayable] | None) -> None: ...
+    focusable: bool | None
     def update(self) -> None: ...
-    def visit(self): ...
+    def visit(self) -> Sequence[Displayable | None]: ...
+    def _tts(self, raw: bool) -> str: ...
+    _tts_all = _tts
     def kill_layout(self) -> None: ...
-    def get_layout(self): ...
-    def get_virtual_layout(self): ...
-    def set_style_prefix(self, prefix, root) -> None: ...
-    def get_placement(self): ...
-    def focus(self, default: bool = False): ...
-    def unfocus(self, default: bool = False): ...
-    def hyperlink_sensitive(self, target): ...
-    def event(self, ev, x, y, st): ...
-    def size(self, width: int = 4096, height: int = 4096, st: int = 0, at: int = 0): ...
-    def get_time(self): ...
-    def render(self, width, height, st, at): ...
-    def render_blits(self, render, layout, st) -> None: ...
-    def render_textshader(self, render, layout, st, at) -> None: ...
-    def tokenize(self, text): ...
+    def get_layout(self) -> Layout | None: ...
+    def get_virtual_layout(self) -> Layout | None: ...
+    def set_style_prefix(self, prefix: str, root: bool) -> None: ...
+    def get_placement(self) -> Placement: ...
+    def focus(self, default: bool = False) -> Any | None: ...
+    def unfocus(self, default: bool = False) -> Any | None: ...
+    def hyperlink_sensitive(self, target: str) -> bool: ...
+    def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
+    def size(self, width: int = 4096, height: int = 4096, st: float = 0, at: float = 0) -> tuple[float, float]: ...
+    def get_time(self) -> float: ...
+    def tokenize(self, text: list[str | renpy.display.displayable.Displayable]) -> list[Token]: ...
+    def render(self, width: float, height: float, st: float, at: float) -> Render: ...
+    def render_blits(self, render: Render, layout: Layout, st: float) -> None: ...
+    def render_textshader(self, render: Render, layout: Layout, st: float, at: float) -> None: ...
     @staticmethod
-    def apply_custom_tags(tokens): ...
-    def get_displayables(self, tokens): ...
+    def apply_custom_tags(tokens: list[Token]) -> list[Token]: ...
+    def get_displayables(self, tokens: list[Token]) -> tuple[list[Token], set[Displayable]]: ...
 
-language_tailor = textsupport.language_tailor
-ParameterizedText = extras.ParameterizedText
+language_tailor = renpy.text.textsupport.language_tailor
+ParameterizedText = renpy.text.extras.ParameterizedText
