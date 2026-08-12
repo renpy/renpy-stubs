@@ -230,7 +230,7 @@ class Interface:
         trans_pause: bool = False,
         pause: float | None = None,
         pause_modal: bool | None = False,
-        **kwargs,
+        **kwargs: Incomplete,
     ) -> Any | None: ...
     def consider_gc(self) -> None: ...
     prediction_coroutine: Incomplete

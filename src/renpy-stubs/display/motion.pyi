@@ -42,7 +42,7 @@ class Motion(Container):
         time_warp: Callable[[float], float] | None = None,
         add_sizes: bool = False,
         style: str = "motion",
-        **properties,
+        **properties: Incomplete,
     ) -> None: ...
     def update_position(self, t: float, sizes: SizeRect) -> None: ...
     def get_placement(self) -> Placement: ...
@@ -66,7 +66,7 @@ def Pan(
     anim_timebase: bool = False,
     style: str = "motion",
     time_warp: Callable[[float], float] | None = None,
-    **properties,
+    **properties: Incomplete,
 ) -> Motion: ...
 def Move(
     startpos: tuple[float, float],
@@ -78,7 +78,7 @@ def Move(
     anim_timebase: bool = False,
     style: str = "motion",
     time_warp: Callable[[float], float] | None = None,
-    **properties,
+    **properties: Incomplete,
 ) -> Motion: ...
 
 class Revolver:
@@ -107,7 +107,7 @@ def Revolve(
     around: tuple[float, float] = (0.5, 0.5),
     cor: tuple[float, float] = (0.5, 0.5),
     pos: Placement | None = None,
-    **properties,
+    **properties: Incomplete,
 ) -> Motion: ...
 def zoom_render(
     crend: Render, x: float, y: float, w: float, h: float, zw: float, zh: float, bilinear: bool
@@ -134,7 +134,7 @@ class ZoomCommon(renpy.display.displayable.Displayable):
         anim_timebase: bool = False,
         repeat: bool = False,
         style: str = "motion",
-        **properties,
+        **properties: Incomplete,
     ) -> None: ...
     def visit(self) -> list[Displayable | None]: ...
     def zoom_rectangle(
@@ -155,7 +155,7 @@ class Zoom(ZoomCommon):
         end: tuple[float, float],
         time: float,
         child: DisplayableLike,
-        **properties,
+        **properties: Incomplete,
     ) -> None: ...
     def zoom_rectangle(
         self, done: float, width: float, height: float
@@ -216,7 +216,7 @@ class RotoZoom(renpy.display.displayable.Displayable):
         zoom_time_warp: Callable[[float], float] | None = None,
         opaque: bool = False,
         style: str = "motion",
-        **properties,
+        **properties: Incomplete,
     ) -> None: ...
     def visit(self) -> list[Displayable]: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...

@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from typing import Any, Iterable, Sequence
 import renpy
@@ -134,7 +135,7 @@ class EventType:
     x: int
     y: int
 
-    def __init__(self, type: int, dict: dict[str, Any] | None = None, **kwargs) -> None: ...
+    def __init__(self, type: int, dict: dict[str, Any] | None = None, **kwargs: Incomplete) -> None: ...
     @property
     def dict(self) -> dict[str, Any]: ...
     @property

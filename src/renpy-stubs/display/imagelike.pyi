@@ -4,6 +4,7 @@ from renpy.display.matrix import Matrix2D as Matrix2D
 from renpy.display.render import Render as Render, render as render
 from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
 
+from _typeshed import Incomplete
 from typing import Callable, Self, Literal
 
 class Solid(Displayable):
@@ -61,7 +62,7 @@ class Frame(Displayable):
         bilinear: bool = True,
         tile: bool | Literal["integer"] = False,
         tile_ratio: float = 0.5,
-        **properties,
+        **properties: Incomplete,
     ) -> None: ...
     def __repr__(self) -> str: ...
     def __eq__(self, o: object) -> bool: ...

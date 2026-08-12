@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import renpy
 import renpy.display
 import renpy.display.render
@@ -70,7 +71,7 @@ class SpriteManager(renpy.display.displayable.Displayable):
         predict: Callable[[], list[Displayable]] | None = None,
         ignore_time: bool = False,
         animation: bool = True,
-        **properties,
+        **properties: Incomplete,
     ) -> None: ...
     _duplicatable: bool
     def _duplicate(self, args: DisplayableArguments | None) -> SpriteManager: ...

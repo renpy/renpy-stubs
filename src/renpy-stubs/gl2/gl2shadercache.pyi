@@ -8,7 +8,7 @@ from renpy.gl2.gl2shader import Variable as Variable
 type PartTuple = tuple[int | str, str, str]
 shader_part: "dict[str, ShaderPart]"
 
-def register_shader(name: str, **kwargs) -> ShaderPart: ...
+def register_shader(name: str, **kwargs: Incomplete) -> ShaderPart: ...
 
 class ShaderPart:
     name: str
@@ -28,7 +28,7 @@ class ShaderPart:
         vertex_functions: str = "",
         fragment_functions: str = "",
         private_uniforms: bool = False,
-        **kwargs,
+        **kwargs: Incomplete,
     ) -> None: ...
     def expand_name(self, s: str) -> str: ...
     def expand_match(self, m: re.Match[str]) -> str: ...

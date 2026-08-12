@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import renpy
 import renpy.sl2.slast as slast
 from renpy.ast import NodeLocation as NodeLocation
@@ -74,7 +75,7 @@ def add(thing: ParserAddType) -> None: ...
 
 many: renpy.object.Sentinel
 
-def register_sl_displayable(*args, **kwargs) -> DisplayableParser: ...
+def register_sl_displayable(*args: Incomplete, **kwargs: Incomplete) -> DisplayableParser: ...
 
 class DisplayableParser(Parser):
     displayable: Callable[..., renpy.display.displayable.Displayable]

@@ -28,7 +28,7 @@ _live2d_fade: bool
 
 class _Config(object):
     def __getstate__(self) -> None: ...
-    def __setstate__(self, data) -> None: ...
+    def __setstate__(self, data: Incomplete) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
     def __delattr__(self, name: str) -> None: ...
@@ -128,7 +128,7 @@ class _layout_class[T: renpy.display.layout.Container](__builtins__["object"]):
     extra_kwargs: Incomplete
     __doc__: Incomplete
     def __init__(self, cls: type[T], doc: str | None, nargs: int = 0, **extra_kwargs) -> None: ...
-    def __call__(self, *args, **properties) -> T: ...
+    def __call__(self, *args: Incomplete, **properties: Incomplete) -> T: ...
 
 Fixed: _layout_class[renpy.display.layout.MultiBox]
 HBox: _layout_class[renpy.display.layout.MultiBox]
@@ -150,7 +150,7 @@ suppress_overlay: bool
 adv: ADVCharacter
 
 def predict_say(who: Incomplete, what: Incomplete) -> None: ...
-def say(who: Incomplete, what: Incomplete, interact: bool = True, *args, **kwargs) -> None: ...
+def say(who: Incomplete, what: Incomplete, interact: bool = True, *args: Incomplete, **kwargs: Incomplete) -> None: ...
 
 _last_say_who: Incomplete
 _last_say_what: Incomplete
@@ -166,3 +166,142 @@ _side_image_attributes_reset: bool
 _ignore_action: Incomplete
 _quit_slot: Incomplete
 _screenshot_pattern: Incomplete
+
+__all__ = [
+    "_restart",
+    "_return",
+    "_args",
+    "_kwargs",
+    "_window",
+    "_window_subtitle",
+    "_rollback",
+    "_begin_rollback",
+    "_skipping",
+    "_dismiss_pause",
+    "_config",
+    "_widget_by_id",
+    "_widget_properties",
+    "_text_rect",
+    "_menu",
+    "main_menu",
+    "_autosave",
+    "_live2d_fade",
+    "_Config",
+    "style",
+    "config",
+    "library",
+    "eval",
+    "Bar",
+    "Button",
+    "ImageButton",
+    "Input",
+    "TextButton",
+    "ImageReference",
+    "DynamicImage",
+    "Image",
+    "Frame",
+    "Borders",
+    "Solid",
+    "FileCurrentScreenshot",
+    "LiveComposite",
+    "LiveCrop",
+    "LiveTile",
+    "Composite",
+    "Crop",
+    "Tile",
+    "Flatten",
+    "Null",
+    "Window",
+    "Viewport",
+    "DynamicDisplayable",
+    "ConditionSwitch",
+    "ShowingSwitch",
+    "AlphaMask",
+    "Layer",
+    "Transform",
+    "Camera",
+    "Animation",
+    "Movie",
+    "Particles",
+    "SnowBlossom",
+    "Text",
+    "ParameterizedText",
+    "FontGroup",
+    "Drag",
+    "DragGroup",
+    "Sprite",
+    "SpriteManager",
+    "Matrix",
+    "Live2D",
+    "Model",
+    "GLTFModel",
+    "Alpha",
+    "Position",
+    "Pan",
+    "Move",
+    "Motion",
+    "Revolve",
+    "Zoom",
+    "RotoZoom",
+    "FactorZoom",
+    "SizeZoom",
+    "Fade",
+    "Dissolve",
+    "ImageDissolve",
+    "AlphaDissolve",
+    "CropMove",
+    "PushMove",
+    "Pixellate",
+    "OldMoveTransition",
+    "MoveTransition",
+    "MoveFactory",
+    "MoveIn",
+    "MoveOut",
+    "ZoomInOut",
+    "RevolveInOut",
+    "MultipleTransition",
+    "ComposeTransition",
+    "Pause",
+    "SubTransition",
+    "ADVSpeaker",
+    "Speaker",
+    "DynamicCharacter",
+    "MultiPersistent",
+    "Action",
+    "BarValue",
+    "AudioData",
+    "SlottedNoRollback",
+    "NoRollback",
+    "_layout_class",
+    "Fixed",
+    "HBox",
+    "VBox",
+    "Grid",
+    "AlphaBlend",
+    "At",
+    "Color",
+    "color",
+    "menu",
+    "predict_menu",
+    "default_transition",
+    "mouse_visible",
+    "suppress_overlay",
+    "adv",
+    "predict_say ",
+    "say",
+    "_last_say_who",
+    "_last_say_what",
+    "_last_say_args",
+    "_last_say_kwargs",
+    "_cache_pin_set",
+    "_predict_set",
+    "_predict_screen",
+    "_overlay_screens",
+    "_in_replay",
+    "_side_image_attributes",
+    "_side_image_attributes_reset",
+    "main_menu",
+    "_ignore_action",
+    "_quit_slot",
+    "_screenshot_pattern",
+]

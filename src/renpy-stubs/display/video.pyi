@@ -1,3 +1,5 @@
+from _typeshed import Incomplete
+
 import renpy
 from renpy.display.displayable import Displayable as Displayable, DisplayableArguments as DisplayableArguments
 from renpy.display.render import Render as Render
@@ -87,7 +89,7 @@ class Movie(renpy.display.displayable.Displayable):
         group: str | None = None,
         keep_last_frame: bool = False,
         oversample: Unused = None,
-        **properties,
+        **properties: Incomplete,
     ) -> None: ...
     def _duplicate(self, args: DisplayableArguments | None) -> Movie: ...
     def _handles_event(self, event: str) -> bool: ...

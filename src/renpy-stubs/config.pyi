@@ -166,7 +166,7 @@ broken_line_spacing: bool
 python_callbacks: list[Callable[[], None]]
 save_dump: bool
 gl_resize: bool
-change_language_callbacks: list[Callable[[str | None], None]]
+change_language_callbacks: list[Callable[[], None]]
 tl_directory: str
 key_repeat: tuple[float, float]
 voice_tag_callback: Callable[[Incomplete | None], None] | None

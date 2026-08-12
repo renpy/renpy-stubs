@@ -87,8 +87,8 @@ class Drag(renpy.display.displayable.Displayable, renpy.revertable.RevertableObj
         drag_handle: tuple[float, float, float, float] = (0.0, 0.0, 1.0, 1.0),
         drag_joined: Callable[[Drag], list[tuple[Drag | str, int, int]]] = ...,
         clicked: Callable[[Drag], Any] | Sequence[Callable[[Drag], Any]] | None = None,
-        hovered: ActionType = None,
-        unhovered: ActionType = None,
+        hovered: ActionType | None = None,
+        unhovered: ActionType | None = None,
         replaces: Self | None = None,
         drag_offscreen: bool
         | Literal["horizontal", "vertical"]
@@ -97,7 +97,7 @@ class Drag(renpy.display.displayable.Displayable, renpy.revertable.RevertableObj
         | Callable[[tuple[int, int]], tuple[int, int]] = False,
         mouse_drop: bool = False,
         activated: Callable[[list[Drag]], None] | Sequence[Callable[[list[Drag]], None]] | None = None,
-        alternate: ActionType = None,
+        alternate: ActionType | None = None,
         style: str = "drag",
         dragging: Callable[[list[Drag]], Any] | Sequence[Callable[[list[Drag]], Any]] | None = None,
         **properties,

@@ -34,7 +34,7 @@ class Preferences(renpy.object.Object):
     virtual_size: Incomplete
     renderer: str
     performance_test: bool
-    language: Incomplete
+    language: str | None
     self_voicing: bool
     self_voicing_volume_drop: float
     emphasize_audio: bool

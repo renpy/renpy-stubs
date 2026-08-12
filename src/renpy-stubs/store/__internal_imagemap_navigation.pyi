@@ -1,0 +1,3 @@
+from _typeshed import Incomplete
+
+def _navigation(screen: Incomplete = None) -> None: ...

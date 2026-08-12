@@ -44,7 +44,7 @@ class Callbacks:
     def __init__(
         self, callbacks: Incomplete, interact: Incomplete, type: Incomplete, cb_args: Incomplete, multiple: Incomplete
     ) -> None: ...
-    def __call__(self, *args, **kwargs) -> None: ...
+    def __call__(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
     def copy(self) -> Incomplete: ...
 
 class DialogueTextTags:
@@ -75,7 +75,7 @@ def predict_show_display_say(
     side_image: Incomplete = None,
     screen: Incomplete = None,
     properties: Incomplete = None,
-    **kwargs,
+    **kwargs: Incomplete,
 ) -> None: ...
 def compute_widget_properties(
     who_args: Incomplete,
@@ -104,7 +104,7 @@ def show_display_say(
     properties: Incomplete = {},
     multiple: Incomplete = None,
     retain: Incomplete = None,
-    **kwargs,
+    **kwargs: Incomplete,
 ) -> Incomplete: ...
 
 class SlowDone:

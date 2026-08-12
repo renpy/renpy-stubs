@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import contextlib
 from renpy.exports.commonexports import renpy_pure as renpy_pure
 from typing import Any, Callable, Generator, TextIO
@@ -13,7 +14,7 @@ def get_filename_line() -> tuple[str, int]: ...
 logfile: TextIO | None
 
 def log(msg: Any | None) -> None: ...
-def _error(msg) -> None: ...
+def _error(msg: Incomplete) -> None: ...
 
 _error_handlers: list[Callable[[str], None]]
 

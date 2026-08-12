@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import renpy
 from renpy.display.core import absolute as absolute
 from renpy.display.displayable import Displayable as Displayable, DisplayableArguments
@@ -112,7 +113,7 @@ class Live2D(renpy.display.displayable.Displayable):
         attribute_filter: Live2DAttributeFunction | None = None,
         update_function: Live2DUpdateFunction | None = None,
         default_fade: float = 1.0,
-        **properties,
+        **properties: Incomplete,
     ) -> None: ...
     unique_time: str
     unique_serial: int

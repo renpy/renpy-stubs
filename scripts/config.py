@@ -17,30 +17,24 @@ class Config:
     pyi_path: Path = field(init=False)
     "Directory where generated .pyi stub files will be placed."
 
-    temp_dir: InitVar[str] = "gen-temp/"
-    temp_path: Path = field(init=False)
+    rpy_extraction_temp_dir: InitVar[str] = "temp/rpy/"
+    rpy_extraction_temp_path: Path = field(init=False)
+    "Used for storing temporary .py files extracted from .rpy files."
+
+    temp_gen_dir: InitVar[str] = "temp/gen/"
+    temp_gen_path: Path = field(init=False)
     "Used for storing temporary files during generation."
 
-    renpy_directory_mapping: dict[str, str] = field(
-        default_factory=lambda: {
-            "renpy/": "renpy-stubs/",
-        }
-    )
-    "Mapping of source directories (py) to target stub directories (pyi)."
-
-    exclude_files: list[str] = field(
-        default_factory=lambda: [
-            "renpy/pygame/compat.py",
-        ]
-    )
+    exclude_files: list[str] = field(default_factory=lambda: ["renpy/pygame/compat.py", "renpy/common/"])
     "List of files to exclude from stub generation."
 
-    def __post_init__(self, renpy_dir: str, pyi_dir: str, temp_dir: str):
+    def __post_init__(self, renpy_dir: str, pyi_dir: str, temp_rpy_dir: str, temp_gen_dir: str):
         base_dir = Path(__file__).parent.parent.resolve()
 
         self.renpy_path = base_dir / renpy_dir
         self.pyi_path = base_dir / pyi_dir
-        self.temp_path = base_dir / temp_dir
+        self.rpy_extraction_temp_path = base_dir / temp_rpy_dir
+        self.temp_gen_path = base_dir / temp_gen_dir
 
         self.validate()
 

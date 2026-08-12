@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import renpy
 import renpy.pygame as pygame
 from renpy.display.layout import Container as Container
@@ -50,7 +51,7 @@ class Viewport(renpy.display.layout.Container):
         replaces: Viewport | None = None,
         arrowkeys: bool = False,
         pagekeys: bool = False,
-        **properties,
+        **properties: Incomplete,
     ) -> None: ...
     def per_interact(self) -> None: ...
     def set_style_prefix(self, prefix: str, root: bool) -> None: ...
@@ -75,7 +76,7 @@ class VPGrid(Viewport):
         transpose: bool | None = None,
         style: str = "vpgrid",
         allow_underfull: bool | None = None,
-        **properties,
+        **properties: Incomplete,
     ) -> None: ...
     width: int
     height: int

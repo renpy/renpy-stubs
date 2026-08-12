@@ -1,5 +1,5 @@
 import renpy
-from _typeshed import Incomplete as Incomplete
+from _typeshed import Incomplete
 from renpy.object import Object as Object
 from renpy.revertable import RevertableObject as RevertableObject
 from typing import Any
@@ -15,7 +15,7 @@ class SlottedNoRollback: ...
 class NoRollback(SlottedNoRollback): ...
 
 class AlwaysRollback(renpy.revertable.RevertableObject):
-    def __new__(cls, *args, **kwargs) -> Incomplete: ...
+    def __new__(cls, *args: Incomplete, **kwargs: Incomplete) -> Incomplete: ...
 
 NOROLLBACK_TYPES: tuple[type, type, type, type, type]
 

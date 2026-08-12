@@ -6,7 +6,7 @@ from typing import Any, Callable, Protocol
 
 class SoundFunction(Protocol):
     __name__: str
-    def __call__(self, channel: int, *args, **kwargs) -> Any: ...
+    def __call__(self, channel: int, *args: Incomplete, **kwargs: Incomplete) -> Any: ...
 
 video_only: bool
 
