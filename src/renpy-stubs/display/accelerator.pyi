@@ -1,7 +1,8 @@
-import renpy as renpy
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from renpy.pygame.surface import Surface as Surface
+
+import renpy as renpy
 from renpy.display.render import Render as Render
+from renpy.pygame.surface import Surface as Surface
 
 Displayable = renpy.display.displayable.Displayable
 

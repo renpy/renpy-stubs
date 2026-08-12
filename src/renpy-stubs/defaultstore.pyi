@@ -1,13 +1,14 @@
-from renpy.minstore import *
-import renpy
-import renpy.display.anim as anim
-from _typeshed import Incomplete as Incomplete
-from renpy.curry import Partial as Partial
-from renpy.display.displayable import Displayable as Displayable
-from renpy.types import DisplayableLike as DisplayableLike
 from typing import Any
 
-_restart: Incomplete
+import renpy
+from _typeshed import Incomplete as Incomplete
+from renpy.curry import Partial as Partial
+from renpy.display import anim
+from renpy.display.displayable import Displayable as Displayable
+from renpy.minstore import *
+from renpy.types import DisplayableLike as DisplayableLike
+
+_restart: tuple[Any | None, str, str] | None
 _return: Any | None
 _args: tuple[Any, ...] | None
 _kwargs: dict[str, Any] | None
@@ -18,22 +19,22 @@ _begin_rollback: bool
 _skipping: bool
 _dismiss_pause: bool
 _config = renpy.config
-_widget_by_id: Incomplete
+_widget_by_id: dict[str, renpy.display.displayable.Displayable] | None
 _widget_properties: dict[str, Any]
-_text_rect: Incomplete | None
+_text_rect: tuple[int, int, int, int] | None
 _menu: bool
 main_menu: bool
 _autosave: bool
 _live2d_fade: bool
 
-class _Config(object):
+class _Config:
     def __getstate__(self) -> None: ...
-    def __setstate__(self, data: Incomplete) -> None: ...
+    def __setstate__(self, data: dict[str, Any]) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
     def __delattr__(self, name: str) -> None: ...
 
-style: Incomplete | None
+style: renpy.style.StyleCore | None
 config: _Config
 library: _Config
 eval = renpy.python.py_eval
@@ -49,9 +50,9 @@ Frame = renpy.display.imagelike.Frame
 Borders = renpy.display.imagelike.Borders
 Solid = renpy.display.imagelike.Solid
 FileCurrentScreenshot = renpy.display.imagelike.FileCurrentScreenshot
-LiveComposite: Incomplete
-LiveCrop: Incomplete
-LiveTile: Incomplete
+LiveComposite: type[renpy.display.layout.LiveComposite]
+LiveCrop: type[renpy.display.layout.LiveCrop]
+LiveTile: type[renpy.display.layout.LiveTile]
 Composite = renpy.display.layout.Composite
 Crop = renpy.display.layout.Crop
 Tile = renpy.display.layout.Tile
@@ -99,12 +100,12 @@ CropMove: Partial[Partial[renpy.display.transition.CropMove]]
 PushMove: Partial[Partial[renpy.display.transition.PushMove]]
 Pixellate: Partial[Partial[renpy.display.transition.Pixellate]]
 OldMoveTransition: Partial[Partial[renpy.display.movetransition.MultiBox]]
-MoveTransition: Partial[Partial[Incomplete]]
+MoveTransition: Partial[Partial[renpy.display.movetransition.MultiBox]]
 MoveFactory: Partial[Partial[renpy.display.movetransition.MultiBox]]
-MoveIn: Partial[Partial[Incomplete]]
-MoveOut: Partial[Partial[Incomplete]]
-ZoomInOut: Partial[Partial[Incomplete]]
-RevolveInOut: Partial[Partial[Incomplete]]
+MoveIn: Partial[Partial[renpy.display.motion.Motion]]
+MoveOut: Partial[Partial[renpy.display.motion.Motion]]
+ZoomInOut: Partial[Partial[renpy.display.motion.FactorZoom]]
+RevolveInOut: Partial[Partial[renpy.display.motion.Revolve]]
 MultipleTransition: Partial[Partial[renpy.display.transition.MultipleTransition]]
 ComposeTransition: Partial[Partial[Displayable]]
 Pause: Partial[Partial[renpy.display.transition.NoTransition]]
@@ -118,17 +119,17 @@ MultiPersistent = renpy.persistent.MultiPersistent
 Action = renpy.ui.Action
 BarValue = renpy.ui.BarValue
 AudioData = renpy.audio.audio.AudioData
-Style: Incomplete
+Style: type[renpy.styledata.styleclass.Style]
 SlottedNoRollback = renpy.rollback.SlottedNoRollback
 NoRollback = renpy.rollback.NoRollback
 
 class _layout_class[T: renpy.display.layout.Container](__builtins__["object"]):
     cls: type[T]
     nargs: int
-    extra_kwargs: Incomplete
-    __doc__: Incomplete
+    extra_kwargs: dict[str, Any]
+    __doc__: str | None
     def __init__(self, cls: type[T], doc: str | None, nargs: int = 0, **extra_kwargs) -> None: ...
-    def __call__(self, *args: Incomplete, **properties: Incomplete) -> T: ...
+    def __call__(self, *args: DisplayableLike, **properties: Any) -> T: ...
 
 Fixed: _layout_class[renpy.display.layout.MultiBox]
 HBox: _layout_class[renpy.display.layout.MultiBox]
@@ -144,164 +145,166 @@ Color = renpy.color.Color
 color = renpy.color.Color
 menu = renpy.exports.display_menu
 predict_menu = renpy.exports.predict_menu
-default_transition: Incomplete
+default_transition: renpy.display.transition.TransitionFunction | None
 mouse_visible: bool
 suppress_overlay: bool
 adv: ADVCharacter
 
-def predict_say(who: Incomplete, what: Incomplete) -> None: ...
-def say(who: Incomplete, what: Incomplete, interact: bool = True, *args: Incomplete, **kwargs: Incomplete) -> None: ...
+def predict_say(who: Any, what: str) -> None: ...
+def say(who: Any, what: str, interact: bool = True, *args: Any, **kwargs: Any) -> None: ...
 
-_last_say_who: Incomplete
-_last_say_what: Incomplete
-_last_say_args: Incomplete
-_last_say_kwargs: Incomplete
-_cache_pin_set: Incomplete
-_predict_set: Incomplete
-_predict_screen: Incomplete
-_overlay_screens: Incomplete
-_in_replay: Incomplete
-_side_image_attributes: Incomplete
+_last_say_who: Any | None
+_last_say_what: str | None
+_last_say_args: tuple[Any, ...] | None
+_last_say_kwargs: dict[str, Any] | None
+_cache_pin_set: set[str] | None
+_predict_set: set[str] | None
+_predict_screen: str | None
+_overlay_screens: list[str] | None
+_in_replay: bool | None
+_side_image_attributes: tuple[str, ...] | None
 _side_image_attributes_reset: bool
-_ignore_action: Incomplete
-_quit_slot: Incomplete
-_screenshot_pattern: Incomplete
+_ignore_action: Any | None
+_quit_slot: str | None
+_screenshot_pattern: str | None
 
 __all__ = [
-    "_restart",
-    "_return",
-    "_args",
-    "_kwargs",
-    "_window",
-    "_window_subtitle",
-    "_rollback",
-    "_begin_rollback",
-    "_skipping",
-    "_dismiss_pause",
-    "_config",
-    "_widget_by_id",
-    "_widget_properties",
-    "_text_rect",
-    "_menu",
-    "main_menu",
-    "_autosave",
-    "_live2d_fade",
-    "_Config",
-    "style",
-    "config",
-    "library",
-    "eval",
+    "ADVSpeaker",
+    "Action",
+    "Alpha",
+    "AlphaBlend",
+    "AlphaDissolve",
+    "AlphaMask",
+    "Animation",
+    "At",
+    "AudioData",
     "Bar",
-    "Button",
-    "ImageButton",
-    "Input",
-    "TextButton",
-    "ImageReference",
-    "DynamicImage",
-    "Image",
-    "Frame",
+    "BarValue",
     "Borders",
-    "Solid",
+    "Button",
+    "Camera",
+    "Color",
+    "ComposeTransition",
+    "Composite",
+    "ConditionSwitch",
+    "Crop",
+    "CropMove",
+    "Dissolve",
+    "Drag",
+    "DragGroup",
+    "DynamicCharacter",
+    "DynamicDisplayable",
+    "DynamicImage",
+    "FactorZoom",
+    "Fade",
     "FileCurrentScreenshot",
+    "Fixed",
+    "Flatten",
+    "FontGroup",
+    "Frame",
+    "GLTFModel",
+    "Grid",
+    "HBox",
+    "Image",
+    "ImageButton",
+    "ImageDissolve",
+    "ImageReference",
+    "Input",
+    "Layer",
+    "Live2D",
     "LiveComposite",
     "LiveCrop",
     "LiveTile",
-    "Composite",
-    "Crop",
-    "Tile",
-    "Flatten",
-    "Null",
-    "Window",
-    "Viewport",
-    "DynamicDisplayable",
-    "ConditionSwitch",
-    "ShowingSwitch",
-    "AlphaMask",
-    "Layer",
-    "Transform",
-    "Camera",
-    "Animation",
-    "Movie",
-    "Particles",
-    "SnowBlossom",
-    "Text",
-    "ParameterizedText",
-    "FontGroup",
-    "Drag",
-    "DragGroup",
-    "Sprite",
-    "SpriteManager",
     "Matrix",
-    "Live2D",
     "Model",
-    "GLTFModel",
-    "Alpha",
-    "Position",
-    "Pan",
-    "Move",
     "Motion",
-    "Revolve",
-    "Zoom",
-    "RotoZoom",
-    "FactorZoom",
-    "SizeZoom",
-    "Fade",
-    "Dissolve",
-    "ImageDissolve",
-    "AlphaDissolve",
-    "CropMove",
-    "PushMove",
-    "Pixellate",
-    "OldMoveTransition",
-    "MoveTransition",
+    "Move",
     "MoveFactory",
     "MoveIn",
     "MoveOut",
-    "ZoomInOut",
-    "RevolveInOut",
-    "MultipleTransition",
-    "ComposeTransition",
-    "Pause",
-    "SubTransition",
-    "ADVSpeaker",
-    "Speaker",
-    "DynamicCharacter",
+    "MoveTransition",
+    "Movie",
     "MultiPersistent",
-    "Action",
-    "BarValue",
-    "AudioData",
-    "SlottedNoRollback",
+    "MultipleTransition",
     "NoRollback",
-    "_layout_class",
-    "Fixed",
-    "HBox",
+    "Null",
+    "OldMoveTransition",
+    "Pan",
+    "ParameterizedText",
+    "Particles",
+    "Pause",
+    "Pixellate",
+    "Position",
+    "PushMove",
+    "Revolve",
+    "RevolveInOut",
+    "RotoZoom",
+    "ShowingSwitch",
+    "SizeZoom",
+    "SlottedNoRollback",
+    "SnowBlossom",
+    "Solid",
+    "Speaker",
+    "Sprite",
+    "SpriteManager",
+    "SubTransition",
+    "Text",
+    "TextButton",
+    "Tile",
+    "Transform",
     "VBox",
-    "Grid",
-    "AlphaBlend",
-    "At",
-    "Color",
-    "color",
-    "menu",
-    "predict_menu",
-    "default_transition",
-    "mouse_visible",
-    "suppress_overlay",
-    "adv",
-    "predict_say ",
-    "say",
-    "_last_say_who",
-    "_last_say_what",
+    "Viewport",
+    "Window",
+    "Zoom",
+    "ZoomInOut",
+    "_Config",
+    "_args",
+    "_autosave",
+    "_begin_rollback",
+    "_cache_pin_set",
+    "_config",
+    "_dismiss_pause",
+    "_ignore_action",
+    "_in_replay",
+    "_kwargs",
     "_last_say_args",
     "_last_say_kwargs",
-    "_cache_pin_set",
-    "_predict_set",
-    "_predict_screen",
+    "_last_say_what",
+    "_last_say_who",
+    "_layout_class",
+    "_live2d_fade",
+    "_menu",
     "_overlay_screens",
-    "_in_replay",
+    "_predict_screen",
+    "_predict_set",
+    "_quit_slot",
+    "_restart",
+    "_return",
+    "_rollback",
+    "_screenshot_pattern",
     "_side_image_attributes",
     "_side_image_attributes_reset",
+    "_skipping",
+    "_text_rect",
+    "_widget_by_id",
+    "_widget_properties",
+    "_window",
+    "_window_subtitle",
+    "adv",
+    "color",
+    "config",
+    "default_transition",
+    "eval",
+    "library",
     "main_menu",
-    "_ignore_action",
-    "_quit_slot",
-    "_screenshot_pattern",
+    "menu",
+    "mouse_visible",
+    "predict_menu",
+    "predict_say ",
+    "say",
+    "style",
+    "suppress_overlay",
 ]
+
+Matrix: type[renpy.display.matrix.Matrix]
+GLTFModel: type[renpy.gl2.assimp.GLTFModel]

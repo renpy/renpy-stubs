@@ -1,23 +1,25 @@
-import renpy.pygame as pygame
-from _typeshed import Incomplete as Incomplete
-from collections.abc import Generator
+from collections.abc import Generator, Iterable
+from typing import TYPE_CHECKING, Any, Self
+
+from _typeshed import Incomplete
+from renpy import pygame
 from renpy.pygame.surface import Surface as Surface
+from renpy.text import ftfont, hbfont
 from renpy.text.textsupport import Glyph as Glyph
-from renpy.text import hbfont, ftfont
-from typing import Self, Iterable
+
+if TYPE_CHECKING:
+    type FontKey = tuple[str, int, bool, bool]
 
 WHITE: tuple[int, int, int, int]
 BLACK: tuple[int, int, int, int]
-
-type FontKey = tuple[str, int, bool, bool]
 
 def is_zerowidth(char: int) -> bool: ...
 
 class ImageFont:
     height: int
-    kerns: dict[str, float]
-    default_kern: float
-    baseline: int
+    kerns: dict[str, int]
+    default_kern: int
+    baseline: int | None
     width: dict[str, float]
     advance: dict[str, float]
     offsets: dict[str, tuple[int, int]]
@@ -93,7 +95,7 @@ class BMFont(ImageFont):
 
 class ScaledImageFont(ImageFont):
     height: int
-    baseline: int
+    baseline: int | None
     default_kern: int
     width: dict[str, float]
     advance: dict[str, float]
@@ -103,12 +105,12 @@ class ScaledImageFont(ImageFont):
     def __init__(self, parent: ImageFont, factor: float) -> None: ...
 
 def register_sfont(
-    name: str = None,
-    size: int = None,
+    name: str | None = None,
+    size: int | None = None,
     bold: bool = False,
     italics: bool = False,
     underline: bool = False,
-    filename: str = None,
+    filename: str | None = None,
     spacewidth: int = 10,
     baseline: int | None = None,
     default_kern: int = 0,
@@ -116,24 +118,24 @@ def register_sfont(
     charset: str = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
 ) -> None: ...
 def register_mudgefont(
-    name: str = None,
-    size: int = None,
+    name: str | None = None,
+    size: int | None = None,
     bold: bool = False,
     italics: bool = False,
     underline: bool = False,
-    filename: str = None,
-    xml: str = None,
+    filename: str | None = None,
+    xml: str | None = None,
     spacewidth: int = 10,
     default_kern: int = 0,
     kerns: dict[str, int] = {},
 ) -> None: ...
 def register_bmfont(
-    name: str = None,
-    size: int = None,
+    name: str | None = None,
+    size: int | None = None,
     bold: bool = False,
     italics: bool = False,
     underline: bool = False,
-    filename: str = None,
+    filename: str | None = None,
 ) -> None: ...
 
 face_cache: dict[tuple[str, str], hbfont.HBFace | ftfont.FTFace]
@@ -142,7 +144,7 @@ def load_face(fn: str, shaper: str) -> hbfont.HBFace | ftfont.FTFace: ...
 
 image_fonts: dict[FontKey, ImageFont]
 scaled_image_fonts: dict[FontKey, ScaledImageFont]
-font_cache: dict[Incomplete, hbfont.HBFace | ftfont.FTFace]
+font_cache: dict[Any, hbfont.HBFace | ftfont.FTFace]
 last_scale: float
 
 def get_font(
@@ -156,9 +158,9 @@ def get_font(
     hinting: bool | str,
     scale: float,
     shaper: str,
-    instance: Incomplete,
-    axis: Incomplete,
-    features: Incomplete,
+    instance: str | None,
+    axis: dict[str, int] | None,
+    features: dict[str, int] | None,
 ) -> ImageFont | hbfont.HBFont | ftfont.FTFont: ...
 def free_memory() -> None: ...
 def load_fonts() -> None: ...
@@ -177,4 +179,6 @@ class FontGroup:
         target_increment: bool = False,
     ) -> Self: ...
     def remap(self, cha: int | str | bytes | Iterable[int | str | bytes], target: int | str | bytes) -> Self: ...
-    def segment(self, s: str) -> Generator[tuple[str | None, str], None, None]: ...
+    def segment(self, s: str) -> Generator[tuple[str | None, str]]: ...
+
+image_font_names: set[str]

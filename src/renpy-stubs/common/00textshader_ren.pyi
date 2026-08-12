@@ -1,3 +1,0 @@
-from renpy.text.shader import TextShader
-
-def adjust_duration(ts: TextShader, u__duration: float, **kwargs) -> None: ...

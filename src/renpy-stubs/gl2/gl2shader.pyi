@@ -1,8 +1,9 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from _typeshed import Incomplete
+
 from renpy.gl2.gl2draw import GL2DrawingContext
 from renpy.gl2.gl2mesh import Mesh
 from renpy.gl2.gl2model import GL2Model
+from renpy.gl2.gl2uniform import Setter
 from renpy.uguu import GLuint
 
 GLSL_PRECISIONS: set[str]
@@ -16,14 +17,14 @@ class Attribute:
 class Program:
     name: tuple[str, ...]
     program: GLuint
-    vertex: Incomplete
-    fragment: Incomplete
+    vertex: str
+    fragment: str
     attributes: list[Attribute]
-    uniform_setters: list[Incomplete]
-    def __init__(self, name: Incomplete, vertex: Incomplete, fragment: Incomplete) -> None: ...
+    uniform_setters: list[Setter]
+    def __init__(self, name: tuple[str, ...], vertex: str, fragment: str) -> None: ...
     def draw(self, context: GL2DrawingContext, model: GL2Model, mesh: Mesh) -> None: ...
     def draw_ftl(self, texture: int, mesh: Mesh) -> None: ...
-    def find_variables(self, source: str, seen_uniforms: set, samplers: int) -> Incomplete: ...
+    def find_variables(self, source: str, seen_uniforms: set[str], samplers: int) -> int: ...
     def load(self) -> None: ...
 
 class ShaderError(Exception): ...

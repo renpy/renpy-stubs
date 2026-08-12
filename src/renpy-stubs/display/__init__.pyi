@@ -1,6 +1,7 @@
+from renpy.display.core import Interface as Interface
+from renpy.display.core import Renderer as Renderer
 from renpy.log import LogFile
 from renpy.pygame.display import Info
-from renpy.display.core import Interface as Interface, Renderer as Renderer
 
 draw: Renderer | None
 interface: Interface | None

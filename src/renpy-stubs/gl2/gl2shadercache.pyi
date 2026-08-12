@@ -1,14 +1,15 @@
 import re
-from typing import Iterable
-from _typeshed import Incomplete as Incomplete
+from collections.abc import Iterable
+from typing import TYPE_CHECKING
 
 import renpy
 from renpy.gl2.gl2shader import Variable as Variable
 
-type PartTuple = tuple[int | str, str, str]
-shader_part: "dict[str, ShaderPart]"
+if TYPE_CHECKING:
+    type PartTuple = tuple[int | str, str, str]
+    shader_part: dict[str, ShaderPart]
 
-def register_shader(name: str, **kwargs: Incomplete) -> ShaderPart: ...
+def register_shader(name: str, **kwargs: str) -> ShaderPart: ...
 
 class ShaderPart:
     name: str
@@ -28,14 +29,14 @@ class ShaderPart:
         vertex_functions: str = "",
         fragment_functions: str = "",
         private_uniforms: bool = False,
-        **kwargs: Incomplete,
+        **kwargs: str,
     ) -> None: ...
     def expand_name(self, s: str) -> str: ...
     def expand_match(self, m: re.Match[str]) -> str: ...
     def expand_operation(self, m: re.Match[str]) -> str: ...
     def substitute_name(self, s: str) -> str: ...
 
-cache: Incomplete
+cache: dict[tuple[str, ...], renpy.gl2.gl2shader.Program]
 
 def source(
     variables: Iterable[Variable], parts: list[PartTuple], functions: list[str], fragment: bool, gles: bool

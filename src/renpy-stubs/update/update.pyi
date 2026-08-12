@@ -1,5 +1,9 @@
-from . import common as common, deferred as deferred, download as download
-from typing import BinaryIO, Callable, TextIO
+from collections.abc import Callable
+from typing import BinaryIO, TextIO
+
+from . import common as common
+from . import deferred as deferred
+from . import download as download
 
 PREPARING: str
 DOWNLOADING: str

@@ -1,7 +1,8 @@
-import renpy as renpy
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from renpy.text.shader import TextShader as TextShader
 from typing import Any, Literal
+
+import renpy as renpy
+from renpy.text.shader import TextShader as TextShader
 
 split_name: dict[int, str]
 

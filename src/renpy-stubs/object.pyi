@@ -1,9 +1,10 @@
-from typing import Callable
+from collections.abc import Callable
+from typing import Self
 
 class Object:
     __version__: int
     nosave: list[str]
-    after_setstate: Callable[[], None] | None
+    after_setstate: Callable[[Self], None] | None
 
 sentinels: dict[str, Sentinel]
 

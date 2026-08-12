@@ -2,11 +2,12 @@ import abc
 import collections.abc
 import contextlib
 import dataclasses
+from collections.abc import Callable, Iterator
 from types import FrameType, TracebackType
-from typing import Any, Callable, IO, Iterator, NotRequired, Protocol, TextIO, TypedDict, Unpack
+from typing import IO, TYPE_CHECKING, Any, NotRequired, Protocol, TextIO, TypedDict, Unpack
 
 class HasReportTraceback(Protocol):
-    def report_traceback(self, name: str, last: bool, frame: FrameType) -> list["FrameSummary"] | None: ...
+    def report_traceback(self, name: str, last: bool, frame: FrameType) -> list[FrameSummary] | None: ...
 
 class ExceptionPrintContextKwargs(TypedDict):
     filter_private: NotRequired[bool]
@@ -133,10 +134,10 @@ class FrameSummary:
     colno: int | None
     end_lineno: int
     end_colno: int | None
-    locals: dict[str, Any] | None = dataclasses.field(default=None, compare=False)
-    _lines: list[str] | None = dataclasses.field(default=None, compare=False)
-    _carets: list[str] | None = dataclasses.field(default=None, compare=False)
-    _anchors_value: list[tuple[int, int]] | None = dataclasses.field(default=None, compare=False)
+    locals: dict[str, Any] | None = ...
+    _lines: list[str] | None = ...
+    _carets: list[str] | None = ...
+    _anchors_value: list[tuple[int, int]] | None = ...
     def __init__(
         self,
         name: str,
@@ -148,7 +149,6 @@ class FrameSummary:
         text: str | None = None,
         locals: dict[str, Any] | None = None,
     ) -> None: ...
-    def __repr__(self) -> str: ...
     @property
     def line(self) -> str: ...
     @property
@@ -200,7 +200,6 @@ class TracebackException:
     @property
     def exc_type_str(self) -> str: ...
     def __eq__(self, other: object) -> bool: ...
-    def __str__(self) -> str: ...
     def format_exception_only(
         self, ctx: ExceptionPrintContext | None = None, /, *, show_group: bool = False
     ) -> Any: ...

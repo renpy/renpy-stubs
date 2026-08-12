@@ -1,7 +1,9 @@
-import renpy
 import weakref
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, Literal, Self
+
+import renpy
 from renpy.display.behavior import (
-    ActionType as ActionType,
     map_event as map_event,
     run as run,
     run_unhovered as run_unhovered,
@@ -13,9 +15,11 @@ from renpy.display.render import Render as Render, redraw as redraw, render as r
 from renpy.pygame.event import EventType as EventType
 from renpy.revertable import RevertableObject as RevertableObject
 from renpy.types import DisplayableLike as DisplayableLike
-from typing import Any, Callable, Sequence, Literal, Self
 
-type GroupPosition = tuple[float | None, float | None, float | None, float | None, float | None, float | None]
+if TYPE_CHECKING:
+    from renpy.display.behavior import ActionType as ActionType
+
+    type GroupPosition = tuple[float | None, float | None, float | None, float | None, float | None, float | None]
 
 def default_drag_group() -> DragGroup: ...
 def default_drag_joined(drag: Drag) -> list[tuple[Drag | str, int, int]]: ...
@@ -27,7 +31,7 @@ class Drag(renpy.display.displayable.Displayable, renpy.revertable.RevertableObj
     old_position: GroupPosition | None
     drag_offscreen: bool
     activated: Callable[[list[Drag]], None] | Sequence[Callable[[list[Drag]], None]] | None
-    alternate: ActionType
+    alternate: ActionType | None
     dragging: Callable[[list[Drag]], Any] | Sequence[Callable[[list[Drag]], Any]] | None
     drag_group_weakref: weakref.ReferenceType[DragGroup] | None
     click_time: float | None

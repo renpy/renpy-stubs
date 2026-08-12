@@ -1,18 +1,23 @@
-from _typeshed import Incomplete
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, overload
+
 import renpy
 from renpy.object import Object as Object
-from renpy.parameter import Signature as Signature, ValuedParameter as ValuedParameter
-from renpy.pyanalysis import Analysis as Analysis, GLOBAL_CONST as GLOBAL_CONST, NOT_CONST as NOT_CONST
+from renpy.parameter import Signature as Signature
+from renpy.parameter import ValuedParameter as ValuedParameter
+from renpy.pyanalysis import GLOBAL_CONST as GLOBAL_CONST
+from renpy.pyanalysis import NOT_CONST as NOT_CONST
+from renpy.pyanalysis import Analysis as Analysis
 from renpy.types import Unused
-from typing import Any, Callable, Literal, TypeVar, overload
 
-type NodeLocation = renpy.ast.NodeLocation
-type Lexer = renpy.lexer.Lexer
-type BlockState = tuple[int, int, int, int, list[tuple[float, int]], Any | None]
-type Warper = Callable[[float], float]
-type Position = renpy.types.Position
-type Displayable = renpy.display.displayable.Displayable
-T = TypeVar("T")
+if TYPE_CHECKING:
+    type NodeLocation = renpy.ast.NodeLocation
+    type Lexer = renpy.lexer.Lexer
+    type BlockState = tuple[int, int, int, int, list[tuple[float, int]], Any | None]
+    type Warper = Callable[[float], float]
+    type Position = renpy.types.Position
+    type Displayable = renpy.display.displayable.Displayable
+    T = TypeVar("T")
 
 def late_imports() -> None: ...
 def compiling(loc: NodeLocation) -> None: ...
@@ -34,7 +39,7 @@ class DualAngle:
     def from_any(cls, other: Any) -> DualAngle: ...
     def __add__(self, other: DualAngle) -> DualAngle: ...
     def __sub__(self, other: DualAngle) -> DualAngle: ...
-    def __mul__(self, other: int | float) -> DualAngle: ...
+    def __mul__(self, other: float) -> DualAngle: ...
     __rmul__ = __mul__
     def __neg__(self) -> DualAngle: ...
 
@@ -79,7 +84,6 @@ class Context:
     def eval(self, expr: str) -> Any: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, other: object) -> bool: ...
-    def __repr__(self) -> str: ...
 
 class ATLTransformBase(renpy.object.Object):
     __version__: int
@@ -112,7 +116,7 @@ class ATLTransformBase(renpy.object.Object):
     at_offset: Unused
     child: Displayable | None
     def take_execution_state(self, t: ATLTransformBase) -> None: ...
-    def __call__(self, *args: Incomplete, **kwargs: Incomplete) -> ATLTransformBase: ...
+    def __call__(self, *args: Any, **kwargs: Any) -> ATLTransformBase: ...
     def compile(self) -> Block: ...
     def execute(self, trans: ATLTransformBase, st: float, at: float) -> float | None: ...
     def predict_one(self) -> None: ...
@@ -178,13 +182,13 @@ class RawMultipurpose(RawStatement):
     properties: list[tuple[str, str]]
     expressions: list[tuple[str, str | None]]
     splines: list[tuple[str, list[str]]]
-    revolution: Literal["clockwise", "counterclockwise", None]
+    revolution: Literal["clockwise", "counterclockwise"] | None
     circles: str
     def __init__(self, loc: NodeLocation) -> None: ...
     def add_warper(self, name: str | None, duration: str | None, warp_function: str | None) -> None: ...
     def add_property(self, name: str, exprs: str) -> str | None: ...
     def add_expression(self, expr: str, with_clause: str | None) -> None: ...
-    def add_revolution(self, revolution: Literal["clockwise", "counterclockwise", None]) -> None: ...
+    def add_revolution(self, revolution: Literal["clockwise", "counterclockwise"] | None) -> None: ...
     def add_circles(self, circles: str) -> None: ...
     def add_spline(self, name: str, exprs: list[str]) -> None: ...
     def compile(self, ctx: Context) -> Statement: ...
@@ -222,7 +226,7 @@ class Interpolation(Statement):
     duration: float
     properties: list[tuple[str, Any]]
     splines: list[tuple[str, list[str]]]
-    revolution: Literal["clockwise", "counterclockwise", None]
+    revolution: Literal["clockwise", "counterclockwise"] | None
     circles: int
     def __init__(
         self,
@@ -230,7 +234,7 @@ class Interpolation(Statement):
         warper: str | Warper,
         duration: float,
         properties: list[tuple[str, Any]],
-        revolution: Literal["clockwise", "counterclockwise", None],
+        revolution: Literal["clockwise", "counterclockwise"] | None,
         circles: int,
         splines: list[tuple[str, list[str]]],
     ) -> None: ...

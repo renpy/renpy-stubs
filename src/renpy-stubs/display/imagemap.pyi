@@ -1,9 +1,10 @@
+from typing import Any
+
 import renpy
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.render import render as render
 from renpy.object import Object as Object
 from renpy.types import Unused as Unused
-from _typeshed import Incomplete as Incomplete
 
 cached: Unused
 
@@ -15,7 +16,7 @@ class ImageMapCrop(Displayable):
     def render(self, width: float, height: float, st: float, at: float) -> renpy.display.render.Render: ...
 
 class ImageCacheCrop(Displayable):
-    def __init__(self, cache: Incomplete, index: Incomplete) -> None: ...
+    def __init__(self, cache: Any, index: Any) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> renpy.display.render.Render: ...
 
 class ImageMapCache(renpy.object.Object):

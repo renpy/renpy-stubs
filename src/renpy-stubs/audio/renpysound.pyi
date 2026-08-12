@@ -1,8 +1,8 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from _typeshed import Incomplete
 
-from renpy.pygame.surface import Surface
+from renpy.audio.audio import AudioData
 from renpy.audio.filter import AudioFilter
+from renpy.pygame.surface import Surface
 
 def advance_time() -> None: ...
 def busy(channel: int) -> bool: ...
@@ -27,7 +27,7 @@ def pause(channel: int) -> None: ...
 def periodic() -> None: ...
 def play(
     channel: int,
-    file: Incomplete,
+    file: str | AudioData,
     name: str,
     synchro_start: bool = False,
     fadein: int = 0,
@@ -40,7 +40,7 @@ def play(
 def playing_name(channel: int) -> str | None: ...
 def queue(
     channel: int,
-    file: Incomplete,
+    file: str | AudioData,
     name: str,
     synchro_start: bool = False,
     fadein: int = 0,
@@ -69,5 +69,5 @@ DROP_VIDEO: int
 NODROP_VIDEO: int
 NO_VIDEO: int
 is_webaudio: bool
-rgb_surface = Surface | None
-rgba_surface = Surface | None
+rgb_surface: Surface | None = None
+rgba_surface: Surface | None = None

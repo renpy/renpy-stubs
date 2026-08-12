@@ -1,7 +1,7 @@
 import builtins
 from typing import Any
 
-__all__ = ["PY2", "open", "basestring", "str", "pystr", "range", "round", "bord", "bchr", "tobytes", "chr", "unicode"]
+__all__ = ["PY2", "basestring", "bchr", "bord", "chr", "open", "pystr", "range", "round", "str", "tobytes", "unicode"]
 
 PY2: bool
 python_open = open

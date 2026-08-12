@@ -1,6 +1,7 @@
 import collections
-import renpy
 from typing import Any
+
+import renpy
 
 memory_log: renpy.log.LogFile
 constant_containers: set[str]

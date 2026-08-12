@@ -1,5 +1,6 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from typing import overload, Literal, Iterator
+from collections.abc import Iterator
+from typing import Literal, overload
 
 def Allpass(frequency: float = 350, q: float = 1.0) -> None: ...
 

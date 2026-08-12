@@ -1,7 +1,8 @@
-import renpy
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from renpy.gl2.gl2mesh import Mesh as Mesh
+
+import renpy
 from renpy.gl2.gl2mesh import AttributeLayout
+from renpy.gl2.gl2mesh import Mesh as Mesh
 
 class Mesh2(renpy.gl2.gl2mesh.Mesh):
     def __init__(self, layout: AttributeLayout, points: int, triangles: int) -> None: ...

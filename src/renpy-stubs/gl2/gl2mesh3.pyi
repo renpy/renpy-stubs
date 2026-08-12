@@ -1,5 +1,6 @@
-import renpy
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
+
+import renpy
 from renpy.gl2.gl2mesh import Mesh as Mesh
 
 class Mesh3(renpy.gl2.gl2mesh.Mesh):

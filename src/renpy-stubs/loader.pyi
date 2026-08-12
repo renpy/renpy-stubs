@@ -1,17 +1,19 @@
-import renpy
 import threading
-from collections.abc import Generator
+from collections.abc import Callable, Generator
+from typing import IO, TYPE_CHECKING, Literal, TypedDict
+
+import renpy
 from renpy.compat.pickle import loads as loads
 from renpy.pygame.rwobject import RWopsIO as RWopsIO
 from renpy.webloader import DownloadNeeded as DownloadNeeded
-from typing import Callable, IO, Literal, TypedDict
 
 class RemoteFileInfo(TypedDict):
     type: str
     size: str | list[int]
 
-type AddCallback = Callable[[str | None, str, list[tuple[str | None, str]], set[str]], None]
-type Handler = "type[RPAv3ArchiveHandler | RPAv2ArchiveHandler | RPAv1ArchiveHandler]"
+if TYPE_CHECKING:
+    type AddCallback = Callable[[str | None, str, list[tuple[str | None, str]], set[str]], None]
+    type Handler = type[RPAv3ArchiveHandler | RPAv2ArchiveHandler | RPAv1ArchiveHandler]
 
 def get_path(fn: str) -> str: ...
 
@@ -62,7 +64,7 @@ class RPAv1ArchiveHandler:
 
 def index_files() -> None: ...
 def index_archives() -> None: ...
-def walkdir(path: str, elide: int | None = None) -> Generator[str, None, None]: ...
+def walkdir(path: str, elide: int | None = None) -> Generator[str]: ...
 
 arc_files: list[tuple[str, str, str]]
 common_files: list[tuple[str | None, str]]
@@ -70,7 +72,7 @@ game_files: list[tuple[str | None, str]]
 loadable_cache: dict[str, bool]
 remote_files: dict[str, RemoteFileInfo]
 scandirfiles_callbacks: list[Callable[[AddCallback, set[str]], None]]
-type TreeEntry = dict[str, "TreeEntry"] | Literal[True]
+type TreeEntry = dict[str, TreeEntry] | Literal[True]
 tree: TreeEntry
 
 def scandirfiles() -> None: ...
@@ -121,3 +123,5 @@ reloading: bool
 def check_autoreload() -> None: ...
 def auto_init() -> None: ...
 def auto_quit() -> None: ...
+
+open_file: Callable[[str | os.PathLike, Literal["rb", "wb"]], io.RawIOBase]

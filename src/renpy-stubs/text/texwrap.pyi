@@ -1,5 +1,6 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from dataclasses import dataclass
+
 from renpy.text.textsupport import Glyph
 
 @dataclass

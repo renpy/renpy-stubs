@@ -1,5 +1,6 @@
-import renpy
 from typing import Any
+
+import renpy
 
 def roll_forward_info() -> Any | None: ...
 def roll_forward_core[T](value: T | None = None) -> T | None: ...

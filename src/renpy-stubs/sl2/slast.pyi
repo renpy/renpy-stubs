@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 import ast
 import renpy
 import weakref
@@ -18,10 +17,11 @@ from renpy.python import py_eval_bytecode as py_eval_bytecode
 from renpy.types import Unused as Unused
 from renpy.ui import Addable as Addable
 from types import CodeType
-from typing import Any, Callable, Self
+from typing import Any, Callable, Self, TYPE_CHECKING
 
-type CacheDict = dict[int, SLCache | dict[str, Any]]
-type UsesScopeList = list[tuple[Displayable | None, dict[str, Any], dict[str, Any] | None]]
+if TYPE_CHECKING:
+    type CacheDict = dict[int, SLCache | dict[str, Any]]
+    type UsesScopeList = list[tuple[Displayable | None, dict[str, Any], dict[str, Any] | None]]
 serial: int
 use_expression: renpy.object.Sentinel
 filename: str
@@ -368,7 +368,7 @@ class SLScreen(SLBlock):
     def execute(self, context: SLContext) -> None: ...
     def report_traceback(self, name: str, last: bool) -> list[tuple[str, int, str, str | None]] | None: ...
     def copy_on_change(self, cache: CacheDict) -> None: ...
-    def __call__(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
+    def __call__(self, *args: Any, **kwargs: Any) -> None: ...
 
 class ScreenCache:
     version: int

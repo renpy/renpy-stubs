@@ -1,25 +1,32 @@
-import renpy
-from _typeshed import Incomplete as Incomplete
-from renpy.display.displayable import Displayable as Displayable
-from renpy.types import DisplayableLike as DisplayableLike
-from typing import Any, Literal, Self
+from typing import TYPE_CHECKING, Any, Literal, Self
 
-UniformValue = (
-    float
-    | tuple[float, float]
-    | tuple[float, float, float]
-    | tuple[float, float, float, float]
-    | renpy.display.matrix.Matrix
-)
+import renpy
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.matrix import Matrix as Matrix
+from renpy.types import DisplayableLike as DisplayableLike
+
+if TYPE_CHECKING:
+    type UniformValue = (
+        float
+        | tuple[float, float]
+        | tuple[float, float, float]
+        | tuple[float, float, float, float]
+        | renpy.display.matrix.Matrix
+    )
 
 class Texture:
-    texture_wrap: Incomplete | None
+    texture_wrap: str | None
     displayable: Displayable
     focus: bool
     main: bool
     fit: bool
     def __init__(
-        self, displayable: DisplayableLike, focus: bool, main: bool, fit: bool, texture_wrap: Incomplete | None = None
+        self,
+        displayable: DisplayableLike,
+        focus: bool,
+        main: bool,
+        fit: bool,
+        texture_wrap: str | None = None,
     ) -> None: ...
     def _in_current_store(self) -> Texture: ...
 
@@ -30,7 +37,7 @@ class Model(renpy.display.displayable.Displayable):
     shaders: list[str]
     uniforms: dict[str, UniformValue]
     properties: dict[str, Any]
-    def __init__(self, size: tuple[float, float] | None = None, **properties) -> None: ...
+    def __init__(self, size: tuple[float, float] | None = None, **properties: Any) -> None: ...
     def grid_mesh(self, width: int, height: int) -> Self: ...
     def texture(
         self,
@@ -38,7 +45,7 @@ class Model(renpy.display.displayable.Displayable):
         focus: bool = False,
         main: bool = False,
         fit: bool = False,
-        texture_wrap: Incomplete | None = None,
+        texture_wrap: str | None = None,
     ) -> Self: ...
     def child(self, displayable: DisplayableLike, fit: bool = False) -> Self: ...
     def shader(self, shader: str) -> Self: ...

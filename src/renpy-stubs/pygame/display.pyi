@@ -1,11 +1,11 @@
-from _frozen_importlib import BuiltinImporter as BuiltinImporter
 import ctypes
+from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from typing import Any
+
 from renpy.pygame.surface import Surface as Surface
 
 class Info:
     def __init__(self) -> None: ...
-    def __repr__(self) -> str: ...
 
 class Window:
     surface: Surface

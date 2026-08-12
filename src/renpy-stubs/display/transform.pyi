@@ -1,3 +1,6 @@
+from collections.abc import Callable
+from typing import Any, Literal, TypeVar, overload
+
 import renpy
 import renpy.atl
 from _typeshed import Incomplete as Incomplete
@@ -21,7 +24,6 @@ from renpy.display.matrix import Matrix as Matrix
 from renpy.display.position import absolute as absolute, position as position
 from renpy.object import Object as Object
 from renpy.types import DisplayableLike as DisplayableLike, Position as Position
-from typing import Any, Callable, Literal, TypeVar, overload
 
 T = TypeVar("T")
 
@@ -167,6 +169,7 @@ class Transform(Container):
     style_arg: str
     replaced_request: bool
     replaced_response: bool
+    child_in_current_store: renpy.display.displayable.Displayable | None
     def after_upgrade(self, version: int) -> None: ...
     DEFAULT_ARGUMENTS: dict[str, dict[str, Any]]
     children: list[Displayable]
@@ -213,7 +216,7 @@ class Transform(Container):
     def _unique(self) -> None: ...
     def get_placement(self) -> Placement: ...
     def update(self) -> None: ...
-    def _duplicate(self, args: DisplayableArguments | None) -> Transform: ...
+    def _duplicate(self, args: DisplayableArguments | None = None) -> Transform: ...
     def _in_current_store(self) -> Transform: ...
     def _repr_info(self) -> str: ...
 

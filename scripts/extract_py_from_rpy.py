@@ -28,7 +28,7 @@ renpy.game.script = renpy.script.Script()
 
 ############################################
 
-from scripts.config import config
+from config import config
 
 EARLY_PRIORITY: int = -99999999
 
@@ -144,9 +144,10 @@ def main():
     ## Target .rpy and .rpym files
     num_files = 0
     fnames: list[str] = []
-    fnames.extend(glob.glob(str(config.renpy_path) + "/renpy/**/*.rpy", recursive=True, include_hidden=True))
-    fnames.extend(glob.glob(str(config.renpy_path) + "/renpy/**/*.rpym", recursive=True, include_hidden=True))
-    fnames.extend(glob.glob(str(config.renpy_path) + "/renpy/common/**/*_ren.py", recursive=True, include_hidden=True))
+    # TODO: Temporarily disabled to check the full merge-generate cycle
+    # fnames.extend(glob.glob(str(config.renpy_path) + "/renpy/**/*.rpy", recursive=True, include_hidden=True))
+    # fnames.extend(glob.glob(str(config.renpy_path) + "/renpy/**/*.rpym", recursive=True, include_hidden=True))
+    # fnames.extend(glob.glob(str(config.renpy_path) + "/renpy/common/**/*_ren.py", recursive=True, include_hidden=True))
 
     for fname in fnames:
         statements = get_statements_from_rpy(fname)
@@ -169,9 +170,9 @@ def main():
                 output_path = output_path / os.path.split(fname)[1]
                 output_path = output_path.with_suffix(".py")
 
-                ## Replace leading numbers with __internal_ in filename (eg. 000atl.rpy -> __internal_atl.py)
+                ## Replace leading numbers with __numbered_ in filename (eg. 000atl.rpy -> __numbered_atl.py)
                 output_path = output_path.with_name(
-                    "__internal_" + "".join(c if not c.isdigit() else "" for c in output_path.name)
+                    "__numbered_" + "".join(c if not c.isdigit() else "" for c in output_path.name)
                 )
                 output_path.parent.mkdir(parents=True, exist_ok=True)
 

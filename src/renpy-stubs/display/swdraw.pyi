@@ -1,6 +1,7 @@
-import renpy.pygame as pygame
-from _typeshed import Incomplete as Incomplete
-from pydot import Any as Any
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, Any
+
+from renpy import pygame
 from renpy.color import ColorLike as ColorLike
 from renpy.display.matrix import Matrix as Matrix, Matrix2D as Matrix2D
 from renpy.display.render import (
@@ -15,14 +16,15 @@ from renpy.display.render import (
 )
 from renpy.pygame.surface import Surface as PygameSurface
 from renpy.types import Unused as Unused
-from typing import Sequence
 
-type AreaType = tuple[float, float, float, float]
-type ForcedType = tuple[float, float, float, float, AreaType]
+if TYPE_CHECKING:
+    type AreaType = tuple[float, float, float, float]
+    type ForcedType = tuple[float, float, float, float, AreaType]
+    type TransformArgs = tuple[float, float, float, float, float, float, float]
 
 class Clipper:
-    blits: list[tuple[float, float, float, float, AreaType, PygameSurface, Incomplete]]
-    old_blits: list[tuple[float, float, float, float, AreaType, PygameSurface, Incomplete]]
+    blits: list[tuple[float, float, float, float, AreaType, PygameSurface, TransformArgs]]
+    old_blits: list[tuple[float, float, float, float, AreaType, PygameSurface, TransformArgs]]
     forced: set[ForcedType]
     old_forced: set[ForcedType]
     mutated: set[int]
@@ -32,7 +34,7 @@ class Clipper:
 clippers: list[Clipper]
 
 def surface(w: int, h: int, alpha: bool) -> PygameSurface: ...
-def copy_surface(surf: Incomplete) -> PygameSurface: ...
+def copy_surface(surf: PygameSurface) -> PygameSurface: ...
 def draw_special(what: Render, dest: PygameSurface, x: int, y: int) -> None: ...
 def draw(
     dest: PygameSurface | Clipper,
@@ -43,7 +45,7 @@ def draw(
     screen: bool,
 ) -> None: ...
 def draw_transformed(
-    dest: Incomplete,
+    dest: PygameSurface | Clipper,
     clip: AreaType | None,
     what: Render | PygameSurface,
     xo: float,
@@ -52,7 +54,7 @@ def draw_transformed(
     forward: Matrix | None,
     reverse: Matrix | None,
 ) -> None: ...
-def do_draw_screen(screen_render: Incomplete, full_redraw: Incomplete, swdraw: Incomplete) -> None: ...
+def do_draw_screen(screen_render: Render, full_redraw: bool, swdraw: SWDraw) -> list[AreaType]: ...
 
 class SWDraw:
     display_info: pygame.display.Info | None
@@ -69,7 +71,7 @@ class SWDraw:
     virt_to_draw: Matrix2D
     draw_to_virt: Matrix2D
     full_redraw: bool
-    fullscreen_surface: Unused
+    fullscreen_surface: PygameSurface | None
     def init(self, virtual_size: tuple[int, int]) -> bool: ...
     def update(self, force: bool = True) -> None: ...
     def resize(self) -> None: ...

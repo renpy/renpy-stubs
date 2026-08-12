@@ -1,14 +1,17 @@
-from _typeshed import Incomplete
+from collections.abc import Callable, Iterable
+from typing import TYPE_CHECKING, Any, Literal, TypedDict
+
 import renpy
 from renpy.display.core import absolute as absolute
-from renpy.display.displayable import Displayable as Displayable, DisplayableArguments
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import DisplayableArguments
 from renpy.gl2.gl2shadercache import register_shader as register_shader
 from renpy.gl2.live2dmodel import Live2DModel as Live2DModel
-from typing import Any, Callable, Iterable, Literal, TypedDict
 
-type Live2DName = tuple[str, str, str, int]
-type Live2DAttributeFunction = Callable[[tuple[str, ...]], tuple[str, ...]]
-type Live2DUpdateFunction = Callable[[Live2D, float], float | None]
+if TYPE_CHECKING:
+    type Live2DName = tuple[str, str, str, int]
+    type Live2DAttributeFunction = Callable[[tuple[str, ...]], tuple[str, ...]]
+    type Live2DUpdateFunction = Callable[[Live2D, float], float | None]
 did_onetime_init: bool
 did_web_init: bool
 web_is_incompatible: bool
@@ -47,7 +50,7 @@ class Live2DCommon:
     attribute_function: Live2DAttributeFunction | None
     attribute_filter: Live2DAttributeFunction | None
     update_function: Live2DUpdateFunction | None
-    def __init__(self, filename: str, default_fade: float) -> None: ...
+    def __init__(self, filename: str, default_fade: float, old_beziers: bool | None = None) -> None: ...
     def apply_aliases(self, aliases: dict[str, str]) -> None: ...
     def apply_nonexclusive(self, nonexclusive: Iterable[str]) -> None: ...
     def apply_seamless(self, value: bool | set[str]) -> None: ...
@@ -81,6 +84,7 @@ class Live2D(renpy.display.displayable.Displayable):
     used_nonexclusive: list[str] | None
     properties: dict[str, Any]
     default_fade: float
+    old_beziers: bool | None
     def create_common(self) -> Live2DCommon: ...
     @property
     def common(self) -> Live2DCommon: ...
@@ -113,13 +117,14 @@ class Live2D(renpy.display.displayable.Displayable):
         attribute_filter: Live2DAttributeFunction | None = None,
         update_function: Live2DUpdateFunction | None = None,
         default_fade: float = 1.0,
-        **properties: Incomplete,
+        old_beziers: bool | None = None,
+        **properties: Any,
     ) -> None: ...
     unique_time: str
     unique_serial: int
     def ensure_name(self) -> None: ...
     def per_interact(self) -> None: ...
-    def _duplicate(self, args: DisplayableArguments | None) -> Live2D: ...
+    def _duplicate(self, args: DisplayableArguments | None = None) -> Live2D: ...
     def _list_attributes(self, tag: str, attributes: Iterable[str]) -> list[str]: ...
     def _choose_attributes(self, tag: str, attributes: Iterable[str], optional: Iterable[str]) -> tuple[str, ...]: ...
     def update(self, common: Live2DCommon, st: float, st_fade: float | None) -> float | None: ...

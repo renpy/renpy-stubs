@@ -1,7 +1,7 @@
-import renpy as renpy
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from _typeshed import Incomplete as Incomplete
-from typing import Literal, Any
+from typing import Any, Literal
+
+import renpy as renpy
 
 class Controller:
     instance_id: int
@@ -17,7 +17,7 @@ class Controller:
     def quit(self) -> None: ...
 
 def add_mapping(mapping: str) -> None: ...
-def add_mappings(mapping_file: Incomplete) -> None: ...
+def add_mappings(mapping_file: str | bytes) -> None: ...
 
 error = renpy.pygame.error.error
 

@@ -3,9 +3,10 @@ import io
 import renpy
 from renpy.ast import Node as Node, NodeName as NodeName, PyCode as PyCode, PyExpr as PyExpr
 from renpy.compat.pickle import dumps as dumps, loads as loads
-from typing import Any
+from typing import Any, TYPE_CHECKING
 
-type FileListType = list[tuple[str, str | None]]
+if TYPE_CHECKING:
+    type FileListType = list[tuple[str, str | None]]
 script_version: int
 BYTECODE_VERSION: int
 RPYC_MAGIC: bytes

@@ -1,9 +1,0 @@
-{
-    "renpy_dir": "../renpy/",
-    "pyi_dir": "./src/",
-    "temp_dir": "./temp/",
-    "exclude_files": [
-        "renpy/pygame/compat.py",
-        "renpy/common/"
-    ],
-}

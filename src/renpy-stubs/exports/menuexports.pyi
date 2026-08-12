@@ -1,5 +1,7 @@
+from collections.abc import Sequence
+from typing import Any, Literal
+
 from renpy.exports.commonexports import renpy_pure as renpy_pure
-from typing import Any, Literal, Sequence
 
 def get_menu_args() -> tuple[tuple[Any, ...], dict[str, Any] | None]: ...
 def menu(
@@ -24,7 +26,7 @@ def display_menu(
     choice_chosen_style: str = "menu_choice_chosen",
     choice_button_style: str = "menu_choice_button",
     choice_chosen_button_style: str = "menu_choice_chosen_button",
-    scope: dict[str, Any] = (),
+    scope: dict[str, Any] = {},
     widget_properties: dict[str, Any] | None = None,
     screen: str = "choice",
     type: Literal["menu", "nvl"] = "menu",

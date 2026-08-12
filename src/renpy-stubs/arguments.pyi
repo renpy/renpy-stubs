@@ -1,18 +1,18 @@
-from _typeshed import Incomplete
 import argparse
-from typing import Callable
+from collections.abc import Callable
+from typing import Any
 
 commands: dict[str, Callable[[], bool]]
 display: dict[str, bool]
 compile_commands: set[str]
 
 class ArgumentParser(argparse.ArgumentParser):
-    group: "ArgumentParser"
+    group: ArgumentParser
     def __init__(
         self, second_pass: bool = True, description: str | None = None, require_command: bool = True
     ) -> None: ...
-    def add_argument(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
-    def parse_known_args(self, *args: Incomplete, **kwargs: Incomplete) -> tuple[argparse.Namespace, list[str]]: ...
+    def add_argument(self, *args: Any, **kwargs: Any) -> None: ...
+    def parse_known_args(self, *args: Any, **kwargs: Any) -> tuple[argparse.Namespace, list[str]]: ...
 
 def run() -> bool: ...
 def compile() -> bool: ...

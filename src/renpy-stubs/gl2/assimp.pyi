@@ -1,18 +1,18 @@
-from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from _typeshed import Incomplete
-
 import threading
-from typing import Any, Iterable
+from _frozen_importlib import BuiltinImporter as BuiltinImporter
+from collections.abc import Iterable
+from typing import TYPE_CHECKING, Any
 
 import renpy
 from renpy.gl2.gl2mesh3 import Mesh3
 
-Data = renpy.display.im.Data
-Displayable = renpy.display.displayable.Displayable
-GL2Model = renpy.gl2.gl2model.GL2Model
-Render = renpy.display.render.Render
-Matrix = renpy.display.matrix.Matrix
-type UniformValue = float | tuple[float, float] | tuple[float, float, float] | tuple[float, float, float, float]
+if TYPE_CHECKING:
+    from renpy.display.displayable import Displayable
+    from renpy.display.im import Data
+    from renpy.display.matrix import Matrix
+    from renpy.display.render import Render
+
+    type UniformValue = float | tuple[float, float] | tuple[float, float, float] | tuple[float, float, float, float]
 
 TEXTURE_TYPES: dict[str, int]
 
@@ -48,11 +48,11 @@ class GLTFModel(renpy.display.displayable.Displayable):
     def __init__(
         self,
         filename: str,
-        shader: str | tuple[str] = (),
+        shader: str | tuple[str, ...] = (),
         tangents: bool = False,
         zoom: float = 1.0,
         report: bool = False,
-        **kwargs: Incomplete,
+        **kwargs: Any,
     ) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
@@ -67,7 +67,7 @@ class Loader:
     mesh_info: dict[int, MeshInfo]
     tangents: bool
     shaders: Iterable[str | Displayable]
-    uniforms: set[Incomplete]
+    uniforms: set[str]
     textures: dict[tuple[int, int], Displayable | None]
     filename: str
     def get_material_uniforms(self, material_index: int) -> dict[str, UniformValue]: ...
@@ -96,7 +96,7 @@ class ModelData:
 
 cache: dict[GLTFModel, ModelData]
 predicted: set[GLTFModel] | None = None
-new_predicted: set[GLTFModel] = set()
+new_predicted: set[GLTFModel] = ...
 loader: Loader
 loader_lock: threading.Lock
 

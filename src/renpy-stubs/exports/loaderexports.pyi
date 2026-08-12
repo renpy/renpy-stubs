@@ -1,6 +1,7 @@
 import io
-from renpy.exports.commonexports import renpy_pure as renpy_pure
 from typing import IO, Literal, overload
+
+from renpy.exports.commonexports import renpy_pure as renpy_pure
 
 @renpy_pure
 def loadable(filename: str, directory: str | None = None, tl: bool = True) -> bool: ...

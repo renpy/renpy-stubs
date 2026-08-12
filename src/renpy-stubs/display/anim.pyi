@@ -1,22 +1,24 @@
+from collections.abc import Callable
+from typing import Any
+
 import renpy
-from _typeshed import Incomplete as Incomplete
 from renpy.curry import Partial as Partial
 from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import Placement as Placement
 from renpy.display.transition import Transition as Transition
 from renpy.types import DisplayableLike as DisplayableLike
-from typing import Callable
 
 class State:
     name: str
     image: Displayable | None
-    atlist: Callable[[Displayable | Incomplete], Displayable | Incomplete]
-    properties: Incomplete
+    atlist: tuple[Callable[[Displayable], Displayable], ...]
+    properties: Any
     def __init__(
         self,
         name: str,
         image: DisplayableLike | None,
-        *atlist: Callable[[Displayable | Incomplete], Displayable | Incomplete],
-        **properties: Incomplete,
+        *atlist: Callable[[Displayable], Displayable],
+        **properties: Any,
     ) -> None: ...
     def add(self, sma: SMAnimation) -> None: ...
     def get_image(self) -> Displayable: ...
@@ -37,7 +39,7 @@ class SMAnimation(renpy.display.displayable.Displayable):
     delay: float | None
     showold: bool
     anim_timebase: bool
-    properties: Incomplete
+    properties: Any
     initial: str
     states: dict[str, State]
     edges: dict[str, list[Edge]]
@@ -45,11 +47,11 @@ class SMAnimation(renpy.display.displayable.Displayable):
     edge_cache: Displayable | None
     edge: Edge | None
     state: str | None
-    def __init__(self, initial: str, *args: Edge, **properties: Incomplete) -> None: ...
+    def __init__(self, initial: str, *args: Edge, **properties: Any) -> None: ...
     def visit(self) -> list[Displayable | None]: ...
     def pick_edge(self, state: str) -> None: ...
     def update_cache(self) -> None: ...
-    def get_placement(self) -> Incomplete: ...
+    def get_placement(self) -> Placement: ...
     def render(self, width: float, height: float, st: float, at: float) -> renpy.display.render.Render: ...
     def __call__(
         self,
@@ -58,7 +60,9 @@ class SMAnimation(renpy.display.displayable.Displayable):
         old_widget: Displayable | None = None,
     ) -> SMAnimation: ...
 
-def Animation(*args: Incomplete, **kwargs: Incomplete) -> TransitionAnimation: ...
+def Animation(
+    *args: DisplayableLike | float | Callable[..., Transition] | None, **kwargs: Any
+) -> TransitionAnimation: ...
 
 class TransitionAnimation(renpy.display.displayable.Displayable):
     anim_timebase: bool
@@ -67,7 +71,7 @@ class TransitionAnimation(renpy.display.displayable.Displayable):
     delays: list[float]
     transitions: list[Callable[..., Transition] | None]
     def __init__(
-        self, *args: DisplayableLike | float | Callable[..., Transition] | None, **properties: Incomplete
+        self, *args: DisplayableLike | float | Callable[..., Transition] | None, **properties: Any
     ) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> renpy.display.render.Render | None: ...
     def visit(self) -> list[Displayable]: ...
@@ -94,10 +98,10 @@ class Blink(renpy.display.displayable.Displayable):
         low: float = 0.0,
         offset: float = 0.0,
         anim_timebase: bool = False,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def visit(self) -> list[Displayable]: ...
-    def render(self, height, width, st, at) -> Incomplete: ...
+    def render(self, height: float, width: float, st: float, at: float) -> renpy.display.render.Render: ...
 
 def Filmstrip(
     image: DisplayableLike,
@@ -106,5 +110,5 @@ def Filmstrip(
     delay: float,
     frames: int | None = None,
     loop: bool = True,
-    **properties: Incomplete,
-) -> Incomplete: ...
+    **properties: Any,
+) -> TransitionAnimation: ...

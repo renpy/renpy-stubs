@@ -1,13 +1,22 @@
-from _typeshed import Incomplete
+from collections.abc import Callable, Iterable
+from typing import TYPE_CHECKING, Any, Literal, Self
+
 import renpy
-import renpy.sl2.slast as slast
 from renpy.ast import NodeLocation as NodeLocation
 from renpy.lexer import Lexer as Lexer
 from renpy.object import Sentinel as Sentinel
+from renpy.sl2 import slast
 from renpy.styledata.stylesets import proxy_properties as proxy_properties
-from typing import Any, Callable, Iterable, Literal, Self
 
-type ParserAddType = "Positional | Keyword | Style | PrefixStyle | Parser | Sequence[Positional | Keyword | Style | PrefixStyle | Parser]"
+if TYPE_CHECKING:
+    type ParserAddType = (
+        Positional
+        | Keyword
+        | Style
+        | PrefixStyle
+        | Parser
+        | Sequence[Positional | Keyword | Style | PrefixStyle | Parser]
+    )
 STYLE_PREFIXES: list[str]
 parser: Parser | None
 statements: dict[str, Parser]
@@ -46,7 +55,6 @@ class Parser:
     children: dict[str, Parser]
     variable: bool
     def __init__(self, name: str, child_statement: bool = True) -> None: ...
-    def __repr__(self) -> str: ...
     def add(self, i: ParserAddType) -> None: ...
     def parse_statement(
         self, loc: NodeLocation, l: Lexer, layout_mode: bool = False, keyword: bool = True
@@ -75,7 +83,7 @@ def add(thing: ParserAddType) -> None: ...
 
 many: renpy.object.Sentinel
 
-def register_sl_displayable(*args: Incomplete, **kwargs: Incomplete) -> DisplayableParser: ...
+def register_sl_displayable(*args: Any, **kwargs: Any) -> DisplayableParser: ...
 
 class DisplayableParser(Parser):
     displayable: Callable[..., renpy.display.displayable.Displayable]

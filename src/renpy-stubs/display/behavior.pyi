@@ -1,18 +1,24 @@
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, Literal, Self
+
 import renpy
-from _typeshed import Incomplete as Incomplete
 from renpy.display.displayable import Displayable, Placement
-from renpy.display.layout import Container as Container, Null as Null, Window as Window
-from renpy.display.render import Render as Render, render as render
+from renpy.display.layout import Container as Container
+from renpy.display.layout import Null as Null
+from renpy.display.layout import Window as Window
+from renpy.display.render import Render as Render
+from renpy.display.render import render as render
 from renpy.object import Object as Object
 from renpy.pygame.event import EventType as EventType
 from renpy.python import AlwaysRollback as AlwaysRollback
 from renpy.style import StyleLike
 from renpy.text.text import Text as Text
-from renpy.types import DisplayableLike as DisplayableLike, Unused
-from typing import Any, Callable, Sequence, Literal, Self
+from renpy.types import DisplayableLike as DisplayableLike
+from renpy.types import Unused
 
-type KeysymType = str | list[str] | tuple[str, ...]
-type ActionType = renpy.ui.Action | Callable[..., Any] | Sequence[Callable[..., Any]]
+if TYPE_CHECKING:
+    type KeysymType = str | list[str] | tuple[str, ...]
+    type ActionType = renpy.ui.Action | Callable[..., Any] | Sequence[Callable[..., Any]]
 
 def compile_event(key: KeysymType | None, keydown: bool) -> str: ...
 
@@ -21,13 +27,13 @@ keyup_cache: dict[str | tuple[str, ...], Callable[..., bool]]
 
 def init_keymap() -> None: ...
 def clear_keymap_cache() -> None: ...
-def queue_event(name: KeysymType, up: bool = False, **kwargs: Incomplete) -> None: ...
+def queue_event(name: KeysymType, up: bool = False, **kwargs: Any) -> None: ...
 def map_event(ev: EventType, keysym: KeysymType) -> bool: ...
 def map_keyup(ev: EventType, keysym: KeysymType) -> bool: ...
 def skipping(ev: EventType) -> None: ...
 def inspector(ev: EventType) -> bool: ...
 def predict_action(var: ActionType) -> None: ...
-def run(action: ActionType | None, *args: Incomplete, **kwargs: Incomplete) -> Any: ...
+def run(action: ActionType | None, *args: Any, **kwargs: Any) -> Any: ...
 def run_unhovered(var: ActionType) -> None: ...
 def run_periodic(var: ActionType, st: float) -> Any: ...
 def get_tooltip(action: ActionType) -> Any | None: ...
@@ -51,7 +57,7 @@ class Keymap(renpy.display.layout.Null):
 
 class RollForward(renpy.display.layout.Null):
     value: Any
-    def __init__(self, value: Any, **properties: Incomplete) -> None: ...
+    def __init__(self, value: Any, **properties: Any) -> None: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
 
 class PauseBehavior(renpy.display.layout.Null):
@@ -68,18 +74,18 @@ class PauseBehavior(renpy.display.layout.Null):
         voice: bool = False,
         self_voicing: bool = False,
         modal: bool | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
 
 class PredictPauseBehavior(renpy.display.layout.Null):
-    def __init__(self, **properties: Incomplete) -> None: ...
+    def __init__(self, **properties: Any) -> None: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
 
 class SoundStopBehavior(renpy.display.layout.Null):
     channel: str
     result: bool
-    def __init__(self, channel: str, result: bool = False, **properties: Incomplete) -> None: ...
+    def __init__(self, channel: str, result: bool = False, **properties: Any) -> None: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
 
 class SayBehavior(renpy.display.layout.Null):
@@ -98,7 +104,7 @@ class SayBehavior(renpy.display.layout.Null):
         allow_dismiss: Callable[[], bool] | None = None,
         dismiss_unfocused: str | list[str] | tuple[str] = ["dismiss_unfocused"],
         dialogue_pause: float | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def _tts_all(self, raw: bool) -> str: ...
     def set_text(self, *args: renpy.text.text.Text) -> None: ...
@@ -156,7 +162,7 @@ class Button(renpy.display.layout.Window):
         sensitive: bool | None = None,
         keysym: KeysymType | None = None,
         alternate_keysym: KeysymType | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def _get_tooltip(self) -> Any | None: ...
     def _in_current_store(self) -> Self: ...
@@ -174,11 +180,11 @@ class Button(renpy.display.layout.Window):
     def _tts_all(self, raw: bool) -> str: ...
 
 def TextButton(
-    text: Incomplete,
+    text: str,
     style: StyleLike = "button",
     text_style: StyleLike = "button_text",
     clicked: ActionType | None = None,
-    **properties: Incomplete,
+    **properties: Any,
 ) -> Button: ...
 
 class ImageButton(Button):
@@ -198,7 +204,7 @@ class ImageButton(Button):
         style: StyleLike = "image_button",
         clicked: ActionType | None = None,
         hovered: ActionType | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def visit(self) -> list[Displayable]: ...
     def get_child(self) -> Displayable | None: ...
@@ -209,10 +215,10 @@ class HoveredProxy:
     def __init__(self, a: Callable[[], None], b: Callable[[], Any] | None) -> None: ...
     def __call__(self) -> Any: ...
 
-current_input_value: Incomplete | None
+current_input_value: renpy.store.InputValue | None
 input_value_active: bool
-default_input_value: Incomplete | None
-input_values: list[Incomplete]
+default_input_value: renpy.store.InputValue | None
+input_values: list[renpy.store.InputValue]
 inputs: list[Input]
 
 def input_pre_per_interact() -> None: ...
@@ -223,7 +229,7 @@ class CaretBlink(renpy.display.displayable.Displayable):
     caret_blink: float
     st: float
     st_base: float
-    def __init__(self, caret: DisplayableLike, caret_blink: float, **properties: Incomplete) -> None: ...
+    def __init__(self, caret: DisplayableLike, caret_blink: float, **properties: Any) -> None: ...
     def get_placement(self) -> Placement: ...
     def visit(self) -> list[Displayable]: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
@@ -237,7 +243,7 @@ class Input(renpy.text.text.Text):
     pixel_width: float | None
     default: str
     edit_text: str
-    value: Incomplete
+    value: renpy.store.InputValue | None
     shown: bool
     multiline: bool
     action: ActionType
@@ -264,13 +270,13 @@ class Input(renpy.text.text.Text):
         replaces: Self | None = None,
         editable: bool = True,
         pixel_width: float | None = None,
-        value: Incomplete | None = None,
+        value: renpy.store.InputValue | None = None,
         copypaste: bool = False,
         caret_blink: float | None = None,
         multiline: bool = False,
         action: ActionType | None = None,
         arrowkeys: bool = True,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def update_text(self, new_content: str, editable: bool, check_size: bool = False) -> None: ...
     def set_style_prefix(self, prefix: str, root: bool) -> None: ...
@@ -281,7 +287,7 @@ class Input(renpy.text.text.Text):
     def get_caret_above_below_pos(self) -> tuple[int | None, int | None]: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
-adj_registered: dict["Adjustment", list["Displayable"]]
+adj_registered: dict[Adjustment, list[Displayable]]
 
 class Adjustment(renpy.object.Object):
     force_step: Literal["release"] | bool
@@ -338,10 +344,10 @@ class Adjustment(renpy.object.Object):
 class Bar(renpy.display.displayable.Displayable):
     _store_transform_event: bool
     @property
-    def _draggable(self) -> Incomplete: ...
+    def _draggable(self) -> bool: ...
     __version__: int
-    adjustment: Incomplete
-    value: Incomplete
+    adjustment: Adjustment
+    value: renpy.ui.BarValue | None
     def after_upgrade(self, version: int) -> None: ...
     focusable: bool
     thumb_dim: int
@@ -361,14 +367,14 @@ class Bar(renpy.display.displayable.Displayable):
         adjustment: Adjustment | None = None,
         step: int | float | None = None,
         page: int | float | None = None,
-        bar: Incomplete = None,
+        bar: Any = None,
         style: StyleLike = None,
         vertical: bool = False,
         replaces: Self | None = None,
         hovered: ActionType | None = None,
         unhovered: ActionType | None = None,
         released: ActionType | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def per_interact(self) -> None: ...
     def visit(self) -> list[Displayable]: ...
@@ -383,8 +389,8 @@ class Bar(renpy.display.displayable.Displayable):
 class Conditional(renpy.display.layout.Container):
     condition: str
     null: renpy.display.layout.Null
-    state: Incomplete
-    def __init__(self, condition: str, *args: Incomplete, **properties: Incomplete) -> None: ...
+    state: bool
+    def __init__(self, condition: str, *args: DisplayableLike, **properties: Any) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
 
@@ -397,7 +403,7 @@ class Timer(renpy.display.layout.Null):
     started: bool
     _box_skip: bool
     modal: bool
-    state: Incomplete
+    state: TimerState
     def after_upgrade(self, version: int) -> None: ...
     delay: float
     repeat: bool
@@ -414,7 +420,7 @@ class Timer(renpy.display.layout.Null):
         kwargs: dict[str, Any] = {},
         replaces: Self | None = None,
         modal: bool | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
@@ -431,7 +437,7 @@ class MouseArea(renpy.display.displayable.Displayable):
         hovered: ActionType | None = None,
         unhovered: ActionType | None = None,
         replaces: Self | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
     def event(self, ev: EventType, x: float, y: float, st: float) -> Any | None: ...
@@ -464,7 +470,7 @@ class AreaPicker(renpy.display.layout.Container):
         changed: Callable[[tuple[int, int, int, int]], None] | None = None,
         finished: Callable[[tuple[int, int, int, int]], None] | None = None,
         persist: bool = False,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def round_to_grid(
         self, x: float, y: float, current: tuple[float, float, float, float] | None
@@ -488,7 +494,7 @@ class WebInput(renpy.display.displayable.Displayable):
         allow: str | None = None,
         exclude: str = "{}",
         mask: bool = False,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     @staticmethod
     def pre_find_focusable() -> None: ...

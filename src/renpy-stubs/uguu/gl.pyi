@@ -1,5 +1,5 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from typing import Sequence
+from collections.abc import Sequence
 
 def check_missing_functions(required: Sequence[str]) -> bool: ...
 def clear_missing_functions() -> None: ...

@@ -1,5 +1,6 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from io import IOBase
+
 from renpy.pygame.surface import Surface as Surface
 
 def get_extended() -> bool: ...

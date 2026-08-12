@@ -1,11 +1,11 @@
-from typing import Any, Callable, Generator, overload, Iterable
-from _typeshed import Incomplete as Incomplete
+from typing import Any, Callable, Generator, overload, Iterable, Sequence, TYPE_CHECKING
 
 import renpy
 from renpy.color import Color as Color, ColorLike as ColorLike
 from renpy.display.displayable import Displayable, Placement, DisplayableArguments
 from renpy.display.matrix import Matrix2D as Matrix2D
 from renpy.display.render import Render as Render
+from renpy.gl2.gl2mesh2 import Mesh2 as Mesh2
 from renpy.gl2.gl2polygon import Polygon as Polygon
 from renpy.gl2.gl2texture import GLTexture as GLTexture
 from renpy.pygame.event import EventType as EventType
@@ -24,9 +24,10 @@ from renpy.text.emoji_trie import UNQUALIFIED as UNQUALIFIED, emoji as emoji
 from renpy.text.shader import TextShader as TextShader
 from renpy.text.textsupport import DISPLAYABLE, PARAGRAPH, TAG, TEXT, Glyph, Line
 
-type Token = tuple[int, str | Displayable]
-type Outline = tuple[int, renpy.color.ColorLike | None, int, int]
-type Paragraph = list[tuple[TextSegment | SpaceSegment | DisplayableSegment | FlagSegment, str]]
+if TYPE_CHECKING:
+    type Token = tuple[int, str | Displayable]
+    type Outline = tuple[int, renpy.color.ColorLike | None, int, int]
+    type Paragraph = list[tuple[TextSegment | SpaceSegment | DisplayableSegment | FlagSegment, str]]
 
 BASELINE: int
 READING_ORDER: dict[str | None, int]
@@ -59,7 +60,7 @@ class TextMeshDisplayable(renpy.display.core.Displayable):
     height: float
     tex: Render | Surface
     shader: list[str]
-    mesh: Incomplete
+    mesh: Mesh2
     uniforms: list[tuple[str, Any, bool]]
     def __init__(
         self,
@@ -67,7 +68,7 @@ class TextMeshDisplayable(renpy.display.core.Displayable):
         height: float,
         tex: Render | Surface,
         shader: list[str],
-        mesh: Incomplete,
+        mesh: Mesh2,
         uniforms: list[tuple[str, Any, bool]],
     ) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
@@ -78,7 +79,7 @@ class DrawInfo:
     surface: Surface | None
     override_color: tuple[int, int, int, int] | None
     outline: float
-    displayable_blits: list[tuple[Displayable, int, int]] | None
+    displayable_blits: list[tuple[Displayable, int, int, int, int, int, float]] | None
 
 class TextSegment:
     antialias: bool
@@ -159,6 +160,7 @@ class Layout:
     line_overlap_split: int
     has_hyperlinks: bool
     has_ruby: bool
+    safe: bool
     start_segment: FlagSegment | None
     end_segment: FlagSegment | None
     paragraph_glyphs: list[list[Glyph]]
@@ -181,7 +183,7 @@ class Layout:
     add_bottom: int
     textures: dict[tuple[int, renpy.color.ColorLike | None], Render | Surface]
     mesh_displayables: list[tuple[int, int, int, TextMeshDisplayable]]
-    displayable_blits: list[tuple[Displayable, int, int]]
+    displayable_blits: list[tuple[Displayable, int, int, int, int, int, float]]
     redraw: float | None
     redraw_when_slow: float
     max_time: float
@@ -262,6 +264,8 @@ class Text(renpy.display.displayable.Displayable):
     substitute: bool
     start: int | None
     end: int | None
+    afm_start: int | None
+    safe: bool
     dirty: bool
     tokens: list[Token]
     def after_upgrade(self, version: int) -> None: ...
@@ -279,9 +283,10 @@ class Text(renpy.display.displayable.Displayable):
         replaces: Text | None = None,
         mask: str | None = None,
         tokenized: bool = False,
-        **properties: Incomplete,
+        safe: bool = False,
+        **properties: Any,
     ) -> None: ...
-    def _duplicate(self, args: DisplayableArguments | None) -> Text: ...
+    def _duplicate(self, args: DisplayableArguments | None = None) -> Text: ...
     def _in_current_store(self) -> Text: ...
     def _repr_info(self) -> str: ...
     def get_all_text(self) -> str: ...
@@ -297,9 +302,9 @@ class Text(renpy.display.displayable.Displayable):
     def per_interact(self) -> None: ...
     def set_ctc(self, ctc: Displayable | Iterable[str | Displayable] | None) -> None: ...
     def set_last_ctc(self, last_ctc: Displayable | Iterable[str | Displayable] | None) -> None: ...
-    focusable: bool
+    focusable: bool | None
     def update(self) -> None: ...
-    def visit(self) -> list[Displayable]: ...
+    def visit(self) -> Sequence[Displayable | None]: ...
     def _tts(self, raw: bool) -> str: ...
     _tts_all = _tts
     def kill_layout(self) -> None: ...

@@ -1,10 +1,11 @@
-import renpy
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
+from collections.abc import Callable
+
+import renpy
 from _typeshed import Incomplete as Incomplete
-from renpy.types import Position as Position
-from renpy.display.position import absolute as absolute
 from renpy.display.matrix import Matrix as Matrix
-from typing import Callable
+from renpy.display.position import absolute as absolute
+from renpy.types import Position as Position
 
 class Style(renpy.style.StyleCore):
     additive: float

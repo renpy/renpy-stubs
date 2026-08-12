@@ -1,6 +1,7 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from renpy.types import Unused
+
 from renpy.pygame.surface import Surface
+from renpy.types import Unused
 
 class ColorCursor:
     def __init__(self, surface: Surface, x: int, y: int) -> None: ...

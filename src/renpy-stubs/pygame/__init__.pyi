@@ -1,6 +1,7 @@
+from collections.abc import Callable
+
 from renpy.pygame.error import *
 from renpy.pygame.locals import *
-from typing import Callable
 
 init_functions: list[Callable[[], None]]
 quit_functions: list[Callable[[], None]]

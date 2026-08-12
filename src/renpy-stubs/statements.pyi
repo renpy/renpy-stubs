@@ -1,33 +1,36 @@
-from _typeshed import Incomplete as Incomplete
+from collections.abc import Callable
+from typing import Any
 
-registry: Incomplete
-parsers: Incomplete
+import renpy
+
+registry: dict[str, dict[str, Any]]
+parsers: renpy.parser.ParseTrie
 
 def register(
-    name: Incomplete,
-    parse: Incomplete = None,
-    lint: Incomplete = None,
-    execute: Incomplete = None,
-    predict: Incomplete = None,
-    next: Incomplete = None,
-    scry: Incomplete = None,
-    block: bool = False,
+    name: str,
+    parse: Callable | None = None,
+    lint: Callable | None = None,
+    execute: Callable | None = None,
+    predict: Callable | None = None,
+    next: Callable | None = None,
+    scry: Callable | None = None,
+    block: bool | str = False,
     init: bool = False,
     translatable: bool = False,
-    execute_init: Incomplete = None,
-    init_priority: int = 0,
-    label: Incomplete = None,
-    warp: Incomplete = None,
-    translation_strings: Incomplete = None,
+    execute_init: Callable | None = None,
+    init_priority: int | Callable = 0,
+    label: Callable | None = None,
+    warp: Callable | None = None,
+    translation_strings: Callable | None = None,
     force_begin_rollback: bool = False,
-    post_execute: Incomplete = None,
-    post_label: Incomplete = None,
+    post_execute: Callable | None = None,
+    post_label: Callable | None = None,
     predict_all: bool = True,
-    predict_next: Incomplete = None,
-    execute_default: Incomplete = None,
-    reachable: Incomplete = None,
-) -> Incomplete: ...
-def parse(node: Incomplete, line: Incomplete, subblock: Incomplete) -> Incomplete: ...
-def call(method: Incomplete, parsed: Incomplete, *args: Incomplete, **kwargs: Incomplete) -> Incomplete: ...
-def get(key: Incomplete, parsed: Incomplete) -> Incomplete: ...
-def get_name(parsed: Incomplete) -> Incomplete: ...
+    predict_next: Callable | None = None,
+    execute_default: Callable | None = None,
+    reachable: Callable | None = None,
+) -> None: ...
+def parse(node: renpy.ast.Node, line: str, subblock: list[Any]) -> tuple[str, Any]: ...
+def call(method: str, parsed: tuple[str, Any], *args: Any, **kwargs: Any) -> Any: ...
+def get(key: str, parsed: tuple[str, Any]) -> Any: ...
+def get_name(parsed: tuple[str, Any]) -> str: ...

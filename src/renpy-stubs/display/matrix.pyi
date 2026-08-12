@@ -1,5 +1,6 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from typing import Literal, Sequence, Self, overload, Callable
+from collections.abc import Callable, Sequence
+from typing import Literal, Self, overload
 
 class Matrix:
     def __init__(self, l: Sequence[float]) -> None: ...

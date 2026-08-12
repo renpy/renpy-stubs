@@ -1,4 +1,5 @@
-from _typeshed import Incomplete
+from typing import TYPE_CHECKING, Any, Literal
+
 import renpy
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.focus import Focus as Focus
@@ -14,19 +15,27 @@ from renpy.test.types import (
     RenpyTestScreenshotError as RenpyTestScreenshotError,
     RenpyTestTimeoutError as RenpyTestTimeoutError,
 )
-from typing import Any, Literal
 
 class SelectorException(RenpyTestException): ...
 
-type DefaultNodeState = int
+if TYPE_CHECKING:
+    type DefaultNodeState = int
+    type DragState = tuple[tuple[int, int], tuple[int, int], int]
+    type TypeState = int
+    type PauseState = tuple[float, float]
+    type AdvanceState = str
+    type SkipState = Literal[True]
+    type BinaryState = bool
+    type UntilState = tuple[float, Any, float, bool]
+    type AssertState = float
+    type ScreenshotState = str
 
 class Node[T: NodeState]:
     __slots__: str | tuple[str, ...]
-    next: "Node | None"
+    next: Node | None
     done: bool
     def __init__(self, loc: NodeLocation) -> None: ...
     def __eq__(self, other: object) -> bool: ...
-    def __repr__(self) -> str: ...
     def chain(self, next: Node | None) -> None: ...
     def get_repr_params(self) -> str: ...
     def restart(self) -> None: ...
@@ -200,7 +209,6 @@ class DisplayableSelector(Selector):
     def get_element(self) -> Displayable | None: ...
     def get_displayable(self) -> Displayable | None: ...
     def element_not_found_during_perform(self) -> None: ...
-    def __str__(self) -> str: ...
 
 class TextSelector(Selector):
     __slots__: str | tuple[str, ...]
@@ -237,8 +245,6 @@ class Scroll(SelectorDrivenNode[DefaultNodeState]):
     amount: int
     def perform(self, x: int, y: int, state: DefaultNodeState, t: float) -> DefaultNodeState | None: ...
 
-type DragState = tuple[tuple[int, int], tuple[int, int], int]
-
 class Drag(Node[DragState]):
     __slots__: str | tuple[str, ...]
     start_point: SelectorDrivenNode
@@ -257,19 +263,17 @@ class Drag(Node[DragState]):
     def start(self) -> DragState: ...
     def execute(self, state: DragState, t: float) -> DragState | None: ...
 
-type TypeState = int
-
 class Type(SelectorDrivenNode[TypeState]):
     __slots__: str | tuple[str, ...]
     text: str
-    def __init__(self, loc: NodeLocation, text: str, **kwargs: Incomplete) -> None: ...
+    def __init__(self, loc: NodeLocation, text: str, **kwargs: Any) -> None: ...
     def start(self) -> TypeState: ...
     def perform(self, x: int, y: int, state: TypeState, t: float) -> TypeState | None: ...
 
 class Keysym(SelectorDrivenNode[DefaultNodeState]):
     __slots__: str | tuple[str, ...]
     keysym: str
-    def __init__(self, loc: NodeLocation, keysym: str, **kwargs: Incomplete) -> None: ...
+    def __init__(self, loc: NodeLocation, keysym: str, **kwargs: Any) -> None: ...
     def perform(self, x: int, y: int, state: DefaultNodeState, t: float) -> DefaultNodeState | None: ...
 
 class Action(Node[DefaultNodeState]):
@@ -278,8 +282,6 @@ class Action(Node[DefaultNodeState]):
     def __init__(self, loc: NodeLocation, expr: str) -> None: ...
     def ready(self) -> bool: ...
     def execute(self, state: DefaultNodeState, t: float) -> DefaultNodeState | None: ...
-
-type PauseState = tuple[float, float]
 
 class Pause(Node[PauseState]):
     __slots__: str | tuple[str, ...]
@@ -312,19 +314,15 @@ class RepeatCounter(Condition[DefaultNodeState]):
 
 class Pass(Node[DefaultNodeState]): ...
 
-type AdvanceState = str
-
 class Advance(Node[AdvanceState]):
     last_event: str
     last_kwargs: dict[str, Any]
     began_newline: bool
     @staticmethod
-    def character_callback(event: str, **kwargs: Incomplete) -> None: ...
+    def character_callback(event: str, **kwargs: Any) -> None: ...
     def ready(self) -> bool: ...
     def start(self) -> AdvanceState: ...
     def execute(self, state: AdvanceState, t: float) -> AdvanceState | None: ...
-
-type SkipState = Literal[True]
 
 class Skip(Node[SkipState]):
     __slots__: str | tuple[str, ...]
@@ -339,8 +337,6 @@ class Not(Condition):
     condition: Condition
     def __init__(self, loc: NodeLocation, condition: Condition) -> None: ...
     def ready(self) -> bool: ...
-
-type BinaryState = bool
 
 class Binary(Condition[BinaryState]):
     __slots__: str | tuple[str, ...]
@@ -374,8 +370,6 @@ class Or(Binary):
     right_state: NodeState | None
     def execute(self, state: BinaryState, t: float) -> BinaryState | None: ...
 
-type UntilState = tuple[float, Any, float, bool]
-
 class Until(Node[UntilState]):
     __slots__: str | tuple[str, ...]
     left: Node
@@ -407,8 +401,6 @@ class Python(Node[DefaultNodeState]):
     def __init__(self, loc: NodeLocation, source: str, hide: bool = False) -> None: ...
     def execute(self, state: DefaultNodeState, t: float) -> DefaultNodeState | None: ...
 
-type AssertState = float
-
 class Assert(Node[AssertState]):
     __slots__: str | tuple[str, ...]
     condition: Condition
@@ -423,8 +415,6 @@ class Assert(Node[AssertState]):
     def cleanup_after_error(self, state: AssertState) -> None: ...
     @property
     def xfail(self) -> bool: ...
-
-type ScreenshotState = str
 
 class Screenshot(Node[ScreenshotState]):
     __slots__: str | tuple[str, ...]

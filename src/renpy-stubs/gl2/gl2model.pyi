@@ -1,5 +1,6 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from typing import Any
+
 from renpy.display.matrix import Matrix
 from renpy.gl2.gl2mesh import Mesh
 from renpy.gl2.gl2texture import Texture

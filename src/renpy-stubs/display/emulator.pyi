@@ -1,6 +1,7 @@
+from collections.abc import Callable
+
 from renpy.display.displayable import Displayable as Displayable
 from renpy.pygame.event import EventType as EventType
-from typing import Callable
 
 emulator: Callable[[EventType, int, int], tuple[EventType | None, int, int]] | None
 overlay: list[Displayable]

@@ -1,9 +1,12 @@
-from _typeshed import Incomplete
+from collections.abc import Callable
+from typing import Any, Literal
+
 import renpy
-import renpy.pygame as pygame
+from _typeshed import Incomplete
+from renpy import pygame
+from renpy.display.behavior import Adjustment as Adjustment
 from renpy.display.layout import Container as Container
 from renpy.types import DisplayableLike as DisplayableLike
-from typing import Callable, Literal
 
 def edgescroll_proportional(n: float) -> float: ...
 
@@ -13,15 +16,15 @@ class Viewport(renpy.display.layout.Container):
     pagekeys: bool
     _draggable: bool
     drag_position_time: float | None
-    xadjustment: renpy.ui.Adjustment | None
-    yadjustment: renpy.ui.Adjustment | None
+    xadjustment: Adjustment | None
+    yadjustment: Adjustment | None
     set_adjustments: bool
     mousewheel: bool
     draggable: bool
     width: int
     height: int
-    drag_position: tuple[float, float] | None
-    edge_size: bool
+    drag_position: tuple[int, int] | None
+    edge_size: bool | tuple[float, float]
     edge_speed: Literal[False] | float
     edge_function: Callable[[float], float] | None
     edge_xspeed: int
@@ -37,8 +40,8 @@ class Viewport(renpy.display.layout.Container):
         child: DisplayableLike | None = None,
         child_size: tuple[int | None, int | None] = (None, None),
         offsets: tuple[int | None, int | None] = (None, None),
-        xadjustment: renpy.ui.Adjustment | None = None,
-        yadjustment: renpy.ui.Adjustment | None = None,
+        xadjustment: Adjustment | None = None,
+        yadjustment: Adjustment | None = None,
         set_adjustments: bool = True,
         mousewheel: bool = False,
         draggable: bool = False,
@@ -51,7 +54,7 @@ class Viewport(renpy.display.layout.Container):
         replaces: Viewport | None = None,
         arrowkeys: bool = False,
         pagekeys: bool = False,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def per_interact(self) -> None: ...
     def set_style_prefix(self, prefix: str, root: bool) -> None: ...
@@ -76,7 +79,7 @@ class VPGrid(Viewport):
         transpose: bool | None = None,
         style: str = "vpgrid",
         allow_underfull: bool | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     width: int
     height: int

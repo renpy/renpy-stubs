@@ -1,6 +1,10 @@
-from renpy.text.textsupport import DISPLAYABLE as DISPLAYABLE, PARAGRAPH as PARAGRAPH, TAG as TAG
+from collections.abc import Iterable
+from typing import Any
+
 from renpy.display.displayable import DisplayableArguments as DisplayableArguments
-from typing import Iterable, Any
+from renpy.text.textsupport import DISPLAYABLE as DISPLAYABLE
+from renpy.text.textsupport import PARAGRAPH as PARAGRAPH
+from renpy.text.textsupport import TAG as TAG
 
 text_tags: dict[str, bool]
 

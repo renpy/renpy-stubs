@@ -1,5 +1,7 @@
 from typing import Any, Literal, overload
 
+from _typeshed import Incomplete
+
 proxies: dict[str, str]
 
 class FetchError(Exception):
@@ -50,3 +52,22 @@ def fetch(
     params: dict[str, str] | None = None,
     headers: dict[str, str] = {},
 ) -> dict[str, Any]: ...
+
+class FetchProgress:
+    data: bytes
+    upload_expected: Incomplete
+    upload_current: int
+    offset: int
+    download_expected: int
+    download_current: int
+    monitoring_download: bool
+    def __init__(self, data) -> None: ...
+    def __len__(self) -> int: ...
+    def read(self, size: int = -1): ...
+    def get_progress(self): ...
+
+active_fetch_requests: set[FetchProgress]
+
+def get_fetch_requests_progress() -> float: ...
+def get_fetch_emscripten_progress() -> float: ...
+def get_fetch_progress() -> float: ...

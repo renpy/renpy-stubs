@@ -1,6 +1,7 @@
 import re
 import string
-from typing import Any, Generator, Literal, MutableMapping, overload
+from collections.abc import Generator, MutableMapping
+from typing import Any, Literal, overload
 
 update_translations: bool
 flags: frozenset

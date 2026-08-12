@@ -2,10 +2,13 @@
 name = "renpy-stubs"
 version = "0.0.1"
 description = "Type stubs for Ren'Py"
-requires-python = "==3.12.*"
+requires-python = ">=3.12"
 
-[dependency-groups]
-dev = ["pre-commit"]
+dependencies = [
+    "mypy",
+    "ruff",
+    "pytype",
+]
 
 [build-system]
 requires = ["hatchling"]

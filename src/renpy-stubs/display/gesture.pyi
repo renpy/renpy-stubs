@@ -1,5 +1,6 @@
-from renpy.pygame.event import EventType as EventType
 from typing import Any
+
+from renpy.pygame.event import EventType as EventType
 
 DIRECTIONS: list[str]
 

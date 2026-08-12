@@ -1,6 +1,8 @@
 import threading
 from typing import BinaryIO
-from . import common as common, download as download
+
+from . import common as common
+from . import download as download
 
 class BlockGenerator:
     lock: threading.Lock

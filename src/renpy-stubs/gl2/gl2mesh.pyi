@@ -1,5 +1,5 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from typing import Sequence
+from collections.abc import Sequence
 
 class AttributeLayout:
     offset: dict[str, int]

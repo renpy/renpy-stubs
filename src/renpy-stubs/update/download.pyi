@@ -1,6 +1,8 @@
-from typing import BinaryIO, Callable, MutableMapping
+from collections.abc import Callable, MutableMapping
+from typing import TYPE_CHECKING, BinaryIO
 
-type Range = tuple[int, int]
+if TYPE_CHECKING:
+    type Range = tuple[int, int]
 
 def byte_ranges(ranges: list[Range]) -> list[Range]: ...
 def write_range(f: BinaryIO, headers: MutableMapping[str, str], content: bytes) -> list[Range]: ...

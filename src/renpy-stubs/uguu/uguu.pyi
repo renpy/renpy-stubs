@@ -1,21 +1,23 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from typing import Sequence
+from collections.abc import Sequence
+from typing import TYPE_CHECKING
 
-type GLenum = int
-type GLuint = int
-type GLint = int
-type GLbitfield = int
-type GLsizei = int
+if TYPE_CHECKING:
+    type GLenum = int
+    type GLuint = int
+    type GLint = int
+    type GLbitfield = int
+    type GLsizei = int
 
-type GLenum_ptr = int
-type GLuint_ptr = int
-type GLint_ptr = int
-type GLbitfield_ptr = int
-type GLsizei_ptr = int
-type str_ptr = str
-type float_ptr = float
-type GLvoid_ptr = int
-type GLvoid_ptr_ptr = int
+    type GLenum_ptr = int
+    type GLuint_ptr = int
+    type GLint_ptr = int
+    type GLbitfield_ptr = int
+    type GLsizei_ptr = int
+    type str_ptr = str
+    type float_ptr = float
+    type GLvoid_ptr = int
+    type GLvoid_ptr_ptr = int
 
 class Buffer:
     def __buffer__(self, flags: int) -> memoryview: ...

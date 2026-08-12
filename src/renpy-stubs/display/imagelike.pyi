@@ -1,11 +1,14 @@
-import renpy
-from renpy.display.displayable import Displayable as Displayable, DisplayableArguments as DisplayableArguments
-from renpy.display.matrix import Matrix2D as Matrix2D
-from renpy.display.render import Render as Render, render as render
-from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
+from collections.abc import Callable
+from typing import Any, Literal, Self
 
-from _typeshed import Incomplete
-from typing import Callable, Self, Literal
+import renpy
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import DisplayableArguments as DisplayableArguments
+from renpy.display.matrix import Matrix2D as Matrix2D
+from renpy.display.render import Render as Render
+from renpy.display.render import render as render
+from renpy.types import DisplayableLike as DisplayableLike
+from renpy.types import Unused as Unused
 
 class Solid(Displayable):
     color: renpy.color.Color | None
@@ -62,9 +65,8 @@ class Frame(Displayable):
         bilinear: bool = True,
         tile: bool | Literal["integer"] = False,
         tile_ratio: float = 0.5,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
-    def __repr__(self) -> str: ...
     def __eq__(self, o: object) -> bool: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
     def draw_pattern(
@@ -73,7 +75,7 @@ class Frame(Displayable):
     def sw_render(
         self, crend: Render, dw: float, dh: float, left: float, top: float, right: float, bottom: float
     ) -> Render: ...
-    def _duplicate(self, args: DisplayableArguments | None) -> Frame: ...
+    def _duplicate(self, args: DisplayableArguments | None = None) -> Frame: ...
     def _unique(self) -> None: ...
     def _in_current_store(self) -> Self: ...
     def visit(self) -> list[Displayable]: ...

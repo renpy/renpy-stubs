@@ -1,5 +1,6 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from builtins import bytes as bytes
+
 from renpy.types import Unused
 
 def contains(type: int) -> bool: ...

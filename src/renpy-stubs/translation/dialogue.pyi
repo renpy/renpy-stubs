@@ -1,5 +1,6 @@
-from renpy.translation import quote_unicode as quote_unicode
 from typing import TextIO
+
+from renpy.translation import quote_unicode as quote_unicode
 
 def create_dialogue_map(language: str) -> dict[str, str]: ...
 def notags_filter(s: str) -> str: ...

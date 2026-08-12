@@ -1,5 +1,8 @@
-import renpy.test.testreporter as testreporter
+from collections.abc import Callable
+from typing import Any
+
 from renpy.error import FrameSummary as FrameSummary
+from renpy.test import testreporter
 from renpy.test.testast import (
     BaseTestBlock as BaseTestBlock,
     Exit as Exit,
@@ -15,7 +18,6 @@ from renpy.test.types import (
     NodeState as NodeState,
     RenpyTestTimeoutError as RenpyTestTimeoutError,
 )
-from typing import Any, Callable
 
 initialized: bool
 global_testsuite_name: str
@@ -119,6 +121,7 @@ class NextTestTransitionPhase(BaseExecutionPhase):
     def update(self) -> BaseExecutionPhase | None: ...
 
 class BeforeTestSuitePhase(HookLoopPhase):
+    reverse: bool
     def __init__(self) -> None: ...
 
 class AddSubSuitePhase(BaseExecutionPhase):
@@ -130,6 +133,7 @@ class SuiteSetupPhase(HookPhase):
     def update(self) -> BaseExecutionPhase | None: ...
 
 class BeforeTestCasePhase(HookLoopPhase):
+    reverse: bool
     def __init__(self) -> None: ...
 
 class TestCasePhase(BaseExecutionPhase):
@@ -138,6 +142,7 @@ class TestCasePhase(BaseExecutionPhase):
     def update(self) -> BaseExecutionPhase | None: ...
 
 class AfterTestCasePhase(HookLoopPhase):
+    reverse: bool
     def __init__(self) -> None: ...
 
 class TestCaseParameterCyclePhase(BaseExecutionPhase):
@@ -153,6 +158,7 @@ class RemoveSubSuitePhase(BaseExecutionPhase):
     def update(self) -> BaseExecutionPhase | None: ...
 
 class AfterTestSuitePhase(HookLoopPhase):
+    reverse: bool
     def __init__(self) -> None: ...
 
 class TestSuiteParameterCyclePhase(BaseExecutionPhase):
@@ -162,3 +168,8 @@ class GlobalParameterCyclePhase(BaseExecutionPhase):
     def update(self) -> BaseExecutionPhase | None: ...
 
 def test_command() -> bool: ...
+
+control_frame_stack: list[ControlFrame]
+
+def pop_control_frame(control_frame: ControlFrame | None = None) -> ControlFrame: ...
+def push_control_frame(control_frame: ControlFrame) -> None: ...

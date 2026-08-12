@@ -1,7 +1,8 @@
-from renpy.types import Unused as Unused
-from renpy.pygame.surface import Surface as PygameSurface
-from io import IOBase
 import threading
+from io import IOBase
+
+from renpy.pygame.surface import Surface as PygameSurface
+from renpy.types import Unused as Unused
 
 sample_alpha: PygameSurface | None
 sample_noalpha: PygameSurface | None

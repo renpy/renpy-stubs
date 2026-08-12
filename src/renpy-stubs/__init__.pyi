@@ -1,15 +1,17 @@
-from _typeshed import Incomplete as Incomplete
-from typing import Any, NamedTuple
+from collections.abc import Callable
+from typing import Any, NamedTuple, TypeVar, overload
+
+T = TypeVar("T")
 
 libexec: str
 
 class _LibExecFinder:
     in_find_spec: bool
     def __init__(self) -> None: ...
-    def find_spec(self, fullname: str, path, target=None, /) -> Incomplete: ...
+    def find_spec(self, fullname: str, path: Any | None = None, target: Any | None = None, /) -> Any | None: ...
 
-__path__: Incomplete
-version_dict: Incomplete
+__path__: list[str]
+version_dict: dict[str, Any]
 official: bool
 nightly: bool
 version_name: str
@@ -21,7 +23,7 @@ class VersionTuple(NamedTuple):
     patch: int
     commit: int
 
-version_tuple: Incomplete
+version_tuple: VersionTuple
 version: str
 script_version: int
 savegame_suffix: str
@@ -32,33 +34,38 @@ linux: bool
 android: bool
 ios: bool
 emscripten: bool
-experimental: Incomplete
+experimental: bool
 arch: str
 mobile: bool
 macapp: bool
 safe_mode_checked: bool
 autoreload: bool
 session: dict[str, Any]
-backup_blacklist: Incomplete
-type_blacklist: Incomplete
-name_blacklist: Incomplete
+backup_blacklist: set[str]
+type_blacklist: tuple[type, ...]
+name_blacklist: set[str]
 
 class Backup:
-    variables: Incomplete
-    objects: Incomplete
-    names: Incomplete
+    variables: dict[tuple[type, str], int]
+    objects: dict[int, Any]
+    names: dict[type, set[str]]
     def __init__(self) -> None: ...
-    objects_pickle: Incomplete
+    objects_pickle: bytes
     def backup(self) -> None: ...
-    def backup_module(self, mod: Incomplete) -> None: ...
+    def backup_module(self, mod: type) -> None: ...
     def restore(self) -> None: ...
 
-backup: Incomplete
+backup: Backup
 
-def plog(depth: Incomplete, event: Incomplete, *args) -> None: ...
+@overload
+def pure(fn: str) -> str: ...
+@overload
+def pure(fn: Callable) -> Callable: ...
+def pure(fn: str | Callable) -> str | Callable: ...
+def plog(depth: int, event: str, *args: object) -> None: ...
 def import_all() -> None: ...
 def post_import() -> None: ...
-def issubmodule(sub: Incomplete, module: Incomplete) -> Incomplete: ...
+def issubmodule(sub: str, module: str) -> bool: ...
 def reload_all() -> None: ...
 
 # store: Any
@@ -82,12 +89,14 @@ from . import defaultstore as defaultstore
 from . import display as display
 from . import dump as dump
 from . import easy as easy
+from . import ecsign as ecsign
 from . import editor as editor
 from . import encryption as encryption
 from . import error as error
 from . import execution as execution
 from . import exports as exports
 from . import game as game
+from . import gl2 as gl2
 from . import importer as importer
 from . import lexer as lexer
 from . import lexersupport as lexersupport

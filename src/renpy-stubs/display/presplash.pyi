@@ -1,4 +1,5 @@
 import io
+
 import renpy
 
 window: renpy.pygame.display.Window | None

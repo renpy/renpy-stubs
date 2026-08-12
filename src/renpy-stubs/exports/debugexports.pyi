@@ -1,20 +1,21 @@
-from _typeshed import Incomplete
 import contextlib
+from collections.abc import Callable, Generator
+from typing import Any, TextIO
+
 from renpy.exports.commonexports import renpy_pure as renpy_pure
-from typing import Any, Callable, Generator, TextIO
 
 def warp_to_line(warp_spec: str) -> None: ...
 
 filename_line_override_stack: list[tuple[str, int]]
 
 @contextlib.contextmanager
-def filename_line_override(filename: str, line: int) -> Generator[None, Any, None]: ...
+def filename_line_override(filename: str, line: int) -> Generator[None, Any]: ...
 def get_filename_line() -> tuple[str, int]: ...
 
 logfile: TextIO | None
 
 def log(msg: Any | None) -> None: ...
-def _error(msg: Incomplete) -> None: ...
+def _error(msg: str) -> None: ...
 
 _error_handlers: list[Callable[[str], None]]
 

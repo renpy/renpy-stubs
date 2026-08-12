@@ -1,4 +1,5 @@
 from typing import Any, Literal, overload
+
 from renpy import VersionTuple
 from renpy.ast import eval_who as eval_who
 from renpy.atl import atl_warper as atl_warper

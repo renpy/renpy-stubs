@@ -1,9 +1,12 @@
+from collections.abc import Callable
+from typing import TYPE_CHECKING, TextIO
+
 import renpy
 from renpy.lexer import elide_filename as elide_filename
 from renpy.translation import quote_unicode as quote_unicode
-from typing import Callable, TextIO
 
-type FilterFunction = Callable[[str], str]
+if TYPE_CHECKING:
+    type FilterFunction = Callable[[str], str]
 
 def scan_comments(filename: str) -> list[tuple[int, str]]: ...
 

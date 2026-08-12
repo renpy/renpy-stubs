@@ -1,7 +1,11 @@
-import renpy
-from renpy.compat.pickle import dumps as dumps, find_bad_reduction as find_bad_reduction, loads as loads
-from typing import Callable, Any
 import weakref
+from collections.abc import Callable
+from typing import Any
+
+import renpy
+from renpy.compat.pickle import dumps as dumps
+from renpy.compat.pickle import find_bad_reduction as find_bad_reduction
+from renpy.compat.pickle import loads as loads
 
 class Persistent:
     _preferences: renpy.preferences.Preferences
@@ -45,6 +49,9 @@ def save_on_quit_MP() -> None: ...
 def get_MP(name: str) -> _MultiPersistent | None: ...
 
 class _MultiPersistent:
+    _save_on_quit: bool
+    _name: str
+    _filename: str
     def __getattr__(self, name: str) -> None: ...
     def save(self) -> None: ...
 

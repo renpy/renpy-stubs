@@ -1,3 +1,5 @@
+from typing import Literal
+
 from renpy.pygame import (
     CONTROLLERAXISMOTION as CONTROLLERAXISMOTION,
     CONTROLLERBUTTONDOWN as CONTROLLERBUTTONDOWN,
@@ -11,13 +13,12 @@ from renpy.pygame.controller import (
     get_string_for_button as get_string_for_button,
 )
 from renpy.pygame.event import EventType as EventType
-from typing import Literal
 
 def load_mappings() -> None: ...
 def init() -> None: ...
 
 controllers: dict[int, Controller]
-axis_positions: dict[tuple[Controller, int], Literal["pos", "neg", "zero", None]]
+axis_positions: dict[tuple[Controller, int], (Literal["pos", "neg", "zero"] | None)]
 THRESHOLD: int
 ZERO_THRESHOLD: int
 ignore: bool
@@ -29,14 +30,14 @@ def start(index: int) -> None: ...
 
 class PadEvent:
     control: str
-    state: Literal["pos", "neg", "zero", "press", "release", None]
+    state: Literal["pos", "neg", "zero", "press", "release"] | None
     repeat_time: int
     def __init__(self, control: str) -> None: ...
-    def event(self, state: Literal["pos", "neg", "zero", "press", "release", None]) -> None: ...
+    def event(self, state: Literal["pos", "neg", "zero", "press", "release"] | None) -> None: ...
     def repeat(self) -> None: ...
 
 pad_events: dict[str | None, PadEvent]
 
-def controller_event(control: str | None, state: Literal["pos", "neg", "zero", "press", "release", None]) -> None: ...
+def controller_event(control: str | None, state: Literal["pos", "neg", "zero", "press", "release"] | None) -> None: ...
 def periodic() -> None: ...
 def event(ev: EventType) -> EventType | None: ...

@@ -1,12 +1,14 @@
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, Protocol
+
 import renpy
-from _typeshed import Incomplete as Incomplete
 from renpy.audio.filter import AudioFilter as AudioFilter
 from renpy.pygame.surface import Surface as Surface
-from typing import Any, Callable, Protocol
 
-class SoundFunction(Protocol):
-    __name__: str
-    def __call__(self, channel: int, *args: Incomplete, **kwargs: Incomplete) -> Any: ...
+if TYPE_CHECKING:
+    class SoundFunction(Protocol):
+        __name__: str
+        def __call__(self, channel: int, *args: Any, **kwargs: Any) -> Any: ...
 
 video_only: bool
 
@@ -26,7 +28,7 @@ def proxy_call_both[T: Callable](func: T) -> T: ...
 @proxy_with_channel
 def play(
     channel: int,
-    file: Incomplete,
+    file: str | renpy.audio.audio.AudioData,
     name: str,
     synchro_start: bool = False,
     fadein: float = 0,
@@ -39,7 +41,7 @@ def play(
 @proxy_with_channel
 def queue(
     channel: int,
-    file: Incomplete,
+    file: str | renpy.audio.audio.AudioData,
     name: str,
     synchro_start: bool = False,
     fadein: float = 0,

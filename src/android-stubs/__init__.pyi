@@ -1,11 +1,10 @@
-from _typeshed import Incomplete
 from typing import Any
 
 import android.apk
 
 expansion = android.apk.APK
 
-def init() -> Incomplete: ...
+def init() -> None: ...
 
 activity: Any
 

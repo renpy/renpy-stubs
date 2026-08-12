@@ -1,6 +1,9 @@
-import renpy as renpy
 import threading as threading
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any
+
+import renpy as renpy
 from _typeshed import Incomplete as Incomplete
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.matrix import Matrix as Matrix, Matrix2D as Matrix2D
@@ -8,21 +11,22 @@ from renpy.display.screen import ScreenDisplayable as ScreenDisplayable
 from renpy.pygame.event import EventType as EventType
 from renpy.pygame.surface import Surface as Surface
 from renpy.color import Color as Color, ColorLike
-from typing import Any, Sequence, Callable
 
-type Rect = renpy.pygame.rect.Rect
-type RectLike = renpy.pygame.rect.RectLike
+if TYPE_CHECKING:
+    type Rect = renpy.pygame.rect.Rect
+    type RectLike = renpy.pygame.rect.RectLike
 
-type FocusTuple = tuple[
-    Displayable,
-    Any,
-    int | None,
-    int | None,
-    int | None,
-    int | None,
-    int | None,
-    Incomplete | Render | None,  # mask
-]
+    type FocusTuple = tuple[
+        Displayable,
+        Any,
+        int | None,
+        int | None,
+        int | None,
+        int | None,
+        int | None,
+        Render | None,  # mask
+    ]
+
 Modal: renpy.object.Sentinel
 
 class Canvas:
@@ -43,11 +47,10 @@ class Canvas:
 class Render:
     def __init__(self, width: float, height: float, layer_name: str | None = None) -> None: ...
     def __getstate__(self) -> None: ...
-    def __repr__(self) -> str: ...
     def __setstate__(self, state: Incomplete) -> None: ...
     def absolute_blit(
         self,
-        source: "Render | Surface",
+        source: Render | Surface,
         pos: tuple[float, float],
         focus: bool = True,
         main: bool = True,
@@ -63,26 +66,26 @@ class Render:
         h: int | None = None,
         mx: int | None = None,
         my: int | None = None,
-        mask: Incomplete | Render | None = None,
+        mask: Render | None = None,
     ) -> None: ...
     def add_property(self, name: str, value: Any) -> None: ...
     def add_shader(self, shader: str) -> None: ...
     def add_uniform(self, name: str, value: Any) -> None: ...
     def blit(
         self,
-        source: "Render | Surface",
+        source: Render | Surface,
         pos: RectLike,
         focus: bool = True,
         main: bool = True,
         index: int | None = None,
     ) -> int: ...
-    def canvas(self) -> "Canvas": ...
+    def canvas(self) -> Canvas: ...
     def compute_subline(self, sx: int, sw: int, cx: int, cw: int, bx: int, bw: int) -> tuple[int, int, int]: ...
-    def depends_on(self, source: "Render", focus: bool = False) -> None: ...
+    def depends_on(self, source: Render, focus: bool = False) -> None: ...
     def fill(self, color: ColorLike) -> None: ...
     def focus_at_point(
         self, x: int, y: int, screen: ScreenDisplayable | None
-    ) -> tuple[Displayable, Any, ScreenDisplayable | None] | Modal | None: ...
+    ) -> tuple[Displayable, Any, ScreenDisplayable | None] | renpy.object.Sentinel | None: ...
     def get_property(self, name: str, default: Any) -> Any: ...
     def get_size(self) -> tuple[float, float]: ...
     def is_fully_transparent(self) -> bool: ...
@@ -101,7 +104,7 @@ class Render:
         height: int | None = None,
         st: float | None = None,
         at: float | None = None,
-        render: "Render | None" = None,
+        render: Render | None = None,
         main: bool = True,
     ) -> tuple[float, float]: ...
     def pygame_surface(self, alpha: bool = True) -> Surface: ...
@@ -109,7 +112,7 @@ class Render:
     def screen_rect(self, sx: float, sy: float, transform: Matrix) -> tuple[int, int, int, int]: ...
     def subpixel_blit(
         self,
-        source: "Render | Surface",
+        source: Render | Surface,
         pos: tuple[float, float],
         focus: bool = True,
         main: bool = True,
@@ -121,7 +124,7 @@ class Render:
         focus: bool = False,
         subpixel: bool = False,
         bounds: tuple[int, int, int, int] | None = None,
-    ) -> "Render": ...
+    ) -> Render: ...
     def take_focuses(
         self,
         cminx: int,
@@ -139,7 +142,7 @@ class Render:
     width: float
     height: float
     layer_name: str | None
-    children: list[tuple["Render | Surface", float, float, bool, bool]]
+    children: list[tuple[Render | Surface, float, float, bool, bool]]
     forward: renpy.display.matrix.Matrix | None
     reverse: renpy.display.matrix.Matrix | None
     matrix_kind: int
@@ -162,13 +165,13 @@ class Render:
     operation_parameter: int
     surface: Surface
     alpha_surface: Surface
-    half_cache: Incomplete | None
-    mesh: Incomplete | None
+    half_cache: Surface | None
+    mesh: object | None
     shaders: tuple[str, ...] | None
     uniforms: dict[str, Any] | None
     properties: dict[str, Any] | None
-    cached_texture: Incomplete | None
-    cached_model: Incomplete | None
+    cached_texture: object | None
+    cached_model: object | None
     loaded: bool
     uniforms_has_render: bool
     debug: bool
@@ -184,10 +187,10 @@ def mutated_surface(surf: Surface) -> None: ...
 def process_redraws() -> bool: ...
 def redraw_time() -> float | None: ...
 def redraw(d: Displayable, when: float) -> None: ...
-def render_for_size(d: Displayable, width: int, height: int, st: float, at: float) -> "Render": ...
+def render_for_size(d: Displayable, width: int, height: int, st: float, at: float) -> Render: ...
 def render_ready() -> None: ...
-def render_screen(root: Displayable, width: int, height: int) -> "Render": ...
-def render(d: Displayable, widtho: float, heighto: float, st: float, at: float) -> "Render": ...
+def render_screen(root: Displayable, width: int, height: int) -> Render: ...
+def render(d: Displayable, widtho: float, heighto: float, st: float, at: float) -> Render: ...
 def take_focuses(focuses: list[renpy.display.focus.Focus]) -> None: ...
 
 screen_render: Render | None

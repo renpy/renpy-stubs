@@ -1,9 +1,11 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
-from typing import IO, Literal
+from typing import IO, TYPE_CHECKING, Literal
+
 from renpy.pygame.surface import Surface
 from renpy.text.textsupport import Glyph
 
-type FeatureType = tuple[str, int]
+if TYPE_CHECKING:
+    type FeatureType = tuple[str, int]
 
 class Axis:
     def __init__(self, index: int, minimum: float, default: float, maximum: float) -> None: ...

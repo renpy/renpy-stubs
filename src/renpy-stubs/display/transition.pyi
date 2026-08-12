@@ -1,23 +1,25 @@
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, Protocol, overload, type_check_only
+
 import renpy
-from _typeshed import Incomplete as Incomplete
 from renpy.color import ColorLike as ColorLike
 from renpy.display.displayable import Displayable as Displayable, Placement as Placement
 from renpy.display.im import ImageLike as ImageLike
 from renpy.display.render import Render as Render, render as render
 from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
-from typing import Any, Protocol, overload, type_check_only
 
-type Warper = renpy.atl.Warper
+if TYPE_CHECKING:
+    type Warper = Callable[[float], float]
 
-class TransitionFunction(Protocol):
-    def __call__(self, old_widget: Displayable | None, new_widget: Displayable | None) -> Transition: ...
+    class TransitionFunction(Protocol):
+        def __call__(self, old_widget: Displayable | None, new_widget: Displayable | None) -> Transition: ...
 
 class Transition(renpy.display.displayable.Displayable):
     new_widget: Displayable | None
     old_widget: Displayable | None
     delay: float
     events: bool
-    def __init__(self, delay: float, **properties) -> None: ...
+    def __init__(self, delay: float, **properties: Any) -> None: ...
     def event(self, ev: renpy.pygame.event.EventType, x: float, y: float, st: float) -> Any | None: ...
     def visit(self) -> list[Displayable | None]: ...
     def get_placement(self) -> Placement: ...
@@ -29,7 +31,11 @@ class NoTransition(Transition):
     new_widget: Displayable | None
     events: bool
     def __init__(
-        self, delay: float, old_widget: Displayable | None = None, new_widget: Displayable | None = None, **properties
+        self,
+        delay: float,
+        old_widget: Displayable | None = None,
+        new_widget: Displayable | None = None,
+        **properties: Any,
     ) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
@@ -40,10 +46,10 @@ class MultipleTransition(Transition):
     events: bool
     def __init__(
         self,
-        args: Incomplete,
+        args: list[DisplayableLike | bool | TransitionFunction],
         old_widget: Displayable | None = None,
         new_widget: Displayable | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def visit(self) -> list[Displayable]: ...
     def event(self, ev: renpy.pygame.event.EventType, x: float, y: float, st: float) -> Any | None: ...
@@ -73,7 +79,7 @@ class Pixellate(Transition):
         steps: int,
         old_widget: Displayable | None = None,
         new_widget: Displayable | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
@@ -93,7 +99,7 @@ class Dissolve(Transition):
         new_widget: Displayable | None = None,
         alpha: bool = False,
         time_warp: Warper | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
@@ -119,7 +125,7 @@ class ImageDissolve(Transition):
         old_widget: Displayable | None = None,
         new_widget: Displayable | None = None,
         time_warp: Warper | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def visit(self) -> list[Displayable | None]: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
@@ -140,7 +146,7 @@ class AlphaDissolve(Transition):
         new_widget: Displayable | None = None,
         alpha: bool = False,
         reverse: bool = False,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def visit(self) -> list[Displayable | None]: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
@@ -182,7 +188,7 @@ class CropMove(Transition):
         topnew: bool = True,
         old_widget: Displayable | None = None,
         new_widget: Displayable | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
@@ -206,7 +212,7 @@ class PushMove(Transition):
         mode: str = "pushright",
         old_widget: Displayable | None = None,
         new_widget: Displayable | None = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
@@ -218,9 +224,9 @@ def ComposeTransition(
     old_widget: Displayable | None = None,
 ) -> Displayable: ...
 def SubTransition(
-    rect: Incomplete,
+    rect: tuple[float, float, float, float],
     trans: TransitionFunction,
     old_widget: Displayable | None = None,
     new_widget: Displayable | None = None,
-    **properties: Incomplete,
+    **properties: Any,
 ) -> NoTransition: ...

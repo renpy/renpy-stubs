@@ -1,7 +1,8 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from typing import IO
-from renpy.text.textsupport import Glyph
+
 from renpy.pygame.surface import Surface
+from renpy.text.textsupport import Glyph
 
 class FTFace:
     def __init__(self, f: IO, index: int, fn: str) -> None: ...

@@ -1,6 +1,6 @@
 import renpy
 
-lines: dict[tuple[str, int], "Line"]
+lines: dict[tuple[str, int], Line]
 files: set[str]
 
 class Line:
@@ -12,7 +12,6 @@ class Line:
     text: str
     full_text: str
     def __init__(self, filename: str, number: int, start: int) -> None: ...
-    def __repr__(self) -> str: ...
 
 def load_lines(filename: str, elided_filename: str) -> None: ...
 def ensure_loaded(filename: str) -> None: ...

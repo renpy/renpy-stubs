@@ -19,7 +19,7 @@ from . import persistent as persistent
 from . import textshader as textshader
 from . import updater as updater
 
-from .__internal__errorhandling import (
+from .__numbered__errorhandling import (
     _error_hyperlink_styler as _error_hyperlink_styler,
     _error_hyperlink_function as _error_hyperlink_function,
     _ as _,
@@ -37,14 +37,14 @@ from .__internal__errorhandling import (
     _m1__errorhandling__ErrorQuit as _m1__errorhandling__ErrorQuit,
     _m1__errorhandling__EnterConsole as _m1__errorhandling__EnterConsole,
 )
-from .__internal_accessibility import (
+from .__numbered_accessibility import (
     alt as alt,
     alt_statement_name as alt_statement_name,
     sv as sv,
     _m1_00accessibility__font_transform_cache as _m1_00accessibility__font_transform_cache,
     _font_transform as _font_transform,
 )
-from .__internal_action_audio import (
+from .__numbered_action_audio import (
     Play as Play,
     Queue as Queue,
     Stop as Stop,
@@ -54,7 +54,7 @@ from .__internal_action_audio import (
     ToggleMute as ToggleMute,
     PauseAudio as PauseAudio,
 )
-from .__internal_action_control import (
+from .__numbered_action_control import (
     NullAction as NullAction,
     Return as Return,
     Jump as Jump,
@@ -64,7 +64,7 @@ from .__internal_action_control import (
     ShowTransient as ShowTransient,
     Hide as Hide,
 )
-from .__internal_action_data import (
+from .__numbered_action_data import (
     _m1_00action_data__Sentinel as _m1_00action_data__Sentinel,
     _get_field as _get_field,
     _set_field as _set_field,
@@ -92,7 +92,7 @@ from .__internal_action_data import (
     ToggleScreenVariable as ToggleScreenVariable,
     ToggleVariable as ToggleVariable,
 )
-from .__internal_action_file import (
+from .__numbered_action_file import (
     _weekday_name_long as _weekday_name_long,
     _weekday_name_short as _weekday_name_short,
     _month_name_long as _month_name_long,
@@ -124,7 +124,7 @@ from .__internal_action_file import (
     QuickSave as QuickSave,
     QuickLoad as QuickLoad,
 )
-from .__internal_action_menu import (
+from .__numbered_action_menu import (
     _m1_00action_menu__NoShowTransition as _m1_00action_menu__NoShowTransition,
     ShowMenu as ShowMenu,
     Continue as Continue,
@@ -135,7 +135,7 @@ from .__internal_action_menu import (
     Skip as Skip,
     Help as Help,
 )
-from .__internal_action_other import (
+from .__numbered_action_other import (
     InvertSelected as InvertSelected,
     If as If,
     _ActionList as _ActionList,
@@ -172,8 +172,8 @@ from .__internal_action_other import (
     CopyToClipboard as CopyToClipboard,
     EditFile as EditFile,
 )
-from .__internal_audio import _scan_audio_directory as _scan_audio_directory
-from .__internal_barvalues import (
+from .__numbered_audio import _scan_audio_directory as _scan_audio_directory
+from .__numbered_barvalues import (
     StaticValue as StaticValue,
     AnimatedValue as AnimatedValue,
     CallableValue as CallableValue,
@@ -189,13 +189,13 @@ from .__internal_barvalues import (
     YScrollValue as YScrollValue,
     AudioPositionValue as AudioPositionValue,
 )
-from .__internal_classic_joystick_preferences import (
+from .__numbered_classic_joystick_preferences import (
     _joystick_select_binding as _joystick_select_binding,
     _joystick_get_binding as _joystick_get_binding,
     _joystick_take_binding as _joystick_take_binding,
     _joystick_preferences as _joystick_preferences,
 )
-from .__internal_classic_load_save import (
+from .__numbered_classic_load_save import (
     _load_prompt as _load_prompt,
     _m1_classic_load_save__scratch as _m1_classic_load_save__scratch,
     _render_savefile as _render_savefile,
@@ -206,8 +206,8 @@ from .__internal_classic_load_save import (
     _file_picker_process_screenshot as _file_picker_process_screenshot,
     _file_picker as _file_picker,
 )
-from .__internal_classic_navigation import _navigation as _navigation
-from .__internal_classic_preferences_common import (
+from .__numbered_classic_navigation import _navigation as _navigation
+from .__numbered_classic_preferences_common import (
     _prefs_screen_run as _prefs_screen_run,
     _Preference as _Preference,
     _VolumePreference as _VolumePreference,
@@ -215,9 +215,9 @@ from .__internal_classic_preferences_common import (
     _JumpPreference as _JumpPreference,
     _remove_preference as _remove_preference,
 )
-from .__internal_compat import _compat_versions as _compat_versions, _set_script_version as _set_script_version
-from .__internal_db_ren import _JSONDBDict as _JSONDBDict, JSONDB as JSONDB
-from .__internal_defaults import (
+from .__numbered_compat import _compat_versions as _compat_versions, _set_script_version as _set_script_version
+from .__numbered_db_ren import _JSONDBDict as _JSONDBDict, JSONDB as JSONDB
+from .__numbered_defaults import (
     _vol as _vol,
     _apply_default_preferences as _apply_default_preferences,
     _locale_to_language_function as _locale_to_language_function,
@@ -227,7 +227,7 @@ from .__internal_defaults import (
     hyperlink_sensitive as hyperlink_sensitive,
     _version as _version,
 )
-from .__internal_definitions import (
+from .__numbered_definitions import (
     _define as _define,
     define as define,
     _ease_out_time_warp as _ease_out_time_warp,
@@ -270,13 +270,13 @@ from .__internal_definitions import (
     vcentered as vcentered,
     narrator as narrator,
 )
-from .__internal_developer import (
+from .__numbered_developer import (
     _m1_developer__ImageLocationPickerData as _m1_developer__ImageLocationPickerData,
     _m1_developer__missing_show_callback as _m1_developer__missing_show_callback,
     _m1_developer__missing_hide_callback as _m1_developer__missing_hide_callback,
     _m1_developer__missing_scene_callback as _m1_developer__missing_scene_callback,
 )
-from .__internal_gallery import (
+from .__numbered_gallery import (
     _m1_00gallery__GalleryAllPriorCondition as _m1_00gallery__GalleryAllPriorCondition,
     _m1_00gallery__GalleryArbitraryCondition as _m1_00gallery__GalleryArbitraryCondition,
     _m1_00gallery__GalleryUnlockCondition as _m1_00gallery__GalleryUnlockCondition,
@@ -286,7 +286,7 @@ from .__internal_gallery import (
     _m1_00gallery__GalleryAction as _m1_00gallery__GalleryAction,
     Gallery as Gallery,
 )
-from .__internal_gamemenu import (
+from .__numbered_gamemenu import (
     _game_menu_screen as _game_menu_screen,
     _enter_menu as _enter_menu,
     _invoke_game_menu as _invoke_game_menu,
@@ -306,15 +306,15 @@ from .__internal_gamemenu import (
     _quit_prompt as _quit_prompt,
     _mainmenu_prompt as _mainmenu_prompt,
 )
-from .__internal_gamepad import GamepadExists as GamepadExists, GamepadCalibrate as GamepadCalibrate
-from .__internal_gltest import (
+from .__numbered_gamepad import GamepadExists as GamepadExists, GamepadCalibrate as GamepadCalibrate
+from .__numbered_gltest import (
     _SetRenderer as _SetRenderer,
     _m1_00gltest__gl_test as _m1_00gltest__gl_test,
     _gl_performance_test as _gl_performance_test,
 )
-from .__internal_grouped_navigation import navigation as navigation
-from .__internal_imagemap_common import _ImageMapper as _ImageMapper
-from .__internal_imagemap_load_save import (
+from .__numbered_grouped_navigation import navigation as navigation
+from .__numbered_imagemap_common import _ImageMapper as _ImageMapper
+from .__numbered_imagemap_load_save import (
     _load_prompt as _load_prompt,
     _m1_imagemap_load_save__scratch as _m1_imagemap_load_save__scratch,
     _render_savefile as _render_savefile,
@@ -326,15 +326,15 @@ from .__internal_imagemap_load_save import (
     _file_picker_pages as _file_picker_pages,
     _file_picker as _file_picker,
 )
-from .__internal_imagemap_main_menu import _main_menu_variant as _main_menu_variant
-from .__internal_imagemap_navigation import _navigation as _navigation
-from .__internal_imagemap_preferences import (
+from .__numbered_imagemap_main_menu import _main_menu_variant as _main_menu_variant
+from .__numbered_imagemap_navigation import _navigation as _navigation
+from .__numbered_imagemap_preferences import (
     _m1_imagemap_preferences__set as _m1_imagemap_preferences__set,
     _m1_imagemap_preferences__curried_set as _m1_imagemap_preferences__curried_set,
     _m1_imagemap_preferences__show_preferences as _m1_imagemap_preferences__show_preferences,
 )
-from .__internal_images import _scan_images_directory as _scan_images_directory
-from .__internal_inputvalues import (
+from .__numbered_images import _scan_images_directory as _scan_images_directory
+from .__numbered_inputvalues import (
     _InputValueAction as _InputValueAction,
     DisableAllInputValues as DisableAllInputValues,
     InputValue as InputValue,
@@ -345,14 +345,14 @@ from .__internal_inputvalues import (
     DictInputValue as DictInputValue,
     LocalVariableInputValue as LocalVariableInputValue,
 )
-from .__internal_inspector import (
+from .__numbered_inspector import (
     _m1_inspector__format_style as _m1_inspector__format_style,
     _m1_inspector__format_location as _m1_inspector__format_location,
     _m1_inspector__safe_repr as _m1_inspector__safe_repr,
     _m1_inspector__inspect as _m1_inspector__inspect,
     _inspector_repr as _inspector_repr,
 )
-from .__internal_keymap import (
+from .__numbered_keymap import (
     _keymap_list as _keymap_list,
     _windows_hidden as _windows_hidden,
     _keymap_toggle_afm as _keymap_toggle_afm,
@@ -372,14 +372,14 @@ from .__internal_keymap import (
     _progress_screen as _progress_screen,
     _default_keymap as _default_keymap,
 )
-from .__internal_layout import (
+from .__numbered_layout import (
     Layout as Layout,
     layout as layout,
     _layout as _layout,
     _intra_jumps_core as _intra_jumps_core,
     _intra_jumps as _intra_jumps,
 )
-from .__internal_library import (
+from .__numbered_library import (
     DictEquality as DictEquality,
     FieldEquality as FieldEquality,
     save_name as save_name,
@@ -398,7 +398,7 @@ from .__internal_library import (
     _button_factory as _button_factory,
     _label_factory as _label_factory,
 )
-from .__internal_matrixcolor import (
+from .__numbered_matrixcolor import (
     _BaseMatrix as _BaseMatrix,
     SplineMatrix as SplineMatrix,
     ColorMatrix as ColorMatrix,
@@ -414,14 +414,14 @@ from .__internal_matrixcolor import (
     InvertMatrix as InvertMatrix,
     SepiaMatrix as SepiaMatrix,
 )
-from .__internal_matrixtransform import (
+from .__numbered_matrixtransform import (
     TransformMatrix as TransformMatrix,
     OffsetMatrix as OffsetMatrix,
     RotateMatrix as RotateMatrix,
     ScaleMatrix as ScaleMatrix,
 )
-from .__internal_mousedisplayable import MouseDisplayable as MouseDisplayable
-from .__internal_musicroom import (
+from .__numbered_mousedisplayable import MouseDisplayable as MouseDisplayable
+from .__numbered_musicroom import (
     _m1_00musicroom__MusicRoomPlay as _m1_00musicroom__MusicRoomPlay,
     _m1_00musicroom__MusicRoomRandomPlay as _m1_00musicroom__MusicRoomRandomPlay,
     _m1_00musicroom__MusicRoomTogglePlay as _m1_00musicroom__MusicRoomTogglePlay,
@@ -429,7 +429,7 @@ from .__internal_musicroom import (
     _m1_00musicroom__MusicRoomStop as _m1_00musicroom__MusicRoomStop,
     MusicRoom as MusicRoom,
 )
-from .__internal_nvl_mode import (
+from .__numbered_nvl_mode import (
     nvl_list as nvl_list,
     nvl_variant as nvl_variant,
     _m1_00nvl_mode__s as _m1_00nvl_mode__s,
@@ -451,14 +451,14 @@ from .__internal_nvl_mode import (
     _nvl_adv_callback as _nvl_adv_callback,
     _nvl_language as _nvl_language,
 )
-from .__internal_obsolete import (
+from .__numbered_obsolete import (
     _ as _,
     _window_during_transitions as _window_during_transitions,
     _default_with_callback as _default_with_callback,
 )
-from .__internal_performance import _clear_performance as _clear_performance
-from .__internal_placeholder import Placeholder as Placeholder
-from .__internal_preferences import (
+from .__numbered_performance import _clear_performance as _clear_performance
+from .__numbered_placeholder import Placeholder as Placeholder
+from .__numbered_preferences import (
     _m1_00preferences__DisplayAction as _m1_00preferences__DisplayAction,
     _m1_00screen__DisplayAction as _m1_00screen__DisplayAction,
     _m1_00preferences__ResetPreferences as _m1_00preferences__ResetPreferences,
@@ -477,13 +477,13 @@ from .__internal_preferences import (
     _JumpPreference as _JumpPreference,
     _remove_preference as _remove_preference,
 )
-from .__internal_scrolling_load_save import (
+from .__numbered_scrolling_load_save import (
     _m1_scrolling_load_save__session as _m1_scrolling_load_save__session,
     _load_prompt as _load_prompt,
     _file_picker_thumbnail as _file_picker_thumbnail,
     _file_picker as _file_picker,
 )
-from .__internal_sideimage import (
+from .__numbered_sideimage import (
     _side_image_tag as _side_image_tag,
     _side_image_old as _side_image_old,
     _side_image_raw as _side_image_raw,
@@ -493,15 +493,15 @@ from .__internal_sideimage import (
     SideImage as SideImage,
     HasSideImage as HasSideImage,
 )
-from .__internal_splines import _SplineInterpolator as _SplineInterpolator, SplineMotion as SplineMotion
-from .__internal_sshtransition_ren import (
+from .__numbered_splines import _SplineInterpolator as _SplineInterpolator, SplineMotion as SplineMotion
+from .__numbered_sshtransition_ren import (
     _scene_show_hide_transition as _scene_show_hide_transition,
     _after_scene_show_hide as _after_scene_show_hide,
     _scene_show_hide_transition_callback as _scene_show_hide_transition_callback,
 )
-from .__internal_start import _init_language as _init_language
-from .__internal_statements import _audio_eval as _audio_eval, _try_eval as _try_eval
-from .__internal_stylepreferences import (
+from .__numbered_start import _init_language as _init_language
+from .__numbered_statements import _audio_eval as _audio_eval, _try_eval as _try_eval
+from .__numbered_stylepreferences import (
     _m1_00stylepreferences__preferences as _m1_00stylepreferences__preferences,
     _m1_00stylepreferences__alternatives as _m1_00stylepreferences__alternatives,
     _m1_00stylepreferences__spdirty as _m1_00stylepreferences__spdirty,
@@ -514,7 +514,7 @@ from .__internal_stylepreferences import (
     _m1_00stylepreferences__get_style_preference as _m1_00stylepreferences__get_style_preference,
     StylePreference as StylePreference,
 )
-from .__internal_styles import (
+from .__numbered_styles import (
     dark_cyan as dark_cyan,
     bright_cyan as bright_cyan,
     dark_red as dark_red,
@@ -523,8 +523,8 @@ from .__internal_styles import (
     _SelectedCompat as _SelectedCompat,
     _apply_selected_compat as _apply_selected_compat,
 )
-from .__internal_sync import UploadSync as UploadSync, DownloadSync as DownloadSync
-from .__internal_themes import (
+from .__numbered_sync import UploadSync as UploadSync, DownloadSync as DownloadSync
+from .__numbered_themes import (
     _Theme as _Theme,
     _theme as _theme,
     theme as theme,
@@ -535,12 +535,12 @@ from .__internal_themes import (
     _display_button_menu as _display_button_menu,
     _button_menu as _button_menu,
 )
-from .__internal_touchkeyboard import (
+from .__numbered_touchkeyboard import (
     _TouchKeyboardTextInput as _TouchKeyboardTextInput,
     _TouchKeyboardBackspace as _TouchKeyboardBackspace,
     _TouchKeyboardReturn as _TouchKeyboardReturn,
 )
-from .__internal_voice import (
+from .__numbered_voice import (
     _voice as _voice,
     _last_voice_play as _last_voice_play,
     _invoke_voice_callbacks as _invoke_voice_callbacks,
@@ -558,7 +558,7 @@ from .__internal_voice import (
     _get_voice_info as _get_voice_info,
     _voice_history_callback as _voice_history_callback,
 )
-from .__internal_window import (
+from .__numbered_window import (
     _window_auto as _window_auto,
     _window_next as _window_next,
     _window_show as _window_show,

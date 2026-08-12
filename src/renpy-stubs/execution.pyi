@@ -1,14 +1,16 @@
+from collections.abc import Callable, Generator, Iterable, Sequence
+from types import FrameType as FrameType
+from typing import Any, Literal, overload
+
 import renpy
-from collections.abc import Generator
-from renpy.ast import Node as Node, NodeName as NodeName
+from renpy.ast import Node as Node
+from renpy.ast import NodeName as NodeName
 from renpy.display.image import ShownImageInfo as ShownImageInfo
 from renpy.display.scenelists import SceneLists as SceneLists
 from renpy.display.video import Movie as Movie
 from renpy.error import TracebackException as TracebackException
 from renpy.object import Object as Object
 from renpy.types import Unused as Unused
-from types import FrameType as FrameType
-from typing import Any, Callable, Literal, Sequence, Iterable, overload
 
 il_statements: int
 il_time: float
@@ -48,7 +50,6 @@ class Context(renpy.object.Object):
     predict_return_stack: list[NodeName] | None
     exception_handler: Callable[[renpy.error.TracebackException], bool] | None
     translated: bool
-    def __repr__(self) -> str: ...
     abnormal: bool
     last_abnormal: bool
     music: dict[str | int, renpy.audio.audio.MusicContext]
@@ -99,7 +100,7 @@ class Context(renpy.object.Object):
     def rollback_copy(self) -> Context: ...
     def predict_call(self, label: NodeName, return_site: NodeName) -> Node: ...
     def predict_return(self) -> Node | None: ...
-    def predict(self) -> Generator[bool, None, None]: ...
+    def predict(self) -> Generator[bool]: ...
     def seen_current(self, ever: bool) -> bool: ...
     def do_deferred_rollback(self) -> None: ...
     def get_return_stack(self) -> list[NodeName]: ...
@@ -107,3 +108,10 @@ class Context(renpy.object.Object):
 
 def run_context(top: bool) -> Any: ...
 def reset_all_contexts() -> None: ...
+
+il_first_deadline: float
+
+il_second_deadline: float
+
+class RestartContext(BaseException): ...
+class RestartTopContext(BaseException): ...

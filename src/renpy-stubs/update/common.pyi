@@ -1,5 +1,6 @@
-from _typeshed import ReadableBuffer as ReadableBuffer
 from typing import Any, BinaryIO, Literal
+
+from _typeshed import ReadableBuffer as ReadableBuffer
 
 def hash_data(data: ReadableBuffer) -> str: ...
 def hash_list(data: list[str]) -> str: ...

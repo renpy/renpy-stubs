@@ -1,4 +1,7 @@
-type EmojiTrie = dict[str, "int|EmojiTrie"]
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    type EmojiTrie = dict[str, int | EmojiTrie]
 
 NOT_EMOJI: int
 UNQUALIFIED: int

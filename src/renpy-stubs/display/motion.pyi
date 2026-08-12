@@ -1,5 +1,4 @@
 import renpy
-from _typeshed import Incomplete as Incomplete
 from renpy.display.displayable import Displayable as Displayable, Placement as Placement
 from renpy.display.layout import Container as Container
 from renpy.display.position import absolute as absolute
@@ -13,12 +12,13 @@ from renpy.display.transform import (
 )
 from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
 from renpy.pygame.event import EventType
-from typing import Any, Callable, Literal, Sequence
+from typing import Any, Callable, Literal, Sequence, TYPE_CHECKING
 
-type SizeRect = tuple[float | None, float | None, float | None, float | None]
+if TYPE_CHECKING:
+    type SizeRect = tuple[float | None, float | None, float | None, float | None]
 
 class Motion(Container):
-    function: Callable[[float, SizeRect], Incomplete]
+    function: Callable[..., Sequence[float]]  # Can be called with one or two args
     period: float
     repeat: bool
     bounce: bool
@@ -26,10 +26,10 @@ class Motion(Container):
     anim_timebase: bool
     time_warp: Callable[[float], float] | None
     add_sizes: bool
-    position: SizeRect | None
+    position: tuple[float, float, float, float] | None
     def __init__(
         self,
-        function: Callable[[float, SizeRect], Incomplete],
+        function: Callable[..., Sequence[float]],
         period: float,
         child: Displayable | None = None,
         new_widget: Displayable | None = None,
@@ -42,11 +42,11 @@ class Motion(Container):
         time_warp: Callable[[float], float] | None = None,
         add_sizes: bool = False,
         style: str = "motion",
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def update_position(self, t: float, sizes: SizeRect) -> None: ...
     def get_placement(self) -> Placement: ...
-    offsets: list[tuple[Literal[0], Literal[0]]] | Unused
+    offsets: list[tuple[float, float]]
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...
 
 class Interpolate:
@@ -66,7 +66,7 @@ def Pan(
     anim_timebase: bool = False,
     style: str = "motion",
     time_warp: Callable[[float], float] | None = None,
-    **properties: Incomplete,
+    **properties: Any,
 ) -> Motion: ...
 def Move(
     startpos: tuple[float, float],
@@ -78,7 +78,7 @@ def Move(
     anim_timebase: bool = False,
     style: str = "motion",
     time_warp: Callable[[float], float] | None = None,
-    **properties: Incomplete,
+    **properties: Any,
 ) -> Motion: ...
 
 class Revolver:
@@ -107,7 +107,7 @@ def Revolve(
     around: tuple[float, float] = (0.5, 0.5),
     cor: tuple[float, float] = (0.5, 0.5),
     pos: Placement | None = None,
-    **properties: Incomplete,
+    **properties: Any,
 ) -> Motion: ...
 def zoom_render(
     crend: Render, x: float, y: float, w: float, h: float, zw: float, zh: float, bilinear: bool
@@ -134,7 +134,7 @@ class ZoomCommon(renpy.display.displayable.Displayable):
         anim_timebase: bool = False,
         repeat: bool = False,
         style: str = "motion",
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def visit(self) -> list[Displayable | None]: ...
     def zoom_rectangle(
@@ -155,7 +155,7 @@ class Zoom(ZoomCommon):
         end: tuple[float, float],
         time: float,
         child: DisplayableLike,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def zoom_rectangle(
         self, done: float, width: float, height: float
@@ -164,7 +164,7 @@ class Zoom(ZoomCommon):
 class FactorZoom(ZoomCommon):
     start: float
     end: float
-    def __init__(self, start: float, end: float, time: float, child: DisplayableLike, **properties) -> None: ...
+    def __init__(self, start: float, end: float, time: float, child: DisplayableLike, **properties: Any) -> None: ...
     def zoom_rectangle(
         self, done: float, width: float, height: float
     ) -> tuple[float, float, float, float, float, float]: ...
@@ -173,7 +173,12 @@ class SizeZoom(ZoomCommon):
     start: tuple[float, float]
     end: tuple[float, float]
     def __init__(
-        self, start: tuple[float, float], end: tuple[float, float], time: float, child: DisplayableLike, **properties
+        self,
+        start: tuple[float, float],
+        end: tuple[float, float],
+        time: float,
+        child: DisplayableLike,
+        **properties: Any,
     ) -> None: ...
     def zoom_rectangle(
         self, done: float, width: float, height: float
@@ -216,7 +221,7 @@ class RotoZoom(renpy.display.displayable.Displayable):
         zoom_time_warp: Callable[[float], float] | None = None,
         opaque: bool = False,
         style: str = "motion",
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
     def visit(self) -> list[Displayable]: ...
     def render(self, width: float, height: float, st: float, at: float) -> Render: ...

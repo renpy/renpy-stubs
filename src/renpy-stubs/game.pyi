@@ -1,19 +1,20 @@
-from _typeshed import Incomplete
 import argparse
+from collections.abc import Callable
+from types import TracebackType
+from typing import Any
+
 import renpy
 from renpy.display.core import Interface as Interface
 from renpy.execution import Context as Context
 from renpy.rollback import RollbackLog as RollbackLog
 from renpy.script import Script as Script
 from renpy.types import Unused as Unused
-from types import TracebackType
-from typing import Any, Callable
 
 basepath: str | None
 searchpath: Unused
 args: argparse.Namespace | None
 script: Script | None
-contexts: list["Context"]
+contexts: list[Context]
 interface: Interface | None
 lint: bool
 log: RollbackLog | None
@@ -80,6 +81,6 @@ class ParseErrorException(Exception): ...
 CONTROL_EXCEPTIONS: tuple[type[BaseException], ...]
 
 def context(index: int = -1) -> renpy.execution.Context: ...
-def invoke_in_new_context(callable: Callable[..., Any], *args: Incomplete, **kwargs: Incomplete) -> Any: ...
-def call_in_new_context(label: renpy.ast.NodeName, *args: Incomplete, **kwargs: Incomplete) -> Any | None: ...
+def invoke_in_new_context(callable: Callable[..., Any], *args: Any, **kwargs: Any) -> Any: ...
+def call_in_new_context(label: renpy.ast.NodeName, *args: Any, **kwargs: Any) -> Any | None: ...
 def call_replay(label: renpy.ast.NodeName, scope: dict[str, Any] = {}) -> None: ...

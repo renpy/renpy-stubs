@@ -1,15 +1,28 @@
-from typing import Any, Callable, Literal, IO, Protocol, TypedDict, Unpack, NotRequired, type_check_only
-import re
 import collections
-from _typeshed import Incomplete as Incomplete
+import re
+from collections.abc import Callable
+from typing import IO, TYPE_CHECKING, Any, Literal, NotRequired, Protocol, TypedDict, Unpack, type_check_only
 
 import renpy
+from _typeshed import Incomplete as Incomplete
 from renpy.display.displayable import Displayable
 from renpy.display.transform import Transform
 from renpy.display.transition import TransitionFunction
 from renpy.error import TracebackException as TracebackException
 from renpy.text.shader import TextShader as TextShader
 from renpy.types import DisplayableLike, Unused
+
+if TYPE_CHECKING:
+    class TextTagFunction(Protocol):
+        def __call__(
+            self, tag: str, argument: str, contents: list[renpy.text.text.Token], /
+        ) -> list[renpy.text.text.Token]: ...
+
+    class TextTagSelfClosingFunction(Protocol):
+        def __call__(self, tag: str, argument: str, /) -> list[renpy.text.text.Token]: ...
+
+    class ChoiceEmptyWindowFunction(Protocol):
+        def __call__(self, what: str, *, interact: bool) -> None: ...
 
 locked: bool
 window_title: str | None
@@ -37,7 +50,7 @@ predict_statements: int
 debug_image_cache: bool
 allow_skipping: bool
 fast_skipping: bool
-skipping: Literal["slow", "fast", None]
+skipping: Literal["slow", "fast"] | None
 skip_delay: int
 archives: list[str]
 searchpath: list[str]
@@ -102,8 +115,8 @@ has_autosave: bool
 autosave_slots: int
 autosave_frequency: int
 scene: Callable[[str | None], None] | None
-show: Incomplete | None
-hide: Incomplete | None
+show: Callable[..., None] | None
+hide: Callable[..., None] | None
 use_cpickle: bool
 inspector: Callable[[list[tuple[int, int, int, renpy.display.displayable.Displayable]]], None] | None
 reject_backslash: bool
@@ -124,7 +137,7 @@ rtl: bool
 file_open_callback: Callable[[str], IO | None] | None
 thumbnail_width: int
 thumbnail_height: int
-end_game_transition: Incomplete | None
+end_game_transition: TransitionFunction | None
 default_transform: renpy.display.transform.Transform | None
 transform_uses_child_position: bool
 quit_action: renpy.display.behavior.ActionType | None
@@ -150,8 +163,8 @@ imagemap_auto_function: Callable[[str, str], DisplayableLike] | None
 keep_running_transform: bool
 image_attributes: bool
 new_character_image_argument: bool
-say_attribute_transition: Incomplete | None
-say_attribute_transition_layer: Incomplete | None
+say_attribute_transition: TransitionFunction | dict[str | None, TransitionFunction] | None
+say_attribute_transition_layer: str | None
 name: str
 version: str
 log_enable: bool
@@ -169,7 +182,7 @@ gl_resize: bool
 change_language_callbacks: list[Callable[[], None]]
 tl_directory: str
 key_repeat: tuple[float, float]
-voice_tag_callback: Callable[[Incomplete | None], None] | None
+voice_tag_callback: Callable[[str | None], None] | None
 save_json_callbacks: list[Callable[[dict[str, Any]], None]]
 longpress_duration: float
 longpress_radius: int
@@ -198,17 +211,6 @@ gestures: dict[str, str]
 gesture_component_size: float
 gesture_stroke_size: float
 log_to_stdout: bool
-
-@type_check_only
-class TextTagFunction(Protocol):
-    def __call__(
-        self, tag: str, argument: str, contents: list[renpy.text.text.Token], /
-    ) -> list[renpy.text.text.Token]: ...
-
-@type_check_only
-class TextTagSelfClosingFunction(Protocol):
-    def __call__(self, tag: str, argument: str, /) -> list[renpy.text.text.Token]: ...
-
 custom_text_tags: dict[str, TextTagFunction]
 self_closing_custom_text_tags: dict[str, TextTagSelfClosingFunction]
 replace_text: Callable[[str], str] | None
@@ -227,7 +229,7 @@ after_replay_callback: Callable[[], None] | None
 wrap_shown_transforms: bool
 search_prefixes: list[str]
 clear_lines: bool
-special_namespaces: dict[str, Incomplete]
+special_namespaces: dict[str, Callable[..., Any]]
 line_log: bool
 dynamic_images: bool
 save_on_mobile_background: bool
@@ -332,7 +334,7 @@ lint_screens_without_parameters: bool
 menu_arguments_callback: Callable | None
 auto_clear_screenshot: bool
 allow_duplicate_labels: bool
-font_transforms: dict[str, Incomplete]
+font_transforms: dict[str, Callable[..., Any]]
 ftfont_scale: dict[str, float]
 ftfont_vertical_extent_scale: dict[str, float]
 default_shader: str
@@ -420,11 +422,6 @@ crop_relative_default: bool
 nointeract_callbacks: list[Callable[[], None]]
 layeredimage_offer_screen: bool
 call_screen_roll_forward: bool
-
-@type_check_only
-class ChoiceEmptyWindowFunction(Protocol):
-    def __call__(self, what: str, *, interact: bool) -> None: ...
-
 choice_empty_window: ChoiceEmptyWindowFunction
 open_file_encoding: bool | str
 gl2_modify_window_flags: Callable[[int], int] | None
@@ -560,7 +557,7 @@ default_text_cps: int | None
 default_voice_sustain: bool | None
 default_voice_volume: float
 default_wait_for_voice: bool | None
-descriptive_text_character: Incomplete | None
+descriptive_text_character: type | None
 early_script_version: tuple[int, ...] | None
 early_start_store: bool
 enable_steam: bool
@@ -599,7 +596,7 @@ image_buttons: dict[
 ]
 image_directories: list[str]
 image_extensions: list[str]
-image_labels: dict[str, Incomplete]
+image_labels: dict[str, renpy.ast.NodeName]
 images_directory: str | None
 intra_transition: TransitionFunction | None
 language: str | None
@@ -622,7 +619,7 @@ nvl_list_length: int | None
 nvl_page_ctc: DisplayableLike | None
 nvl_page_ctc_position: str
 nvl_paged_rollback: bool
-nvl_show_display_say: Callable[[Incomplete], Incomplete] | None
+nvl_show_display_say: Callable[..., Any] | None
 old_names: dict[str, str]
 pause_with_transition: bool
 performance_test: bool
@@ -651,7 +648,7 @@ sync_server: str
 translations: dict[str, str]
 transparent_tile: bool
 voice_callbacks: list[
-    Callable[[Literal["play", "stop"], Incomplete | None], None]
+    Callable[[Literal["play", "stop"], Any | None], None]
 ]  # VoiceInfo is the second argument type, but it's in an rpy file
 voice_filename_format: str
 window: Literal["show", "hide", "auto"] | None
@@ -738,4 +735,17 @@ window_show_transition: TransitionFunction | None
 # yesno_prompt_hotspots: Incomplete | None = hotspots
 # yesno_prompt_hover: Incomplete | None = hover
 # yesno_prompt_idle: Incomplete | None = idle
-# yesno_prompt_message_images: dict[Incomplete, Incomplete] | None = prompt_images
+# yesno_prompt_message_images: dict[str, DisplayableLike] | None = prompt_images
+
+say_menu_text_filters: list[Callable[[str], str]]
+use_menu_text_filter: bool
+failed_save_dump: bool
+mesh_oversample: float
+safe_text: bool
+live2d_old_beziers: bool
+special_directory_map: dict[str, list[str]]
+font_size_adjust: dict[str, float | Callable[[str, float], float]]
+scene_uses_tag_layer: bool
+renamed_files: dict[str, str]
+windows_high_pixel_density: bool
+after_init_callbacks: list[Callable[[], None]]

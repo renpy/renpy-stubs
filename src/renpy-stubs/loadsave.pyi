@@ -1,12 +1,13 @@
-import renpy
 import threading
+from typing import Any, overload
+
+import renpy
 from renpy.compat.pickle import (
     dump as dump,
     dump_paths as dump_paths,
     find_bad_reduction as find_bad_reduction,
     loads as loads,
 )
-from typing import Any, overload
 
 savegame_suffix: str
 

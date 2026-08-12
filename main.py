@@ -18,23 +18,33 @@ def main():
     add_project_to_path()
 
     parser = argparse.ArgumentParser(prog=os.path.basename(sys.argv[0]))
+    parser.add_argument("--path", help="Path to the Ren'Py repository")
+
     subparsers = parser.add_subparsers(dest="command", help="script to run")
 
-    subparsers.add_parser("generate", help="Run scripts.generate_pyi")
-    subparsers.add_parser("merge", help="Run scripts.merge_pyi")
+    subparsers.add_parser("extract", help="Extract type data from renpy files and update stubs")
+    subparsers.add_parser("inject", help="Inject type data from stubs into renpy source files")
 
     parsed, remaining = parser.parse_known_args()
+
+    if parsed.path:
+        from config import config
+
+        config.renpy_path = parsed.path
 
     if not parsed.command:
         parser.print_help()
         return
 
-    from scripts import generate_pyi, merge_pyi
+    if parsed.command == "extract":
+        from scripts import extract
 
-    if parsed.command == "generate":
-        generate_pyi.main()
-    elif parsed.command == "merge":
-        merge_pyi.main()
+        extract.main()
+    elif parsed.command == "inject":
+        from scripts import inject
+
+        sys.argv = [sys.argv[0]] + remaining
+        inject.main()
     else:
         print(f"Error: Unknown command {parsed.command}")
         sys.exit(1)

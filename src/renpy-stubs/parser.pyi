@@ -1,5 +1,8 @@
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, overload
+
 import renpy
-import renpy.ast as ast
+from renpy import ast
 from renpy.lexer import (
     Lexer as Lexer,
     ParseError as ParseError,
@@ -10,10 +13,11 @@ from renpy.lexer import (
     munge_filename as munge_filename,
     unelide_filename as unelide_filename,
 )
-from renpy.parameter import EMPTY_ARGUMENTS as EMPTY_ARGUMENTS, Parameter as Parameter
-from typing import Callable, Sequence, overload
+from renpy.parameter import EMPTY_ARGUMENTS as EMPTY_ARGUMENTS
+from renpy.parameter import Parameter as Parameter
 
-type ParseNodeFunction = Callable[[Lexer, ast.NodeLocation], ast.Node | Sequence[ast.Node]]
+if TYPE_CHECKING:
+    type ParseNodeFunction = Callable[[Lexer, ast.NodeLocation], ast.Node | Sequence[ast.Node]]
 parse_errors: list[str]
 deferred_parse_errors: dict[str, list[str]]
 
@@ -110,3 +114,4 @@ def parse(fn: str, filedata: str | None = None, linenumber: int = 1) -> list[ast
 def release_deferred_errors() -> None: ...
 def get_parse_errors() -> list[str]: ...
 def report_parse_errors() -> bool: ...
+def has_parse_errors() -> bool: ...

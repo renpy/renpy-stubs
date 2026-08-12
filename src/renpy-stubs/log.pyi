@@ -1,6 +1,8 @@
 import abc
+from collections.abc import Callable
+from typing import Any, TextIO
+
 from renpy.types import Unused as Unused
-from typing import Any, Callable, TextIO
 
 sys_stdout: TextIO | None
 sys_stderr: TextIO | None

@@ -1,11 +1,11 @@
-from _typeshed import Incomplete
+from collections.abc import Callable
+from typing import Any, Literal, overload
 
 import renpy
 from renpy.display.displayable import Displayable as Displayable, DisplayableArguments as DisplayableArguments
 from renpy.display.render import Render as Render
 from renpy.pygame.surface import Surface as Surface
 from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
-from typing import Callable, Literal, overload
 
 current_movie: Unused
 fullscreen: bool
@@ -19,8 +19,8 @@ def movie_start_fullscreen(filename: str, size: tuple[int, int] | None = None, l
 
 movie_start_displayable = movie_start
 texture: dict[str, Render | Surface]
-displayable_channels: dict[tuple[str, str], list["Movie"]]
-channel_movie: dict[str, "Movie"]
+displayable_channels: dict[tuple[str, str], list[Movie]]
+channel_movie: dict[str, Movie]
 reset_channels: set[str]
 group_texture: dict[str, Render | Surface]
 
@@ -89,9 +89,9 @@ class Movie(renpy.display.displayable.Displayable):
         group: str | None = None,
         keep_last_frame: bool = False,
         oversample: Unused = None,
-        **properties: Incomplete,
+        **properties: Any,
     ) -> None: ...
-    def _duplicate(self, args: DisplayableArguments | None) -> Movie: ...
+    def _duplicate(self, args: DisplayableArguments | None = None) -> Movie: ...
     def _handles_event(self, event: str) -> bool: ...
     def set_transform_event(self, event: str) -> None: ...
     def render(self, width: float, height: float, st: float, at: float) -> renpy.display.render.Render: ...

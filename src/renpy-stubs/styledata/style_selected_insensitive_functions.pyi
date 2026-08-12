@@ -1,4 +1,5 @@
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
+
 from _typeshed import Incomplete
 
 def expand_anchor(v: Incomplete) -> None: ...
