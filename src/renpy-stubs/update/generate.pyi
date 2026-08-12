@@ -1,18 +1,21 @@
-from . import common as common
-from _typeshed import Incomplete
+import threading
+from typing import BinaryIO
+from . import common as common, download as download
 
 class BlockGenerator:
-    lock: Incomplete
-    targetdir: Incomplete
-    seen_hashes: Incomplete
-    max_rpu_size: Incomplete
-    blocks: Incomplete
-    filelist: Incomplete
-    segments: Incomplete
-    new_rpu: Incomplete
-    def __init__(self, targetdir, max_rpu_size=...) -> None: ...
-    def path(self, name): ...
+    lock: threading.Lock
+    targetdir: str
+    seen_hashes: set[str]
+    max_rpu_size: int
+    blocks: list[common.File]
+    filelist: common.FileList | None
+    segments: list[common.Segment]
+    new_rpu: BinaryIO | None
+    def __init__(self, targetdir: str, max_rpu_size: int = ...) -> None: ...
+    def path(self, name: str) -> str: ...
     def open_new_rpu(self) -> None: ...
     def close_new_rpu(self) -> None: ...
-    def generate_segment(self, f, seg) -> None: ...
-    def generate(self, name, filelist, progress=None): ...
+    def generate_segment(self, f: BinaryIO, seg: common.Segment) -> None: ...
+    def generate(
+        self, name: str, filelist: common.FileList, progress: download.ProgressCallback | None = None
+    ) -> None: ...

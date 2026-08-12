@@ -1,3 +1,1 @@
-from _typeshed import Incomplete
-
-required_functions: Incomplete
+required_functions: list[str]

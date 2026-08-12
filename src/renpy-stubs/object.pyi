@@ -1,14 +1,13 @@
-from _typeshed import Incomplete
+from typing import Callable
 
 class Object:
     __version__: int
-    nosave: Incomplete
-    after_setstate: Incomplete
+    nosave: list[str]
+    after_setstate: Callable[[], None] | None
 
-sentinels: Incomplete
+sentinels: dict[str, Sentinel]
 
 class Sentinel:
-    def __new__(cls, name): ...
-    name: Incomplete
-    def __init__(self, name) -> None: ...
-    def __reduce__(self): ...
+    name: str
+    def __new__(cls, name: str) -> Sentinel: ...
+    def __init__(self, name: str) -> None: ...

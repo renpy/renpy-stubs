@@ -1,9 +1,8 @@
 import renpy
+from _frozen_importlib import BuiltinImporter as BuiltinImporter
 
 Color = renpy.pygame.color.Color
-
 Rect = renpy.pygame.rect.Rect
-
 ACTIVEEVENT: int
 APP_DIDENTERBACKGROUND: int
 APP_DIDENTERFOREGROUND: int

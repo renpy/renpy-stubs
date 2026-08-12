@@ -1,86 +1,31 @@
-class Object:
-    linenumber: int
-    "If known, the line number of the object in the source file."
+from typing import Any
 
+class CObject:
     col_offset: int
-    "If known, the column offset of the object in the source file."
+    linenumber: int
+    def _kill(self) -> None: ...
+    def _compress(self) -> None: ...
+    def _decompress(self) -> None: ...
 
+class CMetaclass(type):
     _cslot_count: int
-    "The number of slots in this class and all of its parents."
+    _cslot_setters: dict | None
+    _cslot_fields: list | None
+    _cslot_linenumbers: bool
+    _cslot_has_getstate: bool
+    def __new__(self, name: str, bases: tuple[type, ...], namespace: dict[str, Any]) -> CMetaclass: ...
 
-    def _compress(self) -> None:
-        """
-        Compresses the slots of this object.
-        """
+class Metaclass(CMetaclass):
+    def __new__(self, name: str, bases: tuple[type, ...], namespace: dict[str, Any]) -> Metaclass: ...
 
-    def _decompress(self) -> None:
-        """
-        Decompresses the slots of this object.
-        """
-
-    def _kill(self) -> None:
-        """
-        This 'kills' the object, by removing all references from it to other objects,
-        and setting all slots to the default, breaking reference cycles.
-        """
+class Object(CObject, metaclass=Metaclass): ...
 
 class Slot[T]:
     number: int
-    "A number assigned to this slot."
-
     default_value: T
-    "The default value of this slot."
-
     intern: bool
-    "If true, the value of this slot should be interned."
+    def __init__(self, default_value: T | None = None, intern: bool = False) -> None: ...
+    def __get__(self, instance: Object, owner: type) -> T: ...
+    def __set__(self, instance: Object, value: T) -> None: ...
 
-    def __init__(self, default_value: T | None = None, intern: bool = False) -> None:
-        """
-        A slot that stores a value in a CObject.
-
-        `default_value`
-            The default value of this slot.
-
-        `intern`
-            If true, this slot is a string that should be interned before being assigned
-            to the cslot.
-        """
-
-    def __get__(self, instance: Object, owner: type) -> T:
-        """
-        Gets the value of a slot.
-        """
-
-    def __set__(self, instance: Object, value: T) -> None:
-        """
-        Sets the value of a slot.
-        """
-
-class IntegerSlot:
-    number: int
-    "A number assigned to this slot."
-
-    default_value: int
-    "The default value of this slot."
-
-    def __init__(
-        self,
-        default_value: int = 0,
-    ) -> None:
-        """
-        A slot that stores a value in a CObject.
-
-        `default_value`
-            The default value of this slot.
-
-        """
-
-    def __get__(self, instance: Object, owner: type) -> int:
-        """
-        Gets the value of a slot.
-        """
-
-    def __set__(self, instance: Object, value: int) -> None:
-        """
-        Sets the value of a slot.
-        """
+class IntegerSlot(Slot[int]): ...
