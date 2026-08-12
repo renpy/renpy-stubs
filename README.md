@@ -35,7 +35,11 @@ In the main repository's `pyproject.toml`:
 
 ```toml
 [tool.pyright]
-stubPath = "typings"
+stubPath = "typings/renpy-stubs/src"
+
+exclude = [
+    "typings/",
+]
 ```
 
 This tells Pyright to look for stubs in the `typings/` directory. The
