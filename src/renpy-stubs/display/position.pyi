@@ -1,5 +1,6 @@
-from renpy.types import Position as Position
 from typing import Any, SupportsIndex, overload
+
+from renpy.types import Position as Position
 
 class absolute(float):
     def __divmod__(self, value: float) -> tuple[absolute, absolute]: ...

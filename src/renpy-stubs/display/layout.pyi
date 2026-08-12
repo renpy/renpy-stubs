@@ -4,11 +4,9 @@ from types import CodeType
 from typing import TYPE_CHECKING, Any, Literal, Protocol, Self
 
 import renpy
-from renpy.display.displayable import (
-    Displayable as Displayable,
-    Placement as Placement,
-    DisplayableArguments as DisplayableArguments,
-)
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import DisplayableArguments as DisplayableArguments
+from renpy.display.displayable import Placement as Placement
 from renpy.display.position import absolute as absolute
 from renpy.display.scenelists import AtList as AtList
 from renpy.pygame.event import EventType

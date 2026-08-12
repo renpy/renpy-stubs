@@ -3,7 +3,8 @@ from collections.abc import Callable, Generator, Sequence
 
 import renpy
 from _typeshed import Incomplete as Incomplete
-from renpy.compat.pickle import dumps as dumps, loads as loads
+from renpy.compat.pickle import dumps as dumps
+from renpy.compat.pickle import loads as loads
 from renpy.python import py_compile as py_compile
 
 always_constants: set[str]

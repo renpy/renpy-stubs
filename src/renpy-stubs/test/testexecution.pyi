@@ -3,21 +3,17 @@ from typing import Any
 
 from renpy.error import FrameSummary as FrameSummary
 from renpy.test import testreporter
-from renpy.test.testast import (
-    BaseTestBlock as BaseTestBlock,
-    Exit as Exit,
-    Node as Node,
-    TestCase as TestCase,
-    TestHook as TestHook,
-    TestSuite as TestSuite,
-)
+from renpy.test.testast import BaseTestBlock as BaseTestBlock
+from renpy.test.testast import Exit as Exit
+from renpy.test.testast import Node as Node
+from renpy.test.testast import TestCase as TestCase
+from renpy.test.testast import TestHook as TestHook
+from renpy.test.testast import TestSuite as TestSuite
 from renpy.test.testsettings import _test as _test
-from renpy.test.types import (
-    HookType as HookType,
-    NodeLocation as NodeLocation,
-    NodeState as NodeState,
-    RenpyTestTimeoutError as RenpyTestTimeoutError,
-)
+from renpy.test.types import HookType as HookType
+from renpy.test.types import NodeLocation as NodeLocation
+from renpy.test.types import NodeState as NodeState
+from renpy.test.types import RenpyTestTimeoutError as RenpyTestTimeoutError
 
 initialized: bool
 global_testsuite_name: str

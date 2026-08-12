@@ -3,15 +3,16 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, Literal, Self
 
 import renpy
-from renpy.display.behavior import (
-    map_event as map_event,
-    run as run,
-    run_unhovered as run_unhovered,
-)
+from renpy.display.behavior import map_event as map_event
+from renpy.display.behavior import run as run
+from renpy.display.behavior import run_unhovered as run_unhovered
 from renpy.display.core import absolute as absolute
-from renpy.display.displayable import Displayable as Displayable, Placement as Placement
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import Placement as Placement
 from renpy.display.layout import MultiBox as MultiBox
-from renpy.display.render import Render as Render, redraw as redraw, render as render
+from renpy.display.render import Render as Render
+from renpy.display.render import redraw as redraw
+from renpy.display.render import render as render
 from renpy.pygame.event import EventType as EventType
 from renpy.revertable import RevertableObject as RevertableObject
 from renpy.types import DisplayableLike as DisplayableLike

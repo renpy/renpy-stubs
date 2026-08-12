@@ -1,7 +1,8 @@
 import io as io
 from _frozen_importlib import BuiltinImporter as BuiltinImporter
 from _io import FileIO as FileIO
-from builtins import bytes as bytes, str
+from builtins import bytes as bytes
+from builtins import str
 from typing import Any
 
 class RWopsIO(io.RawIOBase):

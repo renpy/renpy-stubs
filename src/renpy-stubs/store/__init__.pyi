@@ -18,1016 +18,925 @@ from . import layeredimage as layeredimage
 from . import persistent as persistent
 from . import textshader as textshader
 from . import updater as updater
-
-from .__numbered__errorhandling import (
-    _error_hyperlink_styler as _error_hyperlink_styler,
-    _error_hyperlink_function as _error_hyperlink_function,
-    _ as _,
-    _ExceptionPrintContext as _ExceptionPrintContext,
-    _m1__errorhandling__simple_traceback as _m1__errorhandling__simple_traceback,
-    _m1__errorhandling__full_traceback as _m1__errorhandling__full_traceback,
-    _m1__errorhandling__format_parse_errors as _m1__errorhandling__format_parse_errors,
-    _EditFile as _EditFile,
-    _CopyFile as _CopyFile,
-    _m1__errorhandling__can_open_traceback as _m1__errorhandling__can_open_traceback,
-    _m1__errorhandling__TooltipAction as _m1__errorhandling__TooltipAction,
-    _m1__errorhandling__Tooltip as _m1__errorhandling__Tooltip,
-    _m1__errorhandling__XScrollValue as _m1__errorhandling__XScrollValue,
-    _m1__errorhandling__YScrollValue as _m1__errorhandling__YScrollValue,
-    _m1__errorhandling__ErrorQuit as _m1__errorhandling__ErrorQuit,
-    _m1__errorhandling__EnterConsole as _m1__errorhandling__EnterConsole,
-)
-from .__numbered_accessibility import (
-    alt as alt,
-    alt_statement_name as alt_statement_name,
-    sv as sv,
-    _m1_00accessibility__font_transform_cache as _m1_00accessibility__font_transform_cache,
-    _font_transform as _font_transform,
-)
-from .__numbered_action_audio import (
-    Play as Play,
-    Queue as Queue,
-    Stop as Stop,
-    SetMixer as SetMixer,
-    GetMixer as GetMixer,
-    SetMute as SetMute,
-    ToggleMute as ToggleMute,
-    PauseAudio as PauseAudio,
-)
-from .__numbered_action_control import (
-    NullAction as NullAction,
-    Return as Return,
-    Jump as Jump,
-    Call as Call,
-    Show as Show,
-    ToggleScreen as ToggleScreen,
-    ShowTransient as ShowTransient,
-    Hide as Hide,
-)
-from .__numbered_action_data import (
-    _m1_00action_data__Sentinel as _m1_00action_data__Sentinel,
-    _get_field as _get_field,
-    _set_field as _set_field,
-    AddToSet as AddToSet,
-    RemoveFromSet as RemoveFromSet,
-    ToggleSetMembership as ToggleSetMembership,
-    CycleDict as CycleDict,
-    CycleField as CycleField,
-    CycleLocalVariable as CycleLocalVariable,
-    CycleScreenVariable as CycleScreenVariable,
-    CycleVariable as CycleVariable,
-    IncrementDict as IncrementDict,
-    IncrementField as IncrementField,
-    IncrementLocalVariable as IncrementLocalVariable,
-    IncrementScreenVariable as IncrementScreenVariable,
-    IncrementVariable as IncrementVariable,
-    SetDict as SetDict,
-    SetField as SetField,
-    SetLocalVariable as SetLocalVariable,
-    SetScreenVariable as SetScreenVariable,
-    SetVariable as SetVariable,
-    ToggleDict as ToggleDict,
-    ToggleField as ToggleField,
-    ToggleLocalVariable as ToggleLocalVariable,
-    ToggleScreenVariable as ToggleScreenVariable,
-    ToggleVariable as ToggleVariable,
-)
-from .__numbered_action_file import (
-    _weekday_name_long as _weekday_name_long,
-    _weekday_name_short as _weekday_name_short,
-    _month_name_long as _month_name_long,
-    _month_name_short as _month_name_short,
-    _strftime as _strftime,
-    _m1_00action_file__slotname as _m1_00action_file__slotname,
-    _m1_00action_file__newest_slot as _m1_00action_file__newest_slot,
-    _m1_00action_file__unused_slot_name as _m1_00action_file__unused_slot_name,
-    FileCurrentPage as FileCurrentPage,
-    FileUsedSlots as FileUsedSlots,
-    FileLoadable as FileLoadable,
-    FileScreenshot as FileScreenshot,
-    FileTime as FileTime,
-    FileJson as FileJson,
-    FileSaveName as FileSaveName,
-    FileNewest as FileNewest,
-    FileSave as FileSave,
-    FileLoad as FileLoad,
-    FileDelete as FileDelete,
-    FileAction as FileAction,
-    _predict_file_page as _predict_file_page,
-    FilePage as FilePage,
-    FilePageName as FilePageName,
-    FilePageNameInputValue as FilePageNameInputValue,
-    FileSlotName as FileSlotName,
-    FilePageNext as FilePageNext,
-    FilePagePrevious as FilePagePrevious,
-    FileTakeScreenshot as FileTakeScreenshot,
-    QuickSave as QuickSave,
-    QuickLoad as QuickLoad,
-)
-from .__numbered_action_menu import (
-    _m1_00action_menu__NoShowTransition as _m1_00action_menu__NoShowTransition,
-    ShowMenu as ShowMenu,
-    Continue as Continue,
-    Start as Start,
-    MainMenu as MainMenu,
-    _confirm_quit as _confirm_quit,
-    Quit as Quit,
-    Skip as Skip,
-    Help as Help,
-)
-from .__numbered_action_other import (
-    InvertSelected as InvertSelected,
-    If as If,
-    _ActionList as _ActionList,
-    SelectedIf as SelectedIf,
-    SensitiveIf as SensitiveIf,
-    Screenshot as Screenshot,
-    HideInterface as HideInterface,
-    OpenURL as OpenURL,
-    With as With,
-    Notify as Notify,
-    Rollback as Rollback,
-    RollbackToIdentifier as RollbackToIdentifier,
-    RestartStatement as RestartStatement,
-    RollForward as RollForward,
-    GetTooltip as GetTooltip,
-    _m1_00action_other__TooltipAction as _m1_00action_other__TooltipAction,
-    _m1_00screen__TooltipAction as _m1_00screen__TooltipAction,
-    Tooltip as Tooltip,
-    Language as Language,
-    Replay as Replay,
-    EndReplay as EndReplay,
-    MouseMove as MouseMove,
-    QueueEvent as QueueEvent,
-    Function as Function,
-    Confirm as Confirm,
-    Scroll as Scroll,
-    OpenDirectory as OpenDirectory,
-    CaptureFocus as CaptureFocus,
-    ToggleFocus as ToggleFocus,
-    ClearFocus as ClearFocus,
-    GetFocusRect as GetFocusRect,
-    ExecJS as ExecJS,
-    CurrentScreenName as CurrentScreenName,
-    CopyToClipboard as CopyToClipboard,
-    EditFile as EditFile,
-)
+from .__numbered__errorhandling import _ as _
+from .__numbered__errorhandling import _CopyFile as _CopyFile
+from .__numbered__errorhandling import _EditFile as _EditFile
+from .__numbered__errorhandling import _error_hyperlink_function as _error_hyperlink_function
+from .__numbered__errorhandling import _error_hyperlink_styler as _error_hyperlink_styler
+from .__numbered__errorhandling import _ExceptionPrintContext as _ExceptionPrintContext
+from .__numbered__errorhandling import _m1__errorhandling__can_open_traceback as _m1__errorhandling__can_open_traceback
+from .__numbered__errorhandling import _m1__errorhandling__EnterConsole as _m1__errorhandling__EnterConsole
+from .__numbered__errorhandling import _m1__errorhandling__ErrorQuit as _m1__errorhandling__ErrorQuit
+from .__numbered__errorhandling import _m1__errorhandling__format_parse_errors as _m1__errorhandling__format_parse_errors
+from .__numbered__errorhandling import _m1__errorhandling__full_traceback as _m1__errorhandling__full_traceback
+from .__numbered__errorhandling import _m1__errorhandling__simple_traceback as _m1__errorhandling__simple_traceback
+from .__numbered__errorhandling import _m1__errorhandling__Tooltip as _m1__errorhandling__Tooltip
+from .__numbered__errorhandling import _m1__errorhandling__TooltipAction as _m1__errorhandling__TooltipAction
+from .__numbered__errorhandling import _m1__errorhandling__XScrollValue as _m1__errorhandling__XScrollValue
+from .__numbered__errorhandling import _m1__errorhandling__YScrollValue as _m1__errorhandling__YScrollValue
+from .__numbered_accessibility import _font_transform as _font_transform
+from .__numbered_accessibility import _m1_00accessibility__font_transform_cache as _m1_00accessibility__font_transform_cache
+from .__numbered_accessibility import alt as alt
+from .__numbered_accessibility import alt_statement_name as alt_statement_name
+from .__numbered_accessibility import sv as sv
+from .__numbered_action_audio import GetMixer as GetMixer
+from .__numbered_action_audio import PauseAudio as PauseAudio
+from .__numbered_action_audio import Play as Play
+from .__numbered_action_audio import Queue as Queue
+from .__numbered_action_audio import SetMixer as SetMixer
+from .__numbered_action_audio import SetMute as SetMute
+from .__numbered_action_audio import Stop as Stop
+from .__numbered_action_audio import ToggleMute as ToggleMute
+from .__numbered_action_control import Call as Call
+from .__numbered_action_control import Hide as Hide
+from .__numbered_action_control import Jump as Jump
+from .__numbered_action_control import NullAction as NullAction
+from .__numbered_action_control import Return as Return
+from .__numbered_action_control import Show as Show
+from .__numbered_action_control import ShowTransient as ShowTransient
+from .__numbered_action_control import ToggleScreen as ToggleScreen
+from .__numbered_action_data import AddToSet as AddToSet
+from .__numbered_action_data import CycleDict as CycleDict
+from .__numbered_action_data import CycleField as CycleField
+from .__numbered_action_data import CycleLocalVariable as CycleLocalVariable
+from .__numbered_action_data import CycleScreenVariable as CycleScreenVariable
+from .__numbered_action_data import CycleVariable as CycleVariable
+from .__numbered_action_data import IncrementDict as IncrementDict
+from .__numbered_action_data import IncrementField as IncrementField
+from .__numbered_action_data import IncrementLocalVariable as IncrementLocalVariable
+from .__numbered_action_data import IncrementScreenVariable as IncrementScreenVariable
+from .__numbered_action_data import IncrementVariable as IncrementVariable
+from .__numbered_action_data import RemoveFromSet as RemoveFromSet
+from .__numbered_action_data import SetDict as SetDict
+from .__numbered_action_data import SetField as SetField
+from .__numbered_action_data import SetLocalVariable as SetLocalVariable
+from .__numbered_action_data import SetScreenVariable as SetScreenVariable
+from .__numbered_action_data import SetVariable as SetVariable
+from .__numbered_action_data import ToggleDict as ToggleDict
+from .__numbered_action_data import ToggleField as ToggleField
+from .__numbered_action_data import ToggleLocalVariable as ToggleLocalVariable
+from .__numbered_action_data import ToggleScreenVariable as ToggleScreenVariable
+from .__numbered_action_data import ToggleSetMembership as ToggleSetMembership
+from .__numbered_action_data import ToggleVariable as ToggleVariable
+from .__numbered_action_data import _get_field as _get_field
+from .__numbered_action_data import _m1_00action_data__Sentinel as _m1_00action_data__Sentinel
+from .__numbered_action_data import _set_field as _set_field
+from .__numbered_action_file import FileAction as FileAction
+from .__numbered_action_file import FileCurrentPage as FileCurrentPage
+from .__numbered_action_file import FileDelete as FileDelete
+from .__numbered_action_file import FileJson as FileJson
+from .__numbered_action_file import FileLoad as FileLoad
+from .__numbered_action_file import FileLoadable as FileLoadable
+from .__numbered_action_file import FileNewest as FileNewest
+from .__numbered_action_file import FilePage as FilePage
+from .__numbered_action_file import FilePageName as FilePageName
+from .__numbered_action_file import FilePageNameInputValue as FilePageNameInputValue
+from .__numbered_action_file import FilePageNext as FilePageNext
+from .__numbered_action_file import FilePagePrevious as FilePagePrevious
+from .__numbered_action_file import FileSave as FileSave
+from .__numbered_action_file import FileSaveName as FileSaveName
+from .__numbered_action_file import FileScreenshot as FileScreenshot
+from .__numbered_action_file import FileSlotName as FileSlotName
+from .__numbered_action_file import FileTakeScreenshot as FileTakeScreenshot
+from .__numbered_action_file import FileTime as FileTime
+from .__numbered_action_file import FileUsedSlots as FileUsedSlots
+from .__numbered_action_file import QuickLoad as QuickLoad
+from .__numbered_action_file import QuickSave as QuickSave
+from .__numbered_action_file import _m1_00action_file__newest_slot as _m1_00action_file__newest_slot
+from .__numbered_action_file import _m1_00action_file__slotname as _m1_00action_file__slotname
+from .__numbered_action_file import _m1_00action_file__unused_slot_name as _m1_00action_file__unused_slot_name
+from .__numbered_action_file import _month_name_long as _month_name_long
+from .__numbered_action_file import _month_name_short as _month_name_short
+from .__numbered_action_file import _predict_file_page as _predict_file_page
+from .__numbered_action_file import _strftime as _strftime
+from .__numbered_action_file import _weekday_name_long as _weekday_name_long
+from .__numbered_action_file import _weekday_name_short as _weekday_name_short
+from .__numbered_action_menu import Continue as Continue
+from .__numbered_action_menu import Help as Help
+from .__numbered_action_menu import MainMenu as MainMenu
+from .__numbered_action_menu import Quit as Quit
+from .__numbered_action_menu import ShowMenu as ShowMenu
+from .__numbered_action_menu import Skip as Skip
+from .__numbered_action_menu import Start as Start
+from .__numbered_action_menu import _confirm_quit as _confirm_quit
+from .__numbered_action_menu import _m1_00action_menu__NoShowTransition as _m1_00action_menu__NoShowTransition
+from .__numbered_action_other import CaptureFocus as CaptureFocus
+from .__numbered_action_other import ClearFocus as ClearFocus
+from .__numbered_action_other import Confirm as Confirm
+from .__numbered_action_other import CopyToClipboard as CopyToClipboard
+from .__numbered_action_other import CurrentScreenName as CurrentScreenName
+from .__numbered_action_other import EditFile as EditFile
+from .__numbered_action_other import EndReplay as EndReplay
+from .__numbered_action_other import ExecJS as ExecJS
+from .__numbered_action_other import Function as Function
+from .__numbered_action_other import GetFocusRect as GetFocusRect
+from .__numbered_action_other import GetTooltip as GetTooltip
+from .__numbered_action_other import HideInterface as HideInterface
+from .__numbered_action_other import If as If
+from .__numbered_action_other import InvertSelected as InvertSelected
+from .__numbered_action_other import Language as Language
+from .__numbered_action_other import MouseMove as MouseMove
+from .__numbered_action_other import Notify as Notify
+from .__numbered_action_other import OpenDirectory as OpenDirectory
+from .__numbered_action_other import OpenURL as OpenURL
+from .__numbered_action_other import QueueEvent as QueueEvent
+from .__numbered_action_other import Replay as Replay
+from .__numbered_action_other import RestartStatement as RestartStatement
+from .__numbered_action_other import Rollback as Rollback
+from .__numbered_action_other import RollbackToIdentifier as RollbackToIdentifier
+from .__numbered_action_other import RollForward as RollForward
+from .__numbered_action_other import Screenshot as Screenshot
+from .__numbered_action_other import Scroll as Scroll
+from .__numbered_action_other import SelectedIf as SelectedIf
+from .__numbered_action_other import SensitiveIf as SensitiveIf
+from .__numbered_action_other import ToggleFocus as ToggleFocus
+from .__numbered_action_other import Tooltip as Tooltip
+from .__numbered_action_other import With as With
+from .__numbered_action_other import _ActionList as _ActionList
+from .__numbered_action_other import _m1_00action_other__TooltipAction as _m1_00action_other__TooltipAction
+from .__numbered_action_other import _m1_00screen__TooltipAction as _m1_00screen__TooltipAction
 from .__numbered_audio import _scan_audio_directory as _scan_audio_directory
-from .__numbered_barvalues import (
-    StaticValue as StaticValue,
-    AnimatedValue as AnimatedValue,
-    CallableValue as CallableValue,
-    _m1_00barvalues__GenericValue as _m1_00barvalues__GenericValue,
-    DictValue as DictValue,
-    FieldValue as FieldValue,
-    VariableValue as VariableValue,
-    ScreenVariableValue as ScreenVariableValue,
-    LocalVariableValue as LocalVariableValue,
-    MixerValue as MixerValue,
-    _CharacterVolumeValue as _CharacterVolumeValue,
-    XScrollValue as XScrollValue,
-    YScrollValue as YScrollValue,
-    AudioPositionValue as AudioPositionValue,
-)
-from .__numbered_classic_joystick_preferences import (
-    _joystick_select_binding as _joystick_select_binding,
-    _joystick_get_binding as _joystick_get_binding,
-    _joystick_take_binding as _joystick_take_binding,
-    _joystick_preferences as _joystick_preferences,
-)
-from .__numbered_classic_load_save import (
-    _load_prompt as _load_prompt,
-    _m1_classic_load_save__scratch as _m1_classic_load_save__scratch,
-    _render_savefile as _render_savefile,
-    _render_new_slot as _render_new_slot,
-    _file_picker_pages as _file_picker_pages,
-    _file_picker_page_files as _file_picker_page_files,
-    _file_picker_file_page as _file_picker_file_page,
-    _file_picker_process_screenshot as _file_picker_process_screenshot,
-    _file_picker as _file_picker,
-)
+from .__numbered_barvalues import AnimatedValue as AnimatedValue
+from .__numbered_barvalues import AudioPositionValue as AudioPositionValue
+from .__numbered_barvalues import CallableValue as CallableValue
+from .__numbered_barvalues import DictValue as DictValue
+from .__numbered_barvalues import FieldValue as FieldValue
+from .__numbered_barvalues import LocalVariableValue as LocalVariableValue
+from .__numbered_barvalues import MixerValue as MixerValue
+from .__numbered_barvalues import ScreenVariableValue as ScreenVariableValue
+from .__numbered_barvalues import StaticValue as StaticValue
+from .__numbered_barvalues import VariableValue as VariableValue
+from .__numbered_barvalues import XScrollValue as XScrollValue
+from .__numbered_barvalues import YScrollValue as YScrollValue
+from .__numbered_barvalues import _CharacterVolumeValue as _CharacterVolumeValue
+from .__numbered_barvalues import _m1_00barvalues__GenericValue as _m1_00barvalues__GenericValue
+from .__numbered_classic_joystick_preferences import _joystick_get_binding as _joystick_get_binding
+from .__numbered_classic_joystick_preferences import _joystick_preferences as _joystick_preferences
+from .__numbered_classic_joystick_preferences import _joystick_select_binding as _joystick_select_binding
+from .__numbered_classic_joystick_preferences import _joystick_take_binding as _joystick_take_binding
+from .__numbered_classic_load_save import _file_picker as _file_picker
+from .__numbered_classic_load_save import _file_picker_file_page as _file_picker_file_page
+from .__numbered_classic_load_save import _file_picker_page_files as _file_picker_page_files
+from .__numbered_classic_load_save import _file_picker_pages as _file_picker_pages
+from .__numbered_classic_load_save import _file_picker_process_screenshot as _file_picker_process_screenshot
+from .__numbered_classic_load_save import _load_prompt as _load_prompt
+from .__numbered_classic_load_save import _m1_classic_load_save__scratch as _m1_classic_load_save__scratch
+from .__numbered_classic_load_save import _render_new_slot as _render_new_slot
+from .__numbered_classic_load_save import _render_savefile as _render_savefile
 from .__numbered_classic_navigation import _navigation as _navigation
-from .__numbered_classic_preferences_common import (
-    _prefs_screen_run as _prefs_screen_run,
-    _Preference as _Preference,
-    _VolumePreference as _VolumePreference,
-    _SliderPreference as _SliderPreference,
-    _JumpPreference as _JumpPreference,
-    _remove_preference as _remove_preference,
-)
-from .__numbered_compat import _compat_versions as _compat_versions, _set_script_version as _set_script_version
-from .__numbered_db_ren import _JSONDBDict as _JSONDBDict, JSONDB as JSONDB
-from .__numbered_defaults import (
-    _vol as _vol,
-    _apply_default_preferences as _apply_default_preferences,
-    _locale_to_language_function as _locale_to_language_function,
-    _imagemap_auto_function as _imagemap_auto_function,
-    hyperlink_styler as hyperlink_styler,
-    hyperlink_function as hyperlink_function,
-    hyperlink_sensitive as hyperlink_sensitive,
-    _version as _version,
-)
-from .__numbered_definitions import (
-    _define as _define,
-    define as define,
-    _ease_out_time_warp as _ease_out_time_warp,
-    _ease_in_time_warp as _ease_in_time_warp,
-    _ease_time_warp as _ease_time_warp,
-    move_transitions as move_transitions,
-    old_move_transitions as old_move_transitions,
-    fade as fade,
-    dissolve as dissolve,
-    pixellate as pixellate,
-    wiperight as wiperight,
-    wipeleft as wipeleft,
-    wipeup as wipeup,
-    wipedown as wipedown,
-    slideright as slideright,
-    slideleft as slideleft,
-    slideup as slideup,
-    slidedown as slidedown,
-    slideawayright as slideawayright,
-    slideawayleft as slideawayleft,
-    slideawayup as slideawayup,
-    slideawaydown as slideawaydown,
-    irisout as irisout,
-    irisin as irisin,
-    pushright as pushright,
-    pushleft as pushleft,
-    pushup as pushup,
-    pushdown as pushdown,
-    zoomin as zoomin,
-    zoomout as zoomout,
-    zoominout as zoominout,
-    vpunch as vpunch,
-    hpunch as hpunch,
-    blinds as blinds,
-    squares as squares,
-    swing as swing,
-    _narrator as _narrator,
-    adv_narrator as adv_narrator,
-    centered as centered,
-    vcentered as vcentered,
-    narrator as narrator,
-)
-from .__numbered_developer import (
-    _m1_developer__ImageLocationPickerData as _m1_developer__ImageLocationPickerData,
-    _m1_developer__missing_show_callback as _m1_developer__missing_show_callback,
-    _m1_developer__missing_hide_callback as _m1_developer__missing_hide_callback,
-    _m1_developer__missing_scene_callback as _m1_developer__missing_scene_callback,
-)
-from .__numbered_gallery import (
-    _m1_00gallery__GalleryAllPriorCondition as _m1_00gallery__GalleryAllPriorCondition,
-    _m1_00gallery__GalleryArbitraryCondition as _m1_00gallery__GalleryArbitraryCondition,
-    _m1_00gallery__GalleryUnlockCondition as _m1_00gallery__GalleryUnlockCondition,
-    _m1_00gallery__GalleryImage as _m1_00gallery__GalleryImage,
-    _m1_00gallery__GalleryButton as _m1_00gallery__GalleryButton,
-    _m1_00gallery__GalleryToggleSlideshow as _m1_00gallery__GalleryToggleSlideshow,
-    _m1_00gallery__GalleryAction as _m1_00gallery__GalleryAction,
-    Gallery as Gallery,
-)
-from .__numbered_gamemenu import (
-    _game_menu_screen as _game_menu_screen,
-    _enter_menu as _enter_menu,
-    _invoke_game_menu as _invoke_game_menu,
-    _menu as _menu,
-    _load_prompt as _load_prompt,
-    _scratch as _scratch,
-    _game_nav as _game_nav,
-    _game_interact as _game_interact,
-    _render_savefile as _render_savefile,
-    _render_new_slot as _render_new_slot,
-    _file_picker_pages as _file_picker_pages,
-    _file_picker_page_files as _file_picker_page_files,
-    _file_picker_file_page as _file_picker_file_page,
-    _file_picker_process_screenshot as _file_picker_process_screenshot,
-    _file_picker as _file_picker,
-    _yesno_prompt as _yesno_prompt,
-    _quit_prompt as _quit_prompt,
-    _mainmenu_prompt as _mainmenu_prompt,
-)
-from .__numbered_gamepad import GamepadExists as GamepadExists, GamepadCalibrate as GamepadCalibrate
-from .__numbered_gltest import (
-    _SetRenderer as _SetRenderer,
-    _m1_00gltest__gl_test as _m1_00gltest__gl_test,
-    _gl_performance_test as _gl_performance_test,
-)
+from .__numbered_classic_preferences_common import _JumpPreference as _JumpPreference
+from .__numbered_classic_preferences_common import _Preference as _Preference
+from .__numbered_classic_preferences_common import _prefs_screen_run as _prefs_screen_run
+from .__numbered_classic_preferences_common import _remove_preference as _remove_preference
+from .__numbered_classic_preferences_common import _SliderPreference as _SliderPreference
+from .__numbered_classic_preferences_common import _VolumePreference as _VolumePreference
+from .__numbered_compat import _compat_versions as _compat_versions
+from .__numbered_compat import _set_script_version as _set_script_version
+from .__numbered_db_ren import JSONDB as JSONDB
+from .__numbered_db_ren import _JSONDBDict as _JSONDBDict
+from .__numbered_defaults import _apply_default_preferences as _apply_default_preferences
+from .__numbered_defaults import _imagemap_auto_function as _imagemap_auto_function
+from .__numbered_defaults import _locale_to_language_function as _locale_to_language_function
+from .__numbered_defaults import _version as _version
+from .__numbered_defaults import _vol as _vol
+from .__numbered_defaults import hyperlink_function as hyperlink_function
+from .__numbered_defaults import hyperlink_sensitive as hyperlink_sensitive
+from .__numbered_defaults import hyperlink_styler as hyperlink_styler
+from .__numbered_definitions import _define as _define
+from .__numbered_definitions import _ease_in_time_warp as _ease_in_time_warp
+from .__numbered_definitions import _ease_out_time_warp as _ease_out_time_warp
+from .__numbered_definitions import _ease_time_warp as _ease_time_warp
+from .__numbered_definitions import _narrator as _narrator
+from .__numbered_definitions import adv_narrator as adv_narrator
+from .__numbered_definitions import blinds as blinds
+from .__numbered_definitions import centered as centered
+from .__numbered_definitions import define as define
+from .__numbered_definitions import dissolve as dissolve
+from .__numbered_definitions import fade as fade
+from .__numbered_definitions import hpunch as hpunch
+from .__numbered_definitions import irisin as irisin
+from .__numbered_definitions import irisout as irisout
+from .__numbered_definitions import move_transitions as move_transitions
+from .__numbered_definitions import narrator as narrator
+from .__numbered_definitions import old_move_transitions as old_move_transitions
+from .__numbered_definitions import pixellate as pixellate
+from .__numbered_definitions import pushdown as pushdown
+from .__numbered_definitions import pushleft as pushleft
+from .__numbered_definitions import pushright as pushright
+from .__numbered_definitions import pushup as pushup
+from .__numbered_definitions import slideawaydown as slideawaydown
+from .__numbered_definitions import slideawayleft as slideawayleft
+from .__numbered_definitions import slideawayright as slideawayright
+from .__numbered_definitions import slideawayup as slideawayup
+from .__numbered_definitions import slidedown as slidedown
+from .__numbered_definitions import slideleft as slideleft
+from .__numbered_definitions import slideright as slideright
+from .__numbered_definitions import slideup as slideup
+from .__numbered_definitions import squares as squares
+from .__numbered_definitions import swing as swing
+from .__numbered_definitions import vcentered as vcentered
+from .__numbered_definitions import vpunch as vpunch
+from .__numbered_definitions import wipedown as wipedown
+from .__numbered_definitions import wipeleft as wipeleft
+from .__numbered_definitions import wiperight as wiperight
+from .__numbered_definitions import wipeup as wipeup
+from .__numbered_definitions import zoomin as zoomin
+from .__numbered_definitions import zoominout as zoominout
+from .__numbered_definitions import zoomout as zoomout
+from .__numbered_developer import _m1_developer__ImageLocationPickerData as _m1_developer__ImageLocationPickerData
+from .__numbered_developer import _m1_developer__missing_hide_callback as _m1_developer__missing_hide_callback
+from .__numbered_developer import _m1_developer__missing_scene_callback as _m1_developer__missing_scene_callback
+from .__numbered_developer import _m1_developer__missing_show_callback as _m1_developer__missing_show_callback
+from .__numbered_gallery import Gallery as Gallery
+from .__numbered_gallery import _m1_00gallery__GalleryAction as _m1_00gallery__GalleryAction
+from .__numbered_gallery import _m1_00gallery__GalleryAllPriorCondition as _m1_00gallery__GalleryAllPriorCondition
+from .__numbered_gallery import _m1_00gallery__GalleryArbitraryCondition as _m1_00gallery__GalleryArbitraryCondition
+from .__numbered_gallery import _m1_00gallery__GalleryButton as _m1_00gallery__GalleryButton
+from .__numbered_gallery import _m1_00gallery__GalleryImage as _m1_00gallery__GalleryImage
+from .__numbered_gallery import _m1_00gallery__GalleryToggleSlideshow as _m1_00gallery__GalleryToggleSlideshow
+from .__numbered_gallery import _m1_00gallery__GalleryUnlockCondition as _m1_00gallery__GalleryUnlockCondition
+from .__numbered_gamemenu import _enter_menu as _enter_menu
+from .__numbered_gamemenu import _file_picker as _file_picker
+from .__numbered_gamemenu import _file_picker_file_page as _file_picker_file_page
+from .__numbered_gamemenu import _file_picker_page_files as _file_picker_page_files
+from .__numbered_gamemenu import _file_picker_pages as _file_picker_pages
+from .__numbered_gamemenu import _file_picker_process_screenshot as _file_picker_process_screenshot
+from .__numbered_gamemenu import _game_interact as _game_interact
+from .__numbered_gamemenu import _game_menu_screen as _game_menu_screen
+from .__numbered_gamemenu import _game_nav as _game_nav
+from .__numbered_gamemenu import _invoke_game_menu as _invoke_game_menu
+from .__numbered_gamemenu import _load_prompt as _load_prompt
+from .__numbered_gamemenu import _mainmenu_prompt as _mainmenu_prompt
+from .__numbered_gamemenu import _menu as _menu
+from .__numbered_gamemenu import _quit_prompt as _quit_prompt
+from .__numbered_gamemenu import _render_new_slot as _render_new_slot
+from .__numbered_gamemenu import _render_savefile as _render_savefile
+from .__numbered_gamemenu import _scratch as _scratch
+from .__numbered_gamemenu import _yesno_prompt as _yesno_prompt
+from .__numbered_gamepad import GamepadCalibrate as GamepadCalibrate
+from .__numbered_gamepad import GamepadExists as GamepadExists
+from .__numbered_gltest import _gl_performance_test as _gl_performance_test
+from .__numbered_gltest import _m1_00gltest__gl_test as _m1_00gltest__gl_test
+from .__numbered_gltest import _SetRenderer as _SetRenderer
 from .__numbered_grouped_navigation import navigation as navigation
 from .__numbered_imagemap_common import _ImageMapper as _ImageMapper
-from .__numbered_imagemap_load_save import (
-    _load_prompt as _load_prompt,
-    _m1_imagemap_load_save__scratch as _m1_imagemap_load_save__scratch,
-    _render_savefile as _render_savefile,
-    _render_new_slot as _render_new_slot,
-    _file_picker_page_files as _file_picker_page_files,
-    _file_picker_file_page as _file_picker_file_page,
-    _file_picker_process_screenshot as _file_picker_process_screenshot,
-    _file_picker_init as _file_picker_init,
-    _file_picker_pages as _file_picker_pages,
-    _file_picker as _file_picker,
-)
+from .__numbered_imagemap_load_save import _file_picker as _file_picker
+from .__numbered_imagemap_load_save import _file_picker_file_page as _file_picker_file_page
+from .__numbered_imagemap_load_save import _file_picker_init as _file_picker_init
+from .__numbered_imagemap_load_save import _file_picker_page_files as _file_picker_page_files
+from .__numbered_imagemap_load_save import _file_picker_pages as _file_picker_pages
+from .__numbered_imagemap_load_save import _file_picker_process_screenshot as _file_picker_process_screenshot
+from .__numbered_imagemap_load_save import _load_prompt as _load_prompt
+from .__numbered_imagemap_load_save import _m1_imagemap_load_save__scratch as _m1_imagemap_load_save__scratch
+from .__numbered_imagemap_load_save import _render_new_slot as _render_new_slot
+from .__numbered_imagemap_load_save import _render_savefile as _render_savefile
 from .__numbered_imagemap_main_menu import _main_menu_variant as _main_menu_variant
 from .__numbered_imagemap_navigation import _navigation as _navigation
-from .__numbered_imagemap_preferences import (
-    _m1_imagemap_preferences__set as _m1_imagemap_preferences__set,
-    _m1_imagemap_preferences__curried_set as _m1_imagemap_preferences__curried_set,
-    _m1_imagemap_preferences__show_preferences as _m1_imagemap_preferences__show_preferences,
-)
+from .__numbered_imagemap_preferences import _m1_imagemap_preferences__curried_set as _m1_imagemap_preferences__curried_set
+from .__numbered_imagemap_preferences import _m1_imagemap_preferences__set as _m1_imagemap_preferences__set
+from .__numbered_imagemap_preferences import _m1_imagemap_preferences__show_preferences as _m1_imagemap_preferences__show_preferences
 from .__numbered_images import _scan_images_directory as _scan_images_directory
-from .__numbered_inputvalues import (
-    _InputValueAction as _InputValueAction,
-    DisableAllInputValues as DisableAllInputValues,
-    InputValue as InputValue,
-    _m1_00inputvalues__GenericInputValue as _m1_00inputvalues__GenericInputValue,
-    ScreenVariableInputValue as ScreenVariableInputValue,
-    FieldInputValue as FieldInputValue,
-    VariableInputValue as VariableInputValue,
-    DictInputValue as DictInputValue,
-    LocalVariableInputValue as LocalVariableInputValue,
-)
-from .__numbered_inspector import (
-    _m1_inspector__format_style as _m1_inspector__format_style,
-    _m1_inspector__format_location as _m1_inspector__format_location,
-    _m1_inspector__safe_repr as _m1_inspector__safe_repr,
-    _m1_inspector__inspect as _m1_inspector__inspect,
-    _inspector_repr as _inspector_repr,
-)
-from .__numbered_keymap import (
-    _keymap_list as _keymap_list,
-    _windows_hidden as _windows_hidden,
-    _keymap_toggle_afm as _keymap_toggle_afm,
-    _toggle_skipping as _toggle_skipping,
-    toggle_skipping as toggle_skipping,
-    _keymap_toggle_skipping as _keymap_toggle_skipping,
-    _help as _help,
-    _screenshot_core as _screenshot_core,
-    _screenshot as _screenshot,
-    _screenshot_callback as _screenshot_callback,
-    _fast_skip as _fast_skip,
-    _reload_game as _reload_game,
-    _launch_editor as _launch_editor,
-    _developer as _developer,
-    _profile_once as _profile_once,
-    _memory_profile as _memory_profile,
-    _progress_screen as _progress_screen,
-    _default_keymap as _default_keymap,
-)
-from .__numbered_layout import (
-    Layout as Layout,
-    layout as layout,
-    _layout as _layout,
-    _intra_jumps_core as _intra_jumps_core,
-    _intra_jumps as _intra_jumps,
-)
-from .__numbered_library import (
-    DictEquality as DictEquality,
-    FieldEquality as FieldEquality,
-    save_name as save_name,
-    preferences as preferences,
-    _default_empty_window as _default_empty_window,
-    _Extend as _Extend,
-    extend as extend,
-    _skip_indicator as _skip_indicator,
-    _predict_statements as _predict_statements,
-    _predict_screens as _predict_screens,
-    name_only as name_only,
-    predict_say as predict_say,
-    say as say,
-    _history as _history,
-    _history_list as _history_list,
-    _button_factory as _button_factory,
-    _label_factory as _label_factory,
-)
-from .__numbered_matrixcolor import (
-    _BaseMatrix as _BaseMatrix,
-    SplineMatrix as SplineMatrix,
-    ColorMatrix as ColorMatrix,
-    _MultiplyMatrix as _MultiplyMatrix,
-    IdentityMatrix as IdentityMatrix,
-    SaturationMatrix as SaturationMatrix,
-    TintMatrix as TintMatrix,
-    BrightnessMatrix as BrightnessMatrix,
-    OpacityMatrix as OpacityMatrix,
-    ContrastMatrix as ContrastMatrix,
-    ColorizeMatrix as ColorizeMatrix,
-    HueMatrix as HueMatrix,
-    InvertMatrix as InvertMatrix,
-    SepiaMatrix as SepiaMatrix,
-)
-from .__numbered_matrixtransform import (
-    TransformMatrix as TransformMatrix,
-    OffsetMatrix as OffsetMatrix,
-    RotateMatrix as RotateMatrix,
-    ScaleMatrix as ScaleMatrix,
-)
+from .__numbered_inputvalues import DictInputValue as DictInputValue
+from .__numbered_inputvalues import DisableAllInputValues as DisableAllInputValues
+from .__numbered_inputvalues import FieldInputValue as FieldInputValue
+from .__numbered_inputvalues import InputValue as InputValue
+from .__numbered_inputvalues import LocalVariableInputValue as LocalVariableInputValue
+from .__numbered_inputvalues import ScreenVariableInputValue as ScreenVariableInputValue
+from .__numbered_inputvalues import VariableInputValue as VariableInputValue
+from .__numbered_inputvalues import _InputValueAction as _InputValueAction
+from .__numbered_inputvalues import _m1_00inputvalues__GenericInputValue as _m1_00inputvalues__GenericInputValue
+from .__numbered_inspector import _inspector_repr as _inspector_repr
+from .__numbered_inspector import _m1_inspector__format_location as _m1_inspector__format_location
+from .__numbered_inspector import _m1_inspector__format_style as _m1_inspector__format_style
+from .__numbered_inspector import _m1_inspector__inspect as _m1_inspector__inspect
+from .__numbered_inspector import _m1_inspector__safe_repr as _m1_inspector__safe_repr
+from .__numbered_keymap import _default_keymap as _default_keymap
+from .__numbered_keymap import _developer as _developer
+from .__numbered_keymap import _fast_skip as _fast_skip
+from .__numbered_keymap import _help as _help
+from .__numbered_keymap import _keymap_list as _keymap_list
+from .__numbered_keymap import _keymap_toggle_afm as _keymap_toggle_afm
+from .__numbered_keymap import _keymap_toggle_skipping as _keymap_toggle_skipping
+from .__numbered_keymap import _launch_editor as _launch_editor
+from .__numbered_keymap import _memory_profile as _memory_profile
+from .__numbered_keymap import _profile_once as _profile_once
+from .__numbered_keymap import _progress_screen as _progress_screen
+from .__numbered_keymap import _reload_game as _reload_game
+from .__numbered_keymap import _screenshot as _screenshot
+from .__numbered_keymap import _screenshot_callback as _screenshot_callback
+from .__numbered_keymap import _screenshot_core as _screenshot_core
+from .__numbered_keymap import _toggle_skipping as _toggle_skipping
+from .__numbered_keymap import _windows_hidden as _windows_hidden
+from .__numbered_keymap import toggle_skipping as toggle_skipping
+from .__numbered_layout import Layout as Layout
+from .__numbered_layout import _intra_jumps as _intra_jumps
+from .__numbered_layout import _intra_jumps_core as _intra_jumps_core
+from .__numbered_layout import _layout as _layout
+from .__numbered_layout import layout as layout
+from .__numbered_library import DictEquality as DictEquality
+from .__numbered_library import FieldEquality as FieldEquality
+from .__numbered_library import _button_factory as _button_factory
+from .__numbered_library import _default_empty_window as _default_empty_window
+from .__numbered_library import _Extend as _Extend
+from .__numbered_library import _history as _history
+from .__numbered_library import _history_list as _history_list
+from .__numbered_library import _label_factory as _label_factory
+from .__numbered_library import _predict_screens as _predict_screens
+from .__numbered_library import _predict_statements as _predict_statements
+from .__numbered_library import _preferences as _preferences
+from .__numbered_library import _skip_indicator as _skip_indicator
+from .__numbered_library import extend as extend
+from .__numbered_library import name_only as name_only
+from .__numbered_library import predict_say as predict_say
+from .__numbered_library import preferences as preferences
+from .__numbered_library import save_name as save_name
+from .__numbered_library import say as say
+from .__numbered_matrixcolor import BrightnessMatrix as BrightnessMatrix
+from .__numbered_matrixcolor import ColorizeMatrix as ColorizeMatrix
+from .__numbered_matrixcolor import ColorMatrix as ColorMatrix
+from .__numbered_matrixcolor import ContrastMatrix as ContrastMatrix
+from .__numbered_matrixcolor import HueMatrix as HueMatrix
+from .__numbered_matrixcolor import IdentityMatrix as IdentityMatrix
+from .__numbered_matrixcolor import InvertMatrix as InvertMatrix
+from .__numbered_matrixcolor import OpacityMatrix as OpacityMatrix
+from .__numbered_matrixcolor import SaturationMatrix as SaturationMatrix
+from .__numbered_matrixcolor import SepiaMatrix as SepiaMatrix
+from .__numbered_matrixcolor import SplineMatrix as SplineMatrix
+from .__numbered_matrixcolor import TintMatrix as TintMatrix
+from .__numbered_matrixcolor import _BaseMatrix as _BaseMatrix
+from .__numbered_matrixcolor import _MultiplyMatrix as _MultiplyMatrix
+from .__numbered_matrixtransform import OffsetMatrix as OffsetMatrix
+from .__numbered_matrixtransform import RotateMatrix as RotateMatrix
+from .__numbered_matrixtransform import ScaleMatrix as ScaleMatrix
+from .__numbered_matrixtransform import TransformMatrix as TransformMatrix
 from .__numbered_mousedisplayable import MouseDisplayable as MouseDisplayable
-from .__numbered_musicroom import (
-    _m1_00musicroom__MusicRoomPlay as _m1_00musicroom__MusicRoomPlay,
-    _m1_00musicroom__MusicRoomRandomPlay as _m1_00musicroom__MusicRoomRandomPlay,
-    _m1_00musicroom__MusicRoomTogglePlay as _m1_00musicroom__MusicRoomTogglePlay,
-    _m1_00musicroom__MusicRoomTogglePause as _m1_00musicroom__MusicRoomTogglePause,
-    _m1_00musicroom__MusicRoomStop as _m1_00musicroom__MusicRoomStop,
-    MusicRoom as MusicRoom,
-)
-from .__numbered_nvl_mode import (
-    nvl_list as nvl_list,
-    nvl_variant as nvl_variant,
-    _m1_00nvl_mode__s as _m1_00nvl_mode__s,
-    _NVLEntry as _NVLEntry,
-    _m1_00nvl_mode__nvl_screen_dialogue as _m1_00nvl_mode__nvl_screen_dialogue,
-    _m1_00nvl_mode__nvl_show_screen as _m1_00nvl_mode__nvl_show_screen,
-    nvl_show_core as nvl_show_core,
-    nvl_window as nvl_window,
-    nvl_show as nvl_show,
-    nvl_hide as nvl_hide,
-    nvl_erase as nvl_erase,
-    nvl_clear_next as nvl_clear_next,
-    NVLCharacter as NVLCharacter,
-    nvl as nvl,
-    nvl_narrator as nvl_narrator,
-    nvl_clear as nvl_clear,
-    nvl_menu as nvl_menu,
-    NVLSpeaker as NVLSpeaker,
-    _nvl_adv_callback as _nvl_adv_callback,
-    _nvl_language as _nvl_language,
-)
-from .__numbered_obsolete import (
-    _ as _,
-    _window_during_transitions as _window_during_transitions,
-    _default_with_callback as _default_with_callback,
-)
+from .__numbered_musicroom import MusicRoom as MusicRoom
+from .__numbered_musicroom import _m1_00musicroom__MusicRoomPlay as _m1_00musicroom__MusicRoomPlay
+from .__numbered_musicroom import _m1_00musicroom__MusicRoomRandomPlay as _m1_00musicroom__MusicRoomRandomPlay
+from .__numbered_musicroom import _m1_00musicroom__MusicRoomStop as _m1_00musicroom__MusicRoomStop
+from .__numbered_musicroom import _m1_00musicroom__MusicRoomTogglePause as _m1_00musicroom__MusicRoomTogglePause
+from .__numbered_musicroom import _m1_00musicroom__MusicRoomTogglePlay as _m1_00musicroom__MusicRoomTogglePlay
+from .__numbered_nvl_mode import NVLCharacter as NVLCharacter
+from .__numbered_nvl_mode import NVLSpeaker as NVLSpeaker
+from .__numbered_nvl_mode import _m1_00nvl_mode__nvl_screen_dialogue as _m1_00nvl_mode__nvl_screen_dialogue
+from .__numbered_nvl_mode import _m1_00nvl_mode__nvl_show_screen as _m1_00nvl_mode__nvl_show_screen
+from .__numbered_nvl_mode import _m1_00nvl_mode__s as _m1_00nvl_mode__s
+from .__numbered_nvl_mode import _nvl_adv_callback as _nvl_adv_callback
+from .__numbered_nvl_mode import _nvl_language as _nvl_language
+from .__numbered_nvl_mode import _NVLEntry as _NVLEntry
+from .__numbered_nvl_mode import nvl as nvl
+from .__numbered_nvl_mode import nvl_clear as nvl_clear
+from .__numbered_nvl_mode import nvl_clear_next as nvl_clear_next
+from .__numbered_nvl_mode import nvl_erase as nvl_erase
+from .__numbered_nvl_mode import nvl_hide as nvl_hide
+from .__numbered_nvl_mode import nvl_list as nvl_list
+from .__numbered_nvl_mode import nvl_menu as nvl_menu
+from .__numbered_nvl_mode import nvl_narrator as nvl_narrator
+from .__numbered_nvl_mode import nvl_show as nvl_show
+from .__numbered_nvl_mode import nvl_show_core as nvl_show_core
+from .__numbered_nvl_mode import nvl_variant as nvl_variant
+from .__numbered_nvl_mode import nvl_window as nvl_window
+from .__numbered_obsolete import _ as _
+from .__numbered_obsolete import _default_with_callback as _default_with_callback
+from .__numbered_obsolete import _window_during_transitions as _window_during_transitions
 from .__numbered_performance import _clear_performance as _clear_performance
 from .__numbered_placeholder import Placeholder as Placeholder
-from .__numbered_preferences import (
-    _m1_00preferences__DisplayAction as _m1_00preferences__DisplayAction,
-    _m1_00screen__DisplayAction as _m1_00screen__DisplayAction,
-    _m1_00preferences__ResetPreferences as _m1_00preferences__ResetPreferences,
-    _DisplayReset as _DisplayReset,
-    Preference as Preference,
-    _m1_00preferences__show_self_voicing as _m1_00preferences__show_self_voicing,
-    _prefs_screen_run as _prefs_screen_run,
-    _Preference as _Preference,
-    _VolumePreference as _VolumePreference,
-    _SliderPreference as _SliderPreference,
-    _PreferenceSpinner as _PreferenceSpinner,
-    _joystick_select_binding as _joystick_select_binding,
-    _joystick_get_binding as _joystick_get_binding,
-    _joystick_take_binding as _joystick_take_binding,
-    _JoystickPreference as _JoystickPreference,
-    _JumpPreference as _JumpPreference,
-    _remove_preference as _remove_preference,
-)
-from .__numbered_scrolling_load_save import (
-    _m1_scrolling_load_save__session as _m1_scrolling_load_save__session,
-    _load_prompt as _load_prompt,
-    _file_picker_thumbnail as _file_picker_thumbnail,
-    _file_picker as _file_picker,
-)
-from .__numbered_sideimage import (
-    _side_image_tag as _side_image_tag,
-    _side_image_old as _side_image_old,
-    _side_image_raw as _side_image_raw,
-    _side_image as _side_image,
-    _side_image_prefix_tag as _side_image_prefix_tag,
-    _side_per_interact as _side_per_interact,
-    SideImage as SideImage,
-    HasSideImage as HasSideImage,
-)
-from .__numbered_splines import _SplineInterpolator as _SplineInterpolator, SplineMotion as SplineMotion
-from .__numbered_sshtransition_ren import (
-    _scene_show_hide_transition as _scene_show_hide_transition,
-    _after_scene_show_hide as _after_scene_show_hide,
-    _scene_show_hide_transition_callback as _scene_show_hide_transition_callback,
-)
+from .__numbered_preferences import Preference as Preference
+from .__numbered_preferences import _DisplayReset as _DisplayReset
+from .__numbered_preferences import _joystick_get_binding as _joystick_get_binding
+from .__numbered_preferences import _joystick_select_binding as _joystick_select_binding
+from .__numbered_preferences import _joystick_take_binding as _joystick_take_binding
+from .__numbered_preferences import _JoystickPreference as _JoystickPreference
+from .__numbered_preferences import _JumpPreference as _JumpPreference
+from .__numbered_preferences import _m1_00preferences__DisplayAction as _m1_00preferences__DisplayAction
+from .__numbered_preferences import _m1_00preferences__ResetPreferences as _m1_00preferences__ResetPreferences
+from .__numbered_preferences import _m1_00preferences__show_self_voicing as _m1_00preferences__show_self_voicing
+from .__numbered_preferences import _m1_00screen__DisplayAction as _m1_00screen__DisplayAction
+from .__numbered_preferences import _Preference as _Preference
+from .__numbered_preferences import _PreferenceSpinner as _PreferenceSpinner
+from .__numbered_preferences import _prefs_screen_run as _prefs_screen_run
+from .__numbered_preferences import _remove_preference as _remove_preference
+from .__numbered_preferences import _SliderPreference as _SliderPreference
+from .__numbered_preferences import _VolumePreference as _VolumePreference
+from .__numbered_scrolling_load_save import _file_picker as _file_picker
+from .__numbered_scrolling_load_save import _file_picker_thumbnail as _file_picker_thumbnail
+from .__numbered_scrolling_load_save import _load_prompt as _load_prompt
+from .__numbered_scrolling_load_save import _m1_scrolling_load_save__session as _m1_scrolling_load_save__session
+from .__numbered_sideimage import HasSideImage as HasSideImage
+from .__numbered_sideimage import SideImage as SideImage
+from .__numbered_sideimage import _side_image as _side_image
+from .__numbered_sideimage import _side_image_old as _side_image_old
+from .__numbered_sideimage import _side_image_prefix_tag as _side_image_prefix_tag
+from .__numbered_sideimage import _side_image_raw as _side_image_raw
+from .__numbered_sideimage import _side_image_tag as _side_image_tag
+from .__numbered_sideimage import _side_per_interact as _side_per_interact
+from .__numbered_splines import SplineMotion as SplineMotion
+from .__numbered_splines import _SplineInterpolator as _SplineInterpolator
+from .__numbered_sshtransition_ren import _after_scene_show_hide as _after_scene_show_hide
+from .__numbered_sshtransition_ren import _scene_show_hide_transition as _scene_show_hide_transition
+from .__numbered_sshtransition_ren import _scene_show_hide_transition_callback as _scene_show_hide_transition_callback
 from .__numbered_start import _init_language as _init_language
-from .__numbered_statements import _audio_eval as _audio_eval, _try_eval as _try_eval
-from .__numbered_stylepreferences import (
-    _m1_00stylepreferences__preferences as _m1_00stylepreferences__preferences,
-    _m1_00stylepreferences__alternatives as _m1_00stylepreferences__alternatives,
-    _m1_00stylepreferences__spdirty as _m1_00stylepreferences__spdirty,
-    _m1_00stylepreferences__register_style_preference as _m1_00stylepreferences__register_style_preference,
-    _m1_00stylepreferences__init as _m1_00stylepreferences__init,
-    _m1_00stylepreferences__update as _m1_00stylepreferences__update,
-    _m1_00stylepreferences__apply_styles as _m1_00stylepreferences__apply_styles,
-    _m1_00stylepreferences__check as _m1_00stylepreferences__check,
-    _m1_00stylepreferences__set_style_preference as _m1_00stylepreferences__set_style_preference,
-    _m1_00stylepreferences__get_style_preference as _m1_00stylepreferences__get_style_preference,
-    StylePreference as StylePreference,
-)
-from .__numbered_styles import (
-    dark_cyan as dark_cyan,
-    bright_cyan as bright_cyan,
-    dark_red as dark_red,
-    bright_red as bright_red,
-    green as green,
-    _SelectedCompat as _SelectedCompat,
-    _apply_selected_compat as _apply_selected_compat,
-)
-from .__numbered_sync import UploadSync as UploadSync, DownloadSync as DownloadSync
-from .__numbered_themes import (
-    _Theme as _Theme,
-    _theme as _theme,
-    theme as theme,
-    RoundRect as RoundRect,
-    _m1_00themes__AWTBox as _m1_00themes__AWTBox,
-    _m1_00themes__AWTButton as _m1_00themes__AWTButton,
-    _m1_00themes__AWTBullet as _m1_00themes__AWTBullet,
-    _display_button_menu as _display_button_menu,
-    _button_menu as _button_menu,
-)
-from .__numbered_touchkeyboard import (
-    _TouchKeyboardTextInput as _TouchKeyboardTextInput,
-    _TouchKeyboardBackspace as _TouchKeyboardBackspace,
-    _TouchKeyboardReturn as _TouchKeyboardReturn,
-)
-from .__numbered_voice import (
-    _voice as _voice,
-    _last_voice_play as _last_voice_play,
-    _invoke_voice_callbacks as _invoke_voice_callbacks,
-    voice as voice,
-    voice_sustain as voice_sustain,
-    voice_replay as voice_replay,
-    voice_can_replay as voice_can_replay,
-    SetVoiceMute as SetVoiceMute,
-    SetCharacterVolume as SetCharacterVolume,
-    GetCharacterVolume as GetCharacterVolume,
-    PlayCharacterVoice as PlayCharacterVoice,
-    ToggleVoiceMute as ToggleVoiceMute,
-    VoiceReplay as VoiceReplay,
-    VoiceInfo as VoiceInfo,
-    _get_voice_info as _get_voice_info,
-    _voice_history_callback as _voice_history_callback,
-)
-from .__numbered_window import (
-    _window_auto as _window_auto,
-    _window_next as _window_next,
-    _window_show as _window_show,
-    _window_hide as _window_hide,
-    _window_auto_callback as _window_auto_callback,
-    _init_window as _init_window,
-)
+from .__numbered_statements import _audio_eval as _audio_eval
+from .__numbered_statements import _try_eval as _try_eval
+from .__numbered_stylepreferences import StylePreference as StylePreference
+from .__numbered_stylepreferences import _m1_00stylepreferences__alternatives as _m1_00stylepreferences__alternatives
+from .__numbered_stylepreferences import _m1_00stylepreferences__apply_styles as _m1_00stylepreferences__apply_styles
+from .__numbered_stylepreferences import _m1_00stylepreferences__check as _m1_00stylepreferences__check
+from .__numbered_stylepreferences import _m1_00stylepreferences__get_style_preference as _m1_00stylepreferences__get_style_preference
+from .__numbered_stylepreferences import _m1_00stylepreferences__init as _m1_00stylepreferences__init
+from .__numbered_stylepreferences import _m1_00stylepreferences__preferences as _m1_00stylepreferences__preferences
+from .__numbered_stylepreferences import _m1_00stylepreferences__register_style_preference as _m1_00stylepreferences__register_style_preference
+from .__numbered_stylepreferences import _m1_00stylepreferences__set_style_preference as _m1_00stylepreferences__set_style_preference
+from .__numbered_stylepreferences import _m1_00stylepreferences__spdirty as _m1_00stylepreferences__spdirty
+from .__numbered_stylepreferences import _m1_00stylepreferences__update as _m1_00stylepreferences__update
+from .__numbered_styles import _apply_selected_compat as _apply_selected_compat
+from .__numbered_styles import _SelectedCompat as _SelectedCompat
+from .__numbered_styles import bright_cyan as bright_cyan
+from .__numbered_styles import bright_red as bright_red
+from .__numbered_styles import dark_cyan as dark_cyan
+from .__numbered_styles import dark_red as dark_red
+from .__numbered_styles import green as green
+from .__numbered_sync import DownloadSync as DownloadSync
+from .__numbered_sync import UploadSync as UploadSync
+from .__numbered_themes import RoundRect as RoundRect
+from .__numbered_themes import _button_menu as _button_menu
+from .__numbered_themes import _display_button_menu as _display_button_menu
+from .__numbered_themes import _m1_00themes__AWTBox as _m1_00themes__AWTBox
+from .__numbered_themes import _m1_00themes__AWTBullet as _m1_00themes__AWTBullet
+from .__numbered_themes import _m1_00themes__AWTButton as _m1_00themes__AWTButton
+from .__numbered_themes import _Theme as _Theme
+from .__numbered_themes import _theme as _theme
+from .__numbered_themes import theme as theme
+from .__numbered_touchkeyboard import _TouchKeyboardBackspace as _TouchKeyboardBackspace
+from .__numbered_touchkeyboard import _TouchKeyboardReturn as _TouchKeyboardReturn
+from .__numbered_touchkeyboard import _TouchKeyboardTextInput as _TouchKeyboardTextInput
+from .__numbered_voice import GetCharacterVolume as GetCharacterVolume
+from .__numbered_voice import PlayCharacterVoice as PlayCharacterVoice
+from .__numbered_voice import SetCharacterVolume as SetCharacterVolume
+from .__numbered_voice import SetVoiceMute as SetVoiceMute
+from .__numbered_voice import ToggleVoiceMute as ToggleVoiceMute
+from .__numbered_voice import VoiceInfo as VoiceInfo
+from .__numbered_voice import VoiceReplay as VoiceReplay
+from .__numbered_voice import _get_voice_info as _get_voice_info
+from .__numbered_voice import _invoke_voice_callbacks as _invoke_voice_callbacks
+from .__numbered_voice import _last_voice_play as _last_voice_play
+from .__numbered_voice import _voice as _voice
+from .__numbered_voice import _voice_history_callback as _voice_history_callback
+from .__numbered_voice import voice as voice
+from .__numbered_voice import voice_can_replay as voice_can_replay
+from .__numbered_voice import voice_replay as voice_replay
+from .__numbered_voice import voice_sustain as voice_sustain
+from .__numbered_window import _init_window as _init_window
+from .__numbered_window import _window_auto as _window_auto
+from .__numbered_window import _window_auto_callback as _window_auto_callback
+from .__numbered_window import _window_hide as _window_hide
+from .__numbered_window import _window_next as _window_next
+from .__numbered_window import _window_show as _window_show
 
 __all__ = [
-    "_console",
-    "_errorhandling",
-    "_gamepad",
-    "_renpysteam",
-    "_sync",
-    "_warper",
-    "achievement",
-    "audio",
-    "bubble",
-    "build",
-    "director",
-    "gui",
-    "iap",
-    "icon",
-    "layeredimage",
-    "persistent",
-    "textshader",
-    "updater",
-    "_error_hyperlink_styler",
-    "_error_hyperlink_function",
-    "_",
-    "_ExceptionPrintContext",
-    "_m1__errorhandling__simple_traceback",
-    "_m1__errorhandling__full_traceback",
-    "_m1__errorhandling__format_parse_errors",
-    "_EditFile",
-    "_CopyFile",
-    "_m1__errorhandling__can_open_traceback",
-    "_m1__errorhandling__TooltipAction",
-    "_m1__errorhandling__Tooltip",
-    "_m1__errorhandling__XScrollValue",
-    "_m1__errorhandling__YScrollValue",
-    "_m1__errorhandling__ErrorQuit",
-    "_m1__errorhandling__EnterConsole",
-    "alt",
-    "alt_statement_name",
-    "sv",
-    "_m1_00accessibility__font_transform_cache",
-    "_font_transform",
-    "Play",
-    "Queue",
-    "Stop",
-    "SetMixer",
-    "GetMixer",
-    "SetMute",
-    "ToggleMute",
-    "PauseAudio",
-    "NullAction",
-    "Return",
-    "Jump",
-    "Call",
-    "Show",
-    "ToggleScreen",
-    "ShowTransient",
-    "Hide",
-    "_m1_00action_data__Sentinel",
-    "_get_field",
-    "_set_field",
+    "JSONDB",
     "AddToSet",
-    "RemoveFromSet",
-    "ToggleSetMembership",
+    "AnimatedValue",
+    "AudioPositionValue",
+    "BrightnessMatrix",
+    "Call",
+    "CallableValue",
+    "CaptureFocus",
+    "ClearFocus",
+    "ColorMatrix",
+    "ColorizeMatrix",
+    "Confirm",
+    "Continue",
+    "ContrastMatrix",
+    "CopyToClipboard",
+    "CurrentScreenName",
     "CycleDict",
     "CycleField",
     "CycleLocalVariable",
     "CycleScreenVariable",
     "CycleVariable",
+    "DictEquality",
+    "DictInputValue",
+    "DictValue",
+    "DisableAllInputValues",
+    "DownloadSync",
+    "EditFile",
+    "EndReplay",
+    "ExecJS",
+    "FieldEquality",
+    "FieldInputValue",
+    "FieldValue",
+    "FileAction",
+    "FileCurrentPage",
+    "FileDelete",
+    "FileJson",
+    "FileLoad",
+    "FileLoadable",
+    "FileNewest",
+    "FilePage",
+    "FilePageName",
+    "FilePageNameInputValue",
+    "FilePageNext",
+    "FilePagePrevious",
+    "FileSave",
+    "FileSaveName",
+    "FileScreenshot",
+    "FileSlotName",
+    "FileTakeScreenshot",
+    "FileTime",
+    "FileUsedSlots",
+    "Function",
+    "Gallery",
+    "GamepadCalibrate",
+    "GamepadExists",
+    "GetCharacterVolume",
+    "GetFocusRect",
+    "GetMixer",
+    "GetTooltip",
+    "HasSideImage",
+    "Help",
+    "Hide",
+    "HideInterface",
+    "HueMatrix",
+    "IdentityMatrix",
+    "If",
     "IncrementDict",
     "IncrementField",
     "IncrementLocalVariable",
     "IncrementScreenVariable",
     "IncrementVariable",
+    "InputValue",
+    "InvertMatrix",
+    "InvertSelected",
+    "Jump",
+    "Language",
+    "Layout",
+    "LocalVariableInputValue",
+    "LocalVariableValue",
+    "MainMenu",
+    "MixerValue",
+    "MouseDisplayable",
+    "MouseMove",
+    "MusicRoom",
+    "NVLCharacter",
+    "NVLSpeaker",
+    "Notify",
+    "NullAction",
+    "OffsetMatrix",
+    "OpacityMatrix",
+    "OpenDirectory",
+    "OpenURL",
+    "PauseAudio",
+    "Placeholder",
+    "Play",
+    "PlayCharacterVoice",
+    "Preference",
+    "Queue",
+    "QueueEvent",
+    "QuickLoad",
+    "QuickSave",
+    "Quit",
+    "RemoveFromSet",
+    "Replay",
+    "RestartStatement",
+    "Return",
+    "RollForward",
+    "Rollback",
+    "RollbackToIdentifier",
+    "RotateMatrix",
+    "RoundRect",
+    "SaturationMatrix",
+    "ScaleMatrix",
+    "ScreenVariableInputValue",
+    "ScreenVariableValue",
+    "Screenshot",
+    "Scroll",
+    "SelectedIf",
+    "SensitiveIf",
+    "SepiaMatrix",
+    "SetCharacterVolume",
     "SetDict",
     "SetField",
     "SetLocalVariable",
+    "SetMixer",
+    "SetMute",
     "SetScreenVariable",
     "SetVariable",
+    "SetVoiceMute",
+    "Show",
+    "ShowMenu",
+    "ShowTransient",
+    "SideImage",
+    "Skip",
+    "SplineMatrix",
+    "SplineMotion",
+    "Start",
+    "StaticValue",
+    "Stop",
+    "StylePreference",
+    "TintMatrix",
     "ToggleDict",
     "ToggleField",
-    "ToggleLocalVariable",
-    "ToggleScreenVariable",
-    "ToggleVariable",
-    "_weekday_name_long",
-    "_weekday_name_short",
-    "_month_name_long",
-    "_month_name_short",
-    "_strftime",
-    "_m1_00action_file__slotname",
-    "_m1_00action_file__newest_slot",
-    "_m1_00action_file__unused_slot_name",
-    "FileCurrentPage",
-    "FileUsedSlots",
-    "FileLoadable",
-    "FileScreenshot",
-    "FileTime",
-    "FileJson",
-    "FileSaveName",
-    "FileNewest",
-    "FileSave",
-    "FileLoad",
-    "FileDelete",
-    "FileAction",
-    "_predict_file_page",
-    "FilePage",
-    "FilePageName",
-    "FilePageNameInputValue",
-    "FileSlotName",
-    "FilePageNext",
-    "FilePagePrevious",
-    "FileTakeScreenshot",
-    "QuickSave",
-    "QuickLoad",
-    "_m1_00action_menu__NoShowTransition",
-    "ShowMenu",
-    "Continue",
-    "Start",
-    "MainMenu",
-    "_confirm_quit",
-    "Quit",
-    "Skip",
-    "Help",
-    "InvertSelected",
-    "If",
-    "_ActionList",
-    "SelectedIf",
-    "SensitiveIf",
-    "Screenshot",
-    "HideInterface",
-    "OpenURL",
-    "With",
-    "Notify",
-    "Rollback",
-    "RollbackToIdentifier",
-    "RestartStatement",
-    "RollForward",
-    "GetTooltip",
-    "_m1_00action_other__TooltipAction",
-    "_m1_00screen__TooltipAction",
-    "Tooltip",
-    "Language",
-    "Replay",
-    "EndReplay",
-    "MouseMove",
-    "QueueEvent",
-    "Function",
-    "Confirm",
-    "Scroll",
-    "OpenDirectory",
-    "CaptureFocus",
     "ToggleFocus",
-    "ClearFocus",
-    "GetFocusRect",
-    "ExecJS",
-    "CurrentScreenName",
-    "CopyToClipboard",
-    "EditFile",
-    "_scan_audio_directory",
-    "StaticValue",
-    "AnimatedValue",
-    "CallableValue",
-    "_m1_00barvalues__GenericValue",
-    "DictValue",
-    "FieldValue",
+    "ToggleLocalVariable",
+    "ToggleMute",
+    "ToggleScreen",
+    "ToggleScreenVariable",
+    "ToggleSetMembership",
+    "ToggleVariable",
+    "ToggleVoiceMute",
+    "Tooltip",
+    "TransformMatrix",
+    "UploadSync",
+    "VariableInputValue",
     "VariableValue",
-    "ScreenVariableValue",
-    "LocalVariableValue",
-    "MixerValue",
-    "_CharacterVolumeValue",
+    "VoiceInfo",
+    "VoiceReplay",
+    "With",
     "XScrollValue",
     "YScrollValue",
-    "AudioPositionValue",
-    "_joystick_select_binding",
-    "_joystick_get_binding",
-    "_joystick_take_binding",
-    "_joystick_preferences",
-    "_load_prompt",
-    "_m1_classic_load_save__scratch",
-    "_render_savefile",
-    "_render_new_slot",
-    "_file_picker_pages",
-    "_file_picker_page_files",
-    "_file_picker_file_page",
-    "_file_picker_process_screenshot",
-    "_file_picker",
-    "_navigation",
-    "_prefs_screen_run",
-    "_Preference",
-    "_VolumePreference",
-    "_SliderPreference",
-    "_JumpPreference",
-    "_remove_preference",
-    "_compat_versions",
-    "_set_script_version",
-    "_JSONDBDict",
-    "JSONDB",
-    "_vol",
-    "_apply_default_preferences",
-    "_locale_to_language_function",
-    "_imagemap_auto_function",
-    "hyperlink_styler",
-    "hyperlink_function",
-    "hyperlink_sensitive",
-    "_version",
-    "_define",
-    "define",
-    "_ease_out_time_warp",
-    "_ease_in_time_warp",
-    "_ease_time_warp",
-    "move_transitions",
-    "old_move_transitions",
-    "fade",
-    "dissolve",
-    "pixellate",
-    "wiperight",
-    "wipeleft",
-    "wipeup",
-    "wipedown",
-    "slideright",
-    "slideleft",
-    "slideup",
-    "slidedown",
-    "slideawayright",
-    "slideawayleft",
-    "slideawayup",
-    "slideawaydown",
-    "irisout",
-    "irisin",
-    "pushright",
-    "pushleft",
-    "pushup",
-    "pushdown",
-    "zoomin",
-    "zoomout",
-    "zoominout",
-    "vpunch",
-    "hpunch",
-    "blinds",
-    "squares",
-    "swing",
-    "_narrator",
-    "adv_narrator",
-    "centered",
-    "vcentered",
-    "narrator",
-    "_m1_developer__ImageLocationPickerData",
-    "_m1_developer__missing_show_callback",
-    "_m1_developer__missing_hide_callback",
-    "_m1_developer__missing_scene_callback",
-    "_m1_00gallery__GalleryAllPriorCondition",
-    "_m1_00gallery__GalleryArbitraryCondition",
-    "_m1_00gallery__GalleryUnlockCondition",
-    "_m1_00gallery__GalleryImage",
-    "_m1_00gallery__GalleryButton",
-    "_m1_00gallery__GalleryToggleSlideshow",
-    "_m1_00gallery__GalleryAction",
-    "Gallery",
-    "_game_menu_screen",
-    "_enter_menu",
-    "_invoke_game_menu",
-    "_menu",
-    "_scratch",
-    "_game_nav",
-    "_game_interact",
-    "_yesno_prompt",
-    "_quit_prompt",
-    "_mainmenu_prompt",
-    "GamepadExists",
-    "GamepadCalibrate",
-    "_SetRenderer",
-    "_m1_00gltest__gl_test",
-    "_gl_performance_test",
-    "navigation",
-    "_ImageMapper",
-    "_m1_imagemap_load_save__scratch",
-    "_file_picker_init",
-    "_main_menu_variant",
-    "_m1_imagemap_preferences__set",
-    "_m1_imagemap_preferences__curried_set",
-    "_m1_imagemap_preferences__show_preferences",
-    "_scan_images_directory",
-    "_InputValueAction",
-    "DisableAllInputValues",
-    "InputValue",
-    "_m1_00inputvalues__GenericInputValue",
-    "ScreenVariableInputValue",
-    "FieldInputValue",
-    "VariableInputValue",
-    "DictInputValue",
-    "LocalVariableInputValue",
-    "_m1_inspector__format_style",
-    "_m1_inspector__format_location",
-    "_m1_inspector__safe_repr",
-    "_m1_inspector__inspect",
-    "_inspector_repr",
-    "_keymap_list",
-    "_windows_hidden",
-    "_keymap_toggle_afm",
-    "_toggle_skipping",
-    "toggle_skipping",
-    "_keymap_toggle_skipping",
-    "_help",
-    "_screenshot_core",
-    "_screenshot",
-    "_screenshot_callback",
-    "_fast_skip",
-    "_reload_game",
-    "_launch_editor",
-    "_developer",
-    "_profile_once",
-    "_memory_profile",
-    "_progress_screen",
-    "_default_keymap",
-    "Layout",
-    "layout",
-    "_layout",
-    "_intra_jumps_core",
-    "_intra_jumps",
-    "DictEquality",
-    "FieldEquality",
-    "save_name",
-    "preferences",
-    "_default_empty_window",
-    "_Extend",
-    "extend",
-    "_skip_indicator",
-    "_predict_statements",
-    "_predict_screens",
-    "name_only",
-    "predict_say",
-    "say",
-    "_history",
-    "_history_list",
-    "_button_factory",
-    "_label_factory",
+    "_",
+    "_ActionList",
     "_BaseMatrix",
-    "SplineMatrix",
-    "ColorMatrix",
-    "_MultiplyMatrix",
-    "IdentityMatrix",
-    "SaturationMatrix",
-    "TintMatrix",
-    "BrightnessMatrix",
-    "OpacityMatrix",
-    "ContrastMatrix",
-    "ColorizeMatrix",
-    "HueMatrix",
-    "InvertMatrix",
-    "SepiaMatrix",
-    "TransformMatrix",
-    "OffsetMatrix",
-    "RotateMatrix",
-    "ScaleMatrix",
-    "MouseDisplayable",
-    "_m1_00musicroom__MusicRoomPlay",
-    "_m1_00musicroom__MusicRoomRandomPlay",
-    "_m1_00musicroom__MusicRoomTogglePlay",
-    "_m1_00musicroom__MusicRoomTogglePause",
-    "_m1_00musicroom__MusicRoomStop",
-    "MusicRoom",
-    "nvl_list",
-    "nvl_variant",
-    "_m1_00nvl_mode__s",
-    "_NVLEntry",
-    "_m1_00nvl_mode__nvl_screen_dialogue",
-    "_m1_00nvl_mode__nvl_show_screen",
-    "nvl_show_core",
-    "nvl_window",
-    "nvl_show",
-    "nvl_hide",
-    "nvl_erase",
-    "nvl_clear_next",
-    "NVLCharacter",
-    "nvl",
-    "nvl_narrator",
-    "nvl_clear",
-    "nvl_menu",
-    "NVLSpeaker",
-    "_nvl_adv_callback",
-    "_nvl_language",
-    "_window_during_transitions",
-    "_default_with_callback",
-    "_clear_performance",
-    "Placeholder",
-    "_m1_00preferences__DisplayAction",
-    "_m1_00screen__DisplayAction",
-    "_m1_00preferences__ResetPreferences",
+    "_CharacterVolumeValue",
+    "_CopyFile",
     "_DisplayReset",
-    "Preference",
-    "_m1_00preferences__show_self_voicing",
-    "_PreferenceSpinner",
+    "_EditFile",
+    "_ExceptionPrintContext",
+    "_Extend",
+    "_ImageMapper",
+    "_InputValueAction",
+    "_JSONDBDict",
     "_JoystickPreference",
-    "_m1_scrolling_load_save__session",
-    "_file_picker_thumbnail",
-    "_side_image_tag",
-    "_side_image_old",
-    "_side_image_raw",
-    "_side_image",
-    "_side_image_prefix_tag",
-    "_side_per_interact",
-    "SideImage",
-    "HasSideImage",
-    "_SplineInterpolator",
-    "SplineMotion",
-    "_scene_show_hide_transition",
-    "_after_scene_show_hide",
-    "_scene_show_hide_transition_callback",
-    "_init_language",
-    "_audio_eval",
-    "_try_eval",
-    "_m1_00stylepreferences__preferences",
-    "_m1_00stylepreferences__alternatives",
-    "_m1_00stylepreferences__spdirty",
-    "_m1_00stylepreferences__register_style_preference",
-    "_m1_00stylepreferences__init",
-    "_m1_00stylepreferences__update",
-    "_m1_00stylepreferences__apply_styles",
-    "_m1_00stylepreferences__check",
-    "_m1_00stylepreferences__set_style_preference",
-    "_m1_00stylepreferences__get_style_preference",
-    "StylePreference",
-    "dark_cyan",
-    "bright_cyan",
-    "dark_red",
-    "bright_red",
-    "green",
+    "_JumpPreference",
+    "_MultiplyMatrix",
+    "_NVLEntry",
+    "_Preference",
+    "_PreferenceSpinner",
     "_SelectedCompat",
-    "_apply_selected_compat",
-    "UploadSync",
-    "DownloadSync",
+    "_SetRenderer",
+    "_SliderPreference",
+    "_SplineInterpolator",
     "_Theme",
-    "_theme",
-    "theme",
-    "RoundRect",
-    "_m1_00themes__AWTBox",
-    "_m1_00themes__AWTButton",
-    "_m1_00themes__AWTBullet",
-    "_display_button_menu",
-    "_button_menu",
-    "_TouchKeyboardTextInput",
     "_TouchKeyboardBackspace",
     "_TouchKeyboardReturn",
-    "_voice",
-    "_last_voice_play",
-    "_invoke_voice_callbacks",
-    "voice",
-    "voice_sustain",
-    "voice_replay",
-    "voice_can_replay",
-    "SetVoiceMute",
-    "SetCharacterVolume",
-    "GetCharacterVolume",
-    "PlayCharacterVoice",
-    "ToggleVoiceMute",
-    "VoiceReplay",
-    "VoiceInfo",
+    "_TouchKeyboardTextInput",
+    "_VolumePreference",
+    "_after_scene_show_hide",
+    "_apply_default_preferences",
+    "_apply_selected_compat",
+    "_audio_eval",
+    "_button_factory",
+    "_button_menu",
+    "_clear_performance",
+    "_compat_versions",
+    "_confirm_quit",
+    "_default_empty_window",
+    "_default_keymap",
+    "_default_with_callback",
+    "_define",
+    "_developer",
+    "_display_button_menu",
+    "_ease_in_time_warp",
+    "_ease_out_time_warp",
+    "_ease_time_warp",
+    "_enter_menu",
+    "_error_hyperlink_function",
+    "_error_hyperlink_styler",
+    "_fast_skip",
+    "_file_picker",
+    "_file_picker_file_page",
+    "_file_picker_init",
+    "_file_picker_page_files",
+    "_file_picker_pages",
+    "_file_picker_process_screenshot",
+    "_file_picker_thumbnail",
+    "_font_transform",
+    "_game_interact",
+    "_game_menu_screen",
+    "_game_nav",
+    "_get_field",
     "_get_voice_info",
+    "_gl_performance_test",
+    "_help",
+    "_history",
+    "_history_list",
+    "_imagemap_auto_function",
+    "_init_language",
+    "_init_window",
+    "_inspector_repr",
+    "_intra_jumps",
+    "_intra_jumps_core",
+    "_invoke_game_menu",
+    "_invoke_voice_callbacks",
+    "_joystick_get_binding",
+    "_joystick_preferences",
+    "_joystick_select_binding",
+    "_joystick_take_binding",
+    "_keymap_list",
+    "_keymap_toggle_afm",
+    "_keymap_toggle_skipping",
+    "_label_factory",
+    "_last_voice_play",
+    "_launch_editor",
+    "_layout",
+    "_load_prompt",
+    "_locale_to_language_function",
+    "_m1_00accessibility__font_transform_cache",
+    "_m1_00action_data__Sentinel",
+    "_m1_00action_file__newest_slot",
+    "_m1_00action_file__slotname",
+    "_m1_00action_file__unused_slot_name",
+    "_m1_00action_menu__NoShowTransition",
+    "_m1_00action_other__TooltipAction",
+    "_m1_00barvalues__GenericValue",
+    "_m1_00gallery__GalleryAction",
+    "_m1_00gallery__GalleryAllPriorCondition",
+    "_m1_00gallery__GalleryArbitraryCondition",
+    "_m1_00gallery__GalleryButton",
+    "_m1_00gallery__GalleryImage",
+    "_m1_00gallery__GalleryToggleSlideshow",
+    "_m1_00gallery__GalleryUnlockCondition",
+    "_m1_00gltest__gl_test",
+    "_m1_00inputvalues__GenericInputValue",
+    "_m1_00musicroom__MusicRoomPlay",
+    "_m1_00musicroom__MusicRoomRandomPlay",
+    "_m1_00musicroom__MusicRoomStop",
+    "_m1_00musicroom__MusicRoomTogglePause",
+    "_m1_00musicroom__MusicRoomTogglePlay",
+    "_m1_00nvl_mode__nvl_screen_dialogue",
+    "_m1_00nvl_mode__nvl_show_screen",
+    "_m1_00nvl_mode__s",
+    "_m1_00preferences__DisplayAction",
+    "_m1_00preferences__ResetPreferences",
+    "_m1_00preferences__show_self_voicing",
+    "_m1_00screen__DisplayAction",
+    "_m1_00screen__TooltipAction",
+    "_m1_00stylepreferences__alternatives",
+    "_m1_00stylepreferences__apply_styles",
+    "_m1_00stylepreferences__check",
+    "_m1_00stylepreferences__get_style_preference",
+    "_m1_00stylepreferences__init",
+    "_m1_00stylepreferences__preferences",
+    "_m1_00stylepreferences__register_style_preference",
+    "_m1_00stylepreferences__set_style_preference",
+    "_m1_00stylepreferences__spdirty",
+    "_m1_00stylepreferences__update",
+    "_m1_00themes__AWTBox",
+    "_m1_00themes__AWTBullet",
+    "_m1_00themes__AWTButton",
+    "_m1__errorhandling__EnterConsole",
+    "_m1__errorhandling__ErrorQuit",
+    "_m1__errorhandling__Tooltip",
+    "_m1__errorhandling__TooltipAction",
+    "_m1__errorhandling__XScrollValue",
+    "_m1__errorhandling__YScrollValue",
+    "_m1__errorhandling__can_open_traceback",
+    "_m1__errorhandling__format_parse_errors",
+    "_m1__errorhandling__full_traceback",
+    "_m1__errorhandling__simple_traceback",
+    "_m1_classic_load_save__scratch",
+    "_m1_developer__ImageLocationPickerData",
+    "_m1_developer__missing_hide_callback",
+    "_m1_developer__missing_scene_callback",
+    "_m1_developer__missing_show_callback",
+    "_m1_imagemap_load_save__scratch",
+    "_m1_imagemap_preferences__curried_set",
+    "_m1_imagemap_preferences__set",
+    "_m1_imagemap_preferences__show_preferences",
+    "_m1_inspector__format_location",
+    "_m1_inspector__format_style",
+    "_m1_inspector__inspect",
+    "_m1_inspector__safe_repr",
+    "_m1_scrolling_load_save__session",
+    "_main_menu_variant",
+    "_mainmenu_prompt",
+    "_memory_profile",
+    "_menu",
+    "_month_name_long",
+    "_month_name_short",
+    "_narrator",
+    "_navigation",
+    "_nvl_adv_callback",
+    "_nvl_language",
+    "_predict_file_page",
+    "_predict_screens",
+    "_predict_statements",
+    "_preferences",
+    "_prefs_screen_run",
+    "_profile_once",
+    "_progress_screen",
+    "_quit_prompt",
+    "_reload_game",
+    "_remove_preference",
+    "_render_new_slot",
+    "_render_savefile",
+    "_scan_audio_directory",
+    "_scan_images_directory",
+    "_scene_show_hide_transition",
+    "_scene_show_hide_transition_callback",
+    "_scratch",
+    "_screenshot",
+    "_screenshot_callback",
+    "_screenshot_core",
+    "_set_field",
+    "_set_script_version",
+    "_side_image",
+    "_side_image_old",
+    "_side_image_prefix_tag",
+    "_side_image_raw",
+    "_side_image_tag",
+    "_side_per_interact",
+    "_skip_indicator",
+    "_strftime",
+    "_theme",
+    "_toggle_skipping",
+    "_try_eval",
+    "_version",
+    "_voice",
     "_voice_history_callback",
+    "_vol",
+    "_weekday_name_long",
+    "_weekday_name_short",
     "_window_auto",
+    "_window_auto_callback",
+    "_window_during_transitions",
+    "_window_hide",
     "_window_next",
     "_window_show",
-    "_window_hide",
-    "_window_auto_callback",
-    "_init_window",
+    "_windows_hidden",
+    "_yesno_prompt",
+    "adv_narrator",
+    "alt",
+    "alt_statement_name",
+    "blinds",
+    "bright_cyan",
+    "bright_red",
+    "centered",
+    "dark_cyan",
+    "dark_red",
+    "define",
+    "dissolve",
+    "extend",
+    "fade",
+    "green",
+    "hpunch",
+    "hyperlink_function",
+    "hyperlink_sensitive",
+    "hyperlink_styler",
+    "irisin",
+    "irisout",
+    "layout",
+    "move_transitions",
+    "name_only",
+    "narrator",
+    "navigation",
+    "nvl",
+    "nvl_clear",
+    "nvl_clear_next",
+    "nvl_erase",
+    "nvl_hide",
+    "nvl_list",
+    "nvl_menu",
+    "nvl_narrator",
+    "nvl_show",
+    "nvl_show_core",
+    "nvl_variant",
+    "nvl_window",
+    "old_move_transitions",
+    "pixellate",
+    "predict_say",
+    "preferences",
+    "pushdown",
+    "pushleft",
+    "pushright",
+    "pushup",
+    "save_name",
+    "say",
+    "slideawaydown",
+    "slideawayleft",
+    "slideawayright",
+    "slideawayup",
+    "slidedown",
+    "slideleft",
+    "slideright",
+    "slideup",
+    "squares",
+    "sv",
+    "swing",
+    "theme",
+    "toggle_skipping",
+    "vcentered",
+    "voice",
+    "voice_can_replay",
+    "voice_replay",
+    "voice_sustain",
+    "vpunch",
+    "wipedown",
+    "wipeleft",
+    "wiperight",
+    "wipeup",
+    "zoomin",
+    "zoominout",
+    "zoomout",
 ]

@@ -4,7 +4,8 @@ from typing import TYPE_CHECKING, Any, Literal, TypeVar, overload
 
 import renpy
 from renpy.color import ColorLike as ColorLike
-from renpy.display.displayable import Displayable as Displayable, Placement as Placement
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import Placement as Placement
 from renpy.display.image import ImageReference as ImageReference
 from renpy.display.render import Render as Render
 from renpy.pygame.surface import Surface as Surface

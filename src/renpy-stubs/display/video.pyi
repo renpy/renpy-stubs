@@ -2,10 +2,12 @@ from collections.abc import Callable
 from typing import Any, Literal, overload
 
 import renpy
-from renpy.display.displayable import Displayable as Displayable, DisplayableArguments as DisplayableArguments
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import DisplayableArguments as DisplayableArguments
 from renpy.display.render import Render as Render
 from renpy.pygame.surface import Surface as Surface
-from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
+from renpy.types import DisplayableLike as DisplayableLike
+from renpy.types import Unused as Unused
 
 current_movie: Unused
 fullscreen: bool

@@ -1,7 +1,11 @@
 import random
-from _collections_abc import dict_items as dict_items, dict_keys as dict_keys, dict_values as dict_values
+from _collections_abc import dict_items as dict_items
+from _collections_abc import dict_keys as dict_keys
+from _collections_abc import dict_values as dict_values
+from collections.abc import Callable, Iterable
+from typing import Any, Self, overload
+
 from _typeshed import Incomplete as Incomplete
-from typing import Any, Callable, Iterable, Self, overload
 
 FUTURE_FLAGS: int
 

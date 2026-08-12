@@ -3,20 +3,21 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, ClassVar, Literal
 
 import renpy
-from renpy.astsupport import PyExpr as PyExpr, hash32 as hash32
+from renpy.astsupport import PyExpr as PyExpr
+from renpy.astsupport import hash32 as hash32
 from renpy.atl import RawBlock as RawBlock
-from renpy.cslots import IntegerSlot as IntegerSlot, Object as Object, Slot as Slot
+from renpy.cslots import IntegerSlot as IntegerSlot
+from renpy.cslots import Object as Object
+from renpy.cslots import Slot as Slot
 from renpy.lexer import SubParse as SubParse
 from renpy.object import Sentinel as Sentinel
-from renpy.parameter import (
-    ArgumentInfo as ArgumentInfo,
-    EMPTY_ARGUMENTS as EMPTY_ARGUMENTS,
-    EMPTY_PARAMETERS as EMPTY_PARAMETERS,
-    Parameter as Parameter,
-    ParameterInfo as ParameterInfo,
-    Signature as Signature,
-    apply_arguments as apply_arguments,
-)
+from renpy.parameter import EMPTY_ARGUMENTS as EMPTY_ARGUMENTS
+from renpy.parameter import EMPTY_PARAMETERS as EMPTY_PARAMETERS
+from renpy.parameter import ArgumentInfo as ArgumentInfo
+from renpy.parameter import Parameter as Parameter
+from renpy.parameter import ParameterInfo as ParameterInfo
+from renpy.parameter import Signature as Signature
+from renpy.parameter import apply_arguments as apply_arguments
 from renpy.sl2.slast import SLScreen as SLScreen
 from renpy.test.testast import TestCase as TestCase
 from renpy.types import Unused as Unused
@@ -61,7 +62,7 @@ class Scry:
     def __reduce__(self) -> str | tuple[Any, ...]: ...
     def next(self) -> Scry | None: ...
 
-type NodeName = "str | tuple[str, int, int] | tuple[Any, ...] | None"
+type NodeName = str | tuple[str, int, int] | tuple[Any, ...] | None
 type RollbackType = Literal["normal", "never", "force"]
 type SignedInt = int
 
@@ -98,11 +99,11 @@ class Node(Object):
     def early_execute(self) -> None: ...
     def predict(self) -> list[Node | None]: ...
     def scry(self) -> Scry: ...
-    def restructure(self, callback: Callable[[list["Node"]], Any]) -> None: ...
+    def restructure(self, callback: Callable[[list[Node]], Any]) -> None: ...
     def get_code(self, dialogue_filter: Callable[[str], str] | None = None) -> str: ...
     def analyze(self) -> None: ...
     def can_warp(self) -> bool: ...
-    def get_reachable(self) -> list["Node"]: ...
+    def get_reachable(self) -> list[Node]: ...
     def get_translation_strings(self) -> list[tuple[int, str]]: ...
 
 current_statement_name: str
@@ -414,13 +415,12 @@ class UserStatement(Node):
     code_block: Sequence[Node] | None
     translation_relevant: bool
     rollback: RollbackType
-    subparses: list["renpy.lexer.SubParse"]
+    subparses: list[renpy.lexer.SubParse]
     atl: renpy.atl.RawBlock | None
     init_priority: SignedInt | None
     init_offset: SignedInt | None
     name: str
     def __init__(self, loc: NodeLocation, line: str, block: Sequence[Node], parsed: Any) -> None: ...
-    def __repr__(self) -> str: ...
     def get_children(self, f: Callable[[Node], Any]) -> None: ...
     next: Node | None
     def chain(self, next: Node | None) -> None: ...
@@ -447,11 +447,10 @@ class PostUserStatement(Node):
     parent: UserStatement
     name: str | None
     def __init__(self, loc: NodeLocation, parent: UserStatement) -> None: ...
-    def __repr__(self) -> str: ...
     def diff_info(self) -> tuple[type, str]: ...
     def execute(self) -> None: ...
 
-define_statements: list["Define"]
+define_statements: list[Define]
 
 class Define(Node):
     varname: str

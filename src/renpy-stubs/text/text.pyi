@@ -1,8 +1,10 @@
-from typing import Any, Callable, Generator, overload, Iterable, Sequence, TYPE_CHECKING
+from collections.abc import Callable, Generator, Iterable, Sequence
+from typing import TYPE_CHECKING, Any, overload
 
 import renpy
-from renpy.color import Color as Color, ColorLike as ColorLike
-from renpy.display.displayable import Displayable, Placement, DisplayableArguments
+from renpy.color import Color as Color
+from renpy.color import ColorLike as ColorLike
+from renpy.display.displayable import Displayable, DisplayableArguments, Placement
 from renpy.display.matrix import Matrix2D as Matrix2D
 from renpy.display.render import Render as Render
 from renpy.gl2.gl2mesh2 import Mesh2 as Mesh2
@@ -11,16 +13,15 @@ from renpy.gl2.gl2texture import GLTexture as GLTexture
 from renpy.pygame.event import EventType as EventType
 from renpy.pygame.surface import Surface as Surface
 from renpy.style import StyleCore as StyleCore
-from renpy.text.bidi import (
-    LTR as LTR,
-    ON as ON,
-    RTL as RTL,
-    WLTR as WLTR,
-    WRTL as WRTL,
-    get_embedding_levels as get_embedding_levels,
-    log2vis as log2vis,
-)
-from renpy.text.emoji_trie import UNQUALIFIED as UNQUALIFIED, emoji as emoji
+from renpy.text.bidi import LTR as LTR
+from renpy.text.bidi import ON as ON
+from renpy.text.bidi import RTL as RTL
+from renpy.text.bidi import WLTR as WLTR
+from renpy.text.bidi import WRTL as WRTL
+from renpy.text.bidi import get_embedding_levels as get_embedding_levels
+from renpy.text.bidi import log2vis as log2vis
+from renpy.text.emoji_trie import UNQUALIFIED as UNQUALIFIED
+from renpy.text.emoji_trie import emoji as emoji
 from renpy.text.shader import TextShader as TextShader
 from renpy.text.textsupport import DISPLAYABLE, PARAGRAPH, TAG, TEXT, Glyph, Line
 
@@ -111,7 +112,7 @@ class TextSegment:
     def glyphs(self, s: str, layout: Layout, level: int = 0) -> list[Glyph]: ...
     def draw(self, glyphs: list[Glyph], di: DrawInfo, xo: int, yo: int, layout: Layout) -> None: ...
     def assign_times(self, gt: float, glyphs: list[Glyph]) -> float: ...
-    def subsegment(self, s: str) -> Generator[tuple[TextSegment, str], None, None]: ...
+    def subsegment(self, s: str) -> Generator[tuple[TextSegment, str]]: ...
     def bounds(
         self, glyphs: list[Glyph], bounds: tuple[int, int, int, int], layout: Layout
     ) -> tuple[int, int, int, int]: ...

@@ -1,9 +1,14 @@
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any
+
 import renpy
-from renpy.display.displayable import Displayable as Displayable, Placement as Placement
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import Placement as Placement
 from renpy.display.layout import MultiBox as MultiBox
-from renpy.display.motion import Motion as Motion, FactorZoom as FactorZoom
-from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
-from typing import Any, Callable, TYPE_CHECKING
+from renpy.display.motion import FactorZoom as FactorZoom
+from renpy.display.motion import Motion as Motion
+from renpy.types import DisplayableLike as DisplayableLike
+from renpy.types import Unused as Unused
 
 if TYPE_CHECKING:
     type Rect = tuple[float, float, float, float]

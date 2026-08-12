@@ -1,5 +1,8 @@
-from renpy.sl2.slparser import Keyword as Keyword, PrefixStyle as PrefixStyle, Style as Style
-from typing import Sequence
+from collections.abc import Sequence
+
+from renpy.sl2.slparser import Keyword as Keyword
+from renpy.sl2.slparser import PrefixStyle as PrefixStyle
+from renpy.sl2.slparser import Style as Style
 
 position_property_names: list[str]
 position_properties: list[Style | Keyword]

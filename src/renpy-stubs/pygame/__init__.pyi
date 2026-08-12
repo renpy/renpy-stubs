@@ -40,3 +40,6 @@ from . import sysfont as sysfont
 from . import time as time
 from . import transform as transform
 from . import version as version
+
+from surface import Surface as Surface
+from rect import Rect as Rect

@@ -5,12 +5,14 @@ from typing import TYPE_CHECKING, Any
 
 import renpy as renpy
 from _typeshed import Incomplete as Incomplete
+from renpy.color import Color as Color
+from renpy.color import ColorLike
 from renpy.display.displayable import Displayable as Displayable
-from renpy.display.matrix import Matrix as Matrix, Matrix2D as Matrix2D
+from renpy.display.matrix import Matrix as Matrix
+from renpy.display.matrix import Matrix2D as Matrix2D
 from renpy.display.screen import ScreenDisplayable as ScreenDisplayable
 from renpy.pygame.event import EventType as EventType
 from renpy.pygame.surface import Surface as Surface
-from renpy.color import Color as Color, ColorLike
 
 if TYPE_CHECKING:
     type Rect = renpy.pygame.rect.Rect
@@ -109,7 +111,7 @@ class Render:
     ) -> tuple[float, float]: ...
     def pygame_surface(self, alpha: bool = True) -> Surface: ...
     def render_to_texture(self, alpha: bool = True) -> Surface: ...
-    def screen_rect(self, sx: float, sy: float, transform: Matrix) -> tuple[int, int, int, int]: ...
+    def screen_rect(self, sx: float, sy: float, transform: Matrix | None) -> tuple[int, int, int, int]: ...
     def subpixel_blit(
         self,
         source: Render | Surface,

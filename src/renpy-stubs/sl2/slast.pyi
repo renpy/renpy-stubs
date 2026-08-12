@@ -1,23 +1,25 @@
 import ast
-import renpy
 import weakref
+from collections.abc import Callable
+from types import CodeType
+from typing import TYPE_CHECKING, Any, Self
+
+import renpy
 from renpy.ast import NodeLocation as NodeLocation
-from renpy.compat.pickle import dumps as dumps, loads as loads
+from renpy.compat.pickle import dumps as dumps
+from renpy.compat.pickle import loads as loads
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.layout import Fixed as Fixed
-from renpy.display.transform import ATLTransform as ATLTransform, Transform as Transform
-from renpy.pyanalysis import (
-    Analysis as Analysis,
-    GLOBAL_CONST as GLOBAL_CONST,
-    LOCAL_CONST as LOCAL_CONST,
-    NOT_CONST as NOT_CONST,
-    ccache as ccache,
-)
+from renpy.display.transform import ATLTransform as ATLTransform
+from renpy.display.transform import Transform as Transform
+from renpy.pyanalysis import GLOBAL_CONST as GLOBAL_CONST
+from renpy.pyanalysis import LOCAL_CONST as LOCAL_CONST
+from renpy.pyanalysis import NOT_CONST as NOT_CONST
+from renpy.pyanalysis import Analysis as Analysis
+from renpy.pyanalysis import ccache as ccache
 from renpy.python import py_eval_bytecode as py_eval_bytecode
 from renpy.types import Unused as Unused
 from renpy.ui import Addable as Addable
-from types import CodeType
-from typing import Any, Callable, Self, TYPE_CHECKING
 
 if TYPE_CHECKING:
     type CacheDict = dict[int, SLCache | dict[str, Any]]

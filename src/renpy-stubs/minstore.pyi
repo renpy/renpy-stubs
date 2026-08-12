@@ -3,15 +3,13 @@ from renpy import ui
 from renpy.atl import position as position
 from renpy.display.core import absolute as absolute
 from renpy.python import store_eval as eval
-from renpy.revertable import (
-    RevertableDefaultDict as __renpy_defaultdict__,
-    RevertableDict as __renpy__dict__,
-    RevertableList as __renpy__list__,
-    RevertableObject as object,
-    RevertableSet as __renpy__set__,
-    revertable_range as range,
-    revertable_sorted as sorted,
-)
+from renpy.revertable import RevertableDefaultDict as __renpy_defaultdict__
+from renpy.revertable import RevertableDict as __renpy__dict__
+from renpy.revertable import RevertableList as __renpy__list__
+from renpy.revertable import RevertableObject as object
+from renpy.revertable import RevertableSet as __renpy__set__
+from renpy.revertable import revertable_range as range
+from renpy.revertable import revertable_sorted as sorted
 from renpy.translation import translate_string as __
 
 __all__ = [

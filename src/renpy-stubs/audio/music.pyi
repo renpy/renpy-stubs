@@ -1,12 +1,10 @@
 from collections.abc import Callable
 
 import renpy
-from renpy.audio.audio import (
-    alias_channel as alias_channel,
-    get_channel as get_channel,
-    get_serial as get_serial,
-    register_channel as register_channel,
-)
+from renpy.audio.audio import alias_channel as alias_channel
+from renpy.audio.audio import get_channel as get_channel
+from renpy.audio.audio import get_serial as get_serial
+from renpy.audio.audio import register_channel as register_channel
 
 def play(
     filenames: str | list[str] | None,

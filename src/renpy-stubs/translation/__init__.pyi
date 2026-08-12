@@ -1,12 +1,10 @@
 import renpy
-from renpy.ast import (
-    Node as Node,
-    NodeLocation as NodeLocation,
-    TranslateBlock as TranslateBlock,
-    TranslateEarlyBlock as TranslateEarlyBlock,
-    TranslatePython as TranslatePython,
-    TranslateSay as TranslateSay,
-)
+from renpy.ast import Node as Node
+from renpy.ast import NodeLocation as NodeLocation
+from renpy.ast import TranslateBlock as TranslateBlock
+from renpy.ast import TranslateEarlyBlock as TranslateEarlyBlock
+from renpy.ast import TranslatePython as TranslatePython
+from renpy.ast import TranslateSay as TranslateSay
 
 class TranslateInfo:
     language: str | None

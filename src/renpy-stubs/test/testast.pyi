@@ -4,17 +4,17 @@ import renpy
 from renpy.display.displayable import Displayable as Displayable
 from renpy.display.focus import Focus as Focus
 from renpy.pygame import Surface as Surface
-from renpy.test.testmouse import click_mouse as click_mouse, move_mouse as move_mouse, scroll_mouse as scroll_mouse
+from renpy.test.testmouse import click_mouse as click_mouse
+from renpy.test.testmouse import move_mouse as move_mouse
+from renpy.test.testmouse import scroll_mouse as scroll_mouse
 from renpy.test.testsettings import _test as _test
-from renpy.test.types import (
-    HookType as HookType,
-    NodeLocation as NodeLocation,
-    NodeState as NodeState,
-    Position as Position,
-    RenpyTestException as RenpyTestException,
-    RenpyTestScreenshotError as RenpyTestScreenshotError,
-    RenpyTestTimeoutError as RenpyTestTimeoutError,
-)
+from renpy.test.types import HookType as HookType
+from renpy.test.types import NodeLocation as NodeLocation
+from renpy.test.types import NodeState as NodeState
+from renpy.test.types import Position as Position
+from renpy.test.types import RenpyTestException as RenpyTestException
+from renpy.test.types import RenpyTestScreenshotError as RenpyTestScreenshotError
+from renpy.test.types import RenpyTestTimeoutError as RenpyTestTimeoutError
 
 class SelectorException(RenpyTestException): ...
 

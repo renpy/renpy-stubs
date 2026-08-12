@@ -3,18 +3,14 @@ from dataclasses import dataclass, field
 from enum import Enum
 
 import renpy
-from renpy.error import (
-    ANSIColors as ANSIColors,
-    ExceptionPrintContext as ExceptionPrintContext,
-    FrameSummary as FrameSummary,
-)
-from renpy.test.testast import (
-    Assert as Assert,
-    BaseTestBlock as BaseTestBlock,
-    TestCase as TestCase,
-    TestHook as TestHook,
-    TestSuite as TestSuite,
-)
+from renpy.error import ANSIColors as ANSIColors
+from renpy.error import ExceptionPrintContext as ExceptionPrintContext
+from renpy.error import FrameSummary as FrameSummary
+from renpy.test.testast import Assert as Assert
+from renpy.test.testast import BaseTestBlock as BaseTestBlock
+from renpy.test.testast import TestCase as TestCase
+from renpy.test.testast import TestHook as TestHook
+from renpy.test.testast import TestSuite as TestSuite
 from renpy.test.testsettings import _test as _test
 from renpy.test.types import RenpyTestAssertionError as RenpyTestAssertionError
 

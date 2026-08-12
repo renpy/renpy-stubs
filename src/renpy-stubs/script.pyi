@@ -1,9 +1,14 @@
 import hashlib
 import io
+from typing import TYPE_CHECKING, Any
+
 import renpy
-from renpy.ast import Node as Node, NodeName as NodeName, PyCode as PyCode, PyExpr as PyExpr
-from renpy.compat.pickle import dumps as dumps, loads as loads
-from typing import Any, TYPE_CHECKING
+from renpy.ast import Node as Node
+from renpy.ast import NodeName as NodeName
+from renpy.ast import PyCode as PyCode
+from renpy.ast import PyExpr as PyExpr
+from renpy.compat.pickle import dumps as dumps
+from renpy.compat.pickle import loads as loads
 
 if TYPE_CHECKING:
     type FileListType = list[tuple[str, str | None]]

@@ -1,17 +1,13 @@
 from typing import Literal
 
-from renpy.pygame import (
-    CONTROLLERAXISMOTION as CONTROLLERAXISMOTION,
-    CONTROLLERBUTTONDOWN as CONTROLLERBUTTONDOWN,
-    CONTROLLERBUTTONUP as CONTROLLERBUTTONUP,
-    CONTROLLERDEVICEADDED as CONTROLLERDEVICEADDED,
-    CONTROLLERDEVICEREMOVED as CONTROLLERDEVICEREMOVED,
-)
-from renpy.pygame.controller import (
-    Controller as Controller,
-    get_string_for_axis as get_string_for_axis,
-    get_string_for_button as get_string_for_button,
-)
+from renpy.pygame import CONTROLLERAXISMOTION as CONTROLLERAXISMOTION
+from renpy.pygame import CONTROLLERBUTTONDOWN as CONTROLLERBUTTONDOWN
+from renpy.pygame import CONTROLLERBUTTONUP as CONTROLLERBUTTONUP
+from renpy.pygame import CONTROLLERDEVICEADDED as CONTROLLERDEVICEADDED
+from renpy.pygame import CONTROLLERDEVICEREMOVED as CONTROLLERDEVICEREMOVED
+from renpy.pygame.controller import Controller as Controller
+from renpy.pygame.controller import get_string_for_axis as get_string_for_axis
+from renpy.pygame.controller import get_string_for_button as get_string_for_button
 from renpy.pygame.event import EventType as EventType
 
 def load_mappings() -> None: ...

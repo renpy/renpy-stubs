@@ -3,17 +3,16 @@ from typing import TYPE_CHECKING, Any
 
 from renpy import pygame
 from renpy.color import ColorLike as ColorLike
-from renpy.display.matrix import Matrix as Matrix, Matrix2D as Matrix2D
-from renpy.display.render import (
-    BLIT as BLIT,
-    DISSOLVE as DISSOLVE,
-    FLATTEN as FLATTEN,
-    IDENTITY as IDENTITY,
-    IMAGEDISSOLVE as IMAGEDISSOLVE,
-    PIXELLATE as PIXELLATE,
-    Render as Render,
-    blit_lock as blit_lock,
-)
+from renpy.display.matrix import Matrix as Matrix
+from renpy.display.matrix import Matrix2D as Matrix2D
+from renpy.display.render import BLIT as BLIT
+from renpy.display.render import DISSOLVE as DISSOLVE
+from renpy.display.render import FLATTEN as FLATTEN
+from renpy.display.render import IDENTITY as IDENTITY
+from renpy.display.render import IMAGEDISSOLVE as IMAGEDISSOLVE
+from renpy.display.render import PIXELLATE as PIXELLATE
+from renpy.display.render import Render as Render
+from renpy.display.render import blit_lock as blit_lock
 from renpy.pygame.surface import Surface as PygameSurface
 from renpy.types import Unused as Unused
 

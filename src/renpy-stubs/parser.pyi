@@ -3,16 +3,14 @@ from typing import TYPE_CHECKING, overload
 
 import renpy
 from renpy import ast
-from renpy.lexer import (
-    Lexer as Lexer,
-    ParseError as ParseError,
-    SubParse as SubParse,
-    elide_filename as elide_filename,
-    group_logical_lines as group_logical_lines,
-    list_logical_lines as list_logical_lines,
-    munge_filename as munge_filename,
-    unelide_filename as unelide_filename,
-)
+from renpy.lexer import Lexer as Lexer
+from renpy.lexer import ParseError as ParseError
+from renpy.lexer import SubParse as SubParse
+from renpy.lexer import elide_filename as elide_filename
+from renpy.lexer import group_logical_lines as group_logical_lines
+from renpy.lexer import list_logical_lines as list_logical_lines
+from renpy.lexer import munge_filename as munge_filename
+from renpy.lexer import unelide_filename as unelide_filename
 from renpy.parameter import EMPTY_ARGUMENTS as EMPTY_ARGUMENTS
 from renpy.parameter import Parameter as Parameter
 

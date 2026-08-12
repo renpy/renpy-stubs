@@ -4,26 +4,24 @@ from typing import Any, Literal, TypeVar, overload
 import renpy
 import renpy.atl
 from _typeshed import Incomplete as Incomplete
-from renpy.atl import (
-    DualAngle as DualAngle,
-    any_object as any_object,
-    bool_or_none as bool_or_none,
-    float_or_none as float_or_none,
-    matrix as matrix,
-    mesh as mesh,
-    position_or_none as position_or_none,
-)
+from renpy.atl import DualAngle as DualAngle
+from renpy.atl import any_object as any_object
+from renpy.atl import bool_or_none as bool_or_none
+from renpy.atl import float_or_none as float_or_none
+from renpy.atl import matrix as matrix
+from renpy.atl import mesh as mesh
+from renpy.atl import position_or_none as position_or_none
 from renpy.display.accelerator import RenderTransform as RenderTransform
-from renpy.display.displayable import (
-    Displayable as Displayable,
-    DisplayableArguments as DisplayableArguments,
-    Placement as Placement,
-)
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import DisplayableArguments as DisplayableArguments
+from renpy.display.displayable import Placement as Placement
 from renpy.display.layout import Container as Container
 from renpy.display.matrix import Matrix as Matrix
-from renpy.display.position import absolute as absolute, position as position
+from renpy.display.position import absolute as absolute
+from renpy.display.position import position as position
 from renpy.object import Object as Object
-from renpy.types import DisplayableLike as DisplayableLike, Position as Position
+from renpy.types import DisplayableLike as DisplayableLike
+from renpy.types import Position as Position
 
 T = TypeVar("T")
 

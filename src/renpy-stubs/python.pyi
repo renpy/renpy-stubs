@@ -1,37 +1,34 @@
 import ast
 import contextlib
-from collections.abc import Generator
+import types
+from collections.abc import Callable, Generator, Sequence
+from typing import Any, Final, Literal, overload
+
 import renpy
 from renpy.astsupport import hash32 as hash32
-from renpy.pydict import DictItems as DictItems, find_changes as find_changes
-import types
-from typing import Any, Literal, Callable, Sequence, overload, Final
+from renpy.pydict import DictItems as DictItems
+from renpy.pydict import find_changes as find_changes
 
 # Import these for pickle-compatibility.
-from renpy.revertable import (
-    CompressedList as CompressedList,
-    DetRandom as DetRandom,
-    RevertableDict as RevertableDict,
-    RevertableList as RevertableList,
-    RevertableObject as RevertableObject,
-    RevertableSet as RevertableSet,
-    RollbackRandom as RollbackRandom,
-    revertable_range as revertable_range,
-    revertable_sorted as revertable_sorted,
-)
-
-from renpy.rollback import (
-    deleted as deleted,
-    StoreDeleted as StoreDeleted,
-    AlwaysRollback as AlwaysRollback,
-    NoRollback as NoRollback,
-    SlottedNoRollback as SlottedNoRollback,
-    rng as rng,
-    reached as reached,
-    reached_vars as reached_vars,
-    Rollback as Rollback,
-    RollbackLog as RollbackLog,
-)
+from renpy.revertable import CompressedList as CompressedList
+from renpy.revertable import DetRandom as DetRandom
+from renpy.revertable import RevertableDict as RevertableDict
+from renpy.revertable import RevertableList as RevertableList
+from renpy.revertable import RevertableObject as RevertableObject
+from renpy.revertable import RevertableSet as RevertableSet
+from renpy.revertable import RollbackRandom as RollbackRandom
+from renpy.revertable import revertable_range as revertable_range
+from renpy.revertable import revertable_sorted as revertable_sorted
+from renpy.rollback import AlwaysRollback as AlwaysRollback
+from renpy.rollback import NoRollback as NoRollback
+from renpy.rollback import Rollback as Rollback
+from renpy.rollback import RollbackLog as RollbackLog
+from renpy.rollback import SlottedNoRollback as SlottedNoRollback
+from renpy.rollback import StoreDeleted as StoreDeleted
+from renpy.rollback import deleted as deleted
+from renpy.rollback import reached as reached
+from renpy.rollback import reached_vars as reached_vars
+from renpy.rollback import rng as rng
 
 class StoreModule:
     def __reduce__(self) -> str | tuple[Any, ...]: ...

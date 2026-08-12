@@ -3,10 +3,13 @@ from typing import TYPE_CHECKING, Any, Protocol, overload, type_check_only
 
 import renpy
 from renpy.color import ColorLike as ColorLike
-from renpy.display.displayable import Displayable as Displayable, Placement as Placement
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import Placement as Placement
 from renpy.display.im import ImageLike as ImageLike
-from renpy.display.render import Render as Render, render as render
-from renpy.types import DisplayableLike as DisplayableLike, Unused as Unused
+from renpy.display.render import Render as Render
+from renpy.display.render import render as render
+from renpy.types import DisplayableLike as DisplayableLike
+from renpy.types import Unused as Unused
 
 if TYPE_CHECKING:
     type Warper = Callable[[float], float]

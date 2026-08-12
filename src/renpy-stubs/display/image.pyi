@@ -3,12 +3,11 @@ from typing import Any, Literal, Self
 
 import renpy
 from _typeshed import SupportsRichComparison as SupportsRichComparison
-from renpy.display.displayable import (
-    Displayable as Displayable,
-    Placement as Placement,
-    DisplayableArguments as DisplayableArguments,
-)
-from renpy.display.render import Render as Render, render as render
+from renpy.display.displayable import Displayable as Displayable
+from renpy.display.displayable import DisplayableArguments as DisplayableArguments
+from renpy.display.displayable import Placement as Placement
+from renpy.display.render import Render as Render
+from renpy.display.render import render as render
 from renpy.pygame.event import EventType as EventType
 from renpy.types import Unused as Unused
 
