@@ -1112,6 +1112,74 @@ def _move_type_checking_imports(file_path: Path, original_source: str) -> None:
         print(f"[WARNING] Could not write TYPE_CHECKING block to {file_path}: {e}", file=sys.stderr)
 
 
+def _restore_type_parameters(source_pyi: Path, target_py: Path) -> None:
+    """
+    Restore PEP 695 generic type parameters (e.g. `[T]`) from the pyi stub
+    into the merged py file. The ApplyTypeAnnotationsVisitor from libcst
+    drops `type_parameters` on FunctionDef because it only stores
+    `parameters` and `returns` in FunctionAnnotation.
+    """
+    try:
+        import libcst as cst
+    except ImportError:
+        return  # libcst not available, skip
+
+    # Read the pyi stub
+    try:
+        pyi_source = source_pyi.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        return
+
+    # Read the merged py file
+    try:
+        py_source = target_py.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        return
+
+    # Parse pyi to find functions with type_parameters
+    try:
+        pyi_cst = cst.parse_module(pyi_source)
+    except Exception:
+        return
+
+    # Collect type_parameters from pyi functions
+    pyi_type_params = {}
+    for node in pyi_cst.body:
+        if isinstance(node, cst.FunctionDef) and node.type_parameters is not None:
+            pyi_type_params[node.name.value] = node.type_parameters
+
+    if not pyi_type_params:
+        return  # No generic functions in the stub
+
+    # Parse the merged py file
+    try:
+        py_cst = cst.parse_module(py_source)
+    except Exception:
+        return
+
+    # Create a transformer that injects type_parameters
+    class _TypeParameterInjector(cst.CSTTransformer):
+        def __init__(self, type_params_map):
+            self.type_params_map = type_params_map
+
+        def leave_FunctionDef(self, original, updated):
+            if original.name.value in self.type_params_map:
+                tp = self.type_params_map[original.name.value]
+                return updated.with_changes(type_parameters=tp)
+            return updated
+
+    # Apply the transformer
+    transformer = _TypeParameterInjector(pyi_type_params)
+    result_cst = py_cst.visit(transformer)
+    result_code = result_cst.code
+
+    # Write the result back
+    try:
+        target_py.write_text(result_code, encoding="utf-8")
+    except IOError as e:
+        print(f"[WARNING] Could not write type parameters to {target_py}: {e}", file=sys.stderr)
+
+
 def fix_missing_imports(file_path: Path) -> None:
     """
     Adds missing module imports (e.g. `import typing`) when the merged code
@@ -1470,6 +1538,9 @@ def process_merge(source_pyi: Path, target_py: Path) -> bool:
 
         # Step 6b: Add type-only definitions from stub's TYPE_CHECKING blocks
         _add_type_checking_definitions(target_py, source_pyi)
+
+        # Step 6c: Restore PEP 695 generic type parameters [T] lost during merge
+        _restore_type_parameters(source_pyi, target_py)
 
         # Step 7: Fix __future__ import ordering
         if original_source:

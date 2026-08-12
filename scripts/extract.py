@@ -45,7 +45,7 @@ def generate_stubs() -> list[str]:
             continue
         extracted_name = extracted_name.relative_to("renpy")
 
-        source_files = [os.path.join(dirpath, f) for f in filenames if f.endswith(".py")]
+        source_files = [str(Path(dirpath) / f) for f in filenames if f.endswith(".py")]
         if not source_files:
             continue
 
@@ -127,8 +127,8 @@ def _move_stubs(source_path: Path, target_path: Path) -> list[str]:
 
     # Remove empty files
     for p in target_path.glob("**/*.pyi"):
-        if os.path.getsize(p) == 0:
-            os.remove(str(p))
+        if p.stat().st_size == 0:
+            p.unlink()
 
     return moved_files
 
@@ -205,7 +205,7 @@ def _find_tool(tool: str) -> str:
             return str(candidate)
 
     raise FileNotFoundError(
-        f"Could not find '{tool}'. Install it (e.g. `pip install ruff`, `pip install mypy`) or add it to PATH."
+        f"Could not find '{tool}'. Install it with `uv sync`."
     )
 
 
@@ -226,10 +226,8 @@ def _run_command(cmd: list[str]) -> None:
         print(f"[ERROR] {e}", file=sys.stderr)
 
         suggestion = ""
-        if cmd[0] == "ruff":
-            suggestion = "pip install ruff"
-        elif cmd[0] == "stubgen":
-            suggestion = "pip install mypy"
+        if cmd[0] in ("ruff", "stubgen"):
+            suggestion = "uv sync"
 
         if suggestion:
             print(
@@ -260,9 +258,9 @@ def _remove_existing_directory():
 
 
 def _clean_temp_dir():
-    if os.path.exists(config.rpy_extraction_temp_path):
+    if config.rpy_extraction_temp_path.exists():
         shutil.rmtree(config.rpy_extraction_temp_path)
-    if os.path.exists(config.temp_gen_path):
+    if config.temp_gen_path.exists():
         shutil.rmtree(config.temp_gen_path)
 
 

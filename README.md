@@ -17,10 +17,10 @@ This follows the [PEP 561](https://peps.python.org/pep-0561/#stub-only-packages)
 uv sync
 
 # Update stubs using info extracted from Ren'Py source files
-python main.py extract
+uv run main.py extract
 
 # Inject type annotation from the stubs directly into Ren'Py source files
-python main.py inject
+uv run main.py inject
 ```
 
 
@@ -72,7 +72,7 @@ All dependencies are declared in `pyproject.toml` and installed with `uv sync`.
 
 ### extract
 ```bash
-python main.py [--path /path/to/renpy] extract
+uv run main.py [--path /path/to/renpy] extract
 ```
 
 Updates stubs by doing the following:
@@ -87,7 +87,7 @@ Updates stubs by doing the following:
 
 ### inject
 ```bash
-python main.py [--path /path/to/renpy] inject [filter1] [filter2] [...]
+uv run main.py [--path /path/to/renpy] inject [filter1] [filter2] [...]
 ```
 
 Injects the types from the `.pyi` stubs back into the Ren'Py source `.py` files.
@@ -95,7 +95,7 @@ This adds type annotations to the source files directly.
 
 Supplying a `filter` argument will only process files that match any of the filters.
 
-For example: `python main.py inject transform` will match:
+For example: `uv run main.py inject transform` will match:
 
 - `renpy-stubs\display\transform.pyi`
 - `renpy-stubs\store\__numbered_matrixtransform.pyi`

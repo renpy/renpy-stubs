@@ -74,7 +74,7 @@ class Config:
             python_path = v / "lib" / "py3-linux-x86_64" / "python"
 
         if not python_path.is_file():
-            raise FileNotFoundError(f"Could not find python executable in libs/")
+            raise FileNotFoundError(f"Could not find python executable '{python_path}'")
 
         self.renpy_python = str(python_path.resolve())
 

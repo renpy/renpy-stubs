@@ -4,14 +4,12 @@ Extracts Python code from Ren'Py .rpy files and writes them to .py files.
 Makes use of Ren'Py's internal parser to accurately extract code blocks.
 """
 
-import os
 import sys
-import textwrap
-import glob
+from pathlib import Path
 
-renpy_path = os.path.realpath(os.path.join(os.path.split(sys.executable)[0], "..", ".."))
-sys.path.insert(0, renpy_path)
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+sys.path.insert(0, str(Path(__file__).parent.parent.resolve()))
+from config import config
+sys.path.insert(0, str(config.renpy_path))
 
 import renpy  # type: ignore
 
@@ -40,18 +38,10 @@ type InitNodes = dict[
 def get_statements_from_rpy(fname: str) -> list[renpy.ast.Node] | None:
     renpy.parser.parse_errors.clear()
 
-    # path, filename = os.path.split(fname)
-    # file_info, statements = renpy.game.script.load_file(path, filename)
-    # statements = renpy.parser.parse(fname)
-
     lines = renpy.parser.list_logical_lines(fname, None, 1)
     nested = renpy.parser.group_logical_lines(lines)
     l = renpy.parser.Lexer(nested)
     statements = renpy.parser.parse_block(l)
-
-    # if renpy.parser.parse_errors or statements is None:
-    #     print(f"Failed to parse {fname}:")
-    #     print("\n".join(renpy.parser.parse_errors))
 
     return statements
 
@@ -167,7 +157,7 @@ def main():
                 output_path = config.rpy_extraction_temp_path / "renpy"
                 for part in store.split("."):
                     output_path = output_path / part
-                output_path = output_path / os.path.split(fname)[1]
+                output_path = output_path / Path(fname).name
                 output_path = output_path.with_suffix(".py")
 
                 ## Replace leading numbers with __numbered_ in filename (eg. 000atl.rpy -> __numbered_atl.py)
